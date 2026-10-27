@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+from sovereign_runtime import evidex_environment, evidex_python, evidex_root, ollama_model, ollama_url
 EVIDEX_ROOT = evidex_root()
-EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
+EVIDEX_PYTHON = evidex_python()
 
 
 def finish_evidex_archive(
@@ -70,7 +70,7 @@ def build_intake(job: dict[str, Any]) -> dict[str, Any]:
     subject = str(item.get("subject") or "Evidence pack request")
     text = str(evidence.get("text_extract") or "")
 
-    return {
+    intake = {
         "client": {
             "organization": "Client organization to confirm",
             "contact_name": contact_name,
@@ -114,9 +114,47 @@ def build_intake(job: dict[str, Any]) -> dict[str, Any]:
             "service_name": "Evidex Evidence Pack",
         },
     }
+    if job.get("source_records"):
+        from products.evidex_customer_review import build_record_review
+        review = build_record_review(job["source_records"])
+        intake["_customer_evidence_review"] = review
+        # Evidence preparation is not an order or an approved price quote.
+        intake["billing"]["generate_documents"] = False
+        intake["kpis"] = [
+            {"name": claim["statement"], "target": "Not supplied by customer",
+             "actual": str(claim["declared_value"]),
+             "measurement": "Customer-declared claim; exact source " + claim["record_id"] + "; support remains unverified"}
+            for claim in review["claims"]
+        ] or [
+            {"name": row["text"], "target": "Not supplied by customer", "actual": "Source statement captured; not verified",
+             "measurement": "Supplied source " + row["record_id"]}
+            for row in review["source_records"] if row["record_id"] not in review["quarantined_record_ids"]
+        ]
+        if not intake["kpis"]:
+            raise ValueError("no substantive evidence records remain after instruction quarantine")
+        intake["constraints"]["known_gaps"] = [
+            "Reporting period, donor requirements and independently verified supporting records must be supplied.",
+            *[row["question"] for row in review["review_actions"]],
+        ]
+    context = job.get("customer_context") or {}
+    if context:
+        intake["client"]["organization"] = str(context.get("organisation") or "Customer organisation not supplied")
+        period = context.get("reporting_period") or {}
+        intake["pack"]["reporting_period"] = {
+            "start": str(period.get("start") or "Not supplied by customer"),
+            "end": str(period.get("end") or "Not supplied by customer"),
+        }
+    return intake
 
 
 def write_source_file(job: dict[str, Any], uploads_dir: Path) -> None:
+    if job.get("source_records"):
+        from products.evidex_customer_review import build_record_review
+        review = build_record_review(job["source_records"])
+        uploads_dir.mkdir(parents=True, exist_ok=True)
+        for row in review["source_records"]:
+            (uploads_dir / row["source_filename"]).write_text(row["text"], encoding="utf-8")
+        return
     item = first_input(job)
     evidence = first_evidence(job)
     body = f"""
@@ -239,8 +277,8 @@ def main() -> int:
     out_root = Path(args.out).expanduser().resolve()
     jobs = load_evidex_jobs(run_dir)
 
-    if not EVIDEX_PYTHON.exists():
-        raise RuntimeError(f"Evidex Python not found: {EVIDEX_PYTHON}")
+    if not EVIDEX_PYTHON.is_file():
+        raise RuntimeError(f"Evidex Python is not executable: {EVIDEX_PYTHON}")
 
     receipts = [run_evidex(job, out_root) for job in jobs]
     print(f"Ran Evidex for {len(receipts)} job(s).")

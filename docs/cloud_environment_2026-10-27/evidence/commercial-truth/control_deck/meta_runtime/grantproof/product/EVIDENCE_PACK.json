@@ -1,0 +1,211 @@
+{
+  "case_id": "CASE-CF07143A5E5FEC19",
+  "contested_state_register": [],
+  "deadline_register": [
+    {
+      "deadline_id": "ODEAD-CEEAD759A98C0115",
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-B1B2A01554A3ECC8",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-50B56C840708B84A",
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-C8F844F4BDFA6E0F",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-E0D03B79B33710DF",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "expiry",
+      "obligation_id": "OBL-EC381CEB78A4CFAC",
+      "state": "expired"
+    }
+  ],
+  "evidence_map": [
+    {
+      "binding_id": "OBIND-CB947A7BA765B0A7",
+      "evidence_id": "EVID-E08B98077FDC72D1",
+      "evidence_kind": "milestone_report",
+      "freshness_state": "current",
+      "obligation_id": "OBL-B1B2A01554A3ECC8",
+      "relation": "supports",
+      "source_ref": "fixture://grantproof/evidence/primary",
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "binding_id": "OBIND-CD10EBE25C5BF7C3",
+      "evidence_id": "EVID-83CA0E31F6C6776F",
+      "evidence_kind": "retention_record",
+      "freshness_state": "expired",
+      "obligation_id": "OBL-EC381CEB78A4CFAC",
+      "relation": "supports",
+      "source_ref": "fixture://grantproof/evidence/expired",
+      "trust_state": "trusted_for_review"
+    }
+  ],
+  "human_review_register": {
+    "disclosure": "NEEDS_YOU",
+    "external_release": "REFUSE",
+    "fulfilment": "NEEDS_YOU"
+  },
+  "missing_evidence_register": [],
+  "product_id": "dio_grantproof",
+  "provenance_manifest": {
+    "authority_created": false,
+    "bundle_fingerprint": "sha256:66d89c13f3bc3103406057817952e7fc86cc635a6635c7efd3e0116bf499826f",
+    "external_effects": false,
+    "projection": {
+      "authority_created": false,
+      "bundle_fingerprint": "sha256:66d89c13f3bc3103406057817952e7fc86cc635a6635c7efd3e0116bf499826f",
+      "case_id": "CASE-CF07143A5E5FEC19",
+      "execution_performed": false,
+      "external_release": false,
+      "requirement_map": {
+        "OBL-B1B2A01554A3ECC8": "REQ-E8FC65B6A740CE5B",
+        "OBL-C8F844F4BDFA6E0F": "REQ-0B51207809935DF5",
+        "OBL-EC381CEB78A4CFAC": "REQ-B48E51C008EA2B84"
+      },
+      "schema": "dio.obligation_projection_receipt.v1"
+    },
+    "source": {
+      "effective_at": "2026-07-01T00:00:00+00:00",
+      "expires_at": null,
+      "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+      "source_id": "grantproof-golden-reference-001",
+      "source_ref": "fixture://grantproof/golden-reference-001",
+      "source_type": "grant"
+    }
+  },
+  "requirement_or_obligation_ledger": [
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [],
+        "obligation_id": "OBL-B1B2A01554A3ECC8",
+        "status": "SATISFIED",
+        "status_basis": [
+          "all explicit evidence requirements have trusted, non-stale supporting evidence"
+        ],
+        "usable_evidence_ids": [
+          "EVID-E08B98077FDC72D1"
+        ]
+      },
+      "evidence_binding_ids": [
+        "OBIND-CB947A7BA765B0A7"
+      ],
+      "evidence_requirements": [
+        "milestone_report"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "reporting",
+      "obligation_id": "OBL-B1B2A01554A3ECC8",
+      "raw_text": "The recipient shall provide the milestone report.",
+      "responsible_party": "recipient",
+      "review_required": false,
+      "source": {
+        "locator": "G-1",
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+        "source_id": "grantproof-golden-reference-001",
+        "source_ref": "fixture://grantproof/golden-reference-001"
+      },
+      "statement": "The recipient shall provide the milestone report.",
+      "status": "SATISFIED",
+      "status_basis": [
+        "all explicit evidence requirements have trusted, non-stale supporting evidence"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [
+          "expense_schedule"
+        ],
+        "obligation_id": "OBL-C8F844F4BDFA6E0F",
+        "status": "MISSING",
+        "status_basis": [
+          "required trusted evidence is missing: ['expense_schedule']"
+        ],
+        "usable_evidence_ids": []
+      },
+      "evidence_binding_ids": [],
+      "evidence_requirements": [
+        "expense_schedule"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "retention",
+      "obligation_id": "OBL-C8F844F4BDFA6E0F",
+      "raw_text": "The recipient shall retain the expense schedule.",
+      "responsible_party": "recipient",
+      "review_required": false,
+      "source": {
+        "locator": "G-2",
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+        "source_id": "grantproof-golden-reference-001",
+        "source_ref": "fixture://grantproof/golden-reference-001"
+      },
+      "statement": "The recipient shall retain the expense schedule.",
+      "status": "MISSING",
+      "status_basis": [
+        "required trusted evidence is missing: ['expense_schedule']"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": null,
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [
+          "retention_record"
+        ],
+        "obligation_id": "OBL-EC381CEB78A4CFAC",
+        "status": "EXPIRED",
+        "status_basis": [
+          "explicit obligation expiry timestamp has been reached or passed"
+        ],
+        "usable_evidence_ids": []
+      },
+      "evidence_binding_ids": [
+        "OBIND-CD10EBE25C5BF7C3"
+      ],
+      "evidence_requirements": [
+        "retention_record"
+      ],
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "maintenance",
+      "obligation_id": "OBL-EC381CEB78A4CFAC",
+      "raw_text": "The recipient shall maintain the retention record.",
+      "responsible_party": "recipient",
+      "review_required": false,
+      "source": {
+        "locator": "G-3",
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+        "source_id": "grantproof-golden-reference-001",
+        "source_ref": "fixture://grantproof/golden-reference-001"
+      },
+      "statement": "The recipient shall maintain the retention record.",
+      "status": "EXPIRED",
+      "status_basis": [
+        "explicit obligation expiry timestamp has been reached or passed"
+      ]
+    }
+  ]
+}

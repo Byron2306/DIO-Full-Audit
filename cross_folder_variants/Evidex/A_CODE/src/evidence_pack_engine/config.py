@@ -14,6 +14,7 @@ class BillingInfo(BaseModel):
     unit_price: float | None = None
     currency: str | None = None
     service_name: str | None = None
+    generate_documents: bool = True
 
 
 class ClientInfo(BaseModel):

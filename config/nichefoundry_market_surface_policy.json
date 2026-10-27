@@ -1,0 +1,23 @@
+{
+  "schema": "dio.nichefoundry.market_surface_policy.v1",
+  "producer": "nichefoundry",
+  "default_release_state": "held",
+  "surfaces": [
+    {"channel_id": "LINKEDIN_ORGANIC", "effect": "publication", "release_requirement": "human_publication_approval"},
+    {"channel_id": "FACEBOOK_PAGE", "effect": "publication", "release_requirement": "human_publication_approval"},
+    {"channel_id": "INSTAGRAM_ORGANIC", "effect": "publication", "release_requirement": "human_publication_approval"},
+    {"channel_id": "TIKTOK_ORGANIC", "effect": "publication", "release_requirement": "human_publication_approval"},
+    {"channel_id": "REDDIT_ORGANIC", "effect": "publication", "release_requirement": "human_publication_approval"},
+    {"channel_id": "YOUTUBE_ORGANIC", "effect": "publication", "release_requirement": "human_publication_approval"},
+    {"channel_id": "META_ADS", "effect": "spend", "release_requirement": "campaign_bound_legalis_and_one_use_budget_authority"},
+    {"channel_id": "GOOGLE_ADS", "effect": "spend", "release_requirement": "campaign_bound_legalis_and_one_use_budget_authority"},
+    {"channel_id": "TIKTOK_ADS", "effect": "spend", "release_requirement": "campaign_bound_legalis_and_one_use_budget_authority"},
+    {"channel_id": "REDDIT_ADS", "effect": "spend", "release_requirement": "campaign_bound_legalis_and_one_use_budget_authority"}
+  ],
+  "prohibitions": [
+    "autonomous_personal_dm",
+    "unsolicited_bulk_electronic_sales_outreach",
+    "unapproved_publication",
+    "unapproved_provider_spend"
+  ]
+}

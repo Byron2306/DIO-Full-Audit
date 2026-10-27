@@ -1,0 +1,46 @@
+{
+  "artifact_type": "proof_room_manifest",
+  "artifacts": [
+    {
+      "artifact_type": "JSON",
+      "filename": "EVIDENCE_PACK.json",
+      "sha256": "bc0fa93632ad6e1078f178a0d26e68caf0fab86ea3c3b4a0eac7be3af9fe7fed"
+    },
+    {
+      "artifact_type": "HTML",
+      "filename": "EVIDENCE_PACK.html",
+      "sha256": "ad2c14fdefde4eca5ca0941414dd7bbaab568430c0f08a85a1555a59eeb61af4"
+    },
+    {
+      "artifact_type": "DOCX",
+      "filename": "EVIDENCE_PACK.docx",
+      "sha256": "c84a51ee11153050cccbe578051b02668c864e0d30daae96294cb8a3a302020b"
+    },
+    {
+      "artifact_type": "PDF",
+      "filename": "EVIDENCE_PACK.pdf",
+      "sha256": "8de9d60ae49911c5bc1fdd58fe6185fc73d7dc0531f63e5ec39b8cccae800b18"
+    }
+  ],
+  "authority_created": false,
+  "case_id": "CASE-FDC19190D41FFD09",
+  "execution_performed": false,
+  "external_release": false,
+  "human_gate": {
+    "state": "NEEDS_YOU"
+  },
+  "obligation_bundle_fingerprint": "sha256:eeec3d83ada503a33dc91d7ed7f050289ff40e5d928cadd0def6b888c19e7536",
+  "product_id": "dio_permitproof",
+  "proof_fingerprint": "sha256:cd13470380e82cda69985453bf7a739683d28a9c33b249615ee1568804941db9",
+  "provider_id": "obligation_family_proof_pack_v1",
+  "required_sections": [
+    "contested_state_register",
+    "deadline_register",
+    "evidence_map",
+    "human_review_register",
+    "missing_evidence_register",
+    "provenance_manifest",
+    "requirement_or_obligation_ledger"
+  ],
+  "schema": "dio.obligation_family.proof_manifest.v1"
+}

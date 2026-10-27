@@ -63,21 +63,18 @@ def test_first_heading_translation_hash_is_rebound_after_semantic_retype() -> No
     assert overlay["source_hash"] == renderer._content_digest(renderer._localizable(block))
 
 
-def test_campaign_professional_semantic_atoms_do_not_reintroduce_long_clone_refrains() -> None:
-    packet = {
-        "packet_fingerprint": "sha256:" + "b" * 64,
-        "manifest_path": __file__,
-        "manifest": {"files": []},
-    }
-    # _campaign_inputs needs the real packet manifest path for the proof bridge,
-    # so only inspect its source-level constants here rather than writing state.
-    import inspect
+def test_campaign_professional_semantic_atoms_do_not_reintroduce_long_clone_refrains(tmp_path) -> None:
+    from products.professional_evidence_corpus import materialize_customer_packet
+    from products.professional_evidence_enrichment import enrich_customer_packet
+    from products.professional_evidence_projection import load_packet
     from products import professional_evidence_red13_compat as compat
-
-    source = inspect.getsource(compat._campaign_inputs)
-    assert '"pain": "Campaign work fragments across separate tools."' in source
-    assert '"outcome": "One governed campaign pack for review."' in source
-    assert '"promise": "Compile one governed multichannel campaign coherently."' in source
+    materialize_customer_packet("Campaign Lab", tmp_path)
+    packet_dir = tmp_path / "campaign-lab" / "CUSTOMER_PACKET"
+    enrich_customer_packet("Campaign Lab", packet_dir)
+    product, audience = compat._campaign_inputs(load_packet(packet_dir))
+    assert len(audience["pain"].split()) < 10
+    assert len(audience["outcome"].split()) < 10
+    assert len(product["promise"].split()) < 10
 
 
 def test_prepared_executor_installs_second_layer_before_binding_route_execute() -> None:

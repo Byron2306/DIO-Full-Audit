@@ -18,6 +18,7 @@ from scripts import poll_vesper_telegram as telegram_poll
 from scripts.poll_vesper_telegram import TelegramPollError, update_to_envelope
 from sovereign_runtime import (
     SovereignRuntimeError,
+    evidex_python,
     evidex_root,
     llm_policy,
     ollama_model,
@@ -85,6 +86,14 @@ def test_sovereign_runtime_refuses_noncanonical_evidex_root(tmp_path, monkeypatc
 
     with pytest.raises(SovereignRuntimeError, match="canonical embedded DIO engine"):
         evidex_root()
+
+
+def test_evidex_python_uses_active_interpreter_when_embedded_venv_is_absent(tmp_path, monkeypatch) -> None:
+    root = tmp_path / "DIO"
+    engine = root / "cross_folder_variants" / "Evidex" / "A_CODE"
+    engine.mkdir(parents=True)
+    monkeypatch.setattr("sovereign_runtime.__file__", str(root / "sovereign_runtime.py"))
+    assert evidex_python().is_file()
 
 
 def test_document_studio_defaults_to_ollama_and_refuses_cloud_provider() -> None:

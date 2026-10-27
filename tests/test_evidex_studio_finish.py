@@ -95,6 +95,25 @@ def test_finish_preserves_human_gate_and_unverified_claims(tmp_path: Path) -> No
     assert len(receipt_output["sha256"]) == 64
 
 
+def test_evidex_customer_review_surfaces_actual_discrepancy_and_source_questions(tmp_path: Path) -> None:
+    from products.evidex_studio_finish import finish_evidex_pack
+    from products.evidex_customer_review import build_record_review
+    pack, intake = _held_pack(tmp_path)
+    intake['_customer_evidence_review'] = build_record_review([
+        {'record_id': 'C1', 'text': 'Claim C1 says 14 workshops were delivered.'},
+        {'record_id': 'A1', 'text': 'Attendance sheets support 12 workshops.'},
+        {'record_id': 'P1', 'text': 'Three photographs lack dates or event identifiers.'},
+    ])
+    result = finish_evidex_pack(pack_dir=pack, intake=intake, source_root=ROOT)
+    output = next(r for r in result['format_core']['outputs'] if r['channel'] == 'html')
+    rendered = (pack/'05_STUDIO_FINISH'/output['path']).read_text()
+    assert 'Attendance sheets support 12 workshops.' in rendered
+    assert 'Three photographs lack dates' in rendered
+    assert '14' in rendered and '12' in rendered and '-2' in rendered
+    assert 'Period, population and source authenticity not established' in rendered
+    assert (pack/'CUSTOMER_EVIDENCE_REVIEW.json').is_file()
+
+
 @pytest.mark.parametrize(
     "payload",
     [

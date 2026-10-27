@@ -1,0 +1,27 @@
+{
+  "schema": "dio.media.music_catalog.v1",
+  "selection_policy": "Only byte-verified tracks with recorded commercial-use rights and attribution may be selected.",
+  "tracks": [
+    {
+      "id": "musiclfiles_warm_sunset_cc_by_4",
+      "title": "Warm Sunset by MusicLFiles",
+      "artist": "MusicLFiles",
+      "licence_name": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Warm_Sunset_by_MusicLFiles.ogg",
+      "path": "media/music_catalog/musiclfiles_warm_sunset.ogg",
+      "sha256": "4a673c90254008ae96abc0b2f4147a94712e6452d025dd150fa981dbd0611d03",
+      "attribution": "media/music_catalog/MUSICLFLES_WARM_SUNSET_ATTRIBUTION.md",
+      "rights_receipt": "media/music_catalog/MUSICLFLES_WARM_SUNSET_RIGHTS_RECEIPT.json",
+      "metadata": "warm sunset education supportive hopeful community documentary professional calm",
+      "rights": {
+        "commercial_use": true,
+        "adaptation_allowed": true,
+        "attribution_required": true,
+        "human_music_review_required": true
+      },
+      "attribution_sha256": "b8c35c3a0e3ff86788d234d95cdf6a4f5339b6a43101e47682e5adbfa37d4cc6",
+      "rights_receipt_sha256": "e623763b9ef2cf7b39609599eb12068b64a60ea98aaabd91dfb44d26f04e8e32"
+    }
+  ]
+}

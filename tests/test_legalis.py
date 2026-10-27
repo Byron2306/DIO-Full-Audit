@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from adapters.legalis.decision_ledger import issue_decision
 from adapters.legalis.service import bind_to_governed_case, evaluate_capability
 from adapters.legalis.valinor_bridge import authorize_valinor_boundary
 from products.governed_case import new_case
@@ -67,19 +68,39 @@ class FakeRuntime:
     def apply_flow_shape(self, entity_id): self.calls.append(("flow", entity_id, None)); return {"allowed": True}
 
 
-def test_valinor_is_not_invoked_unless_legalis_allows():
+def _authenticated(tmp_path, monkeypatch, capability_id, target, operator_checks=None):
+    monkeypatch.setenv("DIO_LEGALIS_HMAC_KEYS_JSON", json.dumps({"test-epoch": "k" * 32}))
+    monkeypatch.setenv("DIO_LEGALIS_HMAC_KEY_EPOCH", "test-epoch")
+    request = {
+        "capability_id": capability_id,
+        "case_id": "CASE-TEST",
+        "operator_checks": operator_checks or {},
+        "valinor": {"entity_id": "dio-workflows", "operation": "write", "target": target},
+    }
+    envelope = issue_decision(
+        tmp_path,
+        request=request,
+        actor_id="test-operator",
+        policy_version="test-policy-v1",
+    )
+    evidence = envelope["evidence_binding"]
+    return envelope, request, evidence
+
+
+def test_valinor_is_not_invoked_unless_legalis_allows(tmp_path, monkeypatch):
     runtime = FakeRuntime()
-    decision = evaluate_capability(capability_id="contract_or_filing", identity=IDENTITY, registry=REGISTRY, now=NOW)
-    receipt = authorize_valinor_boundary(decision=decision, entity_id="dio-workflows", operation="write", target="external://contract", runtime=runtime)
+    envelope, request, evidence = _authenticated(tmp_path, monkeypatch, "contract_or_filing", "external://contract")
+    receipt = authorize_valinor_boundary(decision_id=envelope["decision_id"], state_root=tmp_path, request=request, evidence=evidence, expected_capability="contract_or_filing", expected_policy_version="test-policy-v1", entity_id="dio-workflows", operation="write", target="external://contract", runtime=runtime)
     assert receipt["allowed"] is False
     assert receipt["state"] == "LEGALIS_NOT_ALLOWED"
     assert runtime.calls == []
 
 
-def test_valinor_remains_kernel_authority_after_legalis_allow():
+def test_valinor_remains_kernel_authority_after_legalis_allow(tmp_path, monkeypatch):
     runtime = FakeRuntime()
-    decision = evaluate_capability(capability_id="public_marketing_release", identity=IDENTITY, registry=REGISTRY, operator_checks={"public_claim_review_complete": True}, now=NOW)
-    receipt = authorize_valinor_boundary(decision=decision, entity_id="dio-workflows", operation="write", target="public://marketing", runtime=runtime)
+    checks = {"public_claim_review_complete": {"value": True, "receipt_ref": "operator://review/test"}}
+    envelope, request, evidence = _authenticated(tmp_path, monkeypatch, "public_marketing_release", "public://marketing", checks)
+    receipt = authorize_valinor_boundary(decision_id=envelope["decision_id"], state_root=tmp_path, request=request, evidence=evidence, expected_capability="public_marketing_release", expected_policy_version="test-policy-v1", entity_id="dio-workflows", operation="write", target="public://marketing", runtime=runtime)
     assert receipt["allowed"] is True
     assert receipt["state"] == "VALINOR_ALLOW"
     assert receipt["external_action_executed"] is False

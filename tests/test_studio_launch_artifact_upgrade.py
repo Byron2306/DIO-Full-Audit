@@ -41,3 +41,28 @@ def test_correspondence_customer_artifact_is_document_studio_rendered(tmp_path: 
     assert receipt["document_studio_formatting_executed"] is True
     assert receipt["translation_executed_in_this_fixture"] is False
     assert receipt["translation_route_available"] is True
+
+
+def test_article_review_keeps_body_and_claim_table_within_mobile_viewport(tmp_path: Path):
+    import re
+    import shutil
+    import subprocess
+    import pytest
+
+    chrome = shutil.which("chromium") or shutil.which("google-chrome")
+    if not chrome:
+        cached = sorted((Path.home() / ".cache/ms-playwright").glob("chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell"))
+        if not cached:
+            pytest.skip("Chromium is required for rendered mobile overflow regression")
+        chrome = str(cached[-1])
+    result = close_studio_case(manifest_path=Path("config/studio_harvest/article_publication_studio.json"), output_dir=tmp_path / "article")
+    artifact = Path(result["output_dir"]) / result["receipt"]["customer_artifact_entrypoint"]
+    probe = tmp_path / "mobile-probe.html"
+    script = """<script>setTimeout(()=>{const node=document.createElement('pre');node.id='mobile-metrics';node.textContent=JSON.stringify({viewport:innerWidth,width:document.documentElement.scrollWidth});document.body.appendChild(node)},20)</script>"""
+    probe.write_text(artifact.read_text().replace("</body>", script + "</body>"))
+    rendered = subprocess.run([chrome, "--headless", "--no-sandbox", "--disable-gpu", "--window-size=390,1600", "--virtual-time-budget=200", "--dump-dom", probe.as_uri()], capture_output=True, text=True, check=True, timeout=20)
+    found = re.search(r'<pre id="mobile-metrics">(.*?)</pre>', rendered.stdout)
+    assert found, "browser must execute the layout measurement"
+    metrics = json.loads(found.group(1))
+    assert metrics["viewport"] == 390
+    assert metrics["width"] <= metrics["viewport"], "body text and claim table must not be cropped on mobile"

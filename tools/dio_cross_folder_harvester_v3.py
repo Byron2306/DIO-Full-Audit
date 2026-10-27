@@ -153,6 +153,8 @@ def human(n: int) -> str:
 
 def forbidden(rel: str) -> bool:
     p = Path(rel)
+    if "api_keys" in p.name.lower():
+        return True
     for part in p.parts:
         low = part.lower()
         if FORBIDDEN_NAME_RX.search(part):

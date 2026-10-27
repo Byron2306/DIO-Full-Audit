@@ -90,6 +90,21 @@ def build_evidex_semantic_content(
                 ),
             }
         )
+    customer_review = intake.get("_customer_evidence_review")
+    if customer_review:
+        if customer_review.get("schema") != "dio.evidex.customer_record_review.v1" or customer_review.get("support_adjudicated") is not False or customer_review.get("release_authorized") is not False:
+            raise EvidexStudioFinishError("customer record review cannot grant evidence or release authority")
+        extra = ["Customer claims and documentary leads", customer_review["scope"]]
+        for record in customer_review["source_records"]:
+            if record["record_id"] in customer_review["quarantined_record_ids"]:
+                extra.append(f"Source {record['record_id']}: embedded instruction captured and quarantined; excluded from claim analysis.")
+            else:
+                extra.append(f"Source {record['record_id']} ({record['source_filename']}, SHA-256 {record['sha256']}): {record['text']}")
+        for comparison in customer_review["quantity_comparisons"]:
+            extra.append(f"Claim {comparison['claim_id']}: declared {comparison['declared_value']}; record {comparison['candidate_record_id']} reports {comparison['reported_record_value']}; arithmetic difference {comparison['difference']}. {comparison['state']}. {comparison['comparability']}")
+        extra.append("Questions and records to obtain")
+        extra.extend(f"{action['record_id']}: {action['question']}" for action in customer_review["review_actions"])
+        rows.extend({"paragraph_id": f"R{i:04d}", "text": text} for i, text in enumerate(extra, 1))
     return build_paragraph_semantic_content(
         object_id=f"EVIDEX-{pack_dir.name}",
         version="1.0.0",
@@ -112,6 +127,10 @@ def finish_evidex_pack(
     if not pack_dir.is_dir():
         raise EvidexStudioFinishError(f"Evidex pack directory does not exist: {pack_dir}")
     review = _read_held_review(pack_dir)
+    if intake.get("_customer_evidence_review"):
+        (pack_dir / "CUSTOMER_EVIDENCE_REVIEW.json").write_text(
+            json.dumps(intake["_customer_evidence_review"], indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
     finish_dir = pack_dir / "05_STUDIO_FINISH"
     render_dir = finish_dir / "FORMAT_CORE"
     semantic = build_evidex_semantic_content(pack_dir=pack_dir, intake=intake)

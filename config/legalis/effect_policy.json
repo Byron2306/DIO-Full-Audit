@@ -1,0 +1,19 @@
+{
+  "schema": "dio.legalis.effect_policy.v1",
+  "capabilities": {
+    "public_marketing_release": [
+      {
+        "entity_id": "dio-workflows",
+        "operation": "write",
+        "target": "public://marketing"
+      }
+    ],
+    "contract_or_filing": [
+      {
+        "entity_id": "dio-workflows",
+        "operation": "write",
+        "target": "external://contract"
+      }
+    ]
+  }
+}

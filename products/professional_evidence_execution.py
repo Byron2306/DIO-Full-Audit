@@ -234,7 +234,7 @@ def _run_evidex(packet: dict[str, Any], execution_dir: Path) -> dict[str, Any]:
     from scripts.run_evidex_jobs import EVIDEX_PYTHON, run_evidex
 
     if not EVIDEX_PYTHON.is_file():
-        raise FileNotFoundError(f"Evidex runtime missing: {EVIDEX_PYTHON}")
+        raise FileNotFoundError(f"Evidex Python is not executable: {EVIDEX_PYTHON}")
     rows = evidence_rows(packet)
     body = "\n".join(str(row.get("customer_supplied_record") or "") for row in rows)
     job = {
@@ -291,6 +291,7 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
         "reasoned_review_approved": True,
         "reasoned_provider": provider,
         "reasoned_model": model,
+        "review_mode": str(intake.get("review_mode") or "held_diagnostic_draft"),
         "human_approval_required": True,
         "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
@@ -315,9 +316,22 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
         raise RuntimeError("Sophia returned a different model/provider than the approved request")
     if commentary.get("remote_processing") is not False:
         raise RuntimeError("Sophia did not confirm local-only reasoned processing")
-    if receipt.get("status") != "needs_human_review" or commentary.get("status") != "completed":
-        raise RuntimeError("Sophia native review did not reach grounded human-review state")
-    if not bool((commentary.get("validation") or {}).get("passed")):
+    held_diagnostic = request["review_mode"] == "held_diagnostic_draft"
+    if receipt.get("status") != "needs_human_review":
+        raise RuntimeError("Sophia native review did not reach human-review state")
+    if held_diagnostic:
+        if not (
+            commentary.get("status") == "held_diagnostic_draft"
+            and (commentary.get("diagnostic_validation") or {}).get("passed") is True
+            and receipt.get("preparation_state") == "engineering_draft_prepared"
+            and (receipt.get("metrics") or {}).get("diagnostic_source_checks_passed") is True
+            and all(value is False for value in (
+                receipt.get("constitutional_release_authorized"), receipt.get("delivery_released"),
+                commentary.get("constitutional_release_authorized"), commentary.get("delivery_released"),
+            ))
+        ):
+            raise RuntimeError("Sophia held diagnostic failed source checks or exceeded its authority")
+    elif commentary.get("status") != "completed" or (commentary.get("validation") or {}).get("passed") is not True:
         raise RuntimeError("Sophia reviewer grounding validation failed")
     profile_id = EDUCATION_RESEARCH_PROFILES.get(incarnation)
     profile_result = None
@@ -328,7 +342,8 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
         "executor": "adapters.sophia.review_pipeline.run_review" + (" + product-specific evidence profile" if profile_id else ""),
         "product_id": str(load_unpromoted_evidence_profile(profile_id)["product_id"]) if profile_id else "sophia_review",
         "profile_id": profile_id,
-        "terminal_artifact_kind": "grounded_academic_review_pack",
+        "terminal_artifact_kind": "held_diagnostic_academic_review_pack" if held_diagnostic else "grounded_academic_review_pack",
+        "constitutional_approval_verified": not held_diagnostic,
         "domain_action_executed": False,
         "product_pipeline_executed": True,
         "receipt": receipt,
@@ -337,71 +352,14 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
 
 
 def _build_vamp_database(packet: dict[str, Any], target: Path) -> Path:
-    rows = evidence_rows(packet)
-    evidence_dir = target.parent / "vamp_evidence"
-    evidence_dir.mkdir(parents=True, exist_ok=True)
-    if target.exists():
-        target.unlink()
-    con = sqlite3.connect(target)
-    con.executescript(
-        """
-        CREATE TABLE tasks(task_id TEXT PRIMARY KEY,kpa_code TEXT NOT NULL,title TEXT NOT NULL,window_start TEXT NOT NULL,window_end TEXT NOT NULL,cadence TEXT NOT NULL,min_required INTEGER NOT NULL,stretch_target INTEGER NOT NULL,lead_lag TEXT NOT NULL,hints_json TEXT NOT NULL);
-        CREATE TABLE evidence(evidence_id TEXT PRIMARY KEY,sha1 TEXT,staff_id TEXT NOT NULL,year INTEGER NOT NULL,month_bucket TEXT NOT NULL,kpa_code TEXT,rating TEXT,tier TEXT,file_path TEXT NOT NULL,meta_json TEXT NOT NULL);
-        CREATE TABLE evidence_task(evidence_id TEXT NOT NULL,task_id TEXT NOT NULL,mapped_by TEXT NOT NULL,confidence REAL NOT NULL,created_at TEXT NOT NULL,PRIMARY KEY(evidence_id,task_id));
-        CREATE TABLE task_no_evidence(staff_id TEXT NOT NULL,year INTEGER NOT NULL,task_id TEXT NOT NULL,month TEXT NOT NULL,reason TEXT,declared_at TEXT NOT NULL,PRIMARY KEY(staff_id,year,task_id,month));
-        """
-    )
-    for index, row in enumerate(rows, 1):
-        task = f"PRO-TASK-{index:02d}"
-        evidence = f"PRO-E-{index:02d}"
-        path = evidence_dir / f"record_{index:02d}.txt"
-        path.write_text(str(row.get("customer_supplied_record") or "") + "\n", encoding="utf-8")
-        con.execute("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)", (task, "PROFESSIONAL", str(row.get("customer_supplied_record") or "")[:120], "2026-01-01", "2026-08-31", "review_period", 1, 1, "lag", "{}"))
-        con.execute("INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)", (evidence, __import__("hashlib").sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", 2026, "2026-08", "PROFESSIONAL", "", "", str(path), json.dumps({"target_task_id": task, "customer_packet_fingerprint": packet["packet_fingerprint"]})))
-        con.execute("INSERT INTO evidence_task VALUES(?,?,?,?,?)", (evidence, task, "customer_packet_projection", 1.0, utc_now()))
-    con.commit()
-    con.close()
-    return target
+    from products.professional_evidence_customer_surface_compat import _build_vamp_database_v2
+    return _build_vamp_database_v2(packet, target)
 
 
 def _run_vamp(packet: dict[str, Any], execution_dir: Path, *, incarnation: str, operator_id: str, now: str) -> dict[str, Any]:
-    from adapters.vamp.snapshot_pipeline import build_snapshot
-
-    db = _build_vamp_database(packet, execution_dir.parent / "PROJECTION" / "progress.db")
-    profile = ROOT / "config" / "vamp_profiles" / "university_generic_v1.json"
-    request = {
-        "schema": "dio.vamp_snapshot_request.v1",
-        "job_id": "PRO-" + slug(incarnation).upper(),
-        "profile_path": str(profile),
-        "source": {"kind": "vamp_sqlite", "database_path": str(db), "staff_id": "PROFESSIONAL-001", "year": 2026},
-        "review": {"months": ["2026-08"]},
-        "privacy_mode": "professional_customer_controlled",
-        "consents": {"evidence_owner_authorized": True, "performance_data_processing_approved": True, "human_review_terms_accepted": True},
-        "customer_packet_fingerprint": packet["packet_fingerprint"],
-    }
-    request_path = execution_dir.parent / "PROJECTION" / "VAMP_SNAPSHOT_REQUEST.json"
-    write_json(request_path, request)
-    output = build_snapshot(request, request_path, execution_dir / "vamp_snapshot", run_evidex=True)
-    receipt_path = Path(output) / "VAMP_SNAPSHOT_RECEIPT.json"
-    if not receipt_path.is_file():
-        raise RuntimeError("VAMP snapshot receipt missing")
-    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-    if receipt.get("release_state") not in {"ready_for_human_review", "human_review_required"}:
-        raise RuntimeError(f"VAMP did not reach a human-reviewable snapshot: {receipt.get('release_state')}")
-    profile_id = {"PromotionProof": "promotionproof", "CPDProof": "cpdproof"}.get(incarnation)
-    profile_result = None
-    if profile_id:
-        profile_result = _run_profile_review(packet, execution_dir / "profile_review", profile_id=profile_id, operator_id=operator_id, now=now)
-    return {
-        "executor": "adapters.vamp.snapshot_pipeline.build_snapshot" + (" + product-specific evidence profile" if profile_id else ""),
-        "product_id": str(load_unpromoted_evidence_profile(profile_id)["product_id"]) if profile_id else "vamp_performance",
-        "profile_id": profile_id,
-        "terminal_artifact_kind": "performance_evidence_snapshot",
-        "domain_action_executed": False,
-        "product_pipeline_executed": True,
-        "receipt": receipt,
-        "profile_result": profile_result,
-    }
+    from products.professional_evidence_final_compat import _run_vamp_current
+    return _run_vamp_current(packet, execution_dir, incarnation=incarnation,
+                             operator_id=operator_id, now=now, profile_review=_run_profile_review)
 
 
 def _run_document(packet: dict[str, Any], execution_dir: Path, *, incarnation: str, service: str) -> dict[str, Any]:
@@ -520,16 +478,14 @@ def _run_vesper(packet: dict[str, Any], execution_dir: Path) -> dict[str, Any]:
     from scripts.route_intake import build_job, normalize_record, route_record, load_routes, write_job
 
     body = "\n".join(str(row.get("customer_supplied_record") or "") for row in evidence_rows(packet))
-    raw = {
-        "subject": "Contract obligations pack before Thursday review",
-        "sender": "Bluebird Consulting <client@example.invalid>",
-        "body": body,
-        "attachment_names": "BC-2026-14.pdf; Amendment-1.pdf",
-        "intent": "contract obligations pack and acknowledgement draft",
-        "urgency": "Thursday 27 August 2026",
-        "next_step": "route and draft only; do not send",
-        "risk": "moderate",
-    }
+    source = packet["packet_dir"] / "SOURCES" / "intake_email.json"
+    supplied = json.loads(source.read_text(encoding="utf-8")) if source.is_file() else {}
+    raw = {key: str(supplied.get(key) or "") for key in
+           ("subject", "sender", "body", "attachment_names", "intent", "urgency")}
+    raw["subject"] = raw["subject"] or str(packet["intake"]["request"])
+    raw["body"] = "\n\n".join([raw["body"], body]).strip()
+    raw["intent"] = raw["intent"] or str(packet["intake"]["request"])
+    raw.update(next_step="route and draft only; do not send", risk="moderate")
     record = normalize_record(raw)
     route = route_record(record, load_routes())
     job = build_job(record, route, redact=False)
@@ -538,7 +494,12 @@ def _run_vesper(packet: dict[str, Any], execution_dir: Path) -> dict[str, Any]:
         raise RuntimeError("Vesper intake did not retain pending human approval")
     draft = execution_dir / "VESPER_DRAFT_NEXT_STEP.md"
     draft.write_text(
-        "# Draft only — not sent\n\nThank you. We received the contract and Amendment 1 and have routed them for a controlled obligations review ahead of the requested Thursday review. A human operator will review the resulting pack before any reply or external delivery.\n",
+        "# Draft only — not sent\n\n"
+        f"Subject received: {record['subject']}\n\n"
+        f"Supplied attachment labels: {record['attachment_names'] or 'No attachment labels supplied'}. "
+        f"Requested timing: {record['urgency'] or 'Not specified'}.\n\n"
+        "The intake has been routed for human review. Attachment contents and acceptance remain unverified. "
+        "A human operator must review the resulting pack before any reply or external delivery.\n",
         encoding="utf-8",
     )
     receipt = {

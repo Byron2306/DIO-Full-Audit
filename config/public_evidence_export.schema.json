@@ -1,0 +1,5 @@
+{
+  "schema": "dio.public_evidence_export_schema.v1",
+  "public_fields": ["product_id", "product_name", "suite", "buyer_job", "bounded_outcome", "primary_deliverable", "acceptance_criteria", "route_proof", "named_product_proof", "market_validation", "cta"],
+  "forbidden_fields": ["source_path", "repository_commit", "customer_id", "conversation_id", "absolute_path", "secret"]
+}

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -10,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from adapters.legalis import authorize_valinor_boundary, evaluate_capability, load_json
+from adapters.legalis import authorize_valinor_boundary, evaluate_capability, issue_decision, load_json
 
 DEFAULT_IDENTITY = ROOT / "config" / "legalis" / "legal_identity.json"
 DEFAULT_REGISTRY = ROOT / "config" / "legalis" / "requirement_registry.json"
@@ -23,6 +24,9 @@ def main() -> int:
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY))
     parser.add_argument("--out")
     parser.add_argument("--workspace-root", default="/home/byron/DIO")
+    parser.add_argument("--state-root", default=os.environ.get("DIO_STATE_ROOT"))
+    parser.add_argument("--actor-id", default=os.environ.get("DIO_OPERATOR_ID"))
+    parser.add_argument("--policy-version", default="legalis-policy-v1")
     parser.add_argument("--authorize-valinor", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -34,15 +38,37 @@ def main() -> int:
     if not capability_id:
         print("REFUSE legalis: request requires capability_id.")
         return 2
+    actor_id = str(args.actor_id or request.get("actor_id") or "").strip()
+    if not args.dry_run and (not args.state_root or not actor_id):
+        print("REFUSE legalis: production evaluation requires --state-root and an identified --actor-id.")
+        return 2
     decision = evaluate_capability(
         capability_id=capability_id,
         identity=identity,
         registry=registry,
         evidence=list(request.get("evidence") or []),
         operator_checks=dict(request.get("operator_checks") or {}),
-        now=request.get("now"),
+        now=request.get("now") if args.dry_run else None,
     )
     envelope: dict[str, object] = {"decision": decision}
+    authenticated = None
+    if not args.dry_run:
+        evidence_binding = {
+            "evidence": list(request.get("evidence") or []),
+            "operator_checks": dict(request.get("operator_checks") or {}),
+            "identity_snapshot_sha256": decision["identity_snapshot_sha256"],
+            "requirement_registry_sha256": decision["requirement_registry_sha256"],
+        }
+        authenticated = issue_decision(
+            Path(args.state_root),
+            request=request,
+            actor_id=actor_id,
+            policy_version=str(args.policy_version),
+        )
+        decision = authenticated["decision"]
+        evidence_binding = authenticated["evidence_binding"]
+        envelope["decision"] = decision
+        envelope["authenticated_decision"] = authenticated
     if args.authorize_valinor and not args.dry_run:
         valinor = request.get("valinor") or {}
         entity_id = str(valinor.get("entity_id") or request.get("entity_id") or "")
@@ -51,7 +77,12 @@ def main() -> int:
             print("REFUSE legalis: --authorize-valinor requires valinor.entity_id and valinor.operation.")
             return 2
         envelope["valinor_authorization"] = authorize_valinor_boundary(
-            decision=decision,
+            decision_id=str(authenticated["decision_id"]),
+            state_root=Path(args.state_root),
+            request=request,
+            evidence=evidence_binding,
+            expected_capability=capability_id,
+            expected_policy_version=str(args.policy_version),
             entity_id=entity_id,
             operation=operation,
             target=valinor.get("target"),

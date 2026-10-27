@@ -1,0 +1,357 @@
+{
+  "authority_created": false,
+  "canonical_states": [
+    "CONTESTED",
+    "EXPIRED",
+    "MISSING",
+    "NEEDS_REVIEW",
+    "NOT_YET_DUE",
+    "PARTIAL",
+    "SATISFIED"
+  ],
+  "deadlines": [
+    {
+      "deadline_id": "ODEAD-418613547B80D022",
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-B358D9CD1D586351",
+      "state": "open"
+    },
+    {
+      "deadline_id": "ODEAD-0798A47BB1D39F23",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-D53B81990526CEA6",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-7511E49C3EA10F9D",
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-33FAA63C08CA8EDE",
+      "state": "open"
+    },
+    {
+      "deadline_id": "ODEAD-C9953E9C13509FC2",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "expiry",
+      "obligation_id": "OBL-F3BD64640FBC95AB",
+      "state": "expired"
+    },
+    {
+      "deadline_id": "ODEAD-766089EA9C2CCC70",
+      "due_at": "2026-09-15T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-3BB776A4AF17D12A",
+      "state": "open"
+    }
+  ],
+  "engine_version": "0.1.0",
+  "evaluations": [
+    {
+      "contradicting_evidence_ids": [],
+      "evaluated_at": "2026-08-12T12:00:00+00:00",
+      "human_gate": "NEEDS_YOU",
+      "missing_evidence_requirements": [],
+      "obligation_id": "OBL-B358D9CD1D586351",
+      "status": "SATISFIED",
+      "status_basis": [
+        "all explicit evidence requirements have trusted, non-stale supporting evidence"
+      ],
+      "usable_evidence_ids": [
+        "EVID-B00106D16B0C5ACA"
+      ]
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "evaluated_at": "2026-08-12T12:00:00+00:00",
+      "human_gate": "NEEDS_YOU",
+      "missing_evidence_requirements": [
+        "payment_receipt"
+      ],
+      "obligation_id": "OBL-D53B81990526CEA6",
+      "status": "MISSING",
+      "status_basis": [
+        "required trusted evidence is missing: ['payment_receipt']"
+      ],
+      "usable_evidence_ids": []
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "evaluated_at": "2026-08-12T12:00:00+00:00",
+      "human_gate": "NEEDS_YOU",
+      "missing_evidence_requirements": [
+        "identity_copy"
+      ],
+      "obligation_id": "OBL-33FAA63C08CA8EDE",
+      "status": "PARTIAL",
+      "status_basis": [
+        "trusted evidence covers some but not all explicit requirements: missing ['identity_copy']"
+      ],
+      "usable_evidence_ids": [
+        "EVID-3AA44B4EA89F75A6"
+      ]
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "evaluated_at": "2026-08-12T12:00:00+00:00",
+      "human_gate": "NEEDS_YOU",
+      "missing_evidence_requirements": [
+        "certificate"
+      ],
+      "obligation_id": "OBL-F3BD64640FBC95AB",
+      "status": "EXPIRED",
+      "status_basis": [
+        "explicit obligation expiry timestamp has been reached or passed"
+      ],
+      "usable_evidence_ids": []
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "evaluated_at": "2026-08-12T12:00:00+00:00",
+      "human_gate": "NEEDS_YOU",
+      "missing_evidence_requirements": [
+        "notice_receipt"
+      ],
+      "obligation_id": "OBL-3BB776A4AF17D12A",
+      "status": "NOT_YET_DUE",
+      "status_basis": [
+        "explicit due timestamp is in the future and required evidence is not yet present"
+      ],
+      "usable_evidence_ids": []
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "evaluated_at": "2026-08-12T12:00:00+00:00",
+      "human_gate": "NEEDS_YOU",
+      "missing_evidence_requirements": [
+        "incident_notice"
+      ],
+      "obligation_id": "OBL-AFE1486377023AAE",
+      "status": "NEEDS_REVIEW",
+      "status_basis": [
+        "extraction candidate requires human review before fulfilment assessment"
+      ],
+      "usable_evidence_ids": []
+    }
+  ],
+  "evidence_bindings": [
+    {
+      "binding_id": "OBIND-07CB516D35E5947B",
+      "evidence_id": "EVID-B00106D16B0C5ACA",
+      "evidence_kind": "delivery_receipt",
+      "freshness_state": "current",
+      "obligation_id": "OBL-B358D9CD1D586351",
+      "relation": "supports",
+      "source_ref": "fixture://contractproof/evidence/monthly-report-delivery",
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "binding_id": "OBIND-7F18EFC0DC11A804",
+      "evidence_id": "EVID-3AA44B4EA89F75A6",
+      "evidence_kind": "signed_form",
+      "freshness_state": "current",
+      "obligation_id": "OBL-33FAA63C08CA8EDE",
+      "relation": "supports",
+      "source_ref": "fixture://contractproof/evidence/onboarding-signed-form",
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "binding_id": "OBIND-8B9FF677449C524A",
+      "evidence_id": "EVID-88B32426274D7640",
+      "evidence_kind": "certificate",
+      "freshness_state": "expired",
+      "obligation_id": "OBL-F3BD64640FBC95AB",
+      "relation": "supports",
+      "source_ref": "fixture://contractproof/evidence/expired-certificate",
+      "trust_state": "trusted_for_review"
+    }
+  ],
+  "executor_created": false,
+  "external_effects": false,
+  "fingerprint": "sha256:ea18e2b4b2fcb83f60eab9b59843dc2c4044b9f2533da822c4fd4578aebf0a99",
+  "human_gate": {
+    "reason": "Owner decides fulfilment, escalation, waiver, acceptance and any consequential action.",
+    "state": "NEEDS_YOU"
+  },
+  "obligations": [
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "evidence_binding_ids": [
+        "OBIND-07CB516D35E5947B"
+      ],
+      "evidence_requirements": [
+        "delivery_receipt"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "reporting",
+      "obligation_id": "OBL-B358D9CD1D586351",
+      "raw_text": "Supplier shall provide the monthly service report.",
+      "responsible_party": "supplier",
+      "review_required": false,
+      "source": {
+        "locator": "4.2",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_id": "contractproof-golden-reference-001",
+        "source_ref": "fixture://contractproof/golden-reference-001"
+      },
+      "statement": "Supplier shall provide the monthly service report.",
+      "status": "SATISFIED",
+      "status_basis": [
+        "all explicit evidence requirements have trusted, non-stale supporting evidence"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "evidence_binding_ids": [],
+      "evidence_requirements": [
+        "payment_receipt"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "payment",
+      "obligation_id": "OBL-D53B81990526CEA6",
+      "raw_text": "Customer shall pay the accepted invoice.",
+      "responsible_party": "customer",
+      "review_required": false,
+      "source": {
+        "locator": "5.1",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_id": "contractproof-golden-reference-001",
+        "source_ref": "fixture://contractproof/golden-reference-001"
+      },
+      "statement": "Customer shall pay the accepted invoice.",
+      "status": "MISSING",
+      "status_basis": [
+        "required trusted evidence is missing: ['payment_receipt']"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "evidence_binding_ids": [
+        "OBIND-7F18EFC0DC11A804"
+      ],
+      "evidence_requirements": [
+        "signed_form",
+        "identity_copy"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "deliverable",
+      "obligation_id": "OBL-33FAA63C08CA8EDE",
+      "raw_text": "Supplier shall provide the onboarding dossier.",
+      "responsible_party": "supplier",
+      "review_required": false,
+      "source": {
+        "locator": "6.3",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_id": "contractproof-golden-reference-001",
+        "source_ref": "fixture://contractproof/golden-reference-001"
+      },
+      "statement": "Supplier shall provide the onboarding dossier.",
+      "status": "PARTIAL",
+      "status_basis": [
+        "trusted evidence covers some but not all explicit requirements: missing ['identity_copy']"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": null,
+      "evidence_binding_ids": [
+        "OBIND-8B9FF677449C524A"
+      ],
+      "evidence_requirements": [
+        "certificate"
+      ],
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "maintenance",
+      "obligation_id": "OBL-F3BD64640FBC95AB",
+      "raw_text": "Supplier shall maintain the specified certificate.",
+      "responsible_party": "supplier",
+      "review_required": false,
+      "source": {
+        "locator": "7.4",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_id": "contractproof-golden-reference-001",
+        "source_ref": "fixture://contractproof/golden-reference-001"
+      },
+      "statement": "Supplier shall maintain the specified certificate.",
+      "status": "EXPIRED",
+      "status_basis": [
+        "explicit obligation expiry timestamp has been reached or passed"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-09-15T12:00:00+00:00",
+      "evidence_binding_ids": [],
+      "evidence_requirements": [
+        "notice_receipt"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "notification",
+      "obligation_id": "OBL-3BB776A4AF17D12A",
+      "raw_text": "Supplier shall send the transition notice.",
+      "responsible_party": "supplier",
+      "review_required": false,
+      "source": {
+        "locator": "8.1",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_id": "contractproof-golden-reference-001",
+        "source_ref": "fixture://contractproof/golden-reference-001"
+      },
+      "statement": "Supplier shall send the transition notice.",
+      "status": "NOT_YET_DUE",
+      "status_basis": [
+        "explicit due timestamp is in the future and required evidence is not yet present"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": null,
+      "evidence_binding_ids": [],
+      "evidence_requirements": [
+        "incident_notice"
+      ],
+      "expires_at": null,
+      "extraction_basis": "deontic_candidate",
+      "kind": "notification",
+      "obligation_id": "OBL-AFE1486377023AAE",
+      "raw_text": "Supplier must notify the owner of a material service interruption.",
+      "responsible_party": "supplier",
+      "review_required": true,
+      "source": {
+        "locator": "9.2",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_id": "contractproof-golden-reference-001",
+        "source_ref": "fixture://contractproof/golden-reference-001"
+      },
+      "statement": "Supplier must notify the owner of a material service interruption.",
+      "status": "NEEDS_REVIEW",
+      "status_basis": [
+        "extraction candidate requires human review before fulfilment assessment"
+      ]
+    }
+  ],
+  "schema": "dio.obligation_bundle.v1",
+  "source": {
+    "effective_at": "2026-07-01T00:00:00+00:00",
+    "expires_at": null,
+    "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "source_id": "contractproof-golden-reference-001",
+    "source_ref": "fixture://contractproof/golden-reference-001",
+    "source_type": "contract"
+  }
+}

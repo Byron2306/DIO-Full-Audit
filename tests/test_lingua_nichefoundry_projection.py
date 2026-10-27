@@ -72,8 +72,9 @@ def test_teacher_and_auditor_receive_materially_different_creative_projections()
     assert teacher["creative_fingerprint"] != auditor["creative_fingerprint"]
     assert teacher["surfaces"]["vertical_short"]["arc_family"] == "recognition_then_relief"
     assert auditor["surfaces"]["vertical_short"]["arc_family"] == "risk_reveal"
-    assert teacher["surfaces"]["vertical_short"]["voice"]["voice"] == "en-ZA-LeahNeural"
-    assert auditor["surfaces"]["vertical_short"]["voice"]["voice"] == "en-ZA-LukeNeural"
+    assert teacher["surfaces"]["vertical_short"]["voice"]["voice"] == "vera"
+    assert auditor["surfaces"]["vertical_short"]["voice"]["provider"] == "pocket_tts"
+    assert auditor["surfaces"]["vertical_short"]["voice"]["voice"] == "vera"
     assert teacher["surfaces"]["vertical_short"]["music"]["family"] != auditor["surfaces"]["vertical_short"]["music"]["family"]
     assert teacher["surfaces"]["vertical_short"]["visual_grammar"] != auditor["surfaces"]["vertical_short"]["visual_grammar"]
     assert creative_distance(teacher, auditor) >= 0.75

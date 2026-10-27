@@ -55,14 +55,16 @@ def test_auditproof_runs_from_vesper_quarantine_bytes_to_professional_pack(tmp_p
     assert outer["vesper_web_chat_front_door_verified"] is True
     assert outer["product_consumed_vesper_quarantined_bytes"] is True
 
-    # Authority/release limits are not evidence contradictions. Every literal
-    # customer fact remains source-backed while consequential audit judgement
-    # stays behind the human gate.
+    # Byte custody does not establish factual trust or evidence freshness.
+    # Retain the two explicitly reported late controls as review concerns.
     matrix = {row["requirement_key"]: row for row in pack["requirement_evidence_matrix"]}
     assert set(matrix) == {"REQ-01", "REQ-02", "REQ-03", "REQ-04"}
-    assert all(row["review_state"] == "SUPPORTED" for row in matrix.values())
-    assert all(row["case_state"] == "supported" for row in matrix.values())
-    assert pack["issue_register"] == []
+    assert matrix["REQ-01"]["review_state"] == "UNKNOWN"
+    assert matrix["REQ-02"]["review_state"] == "UNKNOWN"
+    assert matrix["REQ-03"]["review_state"] == "CONTESTED"
+    assert matrix["REQ-04"]["review_state"] == "CONTESTED"
+    assert all(row["review_state"] != "SUPPORTED" for row in matrix.values())
+    assert len(pack["issue_register"]) == 2
     assert processing["human_review_gate"] == "NEEDS_YOU"
     assert processing["external_release_gate"] == "REFUSE"
     assert processing["forbidden_outcomes_created"]["audit_opinion"] is False

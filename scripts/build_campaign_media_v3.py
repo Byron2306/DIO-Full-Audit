@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import shutil
 import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -17,6 +19,15 @@ from scripts.edge_tts_runtime import resolve_edge_tts_for_service
 
 CampaignMediaError = legacy.CampaignMediaError
 DEFAULT_NICHEFOUNDRY_ROOT = legacy.DEFAULT_NICHEFOUNDRY_ROOT
+
+
+def _gilded_asset_pack() -> dict[str, Any]:
+    """Verify pinned canonical bytes, including provenance and rights."""
+    from products.canonical_marketing_media import verified_golden_pack
+    try:
+        return verified_golden_pack(ROOT)
+    except (ValueError, OSError) as exc:
+        raise CampaignMediaError(str(exc)) from exc
 
 
 def resolve_edge_tts_binary(nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT) -> Path:
@@ -91,7 +102,7 @@ def synthesize_pocket_story(
     output_dir: Path,
     voice_spec: dict[str, Any],
 ) -> dict[str, Any]:
-    from presence_core.voice import build_voice_plan, synthesize_voice
+    from presence_core.voice import build_voice_plan, synthesize_voice, verified_vera_runtime_inventory
 
     if voice_spec.get("remote_tts_allowed") is not False:
         raise CampaignMediaError("Pocket TTS projection must explicitly disable remote TTS.")
@@ -106,15 +117,24 @@ def synthesize_pocket_story(
     )
     if plan.get("state") != "ready_for_internal_render" or not plan.get("public_default_authorized"):
         raise CampaignMediaError("Pocket TTS projection selected a voice profile that is not approved for public rendering.")
-    if plan.get("backend") != "pocket_tts":
+    if plan.get("backend") != "pocket_tts" or profile_id != "vera_pocket_public" or plan.get("voice_url") != "vera":
         raise CampaignMediaError("Pocket TTS projection selected a profile with a different backend.")
     voice_name = str(plan.get("voice_url") or plan.get("model") or "").strip()
     if not voice_name or str(voice_spec.get("voice") or "").strip() != voice_name:
         raise CampaignMediaError("Pocket TTS projected voice does not match its approved profile.")
 
+    try:
+        runtime_proof = verified_vera_runtime_inventory(ROOT)
+    except Exception as exc:
+        raise CampaignMediaError(f"Pocket TTS Vera runtime provenance is unavailable: {exc}") from exc
     ffprobe = legacy.require_tool("ffprobe")
     narration_dir = output_dir / "pocket_tts"
     narration_dir.mkdir(parents=True, exist_ok=True)
+    voice_policy = legacy.read_json(ROOT / "config/media/dio_gilded_house_style.json")["voice"]
+    voice_attribution = ROOT / voice_policy["attribution"]
+    if legacy.sha256_file(voice_attribution) != voice_policy["attribution_sha256"]:
+        raise CampaignMediaError("Vera voice attribution evidence hash mismatch")
+    shutil.copy2(voice_attribution, output_dir / "VOICE_ATTRIBUTION.md")
     rows: list[dict[str, Any]] = []
     for index, scene in enumerate(scenes, 1):
         text = str(scene.get("narration") or "").strip()
@@ -122,9 +142,20 @@ def synthesize_pocket_story(
             raise CampaignMediaError(f"Story scene {index} has no narration for Pocket TTS.")
         scene_id = str(scene.get("scene_id") or f"scene_{index:02d}")
         audio_path = narration_dir / f"{index:02d}.wav"
-        voice_receipt = synthesize_voice(text=text, output_path=audio_path, plan=plan)
+        try:
+            voice_receipt = synthesize_voice(text=text, output_path=audio_path, plan=plan)
+        except Exception as exc:
+            raise CampaignMediaError(
+                f"Pocket TTS Vera is unavailable for {scene_id}; campaign media remains held: {exc}"
+            ) from exc
         if not audio_path.is_file() or audio_path.stat().st_size < 44:
             raise CampaignMediaError(f"Pocket TTS did not create valid audio for {scene_id}.")
+        from products.canonical_marketing_media import verify_voice_receipt
+        try:
+            voice_receipt.update(runtime_proof)
+            verify_voice_receipt(voice_receipt, audio_path)
+        except ValueError as exc:
+            raise CampaignMediaError(str(exc)) from exc
         with audio_path.open("rb") as audio_file:
             if audio_file.read(4) != b"RIFF":
                 raise CampaignMediaError(f"Pocket TTS output for {scene_id} is not a WAV file.")
@@ -146,6 +177,7 @@ def synthesize_pocket_story(
         "provider": "pocket_tts",
         "profile_id": profile_id,
         "voice": voice_name,
+        "attribution": {"path": str(output_dir / "VOICE_ATTRIBUTION.md"), "sha256": voice_policy["attribution_sha256"]},
         "local_only": True,
         "remote_tts_used": False,
         "scene_count": len(rows),
@@ -174,18 +206,12 @@ def synthesize_projected_story(
         raise CampaignMediaError("LINGUA projection requires narrated voice.")
     provider = str(voice_spec.get("provider") or "").strip()
     if provider == "piper_local":
-        receipt = legacy.synthesize_piper_story(scenes, output_dir, nichefoundry_root=nichefoundry_root)
-        receipt["receipt"] = str((output_dir / "PIPER_NARRATION_RECEIPT.json").resolve())
-        return receipt
-    if provider == "edge_tts":
-        if voice_spec.get("remote_tts_allowed") is not True:
-            raise CampaignMediaError("Edge TTS projection is blocked because remote_tts_allowed is not true.")
-        return synthesize_edge_story(
-            scenes,
-            output_dir,
-            voice_name=str(voice_spec.get("voice") or ""),
-            nichefoundry_root=nichefoundry_root,
+        raise CampaignMediaError(
+            "Piper narration is retired for production campaigns. Select the approved "
+            "Pocket TTS Vera projection instead."
         )
+    if provider == "edge_tts":
+        raise CampaignMediaError("Production marketing requires local Pocket TTS Vera; remote Edge TTS is retired.")
     if provider == "pocket_tts":
         return synthesize_pocket_story(scenes, output_dir, voice_spec)
     raise CampaignMediaError(f"Unsupported LINGUA voice projection provider: {provider or '<empty>'}")
@@ -200,6 +226,7 @@ def _render_projected_format(
     output: Path,
     width: int,
     height: int,
+    brand_owner: str = "customer",
 ) -> dict[str, Any]:
     ffmpeg = legacy.require_tool("ffmpeg")
     ffprobe = legacy.require_tool("ffprobe")
@@ -207,7 +234,14 @@ def _render_projected_format(
     with tempfile.TemporaryDirectory(prefix="dio-lingua-media-", dir=output.parent) as temporary:
         work = Path(temporary)
         segments: list[Path] = []
+        from products.canonical_marketing_media import apply_golden_identity
+
         for index, (image, audio_row) in enumerate(zip(scene_images, narration, strict=True), 1):
+            if brand_owner == "dio":
+                with Image.open(image) as source:
+                    branded, _ = apply_golden_identity(source, brand_owner="dio", root=ROOT)
+                image = work / f"golden_{index:02d}.png"
+                branded.save(image)
             audio = Path(audio_row["audio_path"])
             segment = work / f"segment_{index:02d}.mp4"
             video_filter = f"scale={width}:{height}:force_original_aspect_ratio=increase,crop={width}:{height},fps=30,format=yuv420p"
@@ -268,37 +302,30 @@ def render_campaign_media_v3(
     if release.get("state") != "held" or release.get("spend") != "disabled":
         raise CampaignMediaError("LINGUA-projected media must keep publication held and spend disabled.")
 
+    gilded_pack = _gilded_asset_pack()
     variant_receipts: dict[str, Any] = {}
     for surface, variant in variants.items():
         story = variant.get("story") or {}
         scenes = list(story.get("scenes") or [])
-        gamma_spec = variant.get("gamma") or {}
-        gamma_path = Path(str(gamma_spec.get("receipt") or "")).expanduser().resolve()
-        if not gamma_path.is_file():
-            raise CampaignMediaError(f"Gamma receipt is missing for {surface}: {gamma_path}")
-        gamma = legacy.read_json(gamma_path)
-        if gamma.get("state") != "ready" or gamma.get("request_hash") != gamma_spec.get("request_hash"):
-            raise CampaignMediaError(f"Gamma receipt does not match the projected {surface} request.")
-        cards = list(gamma.get("cards") or [])
-        if not scenes or len(cards) != len(scenes):
-            raise CampaignMediaError(f"Gamma card count must match projected story scene count for {surface}.")
-        images = [Path(row["path"]).expanduser().resolve() for row in cards]
+        # The factory renders bounded, local Format Core scene cards before this
+        # stage.  They are the canonical visual input: no hosted Gamma generation
+        # or opaque retrieval is required to create a reviewable campaign proof.
+        images = [Path(str(value)).expanduser().resolve() for value in (variant.get("scene_images_fallback") or [])]
+        if not scenes or len(images) != len(scenes):
+            raise CampaignMediaError(f"Local visual card count must match projected story scene count for {surface}.")
         if any(not path.is_file() for path in images):
-            raise CampaignMediaError(f"One or more Gamma cards are missing for {surface}.")
+            raise CampaignMediaError(f"One or more local visual cards are missing for {surface}.")
 
         variant_dir = request_path.parent / "media" / surface
         voice_receipt = synthesize_projected_story(scenes, variant_dir, dict(variant.get("voice") or {}), nichefoundry_root=nichefoundry_root)
         music_spec = dict(variant.get("music") or {})
-        music: Path | None = None
-        attribution = ""
-        if music_spec.get("mode") == "rights_recorded":
-            music = Path(str(music_spec.get("path") or "")).expanduser().resolve()
-            attribution_path = Path(str(music_spec.get("attribution") or "")).expanduser().resolve()
-            if not music.is_file() or not attribution_path.is_file():
-                raise CampaignMediaError(f"Rights-recorded music or attribution is missing for {surface}.")
-            attribution = str(attribution_path)
-        elif music_spec.get("mode") != "none":
-            raise CampaignMediaError(f"Projected music mode is invalid for {surface}: {music_spec.get('mode')}")
+        from products.canonical_marketing_media import approved_music
+        try:
+            music_spec = approved_music(music_spec, root=ROOT)
+        except ValueError as exc:
+            raise CampaignMediaError(str(exc)) from exc
+        music = Path(music_spec["path"])
+        attribution = music_spec["attribution"]
 
         output_spec = variant.get("output") or {}
         output = Path(str(output_spec.get("path") or "")).expanduser().resolve()
@@ -314,11 +341,18 @@ def render_campaign_media_v3(
             output=output,
             width=width,
             height=height,
+            brand_owner="dio",
         )
         variant_receipts[surface] = {
             "surface": surface,
             "story_hash": story.get("story_hash"),
-            "gamma": {"generation_id": gamma.get("generation_id"), "card_count": len(cards), "receipt": str(gamma_path)},
+            "visuals": {
+                "provider": "format_core_local_compositor",
+                "card_count": len(images),
+                "paths": [str(path) for path in images],
+                "external_generation_used": False,
+                "gilded_asset_pack": gilded_pack,
+            },
             "voice": {
                 "provider": voice_receipt["provider"],
                 "voice": voice_receipt.get("voice") or voice_receipt.get("model"),
@@ -352,6 +386,9 @@ def render_campaign_media_v3(
             "market_validation_claimed": False,
             "authority_created": False,
             "semantic_law_preserved": True,
+            "gamma_required": False,
+            "visual_provider": "format_core_local_compositor",
+            "gilded_asset_pack": gilded_pack,
         },
     }
     legacy.write_json(output_dir / "CAMPAIGN_MEDIA_RECEIPT.json", receipt)

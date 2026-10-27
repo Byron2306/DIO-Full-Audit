@@ -50,6 +50,43 @@ def test_common_locale_codes_resolve_to_canonical_lingua_languages() -> None:
     assert requested_language(explicit="tn-ZA") == "Setswana"
 
 
+def test_communicator_reuses_only_exact_crystallized_units(tmp_path: Path) -> None:
+    kwargs = {
+        "dio_root": tmp_path,
+        "owner": "vesper",
+        "artifact_type": "conversation_response",
+        "channel": "outlook",
+        "subject": "Review ready",
+        "body": "Your pack is ready for review.",
+        "correlation_id": "CONV-LINGUA-1",
+        "source_message_id": "MSG-LINGUA-1",
+        "target_language": "Afrikaans",
+    }
+    first = register_communication(**kwargs)
+    semantic_path = Path(first["object_path"])
+    semantic = json.loads(semantic_path.read_text(encoding="utf-8"))
+    lane = {
+        "language": "Afrikaans",
+        "status": "human_approved_crystallized",
+        "units": [
+            {"unit_id": row["unit_id"], "source_hash": row["source_hash"], "target_text": text, "status": "human_approved_crystallized"}
+            for row, text in zip(semantic["source"]["units"], ["Gereed vir hersiening", "Jou pakket is gereed vir hersiening."])
+        ],
+    }
+    semantic["translations"]["Afrikaans"] = lane
+    semantic_path.write_text(json.dumps(semantic), encoding="utf-8")
+
+    approved = register_communication(**kwargs)
+    assert approved["translation_state"] == "approved_translation"
+    assert approved["selected_subject"] == "Gereed vir hersiening"
+
+    lane["units"][1]["source_hash"] = "sha256:stale"
+    semantic["translations"]["Afrikaans"] = lane
+    semantic_path.write_text(json.dumps(semantic), encoding="utf-8")
+    stale = register_communication(**kwargs)
+    assert stale["translation_state"] == "translation_review_required"
+
+
 def test_presence_reply_is_bound_to_lingua(tmp_path: Path, monkeypatch) -> None:
     root = _presence_root(tmp_path)
     monkeypatch.setenv("DIO_PRESENCE_IDENTITY_SALT", "i" * 40)

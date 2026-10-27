@@ -124,3 +124,53 @@ def test_native_closure_gauntlet(tmp_path: Path):
         assert studio["partial_organ_count"] == 0
         assert studio["source_bound_only_count"] == 0
         assert studio["all_declared_capabilities_executed"] is True
+
+
+def test_finance_customer_pack_surfaces_evidex_gaps_and_changes_with_supplied_evidence(tmp_path: Path):
+    """A generic requirement list must not hide the actual missing application evidence."""
+    manifest = json.loads(Path("config/studio_harvest/finance_readiness_studio.json").read_text())
+    source = tmp_path / "finance.json"
+    source.write_text(json.dumps(manifest))
+    before = close_studio_case(manifest_path=source, output_dir=tmp_path / "before")
+    pack = json.loads((Path(before["output_dir"]) / "closure/document_studio/DOCUMENT_STUDIO_FINANCE_PACK_RECEIPT.json").read_text())
+    text = (Path(before["output_dir"]) / pack["output_path"]).read_text()
+    assert "Mandatory evidence gaps: 2" in text
+    assert "FR-03 — management accounts or financial statements: EVIDENCE_NEEDED" in text
+    assert "FR-05 — repayment or cash-flow assumptions: EVIDENCE_NEEDED" in text
+    assert "FR-01 — business registration evidence: SUPPORTED_FOR_READINESS_REVIEW; evidence: EV-01" in text
+    assert "Request management accounts or financial statements" in text
+
+    manifest["artifact_contract"]["supplied_evidence_fixture"].append({
+        "evidence_id": "EV-04", "supports": ["FR-03"], "label": "management accounts", "state": "supplied"
+    })
+    source.write_text(json.dumps(manifest))
+    after = close_studio_case(manifest_path=source, output_dir=tmp_path / "after")
+    pack_after = json.loads((Path(after["output_dir"]) / "closure/document_studio/DOCUMENT_STUDIO_FINANCE_PACK_RECEIPT.json").read_text())
+    changed = (Path(after["output_dir"]) / pack_after["output_path"]).read_text()
+    assert "Mandatory evidence gaps: 1" in changed
+    assert "FR-03 — management accounts or financial statements: SUPPORTED_FOR_READINESS_REVIEW; evidence: EV-04" in changed
+    assert "Request management accounts or financial statements" not in changed
+    verify_native_closure_proof(Path(after["output_dir"]), after["proof_manifest"])
+
+
+def test_site_and_finance_closure_receipts_resolve_the_customer_review_surface(tmp_path: Path):
+    for studio in ("site_studio", "finance_readiness_studio"):
+        result = close_studio_case(manifest_path=Path(f"config/studio_harvest/{studio}.json"), output_dir=tmp_path / studio)
+        entrypoint = result["receipt"].get("customer_artifact_entrypoint")
+        assert entrypoint, f"{studio} closure must identify its customer artifact"
+        assert (Path(result["output_dir"]) / entrypoint).is_file()
+        presence = json.loads((Path(result["output_dir"]) / "closure/presence/PRESENCE_STUDIO_RELEASE.json").read_text())
+        assert presence["entrypoint"] == entrypoint
+        assert result["proof_manifest"]["customer_artifact_entrypoint"] == entrypoint
+        assert result["receipt"]["customer_artifact_gate"] == "PASS"
+
+
+def test_site_customer_artifact_tampering_invalidates_the_closure_proof(tmp_path: Path):
+    import pytest
+    from products.studio_native_closure import StudioNativeClosureError
+
+    result = close_studio_case(manifest_path=Path("config/studio_harvest/site_studio.json"), output_dir=tmp_path / "site")
+    artifact = Path(result["output_dir"]) / result["receipt"]["customer_artifact_entrypoint"]
+    artifact.write_text(artifact.read_text() + "\nUnreviewed customer claim\n")
+    with pytest.raises(StudioNativeClosureError, match="artifact integrity failure"):
+        verify_native_closure_proof(Path(result["output_dir"]), result["proof_manifest"])

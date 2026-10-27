@@ -20,6 +20,54 @@ def _sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
+def verified_vera_runtime_inventory(root: Path, *, base_url: str | None = None) -> dict[str, Any]:
+    """Recheck observed local runtime evidence, without claiming HTTP or hardware attestation.
+
+    This optional evidence is for production media provenance. It grants no render or send authority.
+    """
+    path = Path(os.getenv("DIO_VESPER_RUNTIME_INVENTORY") or (
+        Path(root) / "state/presence/voice_verification/vera_runtime_inventory.json"
+    ))
+    if not path.is_file():
+        raise RuntimeError("verified local Vera runtime inventory is missing")
+    raw = path.read_bytes()
+    inventory = json.loads(raw)
+    evidence_class = "LOCAL_VERIFIED_RUNTIME_INVENTORY"
+    if inventory.get("schema") != "dio.vesper.local_verified_runtime_inventory.v1" or inventory.get("evidence_class") != evidence_class:
+        raise RuntimeError("unsupported local Vera runtime inventory")
+    endpoint = (base_url or os.getenv("DIO_VESPER_POCKET_TTS_URL") or "http://127.0.0.1:8000").rstrip("/") + "/tts"
+    service = inventory.get("service") or {}
+    if service.get("endpoint") != endpoint:
+        raise RuntimeError("local Vera runtime inventory endpoint mismatch")
+    try:
+        command = Path(f"/proc/{int(service['pid'])}/cmdline").read_bytes().decode().strip("\0").split("\0")
+    except (OSError, KeyError, ValueError) as exc:
+        raise RuntimeError("observed local Vera service is unavailable") from exc
+    if command != service.get("command"):
+        raise RuntimeError("observed local Vera service command changed")
+    files = inventory.get("files") or []
+    roles = {row.get("role"): row for row in files}
+    provenance = inventory.get("model_provenance") or {}
+    required = ("model_id", "model_revision", "model_sha256", "voice_revision", "voice_sha256", "runtime_source")
+    if provenance.get("voice_id") != "vera" or any(not provenance.get(key) for key in required):
+        raise RuntimeError("local Vera model provenance is incomplete")
+    for role, key in (("model", "model_sha256"), ("voice", "voice_sha256")):
+        if (roles.get(role) or {}).get("sha256") != provenance[key]:
+            raise RuntimeError("local Vera model provenance does not match observed files")
+    for row in files:
+        try:
+            with Path(row["path"]).open("rb") as handle:
+                digest = hashlib.file_digest(handle, "sha256").hexdigest()
+        except (OSError, KeyError) as exc:
+            raise RuntimeError("observed local Vera runtime file is unavailable") from exc
+        if digest != row.get("sha256"):
+            raise RuntimeError("local Vera runtime file hash mismatch: " + str(row.get("role")))
+    return {
+        "model_provenance": provenance,
+        "runtime_inventory": {"path": str(path), "sha256": _sha256_bytes(raw), "evidence_class": evidence_class},
+    }
+
+
 def load_voice_profiles(root: Path) -> dict[str, Any]:
     path = Path(root) / "config" / "vesper_voice_profiles.json"
     if not path.is_file():
@@ -45,9 +93,13 @@ def build_voice_plan(
     language: str,
     interaction: dict[str, Any] | None,
     requested_profile: str | None = None,
+    public_default_only: bool = False,
 ) -> dict[str, Any]:
     registry = load_voice_profiles(root)
-    profile_id = requested_profile or os.getenv("DIO_VESPER_VOICE_PROFILE") or registry.get("default_public_profile")
+    # Live Vesper speech follows the promoted identity. Audition overrides are internal only.
+    profile_id = registry.get("default_public_profile") if public_default_only else (
+        requested_profile or os.getenv("DIO_VESPER_VOICE_PROFILE") or registry.get("default_public_profile")
+    )
     profile = (registry.get("profiles") or {}).get(profile_id) if profile_id else None
     policy = (interaction or {}).get("delivery_policy") or {}
     voice_policy = policy.get("voice") or {}
@@ -89,6 +141,8 @@ def build_voice_plan(
             reasons.append("unsupported_voice_backend")
         if profile.get("public_brand_state") != "approved":
             reasons.append("voice_profile_not_publicly_promoted")
+            if public_default_only:
+                state = "not_renderable"
 
     return {
         "schema": "dio.vesper.voice_render_plan.v1",

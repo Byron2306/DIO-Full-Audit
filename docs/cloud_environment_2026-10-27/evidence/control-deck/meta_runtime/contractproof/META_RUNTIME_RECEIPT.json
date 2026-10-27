@@ -1,0 +1,134 @@
+{
+  "authority_created": false,
+  "evaluated_at": "2026-08-12T12:00:00+00:00",
+  "executor_created": false,
+  "external_effects": false,
+  "external_release_authorized": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "input_immutable": true,
+  "plan_fingerprint": "sha256:5330b6ea4a0dfb9b029fd70b808a8422afa4d60258e82e90a65b5b0ba9a86a59",
+  "product_id": "dio_contractproof",
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_fingerprint": "sha256:ec794e43a82e56f5a9cc64d9669aa49ba62e2cabbd1b1278562a3219a03e9287",
+  "runtime_version": "1.0.0",
+  "schema": "dio.meta_runtime.receipt.v1",
+  "step_receipts": [
+    {
+      "authority_created": false,
+      "dependency_receipts": [],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_evidence",
+      "input_fingerprints": {
+        "case": "sha256:989f5750770e70f99383f7a9283d0dffef94ca96da5b660934e2a3b0f402e7f2",
+        "obligation_bundle": "sha256:ea18e2b4b2fcb83f60eab9b59843dc2c4044b9f2533da822c4fd4578aebf0a99",
+        "sufficiency": "sha256:3d6a57e40d724bcd8aba4371b48e7d7d109935dc2f8229fb8f5a70c918f665b7"
+      },
+      "meta_id": "meta_evidence",
+      "outputs": {
+        "case_id": "CASE-DB499C5E630734D9",
+        "evidence_records": 3,
+        "fulfilment_adjudicated": false,
+        "gap_state": "GAPS_PRESENT",
+        "obligation_records": 6
+      },
+      "product_id": "dio_contractproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:14e01d512056d5226948afee56a811b427a806364a4a29f907ca7faaa749f35c"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:14e01d512056d5226948afee56a811b427a806364a4a29f907ca7faaa749f35c"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_assurance",
+      "input_fingerprints": {
+        "execution_receipt": "sha256:799fd5a10283e363214210169dd237014c5b0b33b9ad15d14ae0c3943c7d9e7f",
+        "meta_evidence_receipt": "sha256:14e01d512056d5226948afee56a811b427a806364a4a29f907ca7faaa749f35c",
+        "proof_manifest": "sha256:3a1b17654497dd708669aeab9404e8df158c94976cd3255e7682b90466e5bd24"
+      },
+      "meta_id": "meta_assurance",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "1ca352c7a654da0e6f701f8d233109a3655c74236a370080f9cd083a5fb8ce91",
+          "HTML": "861404a4e253ef8a0ba6b12b5fc3e00e8da4f27e054753a86132533028cabdca",
+          "JSON": "15c497cffa0addfd01c5e1459235c2e2ea902ec06821484aa7bf0d1ddfabd078",
+          "PDF": "e2deff2fdcb90af745fbcf0f18b749df46a0bd91fbc03c8300fbec58bc759d31"
+        },
+        "attention_state": "CLEAR",
+        "boundary_failures": [],
+        "execution_block_recommended": false,
+        "integrity_verified": true
+      },
+      "product_id": "dio_contractproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:8cdf6875561f009e7bea6a56ebb0bca189a51b94766d7e7b62611f7d25b7cbff"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:14e01d512056d5226948afee56a811b427a806364a4a29f907ca7faaa749f35c",
+        "sha256:8cdf6875561f009e7bea6a56ebb0bca189a51b94766d7e7b62611f7d25b7cbff"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_authority",
+      "input_fingerprints": {
+        "compiled_gates": "sha256:b19ba0dc2ec235522b591dfc448bacfb0407adc3746a59997b7a11990b54c614",
+        "execution_receipt": "sha256:799fd5a10283e363214210169dd237014c5b0b33b9ad15d14ae0c3943c7d9e7f",
+        "meta_assurance_receipt": "sha256:8cdf6875561f009e7bea6a56ebb0bca189a51b94766d7e7b62611f7d25b7cbff"
+      },
+      "meta_id": "meta_authority",
+      "outputs": {
+        "authority_observation": "NEEDS_YOU",
+        "authorization_created": false,
+        "capability_lease_created": false,
+        "execution_gate": "NEEDS_YOU",
+        "human_gate": "NEEDS_YOU",
+        "release_gate": "REFUSE"
+      },
+      "product_id": "dio_contractproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:586dcf5b55f363a995aec4ec381792cf313e97b32ccf6c42ac1998fd82016d0f"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:14e01d512056d5226948afee56a811b427a806364a4a29f907ca7faaa749f35c",
+        "sha256:8cdf6875561f009e7bea6a56ebb0bca189a51b94766d7e7b62611f7d25b7cbff",
+        "sha256:586dcf5b55f363a995aec4ec381792cf313e97b32ccf6c42ac1998fd82016d0f"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_room",
+      "input_fingerprints": {
+        "artifact_set": "sha256:6608552564b62798c0b4ef0d9bf04a208b520ebc6fc87f080e5b289c6a97f35a",
+        "prior_meta_receipts": "sha256:c1461eb0ade86b5a7ff8da12b3e9b00fd27cd1fbce19d1489c8192fcb862160b",
+        "proof_manifest": "sha256:3a1b17654497dd708669aeab9404e8df158c94976cd3255e7682b90466e5bd24"
+      },
+      "meta_id": "meta_room",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "1ca352c7a654da0e6f701f8d233109a3655c74236a370080f9cd083a5fb8ce91",
+          "HTML": "861404a4e253ef8a0ba6b12b5fc3e00e8da4f27e054753a86132533028cabdca",
+          "JSON": "15c497cffa0addfd01c5e1459235c2e2ea902ec06821484aa7bf0d1ddfabd078",
+          "PDF": "e2deff2fdcb90af745fbcf0f18b749df46a0bd91fbc03c8300fbec58bc759d31"
+        },
+        "disclosure_candidate_only": true,
+        "external_release": false,
+        "integrity_verified": true,
+        "proof_fingerprint": "sha256:3a1b17654497dd708669aeab9404e8df158c94976cd3255e7682b90466e5bd24"
+      },
+      "product_id": "dio_contractproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:f9811cad99d51c12334a731da0ea2601e52ff4c8e213f5440133ad7bfaa97b0f"
+    }
+  ]
+}

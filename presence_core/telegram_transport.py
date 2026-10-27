@@ -83,7 +83,7 @@ def normalize_spoken_text(text: str) -> str:
 
 
 def convert_wav_to_telegram_voice(wav_path: Path, ogg_path: Path) -> dict[str, Any]:
-    """Encode Pocket/Piper WAV as OGG Opus for Telegram's native voice-note surface."""
+    """Encode Pocket TTS WAV as OGG Opus for Telegram's native voice-note surface."""
     wav_path = Path(wav_path)
     ogg_path = Path(ogg_path)
     ogg_path.parent.mkdir(parents=True, exist_ok=True)

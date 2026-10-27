@@ -28,6 +28,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 from adapters.format_core import build_paragraph_semantic_content, render_semantic_asset
 from adapters.sophia.review_pipeline import extract_document_text
 from adapters.lingua.lifecycle import build_lingua_qa, digest_text, update_semantic_object
+from adapters.lingua.document_translation import build_review_template, translate_document
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -66,6 +67,17 @@ def normalize_language_request(request: dict[str, Any]) -> dict[str, Any]:
             raise ValueError("A proficient target-language reviewer is required for translation work.")
         normalized["target_language"] = target
         normalized["target_language_profile"] = registry["languages"][target]
+        # This is a machine-proposed diagnostic profile, never human approval.
+        # Apply it on Document Studio's explicit local Marian lane while leaving
+        # callers that explicitly select/disable a profile in control.
+        if (
+            source == "English"
+            and target == "Afrikaans"
+            and normalized.get("lingua_translation_backend") == "marian_local"
+            and "lingua_terminology_profile" not in normalized
+        ):
+            normalized["lingua_terminology_profile"] = "professional_af_v1"
+            normalized["lingua_terminology_profile_selection"] = "document_studio_default"
     else:
         normalized["target_language"] = None
         normalized["target_language_profile"] = None
@@ -112,12 +124,15 @@ def resolve_beast_context(request: dict[str, Any], paragraphs: list[dict[str, st
     return receipt
 
 
-def apply_beast_authority(result: dict[str, Any], beast_receipt: dict[str, Any]) -> None:
+def apply_beast_authority(result: dict[str, Any], beast_receipt: dict[str, Any], source_rows: list[dict[str, str]] | None = None) -> None:
     translations = _row_map(list(result.get("translations") or []), "translated")
     applied = []
+    source_hashes = {row["paragraph_id"]: digest_text(row["text"]) for row in source_rows or []}
     for approved in beast_receipt.get("approved_units") or []:
         paragraph_id = str(approved.get("unit_id") or "")
         if paragraph_id not in translations or not str(approved.get("target_text") or "").strip():
+            continue
+        if source_rows is not None and source_hashes.get(paragraph_id) != approved.get("source_hash"):
             continue
         row = translations[paragraph_id]
         provider_draft = str(row.get("translated") or "")
@@ -310,6 +325,28 @@ def invoke_provider(
 
 
 def call_provider(request: dict[str, Any], paragraphs: list[dict[str, str]]) -> tuple[dict[str, Any], dict[str, Any]]:
+    if request["service"] in {"translation", "edit_and_translate"} and request.get("translation_engine", "lingua") == "lingua":
+        edits: list[dict[str, Any]] = []
+        edit_flags: list[dict[str, Any]] = []
+        controlled = paragraphs
+        edit_provider: dict[str, Any] | None = None
+        if request["service"] == "edit_and_translate":
+            term_tokens = [str(term.get(key) or "") for term in request.get("preferred_terms") or [] for key in ("source", "target", "source_term", "target_term") if term.get(key)]
+            edit_request = {**request, "service": "technical_edit", "protected_tokens": list(dict.fromkeys(list(request.get("protected_tokens") or []) + term_tokens))}
+            system, prompt = build_provider_prompt(edit_request, paragraphs)
+            edit_result, edit_provider = invoke_provider(edit_request, system, prompt)
+            edits = list(edit_result.get("edits") or [])
+            edit_flags = list(edit_result.get("qa_flags") or [])
+            by_id = _row_map(edits, "revised")
+            if set(by_id) != {row["paragraph_id"] for row in paragraphs}:
+                raise ValueError("edit paragraph IDs do not match the source")
+            controlled = [{"paragraph_id": row["paragraph_id"], "text": str(by_id[row["paragraph_id"]]["revised"])} for row in paragraphs]
+        result, provider = translate_document(request, controlled)
+        result["edits"] = edits
+        result["qa_flags"] = edit_flags + result.get("qa_flags", [])
+        if edit_provider:
+            result["lingua_translation"]["technical_edit_provider"] = edit_provider
+        return result, provider
     system, prompt = build_provider_prompt(request, paragraphs)
     return invoke_provider(request, system, prompt)
 
@@ -411,6 +448,22 @@ def validate_result(request: dict[str, Any], paragraphs: list[dict[str, str]], r
         errors.append("edit paragraph IDs do not match the source")
     if service != "technical_edit" and sorted(translations) != sorted(ids):
         errors.append("translation paragraph IDs do not match the source")
+    for paragraph_id, row in translations.items():
+        # Local MT's machine-proposed terminology is not an approved BEAST
+        # term, but a missed required candidate term must not be silently
+        # packaged as a clean draft. The reviewer may revise and rerun it.
+        for issue in row.get("language_diagnostics") or []:
+            if issue.get("code") in {
+                "preferred_term_missing",
+                "signed_number_lost",
+                "signed_number_added",
+                "signed_number_spacing",
+                "afrikaans_negation_incomplete",
+            }:
+                errors.append(
+                    f"{paragraph_id} Lingua terminology diagnostic: "
+                    + str(issue.get("detail") or "required term missing")
+                )
     protected = [str(item) for item in request.get("protected_tokens") or []]
     for paragraph_id in ids:
         source = originals[paragraph_id]
@@ -627,8 +680,7 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
     request = normalize_language_request(request)
     if not request.get("owner_authorized"):
         raise ValueError("Document-owner authority is required.")
-    if not request.get("remote_processing_approved"):
-        raise ValueError("Explicit remote-processing approval is required for the Gemini proof lane.")
+    require_ollama_provider(request.get("provider") or "ollama", component="Document Studio")
     if request.get("certified_translation_required"):
         raise ValueError("Certified, sworn, or legally attested translation is outside this lane.")
     raw_source = Path(str(request.get("document_path") or "")).expanduser()
@@ -646,11 +698,13 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         if str(row.get("source") or "").casefold() not in existing_terms
     ]
     result, provider = call_provider(request, paragraphs)
-    critic_provider: dict[str, Any] | None = None
-    if service in {"translation", "edit_and_translate"} and request.get("automated_language_critic"):
+    critic_provider: dict[str, Any] | None = result.get("translation_critic") if result.get("lingua_translation") else None
+    if service in {"translation", "edit_and_translate"} and request.get("automated_language_critic") and not result.get("lingua_translation"):
         critic_provider = apply_translation_critic(request, paragraphs, result)
     if service in {"translation", "edit_and_translate"}:
-        apply_beast_authority(result, beast_receipt)
+        controlled_edits = {row["paragraph_id"]: row["revised"] for row in result.get("edits") or []}
+        authority_source = [{"paragraph_id": row["paragraph_id"], "text": str(controlled_edits.get(row["paragraph_id"], row["text"]))} for row in paragraphs]
+        apply_beast_authority(result, beast_receipt, authority_source)
     translation_overrides = request.get("translation_review_overrides") or {}
     applied_overrides: list[dict[str, str]] = []
     if translation_overrides:
@@ -669,6 +723,10 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
     validation = validate_result(request, paragraphs, result)
     beast_learning_receipt = learn_beast_patterns(request, result, validation)
     if not validation["passed"]:
+        failure_dir = out_root / (job_id + "_FAILED")
+        write_json(failure_dir / "PROVIDER_OUTPUT.json", result)
+        write_json(failure_dir / "CONTROLLED_SOURCE.json", authority_source if service != "technical_edit" else paragraphs)
+        write_json(failure_dir / "VALIDATION.json", validation)
         raise ValueError("Provider output failed release validation: " + "; ".join(validation["errors"]))
 
     job_dir = (out_root / job_id).resolve()
@@ -719,8 +777,9 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         )
     }
     if translations:
+        localized_content = {**semantic_content, "title": str(translations[controlled_source[0]["paragraph_id"]]["translated"])}
         format_receipts[request["target_language"]] = render_semantic_asset(
-            semantic_content,
+            localized_content,
             job_dir / "formatted" / str(request["target_language"]),
             style_profile=format_style,
             delivery_profile=format_delivery,
@@ -745,7 +804,7 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         translated = job_dir / "TRANSLATED_CLEAN_COPY.docx"
         bilingual = job_dir / "BILINGUAL_REVIEW_COPY.docx"
         create_clean_docx(
-            translated, translated_rows[0]["text"], f"{request['target_language']} translation. Human language approval required.",
+            translated, translated_rows[0]["text"], ("Afrikaanse vertaling. Goedkeuring deur ’n taalpraktisyn word vereis." if request["target_language"] == "Afrikaans" else f"{request['target_language']} translation. Human language approval required."),
             translated_rows, "text",
         )
         create_bilingual_docx(
@@ -799,6 +858,7 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
             "target_language": request.get("target_language"),
             "target_profile": request.get("target_language_profile"),
             "automated_critic": result.get("translation_critic"),
+            "lingua_translation": result.get("lingua_translation"),
         },
         "format_core": {
             "style_profile": format_style,
@@ -827,6 +887,8 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
             "Operational facts, thresholds, identifiers, and terminology require human verification.",
         ],
     }
+    if translations:
+        write_json(job_dir / "LINGUA_HUMAN_REVIEW_TEMPLATE.json", build_review_template({**request, "semantic_object_id": semantic_object_id}, controlled_source, translations, list(result.get("qa_flags") or [])))
     write_json(job_dir / "PROVIDER_OUTPUT.json", result)
     write_json(job_dir / "BEAST_REUSE_RECEIPT.json", beast_receipt)
     write_json(job_dir / "BEAST_LEARNING_RECEIPT.json", beast_learning_receipt)
@@ -867,7 +929,7 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
             object_id=semantic_object_id,
             source_version=source_version,
             request=request,
-            source_rows=paragraphs,
+            source_rows=controlled_source,
             translations=translations,
             provider=provider,
             qa_flags=list(result.get("qa_flags") or []),
@@ -909,7 +971,8 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         "source": {"name": source_path.name, "sha256": sha256(source_path), "parser": parser, "paragraphs": len(paragraphs)},
         "processing": {
             "provider": provider.get("provider"), "model": provider.get("model"), "provider_status": provider.get("status"),
-            "remote_processing_approved": True, "owner_authorized": True,
+            "remote_processing_approved": bool(request.get("remote_processing_approved")), "owner_authorized": True,
+            "remote_inference_used": False, "local_translation_backend": request.get("lingua_translation_backend", "ollama"),
             "local_validation_passed": validation["passed"],
             "source_language": request["source_language"],
             "source_language_status": request["source_language_profile"]["status"],

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 
 from presence_core import voice
@@ -40,6 +41,7 @@ def test_pocket_tts_campaign_narration_uses_approved_vera_and_writes_receipt(
         "profile_id": "vera_pocket_public",
     }
     monkeypatch.setattr(voice, "build_voice_plan", lambda **_kwargs: plan)
+    monkeypatch.setattr(voice, "verified_vera_runtime_inventory", lambda *_a, **_k: {"model_provenance": {"voice_id": "vera", "model_id": "test-runtime"}})
     monkeypatch.setattr(media.legacy, "require_tool", lambda _name: Path("/usr/bin/ffprobe"))
     monkeypatch.setattr(media.legacy, "probe_duration", lambda _path, _ffprobe: 1.25)
 
@@ -52,6 +54,7 @@ def test_pocket_tts_campaign_narration_uses_approved_vera_and_writes_receipt(
             "voice_url": plan["voice_url"],
             "send_authorized": False,
             "text": text,
+            "audio_sha256": hashlib.sha256(output_path.read_bytes()).hexdigest(),
         }
 
     monkeypatch.setattr(voice, "synthesize_voice", synthesize)
@@ -76,3 +79,50 @@ def test_pocket_tts_campaign_narration_uses_approved_vera_and_writes_receipt(
     assert receipt["scenes"][0]["duration_seconds"] == 1.25
     assert saved["governance"]["publication"] == "held_for_operator_approval"
     assert saved["governance"]["send_authorized"] is False
+
+
+def test_piper_is_rejected_for_production_campaign_narration(tmp_path: Path) -> None:
+    import pytest
+
+    with pytest.raises(media.CampaignMediaError, match="Piper narration is retired"):
+        media.synthesize_projected_story(
+            [{"scene_id": "scene_a", "narration": "A reviewable story."}],
+            tmp_path,
+            {"required": True, "provider": "piper_local"},
+            nichefoundry_root=tmp_path,
+        )
+
+
+def test_unavailable_pocket_tts_is_a_held_campaign_error(monkeypatch, tmp_path: Path) -> None:
+    plan = {
+        "state": "ready_for_internal_render",
+        "public_default_authorized": True,
+        "backend": "pocket_tts",
+        "voice_url": "vera",
+        "profile_id": "vera_pocket_public",
+    }
+    monkeypatch.setattr(voice, "build_voice_plan", lambda **_kwargs: plan)
+    monkeypatch.setattr(voice, "verified_vera_runtime_inventory", lambda *_a, **_k: {"model_provenance": {"voice_id": "vera", "model_id": "test-runtime"}})
+    monkeypatch.setattr(media.legacy, "require_tool", lambda _name: Path("/usr/bin/ffprobe"))
+    monkeypatch.setattr(voice, "synthesize_voice", lambda **_kwargs: (_ for _ in ()).throw(ConnectionRefusedError("offline")))
+    import pytest
+
+    with pytest.raises(media.CampaignMediaError, match="Pocket TTS Vera is unavailable"):
+        media.synthesize_pocket_story(
+            [{"scene_id": "scene_a", "narration": "A reviewable story."}],
+            tmp_path,
+            {"required": True, "provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "remote_tts_allowed": False},
+        )
+
+
+def test_gilded_asset_pack_fails_closed_when_the_declared_manifest_is_missing(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(media, "ROOT", tmp_path)
+    (tmp_path / "config" / "media").mkdir(parents=True)
+    (tmp_path / "config" / "media" / "dio_gilded_house_style.json").write_text(
+        json.dumps({"source_manifest": "media/pack.json", "source_pack_id": "DIO_GILDED"}),
+        encoding="utf-8",
+    )
+    import pytest
+
+    with pytest.raises(media.CampaignMediaError, match="asset-pack manifest is unavailable"):
+        media._gilded_asset_pack()

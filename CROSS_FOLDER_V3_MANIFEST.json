@@ -30,8 +30,8 @@
         "A_CODE": "4.1 MiB",
         "B_PROOF": "31.1 KiB"
       },
-      "copied_bytes": 4317644,
-      "copied_human": "4.1 MiB",
+      "copied_bytes": 4317103,
+      "copied_human": "4215.9 KiB",
       "selected_items": [
         {
           "path": "CURRENT_TRUTH.json",
@@ -1267,17 +1267,16 @@
         },
         {
           "path": "config/api_keys.json",
-          "classification": "NEW_UNIQUE",
+          "classification": "SENSITIVE_FILENAME_EXCLUDED",
           "sha256": "e8e5956ef0fef83cf06265c055bfd986160cd596ad7f0f7e213088e928aeb3c5",
           "size": 541,
           "size_human": "541.0 B",
           "media": false,
           "canonical_reference": null,
-          "copy_eligible": true,
+          "copy_eligible": false,
           "tier": "A_CODE",
-          "selection_reason": "first_party_source",
-          "copied": true,
-          "copied_to": "/home/byron/DIO-Full-Audit/cross_folder_variants/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/A_CODE/config/api_keys.json"
+          "selection_reason": "security_removed_from_tracked_source_2026-10-27",
+          "copied": false
         },
         {
           "path": "config/conservative_headless_10m.yaml",
@@ -4298,8 +4297,8 @@
         "B_PROOF": "299.1 KiB",
         "C_CREATIVE": "3.2 MiB"
       },
-      "copied_bytes": 11341355,
-      "copied_human": "10.8 MiB",
+      "copied_bytes": 11340938,
+      "copied_human": "11075.1 KiB",
       "selected_items": [
         {
           "path": ".mcp.json",
@@ -5017,17 +5016,16 @@
         },
         {
           "path": "config/api_keys.json",
-          "classification": "NEW_UNIQUE",
+          "classification": "SENSITIVE_FILENAME_EXCLUDED",
           "sha256": "fff5bc7538d88364afc2c130b9e7388a9a142fe1f23655744e02712c5883d3ac",
           "size": 417,
           "size_human": "417.0 B",
           "media": false,
           "canonical_reference": null,
-          "copy_eligible": true,
+          "copy_eligible": false,
           "tier": "A_CODE",
-          "selection_reason": "first_party_source",
-          "copied": true,
-          "copied_to": "/home/byron/DIO-Full-Audit/cross_folder_variants/Hivenance/A_CODE/config/api_keys.json"
+          "selection_reason": "security_removed_from_tracked_source_2026-10-27",
+          "copied": false
         },
         {
           "path": "config/conservative_headless_10m.yaml",
@@ -155381,7 +155379,7 @@
   "totals": {
     "selected_bytes": 318186226,
     "selected_human": "303.4 MiB",
-    "copied_bytes": 318186226,
+    "copied_bytes": 318185268,
     "copied_human": "303.4 MiB"
   }
 }

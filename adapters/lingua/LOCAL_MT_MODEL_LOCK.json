@@ -1,0 +1,39 @@
+{
+  "repository": "Helsinki-NLP/opus-mt-en-af",
+  "revision": "6bb29b2752ad425fae1ecdaba201e2de636ecc24",
+  "license": "Apache-2.0",
+  "files": {
+    "README.md": {
+      "sha256": "dc310f414743197d16c27eb401836c6927052af79cbbdda3a7590d6696230303",
+      "bytes": 818
+    },
+    "config.json": {
+      "sha256": "0c96d023b3e685bdf5ef4acb6d53c5f36902c0d58ba50fcd678aca3cc727c98b",
+      "bytes": 1381
+    },
+    "generation_config.json": {
+      "sha256": "26ea97b8433bfd3621ab9943d4661305dbcffaa338dd54cf511a280f174be4a9",
+      "bytes": 293
+    },
+    "pytorch_model.bin": {
+      "sha256": "f55586a9c35b9f446f9e68a3e32ac02dc38f0816034a50b1bb2f55730c63f3c1",
+      "bytes": 296582097
+    },
+    "source.spm": {
+      "sha256": "c32b593efa15f5e22d81934adb3a44fbfa0b6bfc112a2a62ffb1b3c4c164ef33",
+      "bytes": 819272
+    },
+    "target.spm": {
+      "sha256": "2c0775610306d171b4f98a32f28024d0b24927d42c305fdb72d03c551908280d",
+      "bytes": 826387
+    },
+    "tokenizer_config.json": {
+      "sha256": "732335ffe31facf582bc699afb6bab9ae69938e6e7e56a3a1700f91659be14a2",
+      "bytes": 42
+    },
+    "vocab.json": {
+      "sha256": "1345d1551708140d8fdba93ba0a69e642a3f152dc56d838205908bb50a47f543",
+      "bytes": 1320452
+    }
+  }
+}

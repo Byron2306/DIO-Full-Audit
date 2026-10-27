@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import subprocess
 import sys
+import urllib.parse
+import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +30,58 @@ class MarketSensoriumCycle:
         self.receipt_path = self.state_root / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
         self.query_batch_path = self.state_root / "DOMAIN_DISCOVERY_QUERY_BATCH.json"
         self.query_history_path = self.state_root / "domain_query_history.json"
+
+    def run_customer_scope(self, *, queries: list[str], packet_fingerprint: str, output_dir: Path) -> dict[str, Any]:
+        """Collect bounded public observations for an explicit customer query plan.
+
+        A news index is discovery evidence, not a verified competitor/pricing
+        report. Preserve the fetched bytes and that limitation in the brief.
+        """
+        if not queries or len(queries) > 3 or any(not isinstance(q, str) or not q.strip() or len(q) > 500 for q in queries):
+            raise ValueError("Customer market scope requires one to three bounded queries")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        observations, sources, errors = [], [], []
+        for index, query in enumerate(queries, 1):
+            url = "https://news.google.com/rss/search?" + urllib.parse.urlencode({
+                "q": query, "hl": "en-ZA", "gl": "ZA", "ceid": "ZA:en"})
+            observed_at = utc_now()
+            try:
+                request = urllib.request.Request(url, headers={"User-Agent": "DIO-MarketRadar/1.0 (read-only public discovery)"})
+                with urllib.request.urlopen(request, timeout=25) as response:
+                    raw = response.read(1_000_001)
+                if len(raw) > 1_000_000:
+                    raise ValueError("public feed exceeds bounded response size")
+                tree = ET.fromstring(raw)
+                raw_path = output_dir / f"public-feed-{index}.xml"
+                raw_path.write_bytes(raw)
+                digest = hashlib.sha256(raw).hexdigest()
+                sources.append({"query": query, "url": url, "observed_at": observed_at,
+                                "sha256": digest, "raw_path": str(raw_path), "evidence_grade": "public_index_observation"})
+                for item in tree.findall("./channel/item")[:8]:
+                    title, link = (item.findtext("title") or "").strip(), (item.findtext("link") or "").strip()
+                    if title and urllib.parse.urlsplit(link).scheme in {"https", "http"}:
+                        observations.append({"title": title, "url": link, "published_at": item.findtext("pubDate") or None,
+                                             "query": query, "observed_at": observed_at, "source_sha256": digest,
+                                             "claim_status": "unverified_index_observation"})
+            except Exception as exc:
+                errors.append({"query": query, "error_type": type(exc).__name__, "message": str(exc)[:250]})
+        receipt = {"schema": "dio.market_sensorium.customer_scope.v1", "packet_fingerprint": packet_fingerprint,
+                   "queries": queries, "sources": sources, "observations": observations, "errors": errors,
+                   "observed_at": utc_now(), "mail_ingress_refresh": "not_requested", "mode": "read_only",
+                   "market_demand_claimed": False, "best_target_claimed": False, "authority_created": False,
+                   "summary": {"market_demand_claimed": False, "best_target_claimed": False,
+                               "authority_created": False, "external_effects": False},
+                   "external_effects": False, "evidence_gaps": [
+                       "Index titles are discovery leads; article contents, buyer relevance and competitor claims require verification.",
+                       "No verified SME implementation duration, competitor price, customer demand or willingness to pay is established."]}
+        (output_dir / "MARKET_RADAR_CYCLE.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+        if not observations:
+            raise RuntimeError("Customer-scoped refresh returned no public observations; see MARKET_RADAR_CYCLE.json")
+        lines = ["# Customer-scoped market observations", "", "Public index discovery only. Human verification required.", ""]
+        lines += [f"- [{row['title']}]({row['url']}) — observed {row['observed_at']}; query: {row['query']}" for row in observations]
+        lines += ["", "## Evidence gaps", *["- " + gap for gap in receipt["evidence_gaps"]], "", "Publication, outreach and spending remain held."]
+        (output_dir / "MARKET_RADAR_BRIEF.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        return receipt
 
     def refresh_existing_public_intelligence(self) -> dict[str, Any]:
         script = self.root / "scripts" / "refresh_all_market_intelligence.py"

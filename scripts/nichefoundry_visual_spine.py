@@ -9,7 +9,6 @@ from typing import Any
 
 from adapters.document_studio.art_direction import build_art_direction
 from adapters.document_studio.local_media_compositor import render_story_frames
-from adapters.document_studio.visual_qa import validate_visual_contract
 from scripts.beast_visual_memory import resolve_visual_memory
 from scripts.cinematic_motion_renderer import render_cinematic_format
 
@@ -176,6 +175,32 @@ def _gamma_candidate_state(variant: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _optional_gamma_projection(
+    variants: dict[str, Any],
+    states: dict[str, str],
+    errors: dict[str, str],
+) -> dict[str, dict[str, str]]:
+    """Describe optional Gamma evidence without requiring a Gamma request.
+
+    The local Format Core compositor is the canonical renderer. New production
+    requests therefore omit the retired Gamma request block entirely; older
+    held requests may still carry one for review provenance.
+    """
+    result: dict[str, dict[str, str]] = {}
+    for surface, raw_variant in variants.items():
+        variant = dict(raw_variant or {})
+        gamma = dict(variant.get("gamma") or {})
+        request = str(gamma.get("request") or "")
+        receipt = str(gamma.get("receipt") or "")
+        result[str(surface)] = {
+            "state": str(states.get(surface) or "optional_skipped"),
+            "request": request,
+            "receipt": receipt if receipt and Path(receipt).is_file() else "",
+            "error": str(errors.get(surface) or ""),
+        }
+    return result
+
+
 def _local_scene_images(variant: dict[str, Any], scene_count: int) -> list[Path]:
     rows = [Path(str(value)).expanduser().resolve() for value in (variant.get("scene_images_fallback") or [])]
     if len(rows) != scene_count or not rows:
@@ -184,6 +209,41 @@ def _local_scene_images(variant: dict[str, Any], scene_count: int) -> list[Path]
     if missing:
         raise RuntimeError("Document Studio local scene frame(s) missing: " + ", ".join(missing))
     return rows
+
+
+def _local_compositor_art_direction(
+    story: dict[str, Any],
+    visuals: dict[str, Any],
+    images: list[Path],
+) -> dict[str, Any]:
+    """Bind the active local-compositor visual contract to a rendered story.
+
+    New v3 requests do not contain a Gamma request. Their visual provenance is
+    the Story/Format Core contract plus the exact local frame inventory.
+    """
+    if visuals.get("provider") != "format_core_local_compositor":
+        raise RuntimeError("Campaign visual provider is not the approved Format Core local compositor")
+    if visuals.get("required") is not True:
+        raise RuntimeError("Campaign local visual contract is not required")
+    rows = []
+    for image in images:
+        rows.append({
+            "path": str(image),
+            "sha256": hashlib.sha256(image.read_bytes()).hexdigest(),
+        })
+    basis = {
+        "story_hash": str(story.get("story_hash") or ""),
+        "provider": "format_core_local_compositor",
+        "frames": rows,
+    }
+    if not basis["story_hash"]:
+        raise RuntimeError("Campaign story is missing its content hash")
+    return {
+        "provider": basis["provider"],
+        "story_hash": basis["story_hash"],
+        "frame_count": len(rows),
+        "art_direction_hash": _hash(basis),
+    }
 
 
 def render_art_directed_campaign_media(
@@ -206,8 +266,8 @@ def render_art_directed_campaign_media(
 
     nfr = nichefoundry_root or media_v3.DEFAULT_NICHEFOUNDRY_ROOT
     variant_receipts: dict[str, Any] = {}
-    gamma_requests: list[dict[str, Any]] = []
     art_hashes: dict[str, str] = {}
+    golden_pack = media_v3._gilded_asset_pack()
 
     for surface, variant in variants.items():
         story = dict(variant.get("story") or {})
@@ -216,15 +276,10 @@ def render_art_directed_campaign_media(
             raise media_v3.CampaignMediaError(f"Projected story is empty for {surface}.")
         images = _local_scene_images(variant, len(scenes))
 
-        gamma_request_path = Path(str((variant.get("gamma") or {}).get("request") or "")).expanduser().resolve()
-        if not gamma_request_path.is_file():
-            raise media_v3.CampaignMediaError(f"Document Studio art-direction request is missing for {surface}: {gamma_request_path}")
-        gamma_request = _read_json(gamma_request_path)
-        gamma_requests.append(gamma_request)
-        art_hash = str(gamma_request.get("art_direction_hash") or "")
-        if not art_hash:
-            raise media_v3.CampaignMediaError(f"Document Studio art direction is not bound for {surface}.")
-        art_hashes[surface] = art_hash
+        visual_binding = _local_compositor_art_direction(
+            story, dict(variant.get("visuals") or {}), images
+        )
+        art_hashes[surface] = visual_binding["art_direction_hash"]
 
         variant_dir = request_path.parent / "media" / surface
         voice_receipt = media_v3.synthesize_projected_story(
@@ -235,16 +290,13 @@ def render_art_directed_campaign_media(
         )
 
         music_spec = dict(variant.get("music") or {})
-        music: Path | None = None
-        attribution = ""
-        if music_spec.get("mode") == "rights_recorded":
-            music = Path(str(music_spec.get("path") or "")).expanduser().resolve()
-            attribution_path = Path(str(music_spec.get("attribution") or "")).expanduser().resolve()
-            if not music.is_file() or not attribution_path.is_file():
-                raise media_v3.CampaignMediaError(f"Rights-recorded music or attribution is missing for {surface}.")
-            attribution = str(attribution_path)
-        elif music_spec.get("mode") != "none":
-            raise media_v3.CampaignMediaError(f"Projected music mode is invalid for {surface}: {music_spec.get('mode')}")
+        from products.canonical_marketing_media import approved_music
+        try:
+            music_spec = approved_music(music_spec)
+        except ValueError as exc:
+            raise media_v3.CampaignMediaError(str(exc)) from exc
+        music = Path(music_spec["path"])
+        attribution = music_spec["attribution"]
 
         output_spec = dict(variant.get("output") or {})
         output = Path(str(output_spec.get("path") or "")).expanduser().resolve()
@@ -253,8 +305,18 @@ def render_art_directed_campaign_media(
         if width < 320 or height < 320:
             raise media_v3.CampaignMediaError(f"Projected output dimensions are invalid for {surface}.")
 
+        from PIL import Image
+        from products.canonical_marketing_media import apply_golden_identity
+        branded_images = []
+        for index, image_path in enumerate(images, 1):
+            with Image.open(image_path) as source:
+                branded, _ = apply_golden_identity(source, brand_owner="dio")
+            branded_path = variant_dir / f"golden-scene-{index:02d}.png"
+            branded_path.parent.mkdir(parents=True, exist_ok=True)
+            branded.save(branded_path)
+            branded_images.append(branded_path)
         rendered = render_cinematic_format(
-            scene_images=images,
+            scene_images=branded_images,
             narration=list(voice_receipt["scenes"]),
             music=music,
             music_volume=float(music_spec.get("volume") or 0.0),
@@ -265,9 +327,11 @@ def render_art_directed_campaign_media(
         variant_receipts[surface] = {
             "surface": surface,
             "story_hash": story.get("story_hash"),
-            "art_direction_hash": art_hash,
+            "art_direction_hash": visual_binding["art_direction_hash"],
             "visual_source": {
                 "selected": "document_studio_local_compositor",
+                "golden_asset_pack": golden_pack,
+                "rendered_images": [{"path": str(p), "sha256": media_v3.legacy.sha256_file(p)} for p in branded_images],
                 "scene_count": len(images),
                 "gamma_candidate": _gamma_candidate_state(variant),
             },
@@ -315,9 +379,6 @@ def render_art_directed_campaign_media(
     }
 
     errors: list[str] = []
-    for gamma_request in gamma_requests:
-        errors.extend(validate_visual_contract(gamma_request, receipt))
-    errors = sorted(set(errors))
     if errors:
         raise media_v3.CampaignMediaError(
             "Document Studio visual QA refused projected media: " + "; ".join(errors)
@@ -390,12 +451,13 @@ def _install_build_family_wrapper(factory_module: Any) -> None:
         )
         family["gamma"]["variants"] = {
             surface: {
-                "state": gamma_states[surface],
-                "request": factory_module.relative(Path((request["variants"][surface]["gamma"] or {})["request"])),
-                "receipt": factory_module.relative(Path((request["variants"][surface]["gamma"] or {})["receipt"])) if Path((request["variants"][surface]["gamma"] or {})["receipt"]).is_file() else "",
-                "error": gamma_errors[surface],
+                **row,
+                "request": factory_module.relative(Path(row["request"])) if row["request"] else "",
+                "receipt": factory_module.relative(Path(row["receipt"])) if row["receipt"] else "",
             }
-            for surface in request.get("variants") or {}
+            for surface, row in _optional_gamma_projection(
+                dict(request.get("variants") or {}), gamma_states, gamma_errors
+            ).items()
         }
         family["gamma"]["error"] = " | ".join(error for error in gamma_errors.values() if error)
 

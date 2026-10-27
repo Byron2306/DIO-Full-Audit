@@ -6,13 +6,13 @@ from capitalroom.proof_room import EXPECTED_WAVE_STATES, PRODUCT_IDS
 GENERATED = "2026-08-11T20:30:00+00:00"
 
 def phase0() -> dict:
-    return {"snapshot_id":"SNAP-TEST","overall_state":"READY","blockers":[],"path":"/home/byron/DIO/state/system_snapshots/latest.json"}
+    return {"snapshot_id":"SNAP-TEST","overall_state":"READY","blockers":[],"path":"[REDACTED]"}
 
 def incarnation() -> dict:
-    return {"state":"READY_FOR_FUSION","blockers":[],"receipt":"/home/byron/DIO/receipts/incarnation-latest.json"}
+    return {"state":"READY_FOR_FUSION","blockers":[],"receipt":"[REDACTED]"}
 
 def wave_receipts() -> dict[int, dict]:
-    receipts={wave:{"schema":f"dio.fusion.wave{wave}.receipt.v1","state":state,"blockers":[],"receipt":f"/home/byron/DIO/receipts/fusion-wave{wave}-latest.json"} for wave,state in EXPECTED_WAVE_STATES.items()}
+    receipts={wave:{"schema":f"dio.fusion.wave{wave}.receipt.v1","state":state,"blockers":[],"receipt":"[REDACTED]"} for wave,state in EXPECTED_WAVE_STATES.items()}
     receipts[4].update(kernel_authority="Valinor",execution_identity_authority="ARDA")
     receipts[5].update(automatic_external_actions=0)
     receipts[6].update(composition_authority=False,kernel_authority="Valinor",execution_identity_authority="ARDA")

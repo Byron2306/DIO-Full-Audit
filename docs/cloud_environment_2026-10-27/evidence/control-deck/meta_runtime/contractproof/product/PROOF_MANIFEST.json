@@ -1,0 +1,47 @@
+{
+  "artifact_type": "proof_room_manifest",
+  "artifacts": [
+    {
+      "artifact_type": "JSON",
+      "filename": "EVIDENCE_PACK.json",
+      "sha256": "15c497cffa0addfd01c5e1459235c2e2ea902ec06821484aa7bf0d1ddfabd078"
+    },
+    {
+      "artifact_type": "DOCX",
+      "filename": "EVIDENCE_PACK.docx",
+      "sha256": "1ca352c7a654da0e6f701f8d233109a3655c74236a370080f9cd083a5fb8ce91"
+    },
+    {
+      "artifact_type": "PDF",
+      "filename": "EVIDENCE_PACK.pdf",
+      "sha256": "e2deff2fdcb90af745fbcf0f18b749df46a0bd91fbc03c8300fbec58bc759d31"
+    },
+    {
+      "artifact_type": "HTML",
+      "filename": "EVIDENCE_PACK.html",
+      "sha256": "861404a4e253ef8a0ba6b12b5fc3e00e8da4f27e054753a86132533028cabdca"
+    }
+  ],
+  "authority_created": false,
+  "case_id": "CASE-DB499C5E630734D9",
+  "execution_performed": false,
+  "external_release": false,
+  "human_gate": {
+    "reason": "An authorised contract owner controls any disclosure or contractual judgement based on this pack.",
+    "state": "NEEDS_YOU"
+  },
+  "obligation_bundle_fingerprint": "sha256:ea18e2b4b2fcb83f60eab9b59843dc2c4044b9f2533da822c4fd4578aebf0a99",
+  "product_id": "dio_contractproof",
+  "proof_fingerprint": "sha256:3a1b17654497dd708669aeab9404e8df158c94976cd3255e7682b90466e5bd24",
+  "provider_id": "contractproof_proof_pack_v1",
+  "required_sections": [
+    "contested_state_register",
+    "deadline_register",
+    "evidence_map",
+    "human_review_register",
+    "missing_evidence_register",
+    "provenance_manifest",
+    "requirement_or_obligation_ledger"
+  ],
+  "schema": "dio.contractproof.proof_manifest.v1"
+}

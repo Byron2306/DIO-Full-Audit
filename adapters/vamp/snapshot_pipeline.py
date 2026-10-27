@@ -15,14 +15,14 @@ from typing import Any
 import jsonschema
 
 from adapters.evidence_kernel import EvidenceConfidence, InstitutionalProfile, load_profile
-from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+from sovereign_runtime import evidex_environment, evidex_python, evidex_root, ollama_model, ollama_url
 
 
 ROOT = Path(__file__).resolve().parents[2]
 REQUEST_SCHEMA = ROOT / "schemas" / "vamp_snapshot_request.schema.json"
 EVIDENCE_SCHEMA = ROOT / "schemas" / "evidence_record_v2.schema.json"
 EVIDEX_ROOT = evidex_root()
-EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
+EVIDEX_PYTHON = evidex_python()
 REQUIRED_TABLES = {"evidence", "evidence_task", "tasks", "task_no_evidence"}
 
 
@@ -375,6 +375,7 @@ def _write_evidex_inputs(snapshot: dict[str, Any], job_dir: Path) -> tuple[Path,
             "known_gaps": gaps[:50],
         },
         "billing": {
+            "generate_documents": False,
             "client_type": "performance_evidence",
             "quantity": 1,
             "currency": "USD",
@@ -545,6 +546,7 @@ def build_snapshot(request_path: Path, output_root: Path, *, run_evidex: bool = 
             "title": str(task["title"]),
             "period": str(task["window_start"])[:7],
             "minimum_required": minimum,
+            "minimum_required_basis": _safe_meta(str(task["hints_json"] or "{}")).get("minimum_required_basis", "declared_vamp_task_minimum") if "hints_json" in task.keys() else "declared_vamp_task_minimum",
             "accepted_evidence": accepted_count,
             "candidate_evidence": candidate_count,
             "declared_no_evidence": declared,

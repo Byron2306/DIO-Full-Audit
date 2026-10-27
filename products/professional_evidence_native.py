@@ -204,39 +204,137 @@ def _regulatory_context(packet: dict[str, Any], *, source_type: str, now: str) -
     }
 
 
+def _accreditation_customer_projection(packet: dict[str, Any]) -> dict[str, Any]:
+    """Keep customer-declared criteria separate from implementation observations.
+
+    A source hash proves custody of supplied text, not that its statements are
+    true, current, or an applicable regulator standard. Candidate record links
+    therefore remain untrusted until an authorised reviewer verifies them.
+    """
+    root = packet["packet_dir"].resolve()
+    declared = {str(row.get("path") or ""): row for row in packet["manifest"].get("files") or []}
+    checklist_paths = sorted(
+        relative for relative in declared
+        if re.fullmatch(r"SOURCES/criterion_[A-Za-z0-9._-]+_checklist\.md", relative)
+    )
+    if not checklist_paths:
+        raise ProfessionalNativeExecutionError("Accreditation requires a separate customer criterion checklist; evidence records cannot define the criteria")
+    criteria: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for relative in checklist_paths:
+        source = (root / relative).resolve()
+        if not source.is_relative_to(root) or not source.is_file() or sha256(source) != declared[relative].get("sha256"):
+            raise ProfessionalNativeExecutionError("Accreditation criterion source hash does not match the customer manifest")
+        # The checklist explicitly names its criteria. We do not derive a
+        # regulator framework or invent requirements from programme records.
+        matches = re.finditer(r"\bCriterion\s+([A-Za-z0-9.-]+)\s+requires\s+([^\n]+?)(?:\.(?=\s|$)|$)", source.read_text(encoding="utf-8"), re.I)
+        for match in matches:
+            label = match.group(1)
+            criterion_id = "CUSTOMER-CRITERION-" + label.upper()
+            if criterion_id in seen:
+                raise ProfessionalNativeExecutionError(f"Duplicate customer accreditation criterion: {label}")
+            seen.add(criterion_id)
+            criteria.append({
+                "criterion_id": criterion_id,
+                "statement": match.group(0).strip(),
+                "mandatory": True,
+                "dependency_criterion_ids": [],
+                "source_ref": f"customer-packet://{relative}#criterion-{label.lower()}",
+                "source_sha256": sha256(source),
+                "authority_state": "CUSTOMER_DECLARED_NOT_REGULATOR_VERIFIED",
+                "applicability_state": "UNVERIFIED",
+            })
+    if not criteria:
+        raise ProfessionalNativeExecutionError("Accreditation requires named requirements in the separate customer criterion checklist")
+
+    register = root / "SOURCES" / "02_evidence_register.csv"
+    relative = "SOURCES/02_evidence_register.csv"
+    if not register.is_file() or sha256(register) != declared.get(relative, {}).get("sha256"):
+        raise ProfessionalNativeExecutionError("Accreditation evidence register hash does not match the customer manifest")
+    evidence: list[dict[str, Any]] = []
+    observations: list[dict[str, Any]] = []
+    gaps: list[dict[str, Any]] = []
+    for index, row in enumerate(evidence_rows(packet), 1):
+        text = str(row.get("customer_supplied_record") or "").strip()
+        source_ref = f"customer-packet://{relative}#R-{index:02d}"
+        observation = {"source_ref": source_ref, "source_sha256": sha256(register), "source_text": text, "epistemic_state": "CUSTOMER_DECLARED_UNVERIFIED"}
+        if re.match(r"^Criterion\s+[A-Za-z0-9.-]+\s+requires\b", text, re.I):
+            observations.append({**observation, "role": "CRITERION_RESTATEMENT_NOT_IMPLEMENTATION_EVIDENCE"})
+            continue
+        mentioned = set(re.findall(r"\bCriterion\s+([A-Za-z0-9.-]+)", text, re.I))
+        targets = [c["criterion_id"] for c in criteria if c["criterion_id"].removeprefix("CUSTOMER-CRITERION-") in {value.upper() for value in mentioned}]
+        if not targets and len(criteria) == 1:
+            targets = [criteria[0]["criterion_id"]]
+        if "untrusted embedded note:" in text.casefold():
+            observations.append({**observation, "role": "UNTRUSTED_INSTRUCTION_NOT_AUTHORITY"})
+            for criterion_id in targets:
+                gaps.append({"criterion_id": criterion_id, "challenge_type": "authority", "severity": "material", "hypothesis": f"Untrusted customer content cannot approve evidence or release: {text}"})
+            continue
+        observations.append({**observation, "role": "IMPLEMENTATION_RECORD_DECLARATION" if targets else "UNASSIGNED_RECORD_DECLARATION"})
+        if targets:
+            evidence.append({
+                "evidence_kind": "customer_programme_record_declaration",
+                "source_ref": source_ref,
+                "sha256": sha256(register),
+                "source_text": text,
+                "epistemic_state": "CUSTOMER_DECLARED_UNVERIFIED",
+                "target_criterion_ids": targets,
+                "mapping_basis": "CANDIDATE_SCOPE_ONLY_NOT_CONFIRMED_SUPPORT",
+                "authority_grade": "self_asserted",
+                "trust_state": "captured_untrusted",
+                "freshness_state": "unknown",
+            })
+        for criterion_id in targets:
+            if re.search(r"\b(missing|expired|stale)\b", text, re.I):
+                gaps.append({"criterion_id": criterion_id, "challenge_type": "missing_evidence", "severity": "material", "hypothesis": f"Customer-declared record limitation; independent verification remains required: {text}"})
+    for criterion in criteria:
+        gaps.append({"criterion_id": criterion["criterion_id"], "challenge_type": "missing_evidence", "severity": "material", "hypothesis": "Supplied implementation observations are customer declarations only. Their underlying records, relevance, authenticity and freshness require authorised verification before this criterion can be supported."})
+    return {
+        "schema": "dio.accreditation.customer_source_projection.v1",
+        "source": {"kind": "literal_customer_packet", "packet_fingerprint": packet["packet_fingerprint"]},
+        "framework_id": "customer.education_accreditation.checklist",
+        "criteria": criteria,
+        "evidence_inputs": evidence,
+        "observations": observations,
+        "gaps": gaps,
+        "exception_note": exception_text(packet),
+        "standard_authority_verified": False,
+        "authority_created": False,
+        "external_release": "REFUSE",
+    }
+
+
 def run_accreditation(packet: dict[str, Any], output_dir: Path, *, operator_id: str, now: str) -> dict[str, Any]:
     from products.accreditation.runner import run_controlled_accreditation_review
 
-    rows = evidence_rows(packet)
-    criteria = []
-    evidence = []
-    register = packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"
-    for index, row in enumerate(rows, 1):
-        criterion_id = f"ACC-{index:02d}"
-        statement = str(row.get("customer_supplied_record") or "")
-        criteria.append({"criterion_id": criterion_id, "statement": statement, "mandatory": True, "dependency_criterion_ids": []})
-        evidence.append({
-            "evidence_kind": "customer_programme_record",
-            "source_ref": f"customer-packet://SOURCES/02_evidence_register.csv#R-{index:02d}",
-            "sha256": sha256(register),
-            "target_criterion_ids": [criterion_id],
-            "authority_grade": "source_backed",
-            "trust_state": "trusted_for_review",
-            "freshness_state": "current",
-        })
-    gap = exception_text(packet)
-    gaps = [{"criterion_id": criteria[-1]["criterion_id"], "challenge_type": "missing_evidence", "severity": "material", "hypothesis": gap}] if gap else []
+    projection = _accreditation_customer_projection(packet)
     source_path = output_dir.parent / "ACCREDITATION_CUSTOMER_PROJECTION.json"
-    case_source = {"source": {"kind": "literal_customer_packet", "packet_fingerprint": packet["packet_fingerprint"]}, "evidence": []}
-    write_json(source_path, case_source)
-    case = new_case(product="dio_accreditation", job_id="PRO-HOMS-ACCREDITATION", source=case_source, source_path=source_path,
-                    evidence_inputs=["customer accreditation criteria and evidence"], expected_outputs=["standards-evidence matrix", "gap register", "review pack"],
+    write_json(source_path, projection)
+    case = new_case(product="dio_accreditation", job_id="PRO-HOMS-ACCREDITATION", source=projection, source_path=source_path,
+                    evidence_inputs=["separate customer criterion checklist", "unverified implementation record declarations"], expected_outputs=["standards-evidence matrix", "gap register", "review pack"],
                     required_authorities=["customer_source_owner", "quality_assurance_reviewer", "authorised_signatory"], intake_state="approved", now=now)
-    result = run_controlled_accreditation_review(case, framework_id="framework.education_accreditation", criteria=criteria, evidence_inputs=evidence, gaps=gaps,
+    result = run_controlled_accreditation_review(case, framework_id=projection["framework_id"], criteria=projection["criteria"], evidence_inputs=projection["evidence_inputs"], gaps=projection["gaps"],
                                                  regulatory_context=_regulatory_context(packet, source_type="education_accreditation_context", now=now), output_dir=output_dir, operator_id=operator_id, now=now)
+    # Put the source distinctions beside the customer pack, not just in an
+    # internal projection. A hash-bound declaration is not verified evidence.
+    write_json(output_dir / "ACCREDITATION_SOURCE_PROJECTION.json", projection)
+    source_review = output_dir / "ACCREDITATION_SOURCE_REVIEW.md"
+    sections = ["# Accreditation source and evidence review", "", "Requirements below come from the customer's separate checklist. Regulator authority and applicability have not been verified. No accreditation decision is made.", "", "## Customer-declared requirements"]
+    for criterion in projection["criteria"]:
+        sections.extend(["", criterion["statement"], f"Source: {criterion['source_ref']} (SHA-256 {criterion['source_sha256']})."])
+    sections.extend(["", "## Customer record declarations", "", "All observations remain unverified, with unknown freshness. Candidate links do not confirm support."])
+    for observation in projection["observations"]:
+        sections.extend(["", f"- {observation['source_text']}", f"  Source: {observation['source_ref']}; role: {observation['role']}."])
+    sections.extend(["", "## Gaps requiring human review"])
+    sections.extend(f"- {row['hypothesis']}" for row in projection["gaps"])
+    if projection["exception_note"]:
+        sections.extend(["", "## Customer exception retained", "", projection["exception_note"]])
+    source_review.write_text("\n".join(sections) + "\n", encoding="utf-8")
     receipt = result["receipt"]
     if receipt.get("internal_processing") != "COMPLETE" or receipt.get("external_release_gate") != "REFUSE":
         raise ProfessionalNativeExecutionError("Accreditation native customer review did not complete safely")
+    receipt["source_projection"] = {"path": "ACCREDITATION_SOURCE_PROJECTION.json", "sha256": sha256(output_dir / "ACCREDITATION_SOURCE_PROJECTION.json"), "criterion_source": "SEPARATE_CUSTOMER_CHECKLIST", "implementation_evidence_state": "CUSTOMER_DECLARED_UNVERIFIED", "standard_authority_verified": False}
+    write_json(output_dir / "ACCREDITATION_PROCESSING_RECEIPT.json", receipt)
     return {"receipt": receipt, "output_dir": str(output_dir)}
 
 
@@ -417,20 +515,54 @@ def run_accessible_publish(packet: dict[str, Any], output_dir: Path, *, now: str
     return {"receipt": receipt, "output_dir": str(output_dir)}
 
 
-def run_opportunity_foundry(packet: dict[str, Any], output_dir: Path, *, now: str) -> dict[str, Any]:
+def run_opportunity_foundry(packet: dict[str, Any], output_dir: Path, *, now: str, market_receipt: dict[str, Any] | None = None) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = [str(row.get("customer_supplied_record") or "") for row in evidence_rows(packet)]
-    candidates = [
-        {"rank": 1, "hypothesis": "Evidence-readiness pilot for compliance-heavy professional-service teams", "why_now": "Directly matches the supplied controlled evidence-mapping capability and can be tested without external execution authority.", "cheapest_honest_test": "Ten source-bound outreach conversations plus one no-spend controlled pilot landing page.", "max_test_cost_zar": 1800},
-        {"rank": 2, "hypothesis": "Document transformation and evidence-pack bundle for multilingual regulated communications", "why_now": "Uses existing Document Studio transformation plus proof-room capabilities.", "cheapest_honest_test": "Five buyer interviews and two controlled sample-document demonstrations.", "max_test_cost_zar": 1500},
-        {"rank": 3, "hypothesis": "Third-party evidence readiness review for supplier/compliance teams", "why_now": "Maps existing review-pack capability to a recurring evidence reconciliation job.", "cheapest_honest_test": "One bounded sample supplier pack and five targeted buyer interviews.", "max_test_cost_zar": 1700},
-    ]
-    if sum(row["max_test_cost_zar"] for row in candidates) > 5000:
-        raise ProfessionalNativeExecutionError("Opportunity Foundry test portfolio exceeds the customer budget cap")
+    capabilities = [row.partition(":")[2].strip().rstrip(".") for row in rows if row.casefold().startswith("available capability:")]
+    if not capabilities:
+        raise ProfessionalNativeExecutionError("Opportunity Foundry requires explicit available capabilities")
+    budget_values = [re.search(r"budget.*?capped at\s+R\s*([\d,]+(?:\.\d+)?)", row, re.IGNORECASE) for row in rows]
+    budget = next((float(m.group(1).replace(",", "")) for m in budget_values if m), None)
+    observations: list[dict[str, Any]] = []
+    if market_receipt is not None:
+        if market_receipt.get("packet_fingerprint") != packet["packet_fingerprint"]:
+            raise ProfessionalNativeExecutionError("market observations belong to a different customer packet")
+        valid_sources = set()
+        for source in market_receipt.get("sources") or []:
+            path = Path(str(source.get("raw_path") or ""))
+            if not path.is_file() or sha256(path) != source.get("sha256"):
+                raise ProfessionalNativeExecutionError("market observation source hash mismatch")
+            valid_sources.add(source["sha256"])
+        for observation in market_receipt.get("observations") or []:
+            if observation.get("source_sha256") not in valid_sources:
+                raise ProfessionalNativeExecutionError("market observation is not bound to retained public bytes")
+            observations.append(dict(observation))
+    hypotheses = list(capabilities)
+    if len(hypotheses) < 3:
+        hypotheses.append(" + ".join(capabilities) + " as a bounded combined workflow")
+    hypotheses = hypotheses[:3]
+    candidates = []
+    for hypothesis in hypotheses:
+        terms = {t for t in re.findall(r"[a-z]{4,}", hypothesis.casefold())}
+        matching = [o for o in observations if terms & set(re.findall(r"[a-z]{4,}", str(o.get("title") or "").casefold()))]
+        candidates.append({
+            "hypothesis": "Test a customer-owned pilot for " + hypothesis,
+            "why_now": "Customer-declared capability; matched discovery titles require independent verification.",
+            "cheapest_honest_test": "Review a customer-authorised sample and validate the linked discovery leads with the intended buyer; no outreach is executed.",
+            "max_test_cost_zar": int(budget // len(hypotheses)) if budget is not None else 0,
+            "cost_basis": "equal allocation ceiling, not an estimated quote" if budget is not None else "no budget supplied; no allocation authorised",
+            "observed_signals": matching, "ranking_basis": "discovery title overlap; not market attractiveness", "signal_count": len(matching),
+        })
+    candidates.sort(key=lambda c: -c["signal_count"])
+    for rank, candidate in enumerate(candidates, 1):
+        candidate["rank"] = rank
     result = {
         "schema": "dio.opportunity_foundry.professional_output.v1",
         "packet_fingerprint": packet["packet_fingerprint"],
         "customer_constraints": rows,
+        "customer_budget_cap_zar": budget,
+        "market_observation_count": len(observations),
+        "evidence_gaps": ["Discovery title overlap does not establish buyer fit or demand."] + ([] if observations else ["No current source-bound market observations supplied."]),
         "ranked_opportunity_hypotheses": candidates,
         "capability_created": False,
         "product_promoted": False,
@@ -441,7 +573,13 @@ def run_opportunity_foundry(packet: dict[str, Any], output_dir: Path, *, now: st
     path = output_dir / "RANKED_OPPORTUNITY_HYPOTHESES.json"
     write_json(path, result)
     summary = output_dir / "OPPORTUNITY_FOUNDRY_BRIEF.md"
-    summary.write_text("# Opportunity Foundry — bounded hypotheses\n\n" + "\n".join(f"{row['rank']}. **{row['hypothesis']}** — {row['cheapest_honest_test']}" for row in candidates) + "\n\nHypothesis ≠ market demand. No capability or product has been created by ranking.\n", encoding="utf-8")
+    summary.write_text("# Opportunity Foundry — bounded hypotheses\n\n" + "\n\n".join(
+        f"{row['rank']}. **{row['hypothesis']}** — {row['cheapest_honest_test']}\n"
+        + "\n".join(f"   - Unverified discovery lead: [{o['title']}]({o['url']})" for o in row["observed_signals"])
+        + f"\n   Allocation ceiling: R{row['max_test_cost_zar']}; {row['cost_basis']}."
+        for row in candidates)
+        + "\n\n## Evidence gaps\n\n" + "\n".join("- " + gap for gap in result["evidence_gaps"])
+        + "\n\nHypothesis ≠ market demand. No capability or product has been created by ranking.\n", encoding="utf-8")
     receipt = _basic_receipt("opportunity_foundry", "opportunity_foundry_customer_bound_v1", packet, terminal="ranked_opportunity_hypotheses", artifacts=[path, summary], now=now)
     write_json(output_dir / "OPPORTUNITY_FOUNDRY_RECEIPT.json", receipt)
     return {"receipt": receipt, "output_dir": str(output_dir)}
@@ -450,17 +588,25 @@ def run_opportunity_foundry(packet: dict[str, Any], output_dir: Path, *, now: st
 def run_offer_lab(packet: dict[str, Any], output_dir: Path, *, now: str) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = [str(row.get("customer_supplied_record") or "") for row in evidence_rows(packet)]
+    def supplied(prefix: str) -> str:
+        return next((row.partition(":")[2].strip().rstrip(".") for row in rows if row.casefold().startswith(prefix.casefold() + ":")), "")
+    capability, buyer, scope = supplied("Capability proof"), supplied("Target hypothesis"), supplied("Pilot scope")
+    if not capability or not buyer or not scope:
+        raise ProfessionalNativeExecutionError("Offer Lab requires customer capability, target hypothesis and pilot scope")
+    raw_prices = supplied("Approved price test options ZAR")
+    prices = [float(value.replace(",", "")) for value in re.findall(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?", raw_prices)] if raw_prices else []
     offer = {
         "schema": "dio.offer_lab.professional_offer.v1",
         "packet_fingerprint": packet["packet_fingerprint"],
-        "offer_name": "Controlled Evidence Readiness Pilot",
-        "target_buyer_hypothesis": "Compliance managers at 50–250 employee firms",
-        "scope": "One workflow, one customer evidence packet, one governed review pack, one human review cycle.",
+        "offer_name": "Pilot hypothesis: " + capability,
+        "target_buyer_hypothesis": buyer,
+        "scope": scope,
         "required_inputs": ["customer-selected workflow", "customer-owned evidence files", "review criteria or obligations where available"],
         "outputs": ["source-bound evidence map", "gap/contradiction register", "review-ready pack", "proof receipt"],
-        "allowed_claims": ["DIO can prepare a governed evidence-review pack from customer-supplied material", "human authority and external release remain explicit"],
+        "allowed_claims": ["Customer-declared capability for testing: " + capability, "human authority and external release remain explicit"],
         "prohibited_claims": ["customers want this", "willingness to pay is proven", "the pack certifies compliance", "DIO replaces professional judgement"],
-        "price_test_options_zar": [1500, 2500, 4000],
+        "price_test_options_zar": prices,
+        "evidence_gaps": [] if prices else ["price_test_options_not_supplied"],
         "observed_payment": False,
         "willingness_to_pay_proved": False,
         "market_demand_claimed": False,
@@ -472,7 +618,7 @@ def run_offer_lab(packet: dict[str, Any], output_dir: Path, *, now: str) -> dict
     write_json(path, offer)
     one_page = output_dir / "BOUNDED_OFFER.md"
     one_page.write_text(
-        "# Controlled Evidence Readiness Pilot\n\n**For testing, not validated demand.**\n\n"
+        "# " + offer["offer_name"] + "\n\n**For testing, not validated demand.**\n\n"
         + offer["scope"]
         + "\n\n## Buyer hypothesis\n\n" + offer["target_buyer_hypothesis"]
         + "\n\n## Required inputs\n\n" + "\n".join(f"- {item}" for item in offer["required_inputs"])

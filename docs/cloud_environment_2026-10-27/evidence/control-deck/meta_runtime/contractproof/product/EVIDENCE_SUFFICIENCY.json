@@ -1,0 +1,36 @@
+{
+  "authority_created": false,
+  "blocking_gap_count": 4,
+  "case_id": "CASE-DB499C5E630734D9",
+  "counts": {
+    "contested_or_refuted_claims": 0,
+    "requirement_gaps": 4,
+    "stale_or_expired_evidence": 1,
+    "unverified_claims": 0
+  },
+  "external_release": false,
+  "fulfilment_adjudicated": false,
+  "gap_report": {
+    "case_id": "CASE-DB499C5E630734D9",
+    "contested_or_refuted_claim_ids": [],
+    "has_gaps": true,
+    "requirement_gap_ids": [
+      "REQ-412E160BDEA2C62D",
+      "REQ-A3D481AA305DA50F",
+      "REQ-4770E7C4F9942E1D",
+      "REQ-A33A5831528E248F"
+    ],
+    "schema": "dio.evidence.gap_report.v1",
+    "stale_or_expired_evidence_ids": [
+      "EVID-88B32426274D7640"
+    ],
+    "unverified_claim_ids": []
+  },
+  "human_gate": {
+    "reason": "A human evidence reviewer decides whether the evidence is acceptable for the intended contractual judgement.",
+    "state": "NEEDS_YOU"
+  },
+  "schema": "dio.evidence.sufficiency.v1",
+  "stale_or_expired_evidence_count": 1,
+  "state": "GAPS_PRESENT"
+}

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from adapters.lingua.lifecycle import register_product_source
+from adapters.lingua.translation_lifecycle import resolve_translation
 
 LANGUAGE_ALIASES = {"english": "English", "en": "English", "afrikaans": "Afrikaans", "af": "Afrikaans", "isizulu": "isiZulu", "zulu": "isiZulu", "zu": "isiZulu", "sesotho": "Sesotho", "sotho": "Sesotho", "st": "Sesotho", "setswana": "Setswana", "tswana": "Setswana", "tn": "Setswana"}
 APPROVED_TRANSLATION_STATES = {"approved", "human_approved", "crystallized", "crystallised"}
@@ -69,14 +70,28 @@ def register_communication(*, dio_root: Path, state_root: Path | None = None, ow
     selected_text, selected_subject, translation_state = body, subject, "source_language"
     if target != source_language:
         translation_state = "translation_review_required"
-        if lane and str(lane.get("status") or "").casefold() in APPROVED_TRANSLATION_STATES:
-            units = {str(row.get("unit_id")): row for row in lane.get("units") or []}; current = {str(row.get("unit_id")): row for row in semantic.get("source", {}).get("units") or []}; usable = True
-            for unit_id, source_row in current.items():
-                translated = units.get(unit_id)
-                if not translated or translated.get("source_hash") != source_row.get("source_hash") or str(translated.get("status") or "").casefold() not in APPROVED_TRANSLATION_STATES:
-                    usable = False; break
-            if usable:
-                selected_subject = str((units.get("SUBJECT") or {}).get("target_text") or subject); selected_text = str((units.get("BODY") or {}).get("target_text") or body); translation_state = "approved_translation"
+        if lane:
+            translated_units = {str(row.get("unit_id")): row for row in lane.get("units") or []}
+            current_units = {str(row.get("unit_id")): row for row in semantic.get("source", {}).get("units") or []}
+            resolutions = {}
+            for unit_id, source_row in current_units.items():
+                translated = translated_units.get(unit_id) or {}
+                # A lane is a document container; the lifecycle resolver makes the
+                # reuse decision for each bound source unit.
+                resolutions[unit_id] = resolve_translation(
+                    {
+                        "language": lane.get("language"),
+                        "status": translated.get("status"),
+                        "source_document_hash": translated.get("source_hash"),
+                        "target_text": translated.get("target_text"),
+                    },
+                    locale=target,
+                    source_digest=str(source_row.get("source_hash") or ""),
+                )
+            if resolutions and all(result.reusable for result in resolutions.values()):
+                selected_subject = str(resolutions.get("SUBJECT").text if resolutions.get("SUBJECT") else subject)
+                selected_text = str(resolutions.get("BODY").text if resolutions.get("BODY") else body)
+                translation_state = "approved_translation"
     return {"schema": "dio.lingua.communication_receipt.v1", "object_id": object_id, "source_document_hash": receipt["source_document_hash"], "object_path": receipt["object_path"], "owner": owner, "artifact_type": artifact_type, "channel": channel, "source_language": source_language, "target_language": target, "translation_state": translation_state, "selected_subject": selected_subject, "selected_text": selected_text, "interaction_context": interaction_context, "persona_context": persona_context, "semantic_lineage_created": True, "external_action_executed": False, "publication_authorized": False, "send_authorized": False, "authority_created": False, "authority_boundary": authority_boundary}
 
 def communication_manifest(receipt: dict[str, Any]) -> str:

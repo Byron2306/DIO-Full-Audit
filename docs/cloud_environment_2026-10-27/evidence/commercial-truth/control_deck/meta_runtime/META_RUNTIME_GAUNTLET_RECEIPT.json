@@ -1,0 +1,91 @@
+{
+  "acceptance_token": "DIO_META_RUNTIME_CONSOLIDATED_READY",
+  "authority_created": false,
+  "component_refs_verified": "PASS",
+  "deterministic_invocation": "PASS",
+  "deterministic_planning": "PASS",
+  "evaluated_at": "2026-08-12T12:00:00+00:00",
+  "executor_created": false,
+  "external_effects": false,
+  "external_release_authorized": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "incarnation_count": 4,
+  "input_immutability": "PASS",
+  "legacy_registry_alignment": "PASS",
+  "market_validation_created": false,
+  "maturity_ceiling": "internal_proof",
+  "maturity_changed": false,
+  "meta_primitive_count": 4,
+  "products": [
+    {
+      "deterministic": true,
+      "external_release_gate": "REFUSE",
+      "human_gate": "NEEDS_YOU",
+      "input_immutable": true,
+      "plan_fingerprint": "sha256:5330b6ea4a0dfb9b029fd70b808a8422afa4d60258e82e90a65b5b0ba9a86a59",
+      "product_id": "dio_contractproof",
+      "runtime_fingerprint": "sha256:b7a3ef5c62a54b16963d7281ba08698141b6c5cdfb71d6232acec261b2d5137b",
+      "step_fingerprints": {
+        "meta_assurance": "sha256:056d894eeb0b02074f9876c01830d8572e63bf200a5166c2725920540c3750ba",
+        "meta_authority": "sha256:d527fbee4aa7858af1b7c0193aa9e400e0914769dd4176e465afa74e7f566606",
+        "meta_evidence": "sha256:f93fee9f426e674a880ebc2d4a95344083746767c31a752ef6a7fa252a282152",
+        "meta_room": "sha256:1ebd6860a94eacdb846cd9bdca50cfd16c2fe67be06519ee216f460a4471efab"
+      }
+    },
+    {
+      "deterministic": true,
+      "external_release_gate": "REFUSE",
+      "human_gate": "NEEDS_YOU",
+      "input_immutable": true,
+      "plan_fingerprint": "sha256:1fd452157d1ba9a0137391b974c58e7b9b675c7b6d844f99e04871afb49e5240",
+      "product_id": "dio_tenderproof",
+      "runtime_fingerprint": "sha256:b03a0eb8307d482107079ae1e0dd3edeaf8b78f38d2038f50022101580f4043b",
+      "step_fingerprints": {
+        "meta_assurance": "sha256:4387752c34110aeceb61de190513c341e306e838a58c09f258b08c415df08edf",
+        "meta_authority": "sha256:5bdc67c0a7d9f42ff04ec68e091eb7d99a6f18ffc0521a45ebec1ca7d7baac18",
+        "meta_evidence": "sha256:baa76263251c5fb2b275510ce067fdb01a1cc11ba0110c51ed555ef333fce211",
+        "meta_room": "sha256:b0ecdf5d1f4cbf8a3ce3aecadd1dfb4475fddf3ee277c0e2df797d1b51653c84"
+      }
+    },
+    {
+      "deterministic": true,
+      "external_release_gate": "REFUSE",
+      "human_gate": "NEEDS_YOU",
+      "input_immutable": true,
+      "plan_fingerprint": "sha256:d1f3f427e012c8ef83b6cfde9508af575140c60a89fd3ad1569a1cd9c95d01bd",
+      "product_id": "dio_grantproof",
+      "runtime_fingerprint": "sha256:fb3d8cfc4a83857421536f3c4305c1cedd34af59f26fe37045a8f9be7c0cb3f7",
+      "step_fingerprints": {
+        "meta_assurance": "sha256:e0517026f8d8c5803724ecee65e9e8607a9ff03c9b34d2c582ad59e19f69754f",
+        "meta_authority": "sha256:7f2fe25da9e40d1d4f2c52257399cbd47c6657390e7d237d523999670dae7e11",
+        "meta_evidence": "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6",
+        "meta_room": "sha256:728b9e30c84ee927aba5ed507730ce11fc610b5943521478587fe2e06083cbd1"
+      }
+    },
+    {
+      "deterministic": true,
+      "external_release_gate": "REFUSE",
+      "human_gate": "NEEDS_YOU",
+      "input_immutable": true,
+      "plan_fingerprint": "sha256:67638ff9dcf738a26669b172279d18e501d0d9e44e999e2b3f8173c7ee3f8d30",
+      "product_id": "dio_permitproof",
+      "runtime_fingerprint": "sha256:c8f46b8784d03b517e825433b6ff166f888a28f291cd5a7e2b438a3ffa8ae3d0",
+      "step_fingerprints": {
+        "meta_assurance": "sha256:185a72ebd004d6646c9a500264abb86ba7f8559443849d44801e901d8de2ce2b",
+        "meta_authority": "sha256:5bdd7c2909e5c2bb296ffd357fe98ebfe2a0973b75a27fcd921c5254f871fe60",
+        "meta_evidence": "sha256:6ff6e4616d9dcefe50a25ab0b50cf6baec0ae8868fb3bc94528c63abbfe6519e",
+        "meta_room": "sha256:5caaa7aded8dc9e72ebbf654555dcfb2c9986d9bf76dc678919721f589831c64"
+      }
+    }
+  ],
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_order": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_authority",
+    "meta_room"
+  ],
+  "runtime_version": "1.0.0",
+  "schema": "dio.meta_runtime_gauntlet.receipt.v1"
+}

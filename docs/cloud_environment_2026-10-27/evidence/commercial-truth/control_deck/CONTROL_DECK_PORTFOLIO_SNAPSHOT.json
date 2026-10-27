@@ -1,0 +1,756 @@
+{
+  "control_deck_version": "1.0.0",
+  "meta_runtime": {
+    "deterministic_invocation": "PASS",
+    "entrypoint": "products/meta_runtime.py",
+    "input_immutability": "PASS",
+    "primitive_count": 4,
+    "runtime_order": [
+      "meta_evidence",
+      "meta_assurance",
+      "meta_authority",
+      "meta_room"
+    ],
+    "runtime_version": "1.0.0"
+  },
+  "observed_at": "2026-08-12T12:00:00+00:00",
+  "operator_attention": [
+    {
+      "attention_id": "attention:dio_agentauthority:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_agentauthority",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_airegreadiness:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_airegreadiness",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_aitrustproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_aitrustproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_contractproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_contractproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_educationaccreditationproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_educationaccreditationproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_grantproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_grantproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_modelchangeproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_modelchangeproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_permitproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_permitproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_policyproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_policyproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_privacyproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_privacyproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_publicprocurementproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_publicprocurementproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    },
+    {
+      "attention_id": "attention:dio_tenderproof:human_review",
+      "authorised_action": "inspect_bound_receipts_and_record_human_decision",
+      "may_change_maturity": false,
+      "may_execute": false,
+      "may_release": false,
+      "product_id": "dio_tenderproof",
+      "reason": "Consequential judgement remains human-authority bound.",
+      "severity": "human_boundary",
+      "state": "NEEDS_YOU"
+    }
+  ],
+  "products": [
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:bc39d3851f90b179c912e26dc95dba88039b2591b1150ffcd715a4d7531a0077",
+      "composition_fingerprint": "sha256:caf123aae3212d580cd10a12dbb66a899941b4f623704b40b44bf8b73667a098",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "agentauthority",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO AgentAuthority",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_agentauthority",
+      "runtime_fingerprint": "sha256:7fcd4a1da36dcc9bbb7f9a84e96c93df645cfbb8e78556ccb8d658a5477ad952",
+      "suite_ids": [
+        "ai_digital_trust",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:5000605142c51378d6ecbb6aa5b87246cb33f6129015b8862c82ffa38d7ea8db",
+      "composition_fingerprint": "sha256:584b20abfb2c71d3e1e02b544baeca1687cd3e1f28a267d102a401507db11a2a",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "airegreadiness",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO AIRegReadiness",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_airegreadiness",
+      "runtime_fingerprint": "sha256:30a39c361b22c5b01845ee10407d4d049934844c995dc27a949d131171a0bbd7",
+      "suite_ids": [
+        "public_programme_ops",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:0d2f51edca00dfad4dd2f1c8280245631c8ac0d0ccebcffcf2c1cc0c99dd5bcb",
+      "composition_fingerprint": "sha256:1f60736e6278d957eb9667af88c8a80a9aab39ad4bda9a80941d39015833f8de",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "aitrustproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO AITrustProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_aitrustproof",
+      "runtime_fingerprint": "sha256:1a5e2daeff19ac51f8fd00531308a1c8ee7a20a66657d41fbdf35d699236b29f",
+      "suite_ids": [
+        "ai_digital_trust",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:f4a7f2247a6e4a4af3e7651995a0b973535c0443ec48e405d710e95dca579d5e",
+      "composition_fingerprint": "sha256:e36a73c23d8695617034760cdf6991ac51aa40d68cc5b327487d6e6ba9fa51c6",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "contractproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {
+        "meta_assurance": "sha256:056d894eeb0b02074f9876c01830d8572e63bf200a5166c2725920540c3750ba",
+        "meta_authority": "sha256:d527fbee4aa7858af1b7c0193aa9e400e0914769dd4176e465afa74e7f566606",
+        "meta_evidence": "sha256:f93fee9f426e674a880ebc2d4a95344083746767c31a752ef6a7fa252a282152",
+        "meta_room": "sha256:1ebd6860a94eacdb846cd9bdca50cfd16c2fe67be06519ee216f460a4471efab"
+      },
+      "name": "DIO ContractProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_contractproof",
+      "runtime_fingerprint": "sha256:b7a3ef5c62a54b16963d7281ba08698141b6c5cdfb71d6232acec261b2d5137b",
+      "suite_ids": [
+        "enterprise_operations",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:dd0bb00f169a3e1377ebf6ba5c670b29de771090edae4159980efa85f4c2ea0d",
+      "composition_fingerprint": "sha256:7c1be8e31a6917e1a54ea61e44004d2907a5d712e8b1a4190839aed3a6202dfe",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "educationaccreditationproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO EducationAccreditationProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_educationaccreditationproof",
+      "runtime_fingerprint": "sha256:a7c2959393ee04d978823b769d24814c3105fe71086d7db42777ba9921da796e",
+      "suite_ids": [
+        "public_programme_ops",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:e6eaabf24ab644e93a24b08a9dc895f9b14d69ff408a673e9ac11b91467b4b49",
+      "composition_fingerprint": "sha256:c03bb26846834853a2a36b9cfda36d76edd37c24af5c53f54cbb580402194c1a",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "grantproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {
+        "meta_assurance": "sha256:e0517026f8d8c5803724ecee65e9e8607a9ff03c9b34d2c582ad59e19f69754f",
+        "meta_authority": "sha256:7f2fe25da9e40d1d4f2c52257399cbd47c6657390e7d237d523999670dae7e11",
+        "meta_evidence": "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6",
+        "meta_room": "sha256:728b9e30c84ee927aba5ed507730ce11fc610b5943521478587fe2e06083cbd1"
+      },
+      "name": "DIO GrantProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_grantproof",
+      "runtime_fingerprint": "sha256:fb3d8cfc4a83857421536f3c4305c1cedd34af59f26fe37045a8f9be7c0cb3f7",
+      "suite_ids": [
+        "enterprise_operations",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:97f2ba73e36a8530de1f69cf1f9a6d878ef03601e754ac01ee42809c09e06847",
+      "composition_fingerprint": "sha256:37f9bda113cd0cbb58febe852a7396d25a6037da39504824d94e340e1315821b",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "modelchangeproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO ModelChangeProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_modelchangeproof",
+      "runtime_fingerprint": "sha256:758c2ce2a32ddae2af5b34f996f8500065c2a584db71aaa9be98c5d3beae3a3e",
+      "suite_ids": [
+        "ai_digital_trust",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:657b3703fb256f811893b57aa857b24277a3a494c08d8b576f95682895c4b8c4",
+      "composition_fingerprint": "sha256:37be30bf0755a011222ea14e237de954ad86dc0d0e65c996212e595f9a860892",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "permitproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {
+        "meta_assurance": "sha256:185a72ebd004d6646c9a500264abb86ba7f8559443849d44801e901d8de2ce2b",
+        "meta_authority": "sha256:5bdd7c2909e5c2bb296ffd357fe98ebfe2a0973b75a27fcd921c5254f871fe60",
+        "meta_evidence": "sha256:6ff6e4616d9dcefe50a25ab0b50cf6baec0ae8868fb3bc94528c63abbfe6519e",
+        "meta_room": "sha256:5caaa7aded8dc9e72ebbf654555dcfb2c9986d9bf76dc678919721f589831c64"
+      },
+      "name": "DIO PermitProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_permitproof",
+      "runtime_fingerprint": "sha256:c8f46b8784d03b517e825433b6ff166f888a28f291cd5a7e2b438a3ffa8ae3d0",
+      "suite_ids": [
+        "enterprise_operations",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:904aabfe533c0b14bdf7ba27d2e7db18ce17f48ab992931089df8795d1adcddf",
+      "composition_fingerprint": "sha256:ab069068b3dec1ee4894501b2a6083c2fcb2e8bc9e9453b6f5ddc195b5c45e87",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "policyproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO PolicyProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_policyproof",
+      "runtime_fingerprint": "sha256:1ada94c900935e814027d828369db1a1d74678b7428ca2deeeff934ee5d1bda3",
+      "suite_ids": [
+        "enterprise_operations",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:303d52cc8bdd481f9f143edf29443256ba30b66bdfc64a6e2532534d0659dff9",
+      "composition_fingerprint": "sha256:89281e10de45efbf71a00dc82ef1b7693f8146147fc6dfc6df433598b2602a12",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "privacyproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO PrivacyProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_privacyproof",
+      "runtime_fingerprint": "sha256:de71243ade207ecd3bcad7be28b39f4fa17905bd070b89885a0253e0b94297fa",
+      "suite_ids": [
+        "public_programme_ops",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:c3703375d8b82f416e9eab0199698d77a65ec82b04be97db79d30050ce5f2410",
+      "composition_fingerprint": "sha256:6773f8d329ebd90feec0d17ce3a0c9533a40be1f973c55fb10130cb3d5f35c90",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "publicprocurementproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {},
+      "name": "DIO PublicProcurementProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_publicprocurementproof",
+      "runtime_fingerprint": "sha256:7c10bf7422faa378a36501d1977703ee49ce78c9650f3bb629894b45c6c6c379",
+      "suite_ids": [
+        "public_programme_ops",
+        "evidence_assurance"
+      ]
+    },
+    {
+      "authority_created": false,
+      "compilation_fingerprint": "sha256:f02d545875e093c28150fafec75f093449212f1297d0d42587f410f9cee810b3",
+      "composition_fingerprint": "sha256:ac2f18fbcc52f48e4f7bd0d74b2ba2329af0a87011aedaa38b252c53434a83a3",
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_gate": "REFUSE",
+      "gates": {
+        "composition": "ALLOW",
+        "execution": "NEEDS_YOU",
+        "external_release": "REFUSE",
+        "human_review": "NEEDS_YOU",
+        "planning": "ALLOW"
+      },
+      "human_gate": "NEEDS_YOU",
+      "incarnation_id": "tenderproof",
+      "maturity": {
+        "label": "INTERNAL PROOF",
+        "rank": 3,
+        "state": "internal_proof"
+      },
+      "meta_step_fingerprints": {
+        "meta_assurance": "sha256:4387752c34110aeceb61de190513c341e306e838a58c09f258b08c415df08edf",
+        "meta_authority": "sha256:5bdc67c0a7d9f42ff04ec68e091eb7d99a6f18ffc0521a45ebec1ca7d7baac18",
+        "meta_evidence": "sha256:baa76263251c5fb2b275510ce067fdb01a1cc11ba0110c51ed555ef333fce211",
+        "meta_room": "sha256:b0ecdf5d1f4cbf8a3ce3aecadd1dfb4475fddf3ee277c0e2df797d1b51653c84"
+      },
+      "name": "DIO TenderProof",
+      "operational_flags": {
+        "campaign_enabled": false,
+        "continuous_assurance_ready": false,
+        "executable": true,
+        "externally_validated": false,
+        "governable": true,
+        "revenue_proven": false,
+        "routable": true
+      },
+      "product_id": "dio_tenderproof",
+      "runtime_fingerprint": "sha256:b03a0eb8307d482107079ae1e0dd3edeaf8b78f38d2038f50022101580f4043b",
+      "suite_ids": [
+        "enterprise_operations",
+        "evidence_assurance"
+      ]
+    }
+  ],
+  "schema": "dio.control_deck.portfolio_snapshot.v1",
+  "snapshot_fingerprint": "sha256:d158c62ff984c6d1c82e5f456e413924db65a7069553ba6f3b8fd67d916ad621",
+  "source_fingerprints": {
+    "control_deck_config": "sha256:3adbde68db2b128954a94d3cfc5b8c5c2192232a4cbd197acb379b7eceaf2bfd",
+    "maturity_vocabulary": "sha256:a64a46edd8fa5fd1cbaf4fc90a702517bfb18175b14c77a4d2b00bf4daf36acc",
+    "meta_registry": "sha256:8ea41a7534fe6d06bda746686408d44276ce97933b2aa5f7107cae4a0c80a8ca",
+    "meta_runtime_gauntlet": "sha256:c4a3d9ea885bb7b0ed80421248528f476fa618ced1783556449feef16a1da059",
+    "suite_registry": "sha256:ca98f6949a1985b7252885584792a25684fa86687947ee8e09f8261126e18652"
+  },
+  "suites": [
+    {
+      "authority_created": false,
+      "maturity_changed": false,
+      "name": "DIO Education & Research",
+      "product_ids": [],
+      "registered_product_count": 0,
+      "runtime_changed": false,
+      "suite_id": "education_research"
+    },
+    {
+      "authority_created": false,
+      "maturity_changed": false,
+      "name": "DIO Evidence & Assurance",
+      "product_ids": [
+        "dio_agentauthority",
+        "dio_airegreadiness",
+        "dio_aitrustproof",
+        "dio_contractproof",
+        "dio_educationaccreditationproof",
+        "dio_grantproof",
+        "dio_modelchangeproof",
+        "dio_permitproof",
+        "dio_policyproof",
+        "dio_privacyproof",
+        "dio_publicprocurementproof",
+        "dio_tenderproof"
+      ],
+      "registered_product_count": 12,
+      "runtime_changed": false,
+      "suite_id": "evidence_assurance"
+    },
+    {
+      "authority_created": false,
+      "maturity_changed": false,
+      "name": "DIO Public & Programme Operations",
+      "product_ids": [
+        "dio_airegreadiness",
+        "dio_educationaccreditationproof",
+        "dio_privacyproof",
+        "dio_publicprocurementproof"
+      ],
+      "registered_product_count": 4,
+      "runtime_changed": false,
+      "suite_id": "public_programme_ops"
+    },
+    {
+      "authority_created": false,
+      "maturity_changed": false,
+      "name": "DIO AI & Digital Trust",
+      "product_ids": [
+        "dio_agentauthority",
+        "dio_aitrustproof",
+        "dio_modelchangeproof"
+      ],
+      "registered_product_count": 3,
+      "runtime_changed": false,
+      "suite_id": "ai_digital_trust"
+    },
+    {
+      "authority_created": false,
+      "maturity_changed": false,
+      "name": "DIO Enterprise Operations",
+      "product_ids": [
+        "dio_contractproof",
+        "dio_grantproof",
+        "dio_permitproof",
+        "dio_policyproof",
+        "dio_tenderproof"
+      ],
+      "registered_product_count": 5,
+      "runtime_changed": false,
+      "suite_id": "enterprise_operations"
+    },
+    {
+      "authority_created": false,
+      "maturity_changed": false,
+      "name": "DIO Demand & Presence",
+      "product_ids": [],
+      "registered_product_count": 0,
+      "runtime_changed": false,
+      "suite_id": "demand_presence"
+    }
+  ],
+  "summary": {
+    "external_release_authorized_count": 0,
+    "externally_validated_count": 0,
+    "internally_proven_count": 12,
+    "needs_you_count": 12,
+    "registered_product_count": 12,
+    "revenue_proven_count": 0,
+    "runtime_observed_product_count": 4,
+    "suite_count": 6
+  },
+  "surface": "GOLDENEYE",
+  "truth_boundaries": {
+    "authority_created": false,
+    "commercial_success_inferred": false,
+    "executor_created": false,
+    "external_effects": false,
+    "external_release_authorized": false,
+    "market_validation_created": false,
+    "maturity_changed": false,
+    "memory_is_permission": false,
+    "projection_only": true
+  }
+}

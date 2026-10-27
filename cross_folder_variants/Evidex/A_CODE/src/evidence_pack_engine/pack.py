@@ -452,14 +452,15 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
     (pack_root / "QUALITY_REPORT.txt").write_text(quality_text, encoding="utf-8")
 
     # invoice + delivery email (include in ZIP by generating before zipping)
-    try:
-        from .ops import write_delivery_artifacts
+    if intake.billing.generate_documents:
+        try:
+            from .ops import write_delivery_artifacts
 
-        resolved_job_name = (job_name or intake_path.stem or "job").strip() or "job"
-        write_delivery_artifacts(intake=intake, flags=flags, out_dir=pack_root, job_name=resolved_job_name)
-    except Exception:
-        # Non-fatal: pack can still be delivered without invoice artifacts.
-        pass
+            resolved_job_name = (job_name or intake_path.stem or "job").strip() or "job"
+            write_delivery_artifacts(intake=intake, flags=flags, out_dir=pack_root, job_name=resolved_job_name)
+        except Exception:
+            # Non-fatal: pack can still be delivered without invoice artifacts.
+            pass
 
     # zip
     # Avoid collisions when multiple jobs share the same intake-derived slug (or when retries create

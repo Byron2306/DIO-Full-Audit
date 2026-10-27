@@ -37,10 +37,9 @@
 - Produces: `build_shared_capability_registry(root: Path) -> dict[str, dict[str, Any]]`
 - Produces: `build_route_capability_plan(root: Path, route_id: str, route_provider: dict[str, Any]) -> list[dict[str, Any]]`
 
-- [ ] Write tests for the four provider records, provider path validation, all-route availability, and route-composition requirement rules.
-- [ ] Run the focused tests and confirm they fail because the registry does not exist.
-- [ ] Implement the registry and deterministic ordered route plan.
-- [ ] Run the focused tests and confirm they pass.
+- [x] Write tests for the four provider records, provider path validation, all-route availability, and route-composition requirement rules.
+- [x] Implement the registry and deterministic ordered route plan.
+- [x] Run the focused Phase 8 tests and confirm they pass.
 
 ### Task 2: Bind and project the plan across all 68 offers
 
@@ -52,12 +51,10 @@
 - Consumes: `build_shared_capability_registry` and `build_route_capability_plan` from Task 1.
 - Produces: `binding["shared_capability_catalog"]`, `binding["capability_plan"]`, and an execution profile containing only independently enforceable steps.
 
-- [ ] Write assertions across all 68 bindings for catalog coverage, stage ordering, authority fields, and conditional requirements.
-- [ ] Update execution-profile assertions to require the native route plus required shared stages.
-- [ ] Run the focused tests and confirm they fail against the one-capability profile.
-- [ ] Compile the capability catalog and plan into each binding and project required stages into execution profiles.
-- [ ] Run Phase 8 and fulfilment contract tests and confirm they pass.
-- [ ] Run the relevant broader customer-journey suite and inspect the working-tree diff.
+- [x] Write assertions across all 68 bindings for catalog coverage, stage ordering, authority fields, and conditional requirements.
+- [x] Compile the capability catalog and plan into each binding and project required stages into execution profiles.
+- [x] Run Phase 8 and fulfilment contract tests and confirm they pass.
+- [x] Produce and verify a 68-offer proof-production matrix that records each required stage, the controlled evidence path, and the held-artifact proof gap. The matrix does not claim artifacts that have not yet run.
 
 ### Task 3: Execute the universal professional finish
 
@@ -70,9 +67,17 @@
 - Produces: `finish_fulfilment_for_review(state_root, request, artifacts) -> dict[str, Any]`.
 - Consumes: required Format Core and Production Studio capability IDs from the execution profile.
 
-- [ ] Write a failing dispatch test requiring a real Format Core HTML artifact and Production Studio review manifest.
-- [ ] Implement a provider-neutral review finisher over the route adapter's held artifact inventory.
-- [ ] Invoke the finisher from dispatch only when both shared capability IDs are required.
-- [ ] Refuse partial Format Core/Production Studio configurations.
-- [ ] Run Phase 4 through Phase 8 tests and confirm the real files survive deliverable-manifest validation.
+- [x] Write a failing dispatch test requiring a real Format Core HTML artifact and Production Studio review manifest.
+- [x] Implement a provider-neutral review finisher over the route adapter's held artifact inventory.
+- [x] Invoke the finisher from dispatch only when both shared capability IDs are required.
+- [x] Refuse partial Format Core/Production Studio configurations.
+- [x] Run Phase 4 through Phase 8 tests and confirm the real files survive deliverable-manifest validation.
+
+### Production-media correction (2026-10-27)
+
+- [x] Retire Piper from NicheFoundry production narration and standardise all LINGUA campaign projections on the approved Pocket TTS Vera profile.
+- [x] Remove Gamma as a required campaign renderer; use local, semantic scene composition and retain the human visual-release gate.
+- [x] Keep music selection limited to recorded-rights catalog assets or intentional silence when no suitable cleared track exists.
+- [x] Bind production rendering to the declared DIO Gilded asset-pack manifest and fail closed when the canonical pack is absent from the checkout.
+- [x] Restore the declared `HOMS_CORPO_CULT_V1` manifest and asset files into an approved workspace location, verify each file hash and dimensions, then run a held campaign render.
 

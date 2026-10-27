@@ -72,28 +72,20 @@ def test_piper_resolves_from_active_python_and_user_local_voice_store(monkeypatc
     assert build_campaign_media.resolve_piper_model(tmp_path / "nichefoundry") == model.resolve()
 
 
-def test_v2_media_bridge_requires_and_registers_both_mp4_outputs(monkeypatch, tmp_path: Path) -> None:
+def test_media_pipeline_uses_vera_and_registers_both_mp4_outputs(monkeypatch, tmp_path: Path) -> None:
     family_dir = tmp_path / "family"
-    gamma_dir = family_dir / "gamma"
     media_dir = family_dir / "media"
     assets_dir = family_dir / "assets"
-    gamma_dir.mkdir(parents=True)
     media_dir.mkdir(parents=True)
     assets_dir.mkdir(parents=True)
 
-    gamma_receipt = gamma_dir / "GAMMA_STORY_RECEIPT.json"
-    gamma_receipt.write_text(json.dumps({"state": "ready"}), encoding="utf-8")
     vertical = assets_dir / "reel_1080x1920.mp4"
     landscape = assets_dir / "explainer_1920x1080.mp4"
     request_path = family_dir / "NICHEFOUNDRY_PRODUCTION_REQUEST.json"
     request_path.write_text(
         json.dumps(
             {
-                "gamma": {"receipt": str(gamma_receipt)},
-                "outputs": {
-                    "vertical_reel": str(vertical),
-                    "long_form_explainer": str(landscape),
-                },
+                "schema": "nichefoundry.dio_campaign_production_request.v3",
             }
         ),
         encoding="utf-8",
@@ -107,29 +99,31 @@ def test_v2_media_bridge_requires_and_registers_both_mp4_outputs(monkeypatch, tm
 
     monkeypatch.setattr(media_v2, "load_secret_env", lambda overwrite=False: {})
 
-    def fake_render(request, gamma, *, nichefoundry_root):
+    def fake_render(request, *, nichefoundry_root):
         assert request == request_path
-        assert gamma == gamma_receipt
         assert nichefoundry_root == tmp_path / "foundry"
         vertical.write_bytes(b"v" * 12000)
         landscape.write_bytes(b"l" * 12000)
-        (media_dir / "PIPER_NARRATION_RECEIPT.json").write_text("{}", encoding="utf-8")
+        voice_receipt = media_dir / "POCKET_TTS_NARRATION_RECEIPT.json"
+        voice_receipt.write_text("{}", encoding="utf-8")
         (media_dir / "CAMPAIGN_MEDIA_RECEIPT.json").write_text("{}", encoding="utf-8")
         return {
             "outputs": {
                 "vertical_reel": {"path": str(vertical)},
                 "long_form_explainer": {"path": str(landscape)},
-            }
+            },
+            "variants": {"vertical_short": {"voice": {"receipt": str(voice_receipt)}}},
         }
 
-    monkeypatch.setattr(media_v2, "render_campaign_media", fake_render)
+    monkeypatch.setattr(media_v2, "render_campaign_media_v3", fake_render)
     receipt = media_v2.run_family(family, foundry_root=tmp_path / "foundry", render_media=True)
     assert receipt["state"] == "ready"
-    assert receipt["voice_provider"] == "piper_local"
-    assert receipt["music_required"] is True
+    assert receipt["voice_provider"] == "pocket_tts"
+    assert receipt["voice_profile"] == "vera_pocket_public"
+    assert receipt["visual_provider"] == "format_core_local_compositor"
     assert receipt["outputs"]["vertical_reel"].endswith("reel_1080x1920.mp4")
     assert receipt["outputs"]["long_form_explainer"].endswith("explainer_1920x1080.mp4")
-    assert family["piper"]["state"] == "ready"
+    assert family["voice"]["provider"] == "pocket_tts"
     assert family["nichefoundry"]["reel_state"] == "ready"
     assert family["nichefoundry"]["long_form_state"] == "ready"
     assert family["governance"]["publication"] == "held"

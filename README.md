@@ -6,6 +6,10 @@
 
 ## Deterministic Intelligence Orchestration
 
+Local customer product execution: [source-driven product runbook](docs/customer_products/RUNBOOK.md),
+[current qualification and quality assessment](docs/audits/2026-10-27-sellable-product-pathways.md).
+The runner lists all 68 offers and exposes 38 explicit customer-packet contracts with held review outputs.
+
 
 **A proof-carrying operating architecture for building, governing and expanding trustworthy intelligent products.**
 

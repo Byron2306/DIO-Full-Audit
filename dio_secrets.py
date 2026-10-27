@@ -190,6 +190,18 @@ def _quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=True)
 
 
+def get_secret_value(name: str) -> str | None:
+    """Return one registry-approved secret without exposing vault contents."""
+    if name not in _allowed_names():
+        raise ValueError(f"Unsupported secret key: {name}")
+    current = os.environ.get(name)
+    if current:
+        return current
+    if SECRET_FILE.is_file() and (SECRET_FILE.stat().st_mode & 0o077):
+        raise PermissionError("DIO secret vault must use mode 0600.")
+    return _parse_env(SECRET_FILE).get(name)
+
+
 def save_secret_values(values: dict[str, Any]) -> dict[str, Any]:
     allowed = _allowed_names()
     existing = _parse_env(SECRET_FILE)
