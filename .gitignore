@@ -50,3 +50,8 @@ config/dio_product_classes.json
 telemetry/dio_events.jsonl.lock
 state/mail_intents/MAIL-*.json
 state/mail_previews/MAIL-*.html
+/state/
+/runs/
+/acceptance_runs/
+/dashboard/state.json
+/samples/**/*.db

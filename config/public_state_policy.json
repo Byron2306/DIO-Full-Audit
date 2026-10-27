@@ -1,0 +1,26 @@
+{
+  "schema": "dio.public_state_policy.v1",
+  "managed_roots": [
+    "state",
+    "runs",
+    "acceptance_runs",
+    "deliverables",
+    "dashboard/state.json",
+    "fixtures",
+    "tests/fixtures",
+    "tests/capitalroom_fixtures.py",
+    "samples"
+  ],
+  "rules": [
+    {"pattern": "dashboard/state.json", "classification": "private_operational_state"},
+    {"pattern": "state/**", "classification": "private_operational_state"},
+    {"pattern": "runs/**", "classification": "generated_output"},
+    {"pattern": "acceptance_runs/**", "classification": "generated_output"},
+    {"pattern": "deliverables/**", "classification": "retained_proof"},
+    {"pattern": "samples/**/*.db", "classification": "generated_output"},
+    {"pattern": "tests/fixtures/**", "classification": "redacted_fixture"},
+    {"pattern": "tests/capitalroom_fixtures.py", "classification": "redacted_fixture"},
+    {"pattern": "fixtures/**", "classification": "redacted_fixture"},
+    {"pattern": "samples/**", "classification": "redacted_fixture"}
+  ]
+}
