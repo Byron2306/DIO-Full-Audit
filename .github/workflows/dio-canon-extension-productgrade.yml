@@ -5,14 +5,32 @@ on:
     branches:
       - agent/dio-canon-extension-productgrade-gauntlet
       - agent/dio-control-deck-68-productgrade
-  pull_request:
+      - 'integrated/**'
     paths:
       - 'portfolio_runtime.py'
+      - 'products/canon_extension_materializer.py'
       - 'products/canon_extension_product_grade.py'
       - 'products/canon_extension_proof_seal.py'
       - 'products/canon_extension_native_profiles.py'
       - 'products/canon_extension_native_product_grade.py'
       - 'products/canon_extension_summary.py'
+      - 'scripts/materialize_canon_extensions.py'
+      - 'scripts/run_canon_extension_product_grade.py'
+      - 'scripts/run_canon_extension_native_product_grade.py'
+      - 'scripts/seal_canon_extension_proofs.py'
+      - 'tests/test_canon_extension_*.py'
+      - 'tests/test_portfolio_runtime_canon_extensions.py'
+      - '.github/workflows/dio-canon-extension-productgrade.yml'
+  pull_request:
+    paths:
+      - 'portfolio_runtime.py'
+      - 'products/canon_extension_materializer.py'
+      - 'products/canon_extension_product_grade.py'
+      - 'products/canon_extension_proof_seal.py'
+      - 'products/canon_extension_native_profiles.py'
+      - 'products/canon_extension_native_product_grade.py'
+      - 'products/canon_extension_summary.py'
+      - 'scripts/materialize_canon_extensions.py'
       - 'scripts/run_canon_extension_product_grade.py'
       - 'scripts/run_canon_extension_native_product_grade.py'
       - 'scripts/seal_canon_extension_proofs.py'
@@ -23,6 +41,7 @@ on:
       - 'tests/test_canon_extension_dual_bound_receipt.py'
       - 'tests/test_canon_extension_native_product_grade_cli.py'
       - '.github/workflows/dio-canon-extension-productgrade.yml'
+  workflow_dispatch:
 
 jobs:
   canon-extension-productgrade:
@@ -34,7 +53,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install test dependency
-        run: python -m pip install pytest
+        run: python -m pip install pytest jsonschema python-docx python-pptx pillow
       - name: Run canon extension ProductGrade tests
         run: >-
           PYTHONNOUSERSITE=1 python -m pytest -q

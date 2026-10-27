@@ -7,6 +7,7 @@ on:
       - 'integrated/**'
     paths:
       - '.github/workflows/dio-customer-quality-gate.yml'
+      - '.github/workflows/**'
       - 'adapters/lingua/**'
       - 'adapters/document_studio/**'
       - 'presence_core/**'
@@ -24,9 +25,11 @@ on:
       - 'tests/test_vamp_customer_quality.py'
       - 'tests/test_professional_customer_surface_compat.py'
       - 'tests/test_professional_execution_customer_binding.py'
+      - 'tests/test_ci_critical_workflow_activation.py'
   pull_request:
     paths:
       - '.github/workflows/dio-customer-quality-gate.yml'
+      - '.github/workflows/**'
       - 'adapters/lingua/**'
       - 'adapters/document_studio/**'
       - 'presence_core/**'
@@ -44,6 +47,7 @@ on:
       - 'tests/test_vamp_customer_quality.py'
       - 'tests/test_professional_customer_surface_compat.py'
       - 'tests/test_professional_execution_customer_binding.py'
+      - 'tests/test_ci_critical_workflow_activation.py'
 
 permissions:
   contents: read
@@ -62,7 +66,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install bounded test dependencies
-        run: python -m pip install pytest python-docx python-pptx jsonschema httpx
+        run: python -m pip install pytest python-docx python-pptx jsonschema httpx pyyaml
       - name: Verify customer routes, source truth, Lingua and artifact custody
         run: |
           python -m pytest -q \
@@ -73,4 +77,5 @@ jobs:
             tests/test_shared_production_finish.py \
             tests/test_vamp_customer_quality.py \
             tests/test_professional_customer_surface_compat.py \
-            tests/test_professional_execution_customer_binding.py
+            tests/test_professional_execution_customer_binding.py \
+            tests/test_ci_critical_workflow_activation.py

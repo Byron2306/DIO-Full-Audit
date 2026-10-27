@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - agent/dio-customer-journey-phase4
+      - 'integrated/**'
     paths:
       - 'presence_core/fulfilment_contract.py'
       - 'presence_core/journey_core.py'
@@ -15,8 +16,12 @@ on:
   pull_request:
     paths:
       - 'presence_core/fulfilment_contract.py'
+      - 'presence_core/journey_core.py'
+      - 'presence_core/settlement_truth.py'
       - 'tests/test_customer_journey_phase4.py'
       - 'docs/DIO_CUSTOMER_JOURNEY_PHASE4.md'
+      - '.github/workflows/dio-customer-journey-phase4.yml'
+  workflow_dispatch:
 
 jobs:
   universal-fulfilment:

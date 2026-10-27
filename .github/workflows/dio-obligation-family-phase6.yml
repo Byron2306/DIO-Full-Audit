@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - agent/dio-phase6-obligation-family
+      - 'integrated/**'
+    paths:
+      - "config/portfolio/capability_catalog.json"
+      - "config/profiles/**"
+      - "config/products/manifests/{tenderproof,grantproof,permitproof}.json"
+      - "config/products/golden/{tenderproof,grantproof,permitproof}/**"
+      - "products/obligationfamily/**"
+      - "scripts/validate_obligation_family_phase6.py"
+      - "tests/test_obligation_family_phase6.py"
+      - ".github/workflows/dio-obligation-family-phase6.yml"
   pull_request:
     paths:
       - "config/portfolio/capability_catalog.json"
@@ -15,6 +25,7 @@ on:
       - "tests/test_obligation_family_phase6.py"
       - "docs/DIO_OBLIGATION_FAMILY_PHASE6.md"
       - ".github/workflows/dio-obligation-family-phase6.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,7 +40,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install validation dependencies
-        run: python -m pip install --disable-pip-version-check pytest jsonschema
+        run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx reportlab
       - name: Compile Phase 6 Python
         run: python -m py_compile products/obligationfamily/__init__.py products/obligationfamily/runner.py scripts/validate_obligation_family_phase6.py tests/test_obligation_family_phase6.py
       - name: Validate Phase 6 profiles
