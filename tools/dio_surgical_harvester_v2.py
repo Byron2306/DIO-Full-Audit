@@ -135,6 +135,8 @@ PROJECT_ROOT_HINTS = {
 }
 
 def forbidden(path: str) -> bool:
+    if "api_keys" in Path(path).name.lower():
+        return True
     if FORBIDDEN.search(path):
         return True
     parts = Path(path).parts

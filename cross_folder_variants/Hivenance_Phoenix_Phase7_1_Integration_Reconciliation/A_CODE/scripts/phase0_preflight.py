@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -26,6 +27,21 @@ SAFE = {
     "coin_selection_auto_switch": False,
     "volatility_harvest_enabled": False,
 }
+SECRET_SOURCE_PATHS = [
+    "config/api_keys.json",
+    "config/api_keys.json.backup",
+    "config/encryption.key",
+]
+
+
+def source_controlled_secret_paths(root: Path = ROOT) -> list[str]:
+    result = subprocess.run(
+        ["git", "-C", str(root), "ls-files", "--", *SECRET_SOURCE_PATHS],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return [line for line in result.stdout.splitlines() if line]
 
 
 def main() -> int:
@@ -63,10 +79,8 @@ def main() -> int:
         for source in forbidden_fallbacks:
             if 'or "CHANGE_ME"' in source.read_text() or 'get("SWARMGUARD_HMAC_SECRET", "CHANGE_ME")' in source.read_text():
                 errors.append(f"unsafe shared-secret fallback exists: {source.relative_to(ROOT)}")
-        forbidden = ["config/api_keys.json", "config/api_keys.json.backup", "config/encryption.key"]
-        for rel in forbidden:
-            if (ROOT / rel).exists():
-                errors.append(f"source-controlled secret material exists: {rel}")
+        for rel in source_controlled_secret_paths():
+            errors.append(f"source-controlled secret material exists: {rel}")
 
     if errors:
         print("PHASE-0 PREFLIGHT: FAIL")

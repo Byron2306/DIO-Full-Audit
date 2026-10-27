@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 
 import yaml
 
@@ -25,9 +26,16 @@ def test_shipped_profiles_are_quarantined():
 
 
 def test_no_source_controlled_secret_files():
-    assert not (ROOT / "config/api_keys.json").exists()
-    assert not (ROOT / "config/api_keys.json.backup").exists()
-    assert not (ROOT / "config/encryption.key").exists()
+    tracked = subprocess.run(
+        [
+            "git", "-C", str(ROOT), "ls-files", "--",
+            "config/api_keys.json", "config/api_keys.json.backup", "config/encryption.key",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    assert tracked == []
 
 
 def test_strategy_scaffold_cannot_execute():

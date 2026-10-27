@@ -77,6 +77,7 @@ def allowed_file(path: Path):
     return path.suffix.lower() in ALLOWED_SUFFIXES or path.name in ALLOWED_BASENAMES
 
 def suspicious_filename(path: Path):
+    if "api_keys" in path.name.lower(): return True
     if path.suffix.lower() in {'.pem','.key','.p12','.pfx'}: return True
     return any(rx.search(path.name) for rx in SENSITIVE_FILENAME_PATTERNS)
 
