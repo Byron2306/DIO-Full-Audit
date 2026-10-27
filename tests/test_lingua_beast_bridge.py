@@ -24,3 +24,12 @@ def test_beast_bridge_uses_configured_runtime_root(tmp_path):
     )
 
     assert result.stdout.strip() == str(configured_root.resolve())
+
+
+def test_beast_bridge_uses_bundled_runtime_when_deployed_root_is_absent(monkeypatch):
+    import scripts.lingua_beast_bridge as bridge
+
+    monkeypatch.delenv("DIO_BEAST_ROOT", raising=False)
+    monkeypatch.setattr(bridge, "ROOT", ROOT)
+    monkeypatch.setattr(bridge.Path, "is_dir", lambda path: False if str(path) == "/home/byron/EdgeK-BEAST" else Path.is_dir(path))
+    assert bridge.resolve_beast_root() == (ROOT / "cross_folder_variants" / "EdgeK-BEAST" / "A_CODE").resolve()

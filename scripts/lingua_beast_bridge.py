@@ -10,9 +10,21 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BEAST_ROOT = Path(
-    os.environ.get("DIO_BEAST_ROOT") or "/home/byron/EdgeK-BEAST"
-).expanduser().resolve()
+
+
+def resolve_beast_root() -> Path:
+    """Resolve the owned BEAST runtime for both deployed and source checkouts."""
+    configured = os.environ.get("DIO_BEAST_ROOT")
+    if configured:
+        return Path(configured).expanduser().resolve()
+    deployed = Path("/home/byron/EdgeK-BEAST").expanduser()
+    if deployed.is_dir():
+        return deployed.resolve()
+    bundled = ROOT / "cross_folder_variants" / "EdgeK-BEAST" / "A_CODE"
+    return bundled.resolve()
+
+
+BEAST_ROOT = resolve_beast_root()
 STORAGE_ROOT = ROOT / "state" / "lingua" / "beast_credits"
 CHAIN_PATH = ROOT / "state" / "lingua" / "beast_crystal_chain.jsonl"
 BEAST_OPERATIONS_ROOT = ROOT / "state" / "lingua" / "beast_operations"

@@ -234,7 +234,7 @@ def _run_evidex(packet: dict[str, Any], execution_dir: Path) -> dict[str, Any]:
     from scripts.run_evidex_jobs import EVIDEX_PYTHON, run_evidex
 
     if not EVIDEX_PYTHON.is_file():
-        raise FileNotFoundError(f"Evidex runtime missing: {EVIDEX_PYTHON}")
+        raise FileNotFoundError(f"Evidex Python is not executable: {EVIDEX_PYTHON}")
     rows = evidence_rows(packet)
     body = "\n".join(str(row.get("customer_supplied_record") or "") for row in rows)
     job = {

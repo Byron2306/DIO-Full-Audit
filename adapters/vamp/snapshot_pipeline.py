@@ -15,14 +15,14 @@ from typing import Any
 import jsonschema
 
 from adapters.evidence_kernel import EvidenceConfidence, InstitutionalProfile, load_profile
-from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+from sovereign_runtime import evidex_environment, evidex_python, evidex_root, ollama_model, ollama_url
 
 
 ROOT = Path(__file__).resolve().parents[2]
 REQUEST_SCHEMA = ROOT / "schemas" / "vamp_snapshot_request.schema.json"
 EVIDENCE_SCHEMA = ROOT / "schemas" / "evidence_record_v2.schema.json"
 EVIDEX_ROOT = evidex_root()
-EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
+EVIDEX_PYTHON = evidex_python()
 REQUIRED_TABLES = {"evidence", "evidence_task", "tasks", "task_no_evidence"}
 
 

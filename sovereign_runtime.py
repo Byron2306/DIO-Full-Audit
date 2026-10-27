@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
@@ -144,6 +145,19 @@ def evidex_root() -> Path:
     if configured and Path(configured).expanduser().resolve() != resolved:
         raise SovereignRuntimeError("Evidex source must be the canonical embedded DIO engine.")
     return resolved
+
+
+def evidex_python() -> Path:
+    """Return an executable that can run the embedded Evidex engine.
+
+    Production installations normally give the embedded engine its own virtual
+    environment.  A source checkout used for controlled execution may instead
+    run it with the active interpreter; ``evidex_environment`` supplies the
+    canonical import roots in either case.  The fallback never changes the
+    engine source root or permits an external Evidex checkout.
+    """
+    managed = evidex_root() / ".venv" / "bin" / "python"
+    return managed if managed.is_file() else Path(sys.executable).resolve()
 
 
 def evidex_environment(base: dict[str, str] | None = None) -> dict[str, str]:

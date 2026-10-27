@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+from sovereign_runtime import evidex_environment, evidex_python, evidex_root, ollama_model, ollama_url
 EVIDEX_ROOT = evidex_root()
-EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
+EVIDEX_PYTHON = evidex_python()
 
 
 def finish_evidex_archive(
@@ -239,8 +239,8 @@ def main() -> int:
     out_root = Path(args.out).expanduser().resolve()
     jobs = load_evidex_jobs(run_dir)
 
-    if not EVIDEX_PYTHON.exists():
-        raise RuntimeError(f"Evidex Python not found: {EVIDEX_PYTHON}")
+    if not EVIDEX_PYTHON.is_file():
+        raise RuntimeError(f"Evidex Python is not executable: {EVIDEX_PYTHON}")
 
     receipts = [run_evidex(job, out_root) for job in jobs]
     print(f"Ran Evidex for {len(receipts)} job(s).")
