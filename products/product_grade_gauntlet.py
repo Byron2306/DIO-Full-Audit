@@ -26,6 +26,22 @@ def _fingerprint(value: Any) -> str:
     return "sha256:" + hashlib.sha256(_canonical(value)).hexdigest()
 
 
+def _repo_relative_primary_artifact(
+    *,
+    root: Path,
+    studio_out: Path,
+    receipt_primary_artifact: str,
+) -> str:
+    root = Path(root).resolve()
+    studio_out = Path(studio_out).resolve()
+    primary = (studio_out / str(receipt_primary_artifact)).resolve()
+    if not studio_out.is_relative_to(root) or not primary.is_relative_to(studio_out):
+        raise ValueError("Studio ProductGrade artifact path must stay inside the repository output tree")
+    if not primary.is_file():
+        raise FileNotFoundError(f"Studio ProductGrade primary artifact missing: {primary}")
+    return str(primary.relative_to(root))
+
+
 def run_product_grade_gauntlet(*, output_dir: Path, root: Path = ROOT) -> dict[str, Any]:
     root = Path(root).resolve()
     output_dir = Path(output_dir).resolve()
@@ -36,13 +52,18 @@ def run_product_grade_gauntlet(*, output_dir: Path, root: Path = ROOT) -> dict[s
         studio_out = output_dir / filename.removesuffix(".json")
         result = evaluate_product_grade_case(manifest_path=manifest_path, output_dir=studio_out, root=root)
         receipt = result["receipt"]
+        primary_artifact = _repo_relative_primary_artifact(
+            root=root,
+            studio_out=studio_out,
+            receipt_primary_artifact=str(receipt["primary_artifact"]),
+        )
         studios[receipt["studio_id"]] = {
             "status": receipt["status"],
             "score": receipt["score"],
             "threshold": receipt["threshold"],
             "critical_blockers": receipt["critical_blockers"],
             "buyer_grade_candidate": receipt["buyer_grade_candidate"],
-            "primary_artifact": receipt["primary_artifact"],
+            "primary_artifact": primary_artifact,
             "primary_artifact_sha256": receipt["primary_artifact_sha256"],
             "receipt_fingerprint": receipt["receipt_fingerprint"],
             "beast_mechanical_pass": bool(receipt["beast_artifact_checks"].get("mechanical_pass")),
