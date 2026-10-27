@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from products.commercial_pricing_registry import build_commercial_pricing_registry
+from products.canonical_offer_contract import build_canonical_offer_contract
 
 from .fulfilment_contract import EXECUTION_PROFILE_SCHEMA
 from .intake_scope_quote import build_intake_requirement
@@ -519,6 +520,14 @@ def _assert_exact_68(
         )
 
 
+def _assert_unique_product_ids(products: list[dict[str, Any]]) -> None:
+    product_ids = [str(row.get("product_id") or "").strip() for row in products]
+    if any(not product_id for product_id in product_ids):
+        raise ValueError("canonical commercial product_id must not be blank")
+    if len(product_ids) != len(set(product_ids)):
+        raise ValueError("canonical commercial product_id values must be unique")
+
+
 def compile_product_journey_binding(
     root: Path,
     product_name: str,
@@ -529,6 +538,7 @@ def compile_product_journey_binding(
         str(row["name"]): row
         for row in registry.get("products") or []
     }
+    _assert_unique_product_ids(list(products.values()))
     archetype_index = _index(ARCHETYPE_PRODUCTS, "archetype")
     route_index = _index(ROUTE_PRODUCTS, "route")
     _assert_exact_68(set(products), archetype_index, route_index)
@@ -546,6 +556,12 @@ def compile_product_journey_binding(
     shared_capabilities = build_shared_capability_registry(root)
     capability_plan = build_route_capability_plan(root, route_id, route)
     intake = build_intake_requirement(root, product_name)
+    offer_contract = build_canonical_offer_contract(
+        product=product,
+        intake=intake,
+        archetype=archetype,
+        route=route,
+    )
     manifest = _manifest_index(root).get(
         product_name,
         {
@@ -595,6 +611,7 @@ def compile_product_journey_binding(
             **pricing_basis,
             "pricing_profile_sha256": _canonical_hash(pricing_basis),
         },
+        "offer_contract": offer_contract,
         "quote_authority": deepcopy(product["quote_authority"]),
         "settlement_profile": {
             "allowed_classes": [
@@ -663,6 +680,7 @@ def build_phase8_binding_registry(root: Path) -> dict[str, Any]:
     root = Path(root).resolve()
     commercial = build_commercial_pricing_registry(root)
     products = list(commercial.get("products") or [])
+    _assert_unique_product_ids(products)
     archetype_index = _index(ARCHETYPE_PRODUCTS, "archetype")
     route_index = _index(ROUTE_PRODUCTS, "route")
     commercial_names = {str(row["name"]) for row in products}

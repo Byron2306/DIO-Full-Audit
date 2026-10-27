@@ -140,6 +140,26 @@ def test_every_binding_reuses_shared_lifecycle_and_preserves_authority_boundary(
         assert binding["external_send_authority"] is False
         assert binding["external_effects"] is False
 
+        offer = binding["offer_contract"]
+        assert offer["product_id"] == binding["product_id"]
+        assert offer["product_name"] == binding["product_name"]
+        assert offer["problem"]["statement"].startswith(f"For {binding['product_name']}:")
+        assert offer["problem"]["evidence_state"] == "MARKET_HYPOTHESIS"
+        assert offer["promised_outcome"]["customer_result_guaranteed"] is False
+        assert offer["deliverables"]
+        assert all(row["acceptance_criteria"] for row in offer["deliverables"])
+        assert offer["proof"]["commercial_validation"] == "UNPROVED"
+        assert offer["proof"]["customers_will_pay"] == "UNPROVED"
+        assert offer["price"]["pricing_state"] == "HYPOTHESIS"
+        assert offer["cta"]["action"] == "BEGIN_GOVERNED_INTAKE"
+        assert offer["cta"]["required_inputs"]
+        assert offer["cta"]["quote_authority_created"] is False
+        assert offer["cta"]["invoice_authority_created"] is False
+        assert offer["cta"]["release_authority_created"] is False
+        assert offer["cta"]["external_send_authority"] is False
+        assert offer["authority_created"] is False
+        assert len(offer["offer_contract_sha256"]) == 64
+
         catalog = binding["shared_capability_catalog"]
         assert [row["name"] for row in catalog] == [
             "Format Core",
@@ -274,6 +294,19 @@ def test_all_68_execution_profiles_are_deterministic_and_non_authoritative() -> 
             "format_core.semantic_finish",
             "production_studio.customer_delivery",
         ]
+
+
+def test_all_68_offer_contracts_have_unique_identity_and_route_specific_copy() -> None:
+    registry = build_phase8_binding_registry(ROOT)
+    offers = [row["offer_contract"] for row in registry["bindings"]]
+
+    assert len({row["product_id"] for row in offers}) == 68
+    assert len({row["product_name"] for row in offers}) == 68
+    assert len({row["problem"]["statement"].split(": ", 1)[1] for row in offers}) == 68
+    assert len({row["deliverables"][0]["artifact_family"] for row in offers}) == 68
+    assert all(row["proof"]["route_execution_proof"]["scope"] == "ROUTE_FAMILY_EXECUTION" for row in offers)
+    assert all(row["proof"]["product_artifact_proof"]["state"] == "UNPROVED" for row in offers)
+    assert all("guarantee" not in row["promised_outcome"]["statement"].casefold() for row in offers)
 
 
 def test_missing_product_compiler_manifests_are_reported_not_invented() -> None:
