@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install test dependencies
-        run: python -m pip install pytest jsonschema python-docx
+        run: python -m pip install pytest jsonschema python-docx pillow
       - name: Compile Phase 4 contracts
         run: |
           python -m py_compile \
