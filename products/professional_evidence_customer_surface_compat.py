@@ -149,8 +149,6 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows
         """
     )
     projection: list[dict[str, Any]] = []
-    from products.professional_evidence_execution import utc_now
-
     for index, row in enumerate(rows, 1):
         record = str(row.get("customer_supplied_record") or "").strip()
         if re.match(r"review period\s*:", record, re.I) and not is_objective(record):
@@ -167,6 +165,7 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows
             "rating_authority_created": False,
             "event_date_verified": False,
             "month_bucket_basis": "review_scope_end_bucket_only_not_an_event_date",
+            "evidence_mapping_state": "UNMAPPED_PENDING_INDEPENDENT_SOURCE_REVIEW",
         }
         objective = is_objective(record)
         minimum, minimum_basis = objective_minimum(record)
@@ -179,8 +178,9 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows
             "INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)",
             (evidence, hashlib.sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", window["year"], window["months"][-1], domain, "", "", str(path), json.dumps(meta, sort_keys=True)),
         )
-        if objective:
-            con.execute("INSERT INTO evidence_task VALUES(?,?,?,?,?)", (evidence, task, "customer_packet_domain_projection", 1.0, utc_now()))
+        # A customer's requirement declaration is not proof that it was met.
+        # Retain its source row for review, but do not self-link it as evidence.
+        # Independent artifact-to-objective matching needs a separate proof gate.
         projection.append({"record_id": row.get("record_id"), "task_id": task if objective else None, "evidence_id": evidence, "domain": domain, "record": record, "minimum_required_basis": minimum_basis if objective else None})
     con.commit()
     con.close()

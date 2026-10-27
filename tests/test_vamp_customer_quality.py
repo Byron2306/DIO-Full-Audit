@@ -62,3 +62,22 @@ def test_semicolon_scope_and_objective_cannot_make_zero_objectives(tmp_path: Pat
     with sqlite3.connect(db) as c:
         assert c.execute('select count(*) from tasks').fetchone()[0]==1
         assert c.execute('select min_required from tasks').fetchone()[0]==2
+
+
+def test_customer_objective_statement_cannot_certify_its_own_evidence(tmp_path: Path):
+    rows = [
+        {'record_id': 'SCOPE', 'customer_supplied_record': 'Review period: January-June 2026.'},
+        {'record_id': 'REQUIREMENT', 'customer_supplied_record': 'Objective KPA1 requires two peer-reviewed articles.'},
+    ]
+    db = _build_vamp_database_v2(
+        {'packet_fingerprint': 'sha256:declaration-only'},
+        tmp_path / 'projection/progress.db',
+        source_rows=rows,
+    )
+    with sqlite3.connect(db) as con:
+        assert con.execute('select count(*) from tasks').fetchone()[0] == 1
+        assert con.execute('select count(*) from evidence').fetchone()[0] == 1
+        assert con.execute('select count(*) from evidence_task').fetchone()[0] == 0
+    projection = json.loads((db.parent / 'VAMP_DOMAIN_PROJECTION.json').read_text())
+    assert projection['rows'][0]['task_id'] is not None
+    assert projection['rows'][0]['evidence_id'] is not None

@@ -15,11 +15,15 @@ on:
       - 'products/report_pitch_pipeline.py'
       - 'products/professional_evidence_*.py'
       - 'products/vesper_web_chat.py'
+      - 'products/vamp_customer_projection.py'
       - 'tests/test_lingua_document_translation.py'
       - 'tests/test_customer_product_router.py'
       - 'tests/test_funding_finder_pipeline.py'
       - 'tests/test_report_pitch_pipeline.py'
       - 'tests/test_shared_production_finish.py'
+      - 'tests/test_vamp_customer_quality.py'
+      - 'tests/test_professional_customer_surface_compat.py'
+      - 'tests/test_professional_execution_customer_binding.py'
   pull_request:
     paths:
       - '.github/workflows/dio-customer-quality-gate.yml'
@@ -31,11 +35,15 @@ on:
       - 'products/report_pitch_pipeline.py'
       - 'products/professional_evidence_*.py'
       - 'products/vesper_web_chat.py'
+      - 'products/vamp_customer_projection.py'
       - 'tests/test_lingua_document_translation.py'
       - 'tests/test_customer_product_router.py'
       - 'tests/test_funding_finder_pipeline.py'
       - 'tests/test_report_pitch_pipeline.py'
       - 'tests/test_shared_production_finish.py'
+      - 'tests/test_vamp_customer_quality.py'
+      - 'tests/test_professional_customer_surface_compat.py'
+      - 'tests/test_professional_execution_customer_binding.py'
 
 permissions:
   contents: read
@@ -62,4 +70,7 @@ jobs:
             tests/test_customer_product_router.py \
             tests/test_funding_finder_pipeline.py \
             tests/test_report_pitch_pipeline.py \
-            tests/test_shared_production_finish.py
+            tests/test_shared_production_finish.py \
+            tests/test_vamp_customer_quality.py \
+            tests/test_professional_customer_surface_compat.py \
+            tests/test_professional_execution_customer_binding.py
