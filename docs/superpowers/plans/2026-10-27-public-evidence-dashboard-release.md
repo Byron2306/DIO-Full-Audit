@@ -40,10 +40,10 @@
 **Interfaces:**
 - Produces: `export_public_offer_evidence(offer_contracts: Path, proof_registry: Path, output: Path) -> PublicEvidenceExportReceipt` for exactly 68 offers.
 
-- [ ] Write failing tests for count/unique IDs/routes, buyer job, bounded outcome, deliverable, acceptance criteria, route proof, named proof state, CTA, redaction, stable ordering, source commit, artifact ID, and SHA-256.
-- [ ] Implement deterministic export and reject unreachable proof references or downgrade them to an explicit unavailable state.
-- [ ] Run `pytest -q tests/test_public_offer_evidence_export.py tests/test_customer_journey_phase8.py`; expect PASS.
-- [ ] Commit with `feat: export public evidence for 68 offers`.
+- [x] Write failing tests for count/unique IDs/routes, buyer job, bounded outcome, deliverable, acceptance criteria, route proof, named proof state, CTA, redaction, stable ordering, source commit, artifact ID, and SHA-256.
+- [x] Implement deterministic export and reject unreachable proof references or downgrade them to an explicit unavailable state.
+- [x] Run `pytest -q tests/test_public_offer_evidence_export.py tests/test_customer_journey_phase8.py`; expect PASS (14 tests).
+- [x] Commit with `feat: export public evidence for 68 offers`.
 
 ### Task 2: Site Registry and Provenance Integration
 
