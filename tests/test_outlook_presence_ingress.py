@@ -43,7 +43,9 @@ def test_dispatch_claims_capture_once_and_processes_canonical_envelope(tmp_path:
     path.parent.mkdir(parents=True)
     path.write_text(json.dumps(capture))
     token = _token({"customer_id": "CUS-1", "sender": "customer@example.org"}, secret)
+    monkeypatch.setattr("presence_core.outlook_ingress.process_envelope", lambda envelope, *_args, **_kwargs: {"conversation_id": "CONV-1", "envelope": envelope})
     first = dispatch_outlook_capture(tmp_path, tmp_path / "state", "MAILCAP-1", session_token=token)
     replay = dispatch_outlook_capture(tmp_path, tmp_path / "state", "MAILCAP-1", session_token=token)
     assert first["state"] == "completed"
+    assert first["canonical_conversation_id"] == "CONV-1"
     assert replay == first
