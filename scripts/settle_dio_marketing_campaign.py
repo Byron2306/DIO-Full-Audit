@@ -64,6 +64,40 @@ def economics(measurement: dict[str, Any]) -> dict[str, int]:
     }
 
 
+def hypothesis_market_type(hypothesis: dict[str, Any]) -> str:
+    return str(hypothesis.get("audience", {}).get("market_type") or "buyer").strip().lower()
+
+
+def decide_investor_campaign(measurement: dict[str, Any]) -> tuple[str, list[str]]:
+    funnel = measurement.get("capital_funnel", {})
+    acquisition = measurement.get("acquisition", {})
+    term_sheets = number(funnel, "term_sheets")
+    ic_reviews = number(funnel, "ic_reviews")
+    partner_meetings = number(funnel, "partner_meetings")
+    diligence_entries = number(funnel, "diligence_entries")
+    meetings = number(funnel, "meetings")
+    replies = number(funnel, "replies")
+    engagements = max(number(acquisition, "profile_engagements"), number(acquisition, "clicks"))
+
+    if term_sheets >= 1:
+        return (
+            "promote",
+            [
+                "The capital campaign produced a term-sheet signal; promote the campaign hypothesis while keeping investment-secured truth explicitly unearned."
+            ],
+        )
+    if ic_reviews >= 1 or partner_meetings >= 1 or diligence_entries >= 1:
+        return (
+            "continue",
+            ["Qualified investor engagement reached diligence, partner-meeting or investment-committee depth; continue the campaign and gather more evidence."],
+        )
+    if meetings >= 3:
+        return "revise", ["Investor meetings did not progress into diligence; revise thesis framing, proof selection or capital-use narrative."]
+    if engagements >= 10 and replies == 0:
+        return "revise", ["Investor-profile engagement did not produce replies; revise target fit, hook or route."]
+    return "revise", ["The completed capital window lacks enough investor signal to continue unchanged."]
+
+
 def decide(hypothesis: dict[str, Any], measurement: dict[str, Any], as_of: datetime) -> tuple[str, list[str], bool]:
     governance = measurement.get("governance", {})
     leads = measurement.get("leads", {})
@@ -86,6 +120,10 @@ def decide(hypothesis: dict[str, Any], measurement: dict[str, Any], as_of: datet
     window_complete = ended is not None or as_of >= started + timedelta(days=window_days)
     if not window_complete:
         return "pending", [f"The {window_days}-day measurement window is still collecting evidence."], False
+
+    if hypothesis_market_type(hypothesis) == "investor":
+        decision, reasons = decide_investor_campaign(measurement)
+        return decision, reasons, True
 
     paid_orders = number(commerce, "paid_orders")
     orders = max(number(commerce, "orders"), paid_orders)
@@ -121,6 +159,7 @@ def settle(campaign_dir: Path, as_of: datetime) -> dict[str, Any]:
         "decided_at": iso(as_of),
         "campaign_id": hypothesis["campaign_id"],
         "hypothesis_id": hypothesis["hypothesis_id"],
+        "market_type": hypothesis_market_type(hypothesis),
         "measurement_sha256": digest,
         "window_complete": window_complete,
         "decision": decision,

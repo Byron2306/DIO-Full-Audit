@@ -1,6 +1,31 @@
 {
   "schema": "dio.format_core.visual_profiles.v1",
   "profiles": {
+    "default": {
+      "name": "DIO Default Professional Visual",
+      "palette": {
+        "paper": "#f8faf7",
+        "surface": "#ffffff",
+        "surface_alt": "#eef3ef",
+        "ink": "#18212b",
+        "muted": "#5b6570",
+        "line": "#c9d3cc",
+        "accent": "#225c7a",
+        "accent_ink": "#ffffff",
+        "success": "#1f6b3a",
+        "warning": "#f3b64b",
+        "danger": "#b64a3d"
+      },
+      "typography": {
+        "font_family": "Inter, Arial, sans-serif",
+        "body_size": 18,
+        "heading_size": 34
+      },
+      "geometry": {
+        "radius": 14,
+        "line_width": 2
+      }
+    },
     "dio_professional_visual": {
       "name": "DIO Professional Visual",
       "palette": {

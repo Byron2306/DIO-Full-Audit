@@ -99,6 +99,38 @@
         "INSTITUTIONAL_ROUTE_AVAILABLE",
         "PARTNERSHIP_ROUTE_AVAILABLE"
       ]
+    },
+    "DIO_CAPITAL": {
+      "target_type": "investor",
+      "product_layer": "dio_capital",
+      "public_name": "DIO",
+      "generic_audience": "seed, early-stage, strategic and venture-studio investors evaluating governed AI infrastructure and repeatable product creation",
+      "offer_id": "DIO-CAPITAL-CONVERSATION",
+      "landing_page": "/dio/capitalroom",
+      "proof_pointer": "docs/FUSION_WAVE9_CAPITALROOM_EXTERNAL_PROOF.md",
+      "proof_summary": "CapitalRoom compiles manifest-bound architecture, operational, refusal and product proof while preserving unearned commercial claims as false.",
+      "public_hook": "One governed organism can compose many evidence-bound product incarnations without pretending every registered product is already commercially proven.",
+      "public_cta": "Review the CapitalRoom and request a governed diligence conversation.",
+      "preferred_route_states": [
+        "PARTNERSHIP_ROUTE_AVAILABLE",
+        "INSTITUTIONAL_ROUTE_AVAILABLE",
+        "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      ],
+      "success_event": "investor_meeting",
+      "composition": [
+        "InvestorProof",
+        "Report & Pitch Studio",
+        "DIO CapitalRoom",
+        "DIO Legalis"
+      ],
+      "activation_state": "REGISTERED_DORMANT_UNTIL_INVESTOR_REGISTRY",
+      "forbidden_claims": [
+        "investment secured",
+        "valuation confirmed",
+        "investor interest verified",
+        "product-market fit proven",
+        "revenue proven"
+      ]
     }
   },
   "governance": {
