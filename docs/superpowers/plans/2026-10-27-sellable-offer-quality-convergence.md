@@ -17,6 +17,8 @@
 - [x] Execute Campaign Lab through the active customer route and retain a held review artifact with Vera narration, local-compositor visuals, rights-recorded music, and publication/spend still held.
 - [x] Classify the 15 extensions by the strongest available route: use native LINGUA/BEAST product-grade cases for 11 and isolate the four Studio-case gaps.
 - [x] Wire the four Studio offers to their verified native closures, which combine their declared specialist organs while preserving the release boundary.
+- [x] Inspect the supplied Stage 7C extension archive and record a product-specific professional-quality ledger. ProductGrade remains fixture verification, not commercial acceptance.
+- [~] Execute the 53 canonical routes under normal, messy, and adversarial inputs. The first batch passed 105/159 journeys; repaired Evidex/BEAST discovery and an online market run recovered 18 journeys for Evidex EvidenceOps, VAMP Performance, CPDProof, PromotionProof, Market Radar, and Opportunity Foundry. Twelve routes still depend on unavailable local services or system tooling and remain held.
 - [ ] Add exact commercial product-manifest mappings, beginning with specialist routes whose internal manifests already have matching governed scope.
 - [ ] Execute all 68 specialist routes against current canonical artifacts and retain only fresh held artifacts that pass their route-specific proof and shared finishing.
 - [ ] Run held customer artifacts by route family, retain only artifacts that pass blind review and shared Format Core/Production Studio finishing.
