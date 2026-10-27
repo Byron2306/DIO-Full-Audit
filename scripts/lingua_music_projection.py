@@ -25,10 +25,38 @@ def _slug(value: str) -> str:
 
 
 def _catalog() -> list[dict[str, Any]]:
+    catalog_path = ROOT / "config" / "media" / "music_catalog.json"
+    rows: list[dict[str, Any]] = []
+    if catalog_path.is_file():
+        try:
+            catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RuntimeError(f"DIO music catalog is unreadable: {catalog_path}") from exc
+        for track in catalog.get("tracks") or []:
+            music = (ROOT / str(track.get("path") or "")).resolve()
+            attribution = (ROOT / str(track.get("attribution") or "")).resolve()
+            receipt = (ROOT / str(track.get("rights_receipt") or "")).resolve()
+            if not all(path.is_relative_to(ROOT) for path in (music, attribution, receipt)):
+                raise RuntimeError("DIO music catalog path escapes the repository.")
+            if not music.is_file() or not attribution.is_file() or not receipt.is_file():
+                continue
+            rights = track.get("rights") or {}
+            if not rights.get("commercial_use") or not rights.get("adaptation_allowed") or not rights.get("attribution_required"):
+                continue
+            if _file_sha256(music) != track.get("sha256"):
+                raise RuntimeError(f"DIO music catalog hash mismatch: {track.get('id')}")
+            rows.append({
+                "path": music,
+                "attribution": attribution,
+                "receipt": receipt,
+                "metadata": track.get("metadata") or "",
+                "title": track.get("title"),
+                "artist": track.get("artist"),
+                "licence": track.get("licence_name"),
+            })
     episodes = FOUNDRY / "episodes"
     if not episodes.is_dir():
-        return []
-    rows: list[dict[str, Any]] = []
+        return rows
     for receipt_path in sorted(episodes.glob("*/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json")):
         try:
             receipt = json.loads(receipt_path.read_text(encoding="utf-8"))

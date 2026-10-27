@@ -40,6 +40,15 @@ def test_active_factory_uses_lingua_music_selector() -> None:
     assert factory_v3._select_music is select_projection_music
 
 
+def test_checked_in_music_catalog_is_byte_verified_and_selectable() -> None:
+    rows = music_projection._catalog()
+    warm_sunset = next(row for row in rows if row["title"] == "Warm Sunset by MusicLFiles")
+    assert warm_sunset["path"].is_file()
+    result = select_projection_music(_surface_plan(), _product(), _audience(), "HOMS--teachers")
+    assert result["mode"] == "rights_recorded"
+    assert result["title"] == "Warm Sunset by MusicLFiles"
+
+
 def test_zero_semantic_match_is_not_reused_as_generic_background(monkeypatch, tmp_path: Path) -> None:
     irrelevant = {
         "path": tmp_path / "generic.ogg",

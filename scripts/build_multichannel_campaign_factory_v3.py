@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
 from lingua.product_projection import build_projection_plan, creative_distance, project_story
 from lingua.semantic_law import build_semantic_law, validate_projection
 from scripts.build_campaign_media_v3 import CampaignMediaError, render_campaign_media_v3
+from scripts.lingua_music_projection import select_projection_music
 
 FOUNDRY = Path(os.environ.get("NICHEFOUNDRY_ROOT", "/home/byron/Downloads/NicheFoundry_Phase11"))
 MATRIX = ROOT / "config" / "marketing_audience_matrix.json"
@@ -282,7 +283,7 @@ def _music_catalog() -> list[dict[str, Any]]:
     return rows
 
 
-def _select_music(surface_plan: dict[str, Any], product: dict[str, Any], audience: dict[str, Any], family_id: str) -> dict[str, Any]:
+def _legacy_select_music(surface_plan: dict[str, Any], product: dict[str, Any], audience: dict[str, Any], family_id: str) -> dict[str, Any]:
     plan = dict(surface_plan["music"])
     explicit = str(os.environ.get("DIO_CAMPAIGN_MUSIC") or "").strip()
     explicit_attr = str(os.environ.get("DIO_CAMPAIGN_MUSIC_ATTRIBUTION") or "").strip()
@@ -303,6 +304,12 @@ def _select_music(surface_plan: dict[str, Any], product: dict[str, Any], audienc
     if plan.get("allow_silence") is True:
         return {**plan, "mode": "none", "path": "", "attribution": "", "selection_basis": "no_suitable_rights_recorded_track_available"}
     raise CampaignMediaError("LINGUA projection requires music, but no rights-recorded asset is available.")
+
+
+# One selector owns catalog validation, retrieval receipts, and intentional
+# silence. Keeping it here avoids the active wrapper and direct v3 CLI
+# producing different music decisions.
+_select_music = select_projection_music
 
 
 def build_family(product: dict[str, Any], audience: dict[str, Any], channels: dict[str, Any], output_root: Path, render_reels: bool) -> dict[str, Any]:
