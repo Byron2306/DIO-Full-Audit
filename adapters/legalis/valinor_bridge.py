@@ -4,7 +4,8 @@ import sys
 from pathlib import Path
 from typing import Any, Mapping, Protocol
 
-from .service import LEGALIS_DECISION_SCHEMA, LegalisError, timestamp
+from .decision_ledger import consume_decision
+from .service import LegalisError, canonical_hash, timestamp
 
 
 class ValinorUnavailable(RuntimeError):
@@ -39,23 +40,47 @@ def resolve_valinor_runtime(workspace_root: str | Path) -> ValinorRuntimeProtoco
 
 def authorize_valinor_boundary(
     *,
-    decision: Mapping[str, Any],
+    decision_id: str | None = None,
+    state_root: str | Path | None = None,
+    request: Mapping[str, Any] | None = None,
+    evidence: Mapping[str, Any] | None = None,
+    expected_capability: str | None = None,
+    expected_policy_version: str | None = None,
+    decision: Mapping[str, Any] | None = None,
     entity_id: str,
     operation: str,
     target: str | None = None,
     runtime: ValinorRuntimeProtocol | None = None,
     workspace_root: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Ask Valinor to authorize the runtime boundary only after Legalis earned ALLOW.
+    """Ask Valinor only after loading an authenticated Legalis ledger decision.
 
     This does not perform the external legal/platform/business action itself.
     """
-    if decision.get("schema") != LEGALIS_DECISION_SCHEMA:
-        raise LegalisError("Valinor boundary requires a Legalis decision receipt.")
-    if decision.get("verdict") != "ALLOW":
+    if decision is not None or not decision_id:
+        raise LegalisError("Valinor boundary requires an authenticated decision_id, not a caller decision map.")
+    if state_root is None or request is None or evidence is None or not expected_capability or not expected_policy_version:
+        raise LegalisError("Valinor boundary requires state_root, request, evidence, capability, and policy bindings.")
+    valinor_request = request.get("valinor") if isinstance(request, Mapping) else None
+    if not isinstance(valinor_request, Mapping) or (
+        str(valinor_request.get("entity_id") or "") != entity_id
+        or str(valinor_request.get("operation") or "") != operation
+        or valinor_request.get("target") != target
+    ):
+        raise LegalisError("Authenticated Legalis request does not match the Valinor effect boundary.")
+    authenticated = consume_decision(
+        Path(state_root),
+        decision_id,
+        expected_request_digest=canonical_hash(request),
+        expected_evidence_digest=canonical_hash(evidence),
+        expected_capability=expected_capability,
+        expected_policy_version=expected_policy_version,
+    )
+    verified_decision = authenticated["decision"]
+    if verified_decision.get("verdict") != "ALLOW":
         return {
             "schema": "dio.legalis.valinor_authorization.v1",
-            "decision_id": decision.get("decision_id"),
+            "decision_id": decision_id,
             "entity_id": entity_id,
             "operation": operation,
             "target": target,
@@ -63,6 +88,7 @@ def authorize_valinor_boundary(
             "state": "LEGALIS_NOT_ALLOWED",
             "reason": "Valinor was not invoked because Legalis did not earn ALLOW.",
             "authorized_at": timestamp(),
+            "decision_ledger_entry_sha256": authenticated["ledger_entry_sha256"],
         }
     if runtime is None:
         if workspace_root is None:
@@ -93,7 +119,7 @@ def authorize_valinor_boundary(
     except PermissionError as exc:
         return {
             "schema": "dio.legalis.valinor_authorization.v1",
-            "decision_id": decision.get("decision_id"),
+            "decision_id": decision_id,
             "entity_id": entity_id,
             "operation": operation,
             "target": target,
@@ -101,11 +127,12 @@ def authorize_valinor_boundary(
             "state": "VALINOR_REFUSE",
             "reason": str(exc),
             "authorized_at": timestamp(),
+            "decision_ledger_entry_sha256": authenticated["ledger_entry_sha256"],
         }
 
     return {
         "schema": "dio.legalis.valinor_authorization.v1",
-        "decision_id": decision.get("decision_id"),
+        "decision_id": decision_id,
         "entity_id": entity_id,
         "operation": operation,
         "target": target,
@@ -114,4 +141,5 @@ def authorize_valinor_boundary(
         "result": result,
         "authorized_at": timestamp(),
         "external_action_executed": False,
+        "decision_ledger_entry_sha256": authenticated["ledger_entry_sha256"],
     }
