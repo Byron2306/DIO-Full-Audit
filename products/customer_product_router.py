@@ -11,6 +11,69 @@ READINESS = {'Corporate Readiness', 'Finance Readiness', 'Finance Readiness Stud
 REPORTS = {'Report & Pitch Studio', 'Article Publication', 'Article Publication Studio'}
 CORRESPONDENCE = {'Professional Correspondence', 'Professional Correspondence Studio'}
 DOCUMENT_SERVICES = {'Document Studio Edit': 'technical_edit', 'Document Studio Localize': 'translation'}
+EVIDENCE_STUDIO_PILOTS = frozenset({
+    'AuditProof', 'QualityProof', 'VendorProof', 'AssuranceRoom',
+    'DiligenceRoom', 'DonorProof', 'ImpactProof', 'ProgrammeProof',
+})
+
+
+def _finish_evidence_pilot(product_name: str, packet: Mapping[str, Any], out: Path, receipt: dict[str, Any]) -> dict[str, Any]:
+    """Bind the original customer artifacts to a real held Production Studio finish."""
+    from presence_core.shared_production_finish import render_held_artifacts_for_review
+
+    declared = receipt.get('outputs') or []
+    if not isinstance(declared, list) or not declared:
+        raise ValueError('customer evidence package has no declared rendered outputs')
+    checked_outputs = []
+    for row in declared:
+        relative = Path(str(row.get('path') or ''))
+        if relative.is_absolute() or '..' in relative.parts:
+            raise ValueError('unsafe customer evidence output path')
+        file = (out / relative).resolve()
+        if not file.is_relative_to(out) or not file.is_file():
+            raise ValueError('customer evidence output missing or outside job directory')
+        actual = hashlib.sha256(file.read_bytes()).hexdigest()
+        if actual != row.get('sha256'):
+            raise ValueError('customer evidence output hash mismatch')
+        checked_outputs.append({'path': str(relative), 'sha256': actual})
+
+    native_paths = [out / 'REVIEW_CONTENT.json', out / 'CUSTOMER_PACKAGE_RECEIPT.json']
+    native_artifacts = []
+    for file in native_paths:
+        if not file.is_file():
+            raise ValueError(f'customer evidence source missing: {file.name}')
+        native_artifacts.append({
+            'artifact_id': 'CUSTOMER-' + file.stem,
+            'kind': 'held_customer_evidence',
+            'file_name': file.name,
+            'path': str(file),
+            'sha256': hashlib.sha256(file.read_bytes()).hexdigest(),
+            'release_state': 'HELD',
+        })
+
+    packet_sha = hashlib.sha256(json.dumps(packet, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
+    shared = render_held_artifacts_for_review(
+        state_root=out / 'shared_production_finish',
+        case_id=str(receipt.get('case_id') or ''),
+        source_sha256=packet_sha,
+        product_name=product_name,
+        artifacts=native_artifacts,
+    )
+    if [row.get('organ') for row in shared.get('organ_steps') or []] != ['format_core', 'production_studio'] or any(row.get('state') != 'PASS' for row in shared['organ_steps']):
+        raise ValueError('shared evidence studio finishing did not verify both required organs')
+    proof = {
+        'schema': 'dio.customer_evidence_shared_finish.v1',
+        'product_name': product_name,
+        'source_packet_sha256': packet_sha,
+        'customer_outputs': checked_outputs,
+        'production_studio': shared,
+        'human_review_required': True,
+        'release_authorized': False,
+        'external_effects': False,
+        'commercial_validation': 'UNPROVED',
+    }
+    (out / 'CUSTOMER_SHARED_FINISH_RECEIPT.json').write_text(json.dumps(proof, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+    return shared
 
 
 def customer_product_catalog() -> list[dict[str, Any]]:
@@ -110,6 +173,7 @@ def run_customer_product(product_name: str, packet: Mapping[str, Any], output_di
     else:
         from products.customer_specialist_pathways import build_evidence_review_package
         receipt = build_evidence_review_package(product_name, packet, out, render_pdf=render_pdf)
+    shared_finish = _finish_evidence_pilot(product_name, packet, out, receipt) if product_name in EVIDENCE_STUDIO_PILOTS else None
     inventory = [{'path': str(p.relative_to(out)), 'bytes': p.stat().st_size, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
                  for p in sorted(out.rglob('*')) if p.is_file()]
     result = {'schema': 'dio.customer_product_execution.v1', 'requested_product': product_name,
@@ -117,5 +181,7 @@ def run_customer_product(product_name: str, packet: Mapping[str, Any], output_di
               'customer_packet_sha256': hashlib.sha256(json.dumps(packet, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest(),
               'receipt': receipt, 'artifacts': inventory, 'human_review_required': True,
               'commercial_validation': 'UNPROVED', 'release_authorized': False, 'external_effects': False}
+    if shared_finish is not None:
+        result['shared_production_finish'] = shared_finish
     (out / 'CUSTOMER_EXECUTION_RECEIPT.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
     return result
