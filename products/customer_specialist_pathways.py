@@ -275,7 +275,9 @@ def build_evidence_review_package(product_name: str, packet: Mapping[str, Any], 
         key=str(row.get('requirement_id') or '')
         if not key or key in keys:raise ValueError('separate unique requirement IDs are required')
         keys.add(key);anchor=_quote(row,sources)
-        requirements.append({'requirement_key':key,'statement':str(row.get('label') or anchor['quote']),
+        # A caller's display label is not evidence of what the source says.
+        # Keep the exact matched quotation as the native review statement.
+        requirements.append({'requirement_key':key,'statement':anchor['quote'],
                              'source_ref':f"customer-packet://{anchor['source_id']}#{anchor['start']}:{anchor['end']}",
                              'mandatory':bool(row.get('mandatory',True)),'dependency_requirement_keys':[]})
     if not requirements:raise ValueError('actual source-bound review requirements are required')
