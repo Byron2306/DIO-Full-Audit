@@ -92,8 +92,9 @@ def test_factory_emits_real_assets_story_gamma_request_and_held_governance():
         assert family["story"]["state"] == "ready"
         assert set(family["story"]["variants"]) == {"vertical_short", "landscape_explainer"}
         assert family["story"]["scene_count"] == len(family["story"]["arc"])
-        assert family["gamma"]["required_for_media"] is True
-        assert family["gamma"]["state"] == "request_ready"
+        assert family["gamma"]["required_for_media"] is False
+        assert family["gamma"]["state"] == "optional_not_requested"
+        assert family["gamma"]["role"] == "optional_visual_candidate_provider"
         assert set(family["gamma"]["variants"]) == {"vertical_short", "landscape_explainer"}
         assert family["piper"]["remote_fallback"] is False
         assert family["piper"]["required_for_media"] is False
