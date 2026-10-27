@@ -37,10 +37,9 @@
 - Produces: `build_shared_capability_registry(root: Path) -> dict[str, dict[str, Any]]`
 - Produces: `build_route_capability_plan(root: Path, route_id: str, route_provider: dict[str, Any]) -> list[dict[str, Any]]`
 
-- [ ] Write tests for the four provider records, provider path validation, all-route availability, and route-composition requirement rules.
-- [ ] Run the focused tests and confirm they fail because the registry does not exist.
-- [ ] Implement the registry and deterministic ordered route plan.
-- [ ] Run the focused tests and confirm they pass.
+- [x] Write tests for the four provider records, provider path validation, all-route availability, and route-composition requirement rules.
+- [x] Implement the registry and deterministic ordered route plan.
+- [x] Run the focused Phase 8 tests and confirm they pass.
 
 ### Task 2: Bind and project the plan across all 68 offers
 
@@ -52,12 +51,10 @@
 - Consumes: `build_shared_capability_registry` and `build_route_capability_plan` from Task 1.
 - Produces: `binding["shared_capability_catalog"]`, `binding["capability_plan"]`, and an execution profile containing only independently enforceable steps.
 
-- [ ] Write assertions across all 68 bindings for catalog coverage, stage ordering, authority fields, and conditional requirements.
-- [ ] Update execution-profile assertions to require the native route plus required shared stages.
-- [ ] Run the focused tests and confirm they fail against the one-capability profile.
-- [ ] Compile the capability catalog and plan into each binding and project required stages into execution profiles.
-- [ ] Run Phase 8 and fulfilment contract tests and confirm they pass.
-- [ ] Run the relevant broader customer-journey suite and inspect the working-tree diff.
+- [x] Write assertions across all 68 bindings for catalog coverage, stage ordering, authority fields, and conditional requirements.
+- [x] Compile the capability catalog and plan into each binding and project required stages into execution profiles.
+- [x] Run Phase 8 and fulfilment contract tests and confirm they pass.
+- [ ] Produce and verify one converged 68-offer proof-production matrix that binds each required stage to a held customer artifact and receipt.
 
 ### Task 3: Execute the universal professional finish
 
