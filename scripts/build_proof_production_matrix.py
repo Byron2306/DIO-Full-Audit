@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from presence_core.product_binding_registry import build_phase8_binding_registry
+from products.canon_extension_native_profiles import NATIVE_CANON_EXTENSION_PROFILES
 from products.professional_evidence_corpus import CASES
 
 
@@ -22,17 +23,36 @@ def _canonical(value: Any) -> bytes:
 
 def build_proof_production_matrix(root: Path = ROOT) -> dict[str, Any]:
     registry = build_phase8_binding_registry(Path(root))
+    native_extensions = {
+        str(profile["name"]): profile
+        for profile in NATIVE_CANON_EXTENSION_PROFILES
+    }
     rows: list[dict[str, Any]] = []
     for binding in registry["bindings"]:
         contract = binding["offer_contract"]
         plan = binding["capability_plan"]
         required = [row["capability_id"] for row in plan if row.get("execution_required")]
         product_name = binding["product_name"]
-        customer_case_coverage = (
-            "CANONICAL_CASE_AVAILABLE"
-            if product_name in CASES
-            else "CASE_EXTENSION_REQUIRED"
-        )
+        native_extension = native_extensions.get(product_name)
+        if product_name in CASES:
+            customer_case_coverage = "CANONICAL_CASE_AVAILABLE"
+            controlled_evidence_path = "vesper_customer_case_x3"
+            recommended_customer_route = binding["fulfilment_profile"]["route_id"]
+            specialist_capabilities: list[str] = []
+        elif native_extension:
+            customer_case_coverage = "NATIVE_SPECIALIST_CASE_AVAILABLE"
+            controlled_evidence_path = "native_extension_product_grade"
+            recommended_customer_route = "native_extension_product_grade"
+            specialist_capabilities = [
+                "lingua_semantic_custody",
+                "beast_mechanical_product_grade",
+                "unseen_input_generalisation",
+            ]
+        else:
+            customer_case_coverage = "CASE_EXTENSION_REQUIRED"
+            controlled_evidence_path = "product_grade_extension"
+            recommended_customer_route = binding["fulfilment_profile"]["route_id"]
+            specialist_capabilities = []
         blockers = ["fresh_held_customer_artifact_required"]
         if customer_case_coverage == "CASE_EXTENSION_REQUIRED":
             blockers.append("customer_case_extension_required")
@@ -45,10 +65,11 @@ def build_proof_production_matrix(root: Path = ROOT) -> dict[str, Any]:
             "native_route": binding["fulfilment_profile"]["route_id"],
             "required_capabilities": required,
             "available_on_approved_request": [row["capability_id"] for row in plan if not row.get("execution_required")],
-            "controlled_evidence_path": "vesper_customer_case_x3" if product_name in CASES else "product_grade_extension",
+            "controlled_evidence_path": controlled_evidence_path,
             "customer_case_coverage": customer_case_coverage,
-            "recommended_customer_route": binding["fulfilment_profile"]["route_id"],
+            "recommended_customer_route": recommended_customer_route,
             "route_composition": binding["fulfilment_profile"]["organ_composition"],
+            "specialist_quality_capabilities": specialist_capabilities,
             "sellable_quality_state": "HELD_EVIDENCE_REQUIRED",
             "sellable_quality_blockers": blockers,
             "named_artifact_proof": contract["proof"]["product_artifact_proof"],

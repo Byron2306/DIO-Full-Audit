@@ -23,11 +23,20 @@ def test_matrix_covers_every_offer_with_required_capabilities_and_honest_proof_s
     assert len(matrix["matrix_sha256"]) == 64
 
 
-def test_matrix_separates_53_customer_case_routes_from_15_extension_routes() -> None:
+def test_matrix_separates_customer_cases_native_extension_grades_and_unwired_extensions() -> None:
     matrix = build_proof_production_matrix(ROOT)
     methods = [row["controlled_evidence_path"] for row in matrix["offers"]]
     assert methods.count("vesper_customer_case_x3") == 53
-    assert methods.count("product_grade_extension") == 15
+    assert methods.count("native_extension_product_grade") == 11
+    assert methods.count("product_grade_extension") == 4
+
+    contract_desk = next(row for row in matrix["offers"] if row["product_name"] == "Contract Desk")
+    assert contract_desk["recommended_customer_route"] == "native_extension_product_grade"
+    assert "lingua_semantic_custody" in contract_desk["specialist_quality_capabilities"]
+
+    studio = next(row for row in matrix["offers"] if row["product_name"] == "Site Studio")
+    assert studio["recommended_customer_route"] == "document_studio"
+    assert "customer_case_extension_required" in studio["sellable_quality_blockers"]
 
 
 def test_matrix_exposes_sellable_quality_blockers_without_claiming_readiness() -> None:
@@ -39,7 +48,7 @@ def test_matrix_exposes_sellable_quality_blockers_without_claiming_readiness() -
     assert campaign["sellable_quality_state"] == "HELD_EVIDENCE_REQUIRED"
     assert campaign["customer_case_coverage"] == "CANONICAL_CASE_AVAILABLE"
 
-    extension = next(row for row in matrix["offers"] if row["product_name"] == "Launch Studio")
+    extension = next(row for row in matrix["offers"] if row["product_name"] == "Site Studio")
     assert extension["customer_case_coverage"] == "CASE_EXTENSION_REQUIRED"
     assert "customer_case_extension_required" in extension["sellable_quality_blockers"]
     assert extension["sellable_quality_state"] == "HELD_EVIDENCE_REQUIRED"

@@ -5,7 +5,7 @@
 ## Baseline recorded 2026-10-27
 
 - The product census is 68.
-- 53 offers have a canonical controlled customer case; 15 require a customer-case extension.
+- 53 offers have a canonical controlled customer case; 11 extension offers have a specialist native product-grade route; four Studio offers still require a customer-case extension.
 - Every offer still requires a fresh held customer artifact before a buyer-ready claim.
 - Every offer still needs an exact canonical product-manifest mapping. Existing internal manifests are not silently repurposed as commercial product manifests.
 - Commercial validation remains unproved for all offers.
@@ -15,8 +15,9 @@
 - [x] Extend the proof-production matrix with the recommended specialist route, route composition, customer-case coverage, and explicit sellable-quality blockers.
 - [x] Correct the Campaign Lab canonical customer case to the approved Gilded/local-compositor, Pocket TTS Vera, rights-recorded music path.
 - [x] Execute Campaign Lab through the active customer route and retain a held review artifact with Vera narration, local-compositor visuals, rights-recorded music, and publication/spend still held.
+- [x] Classify the 15 extensions by the strongest available route: use native LINGUA/BEAST product-grade cases for 11 and isolate the four Studio-case gaps.
 - [ ] Add exact commercial product-manifest mappings, beginning with specialist routes whose internal manifests already have matching governed scope.
-- [ ] Add controlled customer cases for the 15 extension offers and prove their route-specific artifact contracts.
+- [ ] Add controlled customer cases for the four Studio extensions and execute the 11 native extension product-grade routes against current canonical artifacts.
 - [ ] Run held customer artifacts by route family, retain only artifacts that pass blind review and shared Format Core/Production Studio finishing.
 - [ ] Publish only reviewed evidence to the product website and dashboards; preserve holds and unproved-commercial-validation labels.
 
