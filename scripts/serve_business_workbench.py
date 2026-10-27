@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from http import HTTPStatus
 from http.server import ThreadingHTTPServer
 from pathlib import Path
@@ -19,6 +20,7 @@ from cockpit_runtime import (  # noqa: E402
     runtime_readiness,
 )
 from dio_secrets import load_secret_env  # noqa: E402
+from market_capital.cockpit import capital_support_cockpit  # noqa: E402
 from operator_evidence_intake import stage_controlled_evidence_run  # noqa: E402
 from operator_production import (  # noqa: E402
     create_marketing_pack,
@@ -27,6 +29,10 @@ from operator_production import (  # noqa: E402
     run_factory_test,
 )
 from portfolio_runtime import import_portfolio  # noqa: E402
+from presence_core.operator_views import case_detail_view, case_list_view, commercial_pipeline_view  # noqa: E402
+from presence_core.pricing_governance import build_pricing_intelligence_from_state  # noqa: E402
+from presence_core.state import list_needs_you  # noqa: E402
+from products.commercial_pricing_registry import build_commercial_pricing_registry  # noqa: E402
 from semantic_marketing import PROFILE_COMPATIBILITY, semantic_marketing_brief  # noqa: E402
 from scripts.build_operator_dashboard import build_dashboard_state  # noqa: E402
 from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
@@ -36,8 +42,48 @@ from scripts.serve_control_deck_ms10 import MS10ControlDeckHandler, _read_json_b
 SEMANTIC_BOUNDARY_ASSET = "config/atlas/dio_meta_incarnation_crosswalk.csv"
 
 
+def _presence_state_root() -> Path:
+    configured = str(os.getenv("DIO_PRESENCE_STATE_ROOT") or "state/presence").strip()
+    path = Path(configured)
+    return path if path.is_absolute() else ROOT / path
+
+
+def _commercial_state() -> dict:
+    state_root = _presence_state_root()
+    cases = case_list_view(state_root, 500)
+    pipeline = commercial_pipeline_view(state_root)
+    pricing = build_commercial_pricing_registry(ROOT)
+    needs_you = [row for row in list_needs_you(state_root, 1000) if row.get("state") == "open"]
+    return {
+        "schema": "dio.business_commercial_projection.v1",
+        "canonical_state_root": str(state_root),
+        "cases": cases,
+        "pipeline": pipeline,
+        "pricing": pricing,
+        "needs_you": {"count": len(needs_you), "items": needs_you[:100]},
+        "truth_boundary": pipeline.get("value_boundary"),
+        "authority_created": False,
+        "external_effects": False,
+    }
+
+
+def _capital_support_view(view: str) -> dict:
+    state = capital_support_cockpit(ROOT)
+    projected = dict(state)
+    projected["view"] = view
+    if view == "recommendations":
+        projected["items"] = [
+            row for row in state.get("items", [])
+            if isinstance(row.get("action_recommendation"), dict)
+        ]
+        projected["recommendation_count"] = len(projected["items"])
+    projected["authority_created"] = False
+    projected["external_effects"] = False
+    return projected
+
+
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.6"
+    server_version = "DIOBusinessWorkbench/3.8"
 
     def _serve_artifact(self) -> None:
         """Apply the narrow old-Host KnowEdge remap before the governed base gateway resolves the path."""
@@ -69,9 +115,14 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             '<a class="card launch social" target="_blank" rel="noreferrer" href="https://ads.tiktok.com/"><small>Advertising</small><b>TikTok Ads</b><span>Ads Manager</span></a>'
         )
         page = page.replace(youtube, youtube + tiktok, 1)
-        injection = '<script src="/dashboard/atlas_slice1.js"></script>'
-        if injection not in page:
-            page = page.replace("</body>", injection + "</body>", 1)
+        for injection in (
+            '<script src="/dashboard/atlas_slice1.js"></script>',
+            '<script src="/dashboard/commercial_slice2.js"></script>',
+            '<script src="/dashboard/capital_support_slice3.js"></script>',
+            '<script src="/dashboard/pricing_slice4.js"></script>',
+        ):
+            if injection not in page:
+                page = page.replace("</body>", injection + "</body>", 1)
         self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
 
     def _serve_production_page(self) -> None:
@@ -167,6 +218,34 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         if route == "/dashboard/index.html":
             self._serve_advanced_page()
             return
+        if route == "/api/business/commercial/state":
+            try:
+                self.send_json(_commercial_state())
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json({"error": "commercial_state_unavailable", "message": str(exc), "authority_created": False}, HTTPStatus.SERVICE_UNAVAILABLE)
+            return
+        if route == "/api/business/pricing":
+            self.send_json(build_pricing_intelligence_from_state(ROOT, state_root=_presence_state_root()))
+            return
+        if route == "/api/business/capital-support":
+            self.send_json(capital_support_cockpit(ROOT))
+            return
+        if route == "/api/business/capital-support/census":
+            self.send_json(_capital_support_view("census"))
+            return
+        if route == "/api/business/capital-support/recommendations":
+            self.send_json(_capital_support_view("recommendations"))
+            return
+        if route == "/api/business/commercial/case":
+            case_id = str((parse_qs(split.query).get("case_id") or [""])[0]).strip()
+            if not case_id:
+                self.send_json({"error": "case_id_required", "authority_created": False}, HTTPStatus.BAD_REQUEST)
+                return
+            try:
+                self.send_json(case_detail_view(_presence_state_root(), case_id))
+            except KeyError:
+                self.send_json({"error": "customer_case_not_found", "case_id": case_id, "authority_created": False}, HTTPStatus.NOT_FOUND)
+            return
         if route == "/api/business/atlas":
             self.send_json(atlas_projection(ROOT, build_dashboard_state()))
             return
@@ -196,9 +275,17 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.6",
+                    "version": "3.8",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
+                    "commercial_spine": True,
+                    "commercial_state_endpoint": "/api/business/commercial/state",
+                    "pricing_governance": True,
+                    "pricing_governance_endpoint": "/api/business/pricing",
+                    "capital_support_surface": True,
+                    "capital_support_endpoint": "/api/business/capital-support",
+                    "capital_support_census_endpoint": "/api/business/capital-support/census",
+                    "capital_support_recommendations_endpoint": "/api/business/capital-support/recommendations",
                     "production_studio": True,
                     "marketing_asset_factory": True,
                     "semantic_marketing_briefs": True,
@@ -281,6 +368,9 @@ def main() -> int:
     server = ThreadingHTTPServer((args.host, args.port), BusinessWorkbenchHandler)
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
     print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Production Studio ACTIVE")
+    print("Commercial spine: ACTIVE · same canonical customer-case projection · no browser authority secrets")
+    print("Pricing governance: ACTIVE · evidence-bound recommendations · no automatic price authority")
+    print("Capital & Support cockpit: ACTIVE · read-only strategic/ranking/draft projection")
     print("Semantic marketing briefs: ACTIVE · manual audience/pain entry: NOT REQUIRED")
     try:
         server.serve_forever()

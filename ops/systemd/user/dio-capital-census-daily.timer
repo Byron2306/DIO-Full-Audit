@@ -1,0 +1,11 @@
+[Unit]
+Description=Run DIO bounded Capital and Support census discovery daily
+
+[Timer]
+OnCalendar=*-*-* 06:40:00
+RandomizedDelaySec=20m
+Persistent=true
+Unit=dio-capital-census-daily.service
+
+[Install]
+WantedBy=timers.target

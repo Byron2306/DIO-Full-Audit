@@ -1,0 +1,38 @@
+name: DIO Slice 4 Pricing Governance
+
+on:
+  pull_request:
+    branches:
+      - agent/dio-control-deck-68-productgrade
+    paths:
+      - 'presence_core/pricing_governance.py'
+      - 'presence_core/commercial_pricing.py'
+      - 'products/commercial_pricing_registry.py'
+      - 'scripts/serve_business_workbench.py'
+      - 'dashboard/pricing_slice4.js'
+      - 'tests/test_slice4_pricing_governance.py'
+      - 'tests/test_slice2_commercial_spine_contracts.py'
+      - '.github/workflows/dio-slice4-pricing-governance.yml'
+  push:
+    branches:
+      - agent/dio-slice4-pricing-governance
+
+jobs:
+  slice4-pricing-governance:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test runner
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Compile pricing governance
+        run: |
+          python -m py_compile products/commercial_pricing_registry.py
+          if [ -f presence_core/pricing_governance.py ]; then python -m py_compile presence_core/pricing_governance.py; fi
+      - name: Run Slice 4 and regression contracts
+        run: |
+          PYTHONNOUSERSITE=1 python -m pytest -q             tests/test_slice4_pricing_governance.py             tests/test_vesper_commercial_pricing.py             tests/test_vesper_commercial_pricing_registry.py             tests/test_commercial_proof_wtp_guard.py             tests/test_slice2_commercial_spine_contracts.py
+      - name: Acceptance token
+        run: echo DIO_SLICE_4_PRICING_GOVERNANCE_CI_VERIFIED

@@ -1,0 +1,24 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "self": "https://api.threesixtygiving.org/api/v1/grant/TEST-001/",
+      "data": {
+        "identifier": "TEST-001",
+        "title": "Digital Education Access Programme",
+        "description": "Support for digital learning access.",
+        "currency": "GBP",
+        "amountAwarded": 125000,
+        "awardDate": "2025-06-30",
+        "fundingOrganization": [
+          {"id": "GB-CHC-1000000", "name": "Example Foundation"}
+        ],
+        "recipientOrganization": [
+          {"id": "GB-CHC-2000000", "name": "Example Education Trust"}
+        ]
+      }
+    }
+  ]
+}

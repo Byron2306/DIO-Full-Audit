@@ -1,0 +1,136 @@
+{
+  "schema": "dio.atlas.capital_search_recipes.v1",
+  "truth_class": "STRATEGIC_SEARCH_MODEL_OUTPUT",
+  "authority_created": false,
+  "external_effects": false,
+  "token_contract": {
+    "allowed": [
+      "domain_names",
+      "impact_themes",
+      "capital_types",
+      "capital_archetypes",
+      "geography",
+      "organisation_archetypes",
+      "product_names",
+      "proof_assets"
+    ],
+    "note": "Recipes compile from Atlas signature tokens. They do not assert market demand, funding intent, eligibility, contactability or authority."
+  },
+  "recipes": {
+    "FUND_THESIS": {
+      "purpose": "Find investors or strategic capital providers whose published thesis overlaps the Atlas signature.",
+      "queries": [
+        "{geography} {domain_names} venture fund investment thesis",
+        "{geography} {impact_themes} investor portfolio",
+        "{domain_names} strategic investor fund thesis"
+      ]
+    },
+    "CURRENT_CALL": {
+      "purpose": "Find currently published calls, programmes, grants, sponsorships, prizes or accelerators.",
+      "queries": [
+        "{geography} {impact_themes} open call funding",
+        "{domain_names} grant accelerator prize applications open",
+        "{capital_archetypes} {impact_themes} current programme call"
+      ]
+    },
+    "HISTORICAL_AWARD": {
+      "purpose": "Find historical awards as evidence of prior funding behaviour, never future intent.",
+      "queries": [
+        "{geography} {impact_themes} historical grants awards",
+        "{domain_names} funded projects awards recipients"
+      ]
+    },
+    "PORTFOLIO_SIMILARITY": {
+      "purpose": "Find organisations that publicly backed adjacent products, organisations or work domains.",
+      "queries": [
+        "{capital_archetypes} portfolio {domain_names}",
+        "invested in {impact_themes} companies projects",
+        "funded {organisation_archetypes} {domain_names}"
+      ]
+    },
+    "PROGRAMME_ELIGIBILITY": {
+      "purpose": "Locate published eligibility criteria for a discovered programme.",
+      "queries": [
+        "{impact_themes} programme eligibility {geography}",
+        "{domain_names} funding eligibility criteria"
+      ]
+    },
+    "FOUNDATION_MISSION": {
+      "purpose": "Find foundations and philanthropic organisations by published mission overlap.",
+      "queries": [
+        "foundation mission {impact_themes} {geography}",
+        "philanthropy {domain_names} {geography}"
+      ]
+    },
+    "IMPACT_PORTFOLIO": {
+      "purpose": "Find published programme and impact portfolios related to Atlas themes.",
+      "queries": [
+        "foundation programme portfolio {impact_themes}",
+        "corporate social investment {domain_names} {geography}"
+      ]
+    },
+    "PUBLIC_ROUTE": {
+      "purpose": "Find an explicit public application or contact route without synthesizing personal contact data.",
+      "queries": [
+        "site:{canonical_domain} apply contact programme",
+        "site:{canonical_domain} grants applications partnerships"
+      ]
+    },
+    "PUBLIC_ROLE": {
+      "purpose": "Find publicly documented professional roles relevant to a target organisation.",
+      "queries": [
+        "site:{canonical_domain} team programme officer investment partner",
+        "site:{canonical_domain} leadership grants partnerships"
+      ]
+    },
+    "RECENT_FUND_SIGNAL": {
+      "purpose": "Find recent public signals about deployment, new funds, programmes or strategic priorities.",
+      "queries": [
+        "{organisation_name} new fund programme announcement",
+        "{organisation_name} {impact_themes} recent investment grant"
+      ]
+    },
+    "ADJACENT_DOMAIN": {
+      "purpose": "Expand discovery into Atlas-adjacent domains while remaining bounded by the discovery budget.",
+      "queries": [
+        "{geography} {domain_names} adjacent innovation funding",
+        "{impact_themes} cross-sector accelerator foundation investor"
+      ]
+    },
+    "INNOVATION_PROGRAMME": {
+      "purpose": "Find innovation programmes related to the Atlas domain signature.",
+      "queries": [
+        "{domain_names} innovation programme funding {geography}",
+        "{impact_themes} challenge fund accelerator"
+      ]
+    },
+    "PATRONAGE_PROGRAMME": {
+      "purpose": "Find public patronage, membership or sponsorship mechanisms aligned with open/public-benefit work.",
+      "queries": [
+        "{impact_themes} patron sponsorship open project",
+        "creator research technology patronage {domain_names}"
+      ]
+    },
+    "ACCESSIBILITY_GRANT": {
+      "purpose": "Find accessibility and digital-inclusion funding calls.",
+      "queries": [
+        "accessibility digital inclusion grant {geography}",
+        "accessible publishing innovation funding"
+      ]
+    },
+    "ACCELERATOR_CALL": {
+      "purpose": "Find active accelerator calls aligned to the Atlas signature.",
+      "queries": [
+        "{domain_names} accelerator applications {geography}",
+        "{impact_themes} startup accelerator open call"
+      ]
+    },
+    "INNOVATION_PRIZE": {
+      "purpose": "Find active innovation prizes and challenge competitions.",
+      "queries": [
+        "{domain_names} innovation prize challenge {geography}",
+        "{impact_themes} competition prize open call"
+      ]
+    }
+  }
+}

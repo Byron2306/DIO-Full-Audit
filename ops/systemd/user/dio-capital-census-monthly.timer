@@ -1,0 +1,11 @@
+[Unit]
+Description=Run DIO Capital and Support census reverification monthly
+
+[Timer]
+OnCalendar=*-*-01 08:00:00
+RandomizedDelaySec=45m
+Persistent=true
+Unit=dio-capital-census-monthly.service
+
+[Install]
+WantedBy=timers.target

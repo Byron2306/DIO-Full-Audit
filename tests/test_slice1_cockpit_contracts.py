@@ -54,6 +54,52 @@ def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() ->
 
 
 def test_legacy_artifact_compatibility_is_narrow_existing_and_wired_to_live_gateway() -> None:
+def test_sensorium_live_projection_is_visible_without_replaying_ms8_gate() -> None:
+    source = read("scripts/serve_market_command_ms10.py")
+    assert "MarketSensoriumStore" in source
+    assert "build_commercial_cockpit" in source
+    assert "SENSORIUM_DB_PATH" in source
+    assert "if SENSORIUM_DB_PATH.is_file():" in source
+    assert "build_commercial_cockpit(ROOT, store)" in source
+    assert "current cloud evidence epoch" in source
+
+
+def test_market_command_evidence_link_uses_canonical_rich_sensorium_cockpit() -> None:
+    page = read("dashboard/market.html")
+    patcher = read("scripts/serve_market_command_ms10.py")
+    assert 'href="/state/market_sensorium/COMMERCIAL_COCKPIT.html">Evidence cockpit</a>' in page
+    assert 'href="/sensorium-evidence">Evidence cockpit</a>' not in patcher
+
+
+def test_goldeneye_hydrates_when_ms9_receipt_is_missing() -> None:
+    source = read("dashboard/goldeneye-ms10.html")
+    assert "Promise.allSettled" in source
+    assert 'j("/api/control/state")' in source
+    assert 'j("/state/market_sensorium/MARKET_SENSORIUM_MS9_RECEIPT.json")' in source
+    assert 'const soak=' in source
+    assert 'PENDING_CURRENT_EPOCH_MS9_RECEIPT' in source
+    assert 'renderPortfolio(state);render(c,soak)' in source
+
+
+def test_goldeneye_uses_live_sensorium_projection_instead_of_missing_static_cockpit() -> None:
+    page = read("dashboard/goldeneye-ms10.html")
+    server = read("scripts/serve_goldeneye_ms10.py")
+    assert 'j("/api/goldeneye/sensorium")' in page
+    assert 'j("/state/market_sensorium/COMMERCIAL_COCKPIT.json")' not in page
+    assert 'route == "/api/goldeneye/sensorium"' in server
+    assert "sensorium_state" in server
+    assert "send_json(sensorium_state())" in server
+
+
+def test_goldeneye_sensorium_render_does_not_depend_on_control_state() -> None:
+    source = read("dashboard/goldeneye-ms10.html")
+    assert 'if(cockpitResult.status!=="fulfilled")throw cockpitResult.reason' in source
+    assert 'const state=stateResult.status==="fulfilled"?stateResult.value:{product_portfolio:{state:"CONTROL_STATE_UNAVAILABLE",summary:{}}}' in source
+    assert 'renderPortfolio(state);render(c,soak)' in source
+    assert 'if(stateResult.status!=="fulfilled")throw stateResult.reason' not in source
+
+
+def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     source = read("cockpit_runtime.py")
     assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source
     assert "def resolve_legacy_artifact_path" in source
@@ -66,6 +112,19 @@ def test_legacy_artifact_compatibility_is_narrow_existing_and_wired_to_live_gate
     assert "super()._serve_artifact()" in live_gateway
     base_gateway = read("scripts/serve_control_deck_ms10.py")
     assert "Artifact path is outside the approved DIO output roots" in base_gateway
+
+
+def test_artifact_gateway_actually_uses_narrow_legacy_remap() -> None:
+    gateway = read("scripts/serve_control_deck_ms10.py")
+    assert "resolve_legacy_artifact_path" in gateway
+    assert "resolve_legacy_artifact_path(raw, ROOT)" in gateway
+    assert "legacy_target" in gateway
+
+
+def test_sensorium_evidence_defensively_normalizes_malformed_lists() -> None:
+    source = read("scripts/serve_market_command_ms10.py")
+    assert 'isinstance(ranked_value, list)' in source
+    assert 'isinstance(hypotheses_value, list)' in source
 
 
 def test_slice1_preserves_stronger_v2_68_product_receipt_contract() -> None:

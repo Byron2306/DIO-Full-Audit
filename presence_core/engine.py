@@ -6,11 +6,13 @@ from adapters.lingua.communicator import register_communication, requested_langu
 from adapters.lingua.interaction_regulator import observe_interaction
 from adapters.lingua.persona_lab import assign_persona
 from .attachments import AttachmentError, validate_and_store_attachment
+from .capital_queries import CAPITAL_INTENTS, capital_query
 from .config import operator_ids
 from .events import emit_event
 from .identity import load_status_binding, bound_order_status
 from .llm import draft_with_ollama
 from .policy import authorize
+from .pricing_governance import pricing_operator_query
 from .router import route_message
 from .state import load_or_create_conversation, update_conversation, create_intake, create_needs_you, list_needs_you, operator_summary
 from .voice import build_voice_plan
@@ -66,15 +68,17 @@ def _operator_brief_text(summary:dict[str,Any], focus:str='full')->str:
             f"{summary.get('incidents',{}).get('open_or_recorded',0)} recorded incident(s). Top actions: {first_actions}. "
             "I have not sent, approved, released, published, spent, or processed attachments.")
 
-def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None)->tuple[str,str]:
+def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None,capital=None,pricing=None)->tuple[str,str]:
     intent=decision['intent']; product=decision.get('product')
     if intent=='help':
         if role=='operator':
             return ("Operator commands: /status, /market, /commerce, /mail, /jobs, /needs, /help. "
-                    "Plain-language equivalents also work: market command, paid orders, pending mail, delivery drafts, attention queue. "
-                    "I am read-only here: I can brief and route, but I cannot send mail, publish, spend, approve, release fulfilment, or process attachments."), 'operator_help'
+                    "Plain-language equivalents also work: market command, paid orders, pending mail, delivery drafts, attention queue, capital priorities, grants, patronage and governed draft review. "
+                    "I am read-only here: I can brief and route, but I cannot send mail, publish, spend, approve, release fulfilment, submit applications, accept funds, or process attachments."), 'operator_help'
         return ("I can explain DIO, HOMS, Evidex, Sophia, VAMP and Document Studio; capture a request; receive bounded uploads into quarantine; "
                 "and explain translation or formatting. I cannot take payment, release work, or disclose private order status from an unverified chat."), 'public_help'
+    if intent in CAPITAL_INTENTS and capital:
+        return str(capital.get('text') or 'Capital & Support query completed.'),json.dumps(capital,sort_keys=True)
     if intent=='operator_summary' and summary:
         return _operator_brief_text(summary),json.dumps(summary,sort_keys=True)
     if intent in {'campaign_summary','revenue_summary','mail_summary','job_summary'} and summary:
@@ -86,16 +90,30 @@ def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,s
         top='; '.join(f"{x['needs_you_id']}: {x['summary'][:110]}" for x in needs[:5]); return f'You have {len(needs)} open Needs You item(s). Top items: {top}',f'needs_you={len(needs)}'
     if intent=='intake_request' and intake:
         suffix=f" I also quarantined attachment {attachment['attachment_id']} for human review; it has not been opened or parsed." if attachment else ''
+        if role=='operator':
+            return (f"Operator intake captured for {product.upper()} as {intake['intake_id']}; it is in human review. No charge, fulfilment start, or delivery commitment exists yet.{suffix}"),f"intake={intake['intake_id']}; state=pending_operator_review; role=operator"
         return f"I’ve captured this as a {product.upper()} intake ({intake['intake_id']}) and placed it in human review. I haven’t charged you, started fulfilment, or promised a delivery time yet.{suffix}",f"intake={intake['intake_id']}; state=pending_operator_review"
     if intent=='attachment_received' and attachment:
-        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined"
-    if intent=='pricing_info': return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
+        if role=='operator':
+            return (f"Operator rail: received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. Nothing has been opened, parsed, processed, or trusted yet."),f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false; role=operator"
+        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false"
+    if intent=='pricing_info' and pricing:
+        return str(pricing.get('text') or 'Pricing intelligence resolved.'),json.dumps(pricing,sort_keys=True)
+    if intent=='pricing_info':
+        if role=='operator': return 'Operator pricing view: no deterministic price is bound to this turn yet. I can surface governed offer bands and scope evidence, but I will not invent a number.','pricing_not_resolved; role=operator'
+        return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
     if intent=='status_request' and statuses is not None: return _status_text(statuses)
     if intent=='status_request': return 'I can help with status, but this conversation has not yet been identity-bound to an order by DIO. I’ve put the request in the human queue rather than exposing customer information to an unverified chat.','public_status_lookup=identity_binding_required'
     if intent=='translation_info': return 'Yes. DIO’s localisation path is designed to translate structured meaning before final rendering, so terminology, grade level and layout can be checked rather than blindly translating a finished document. Human language review remains available as a gate.','translation=structured_meaning_first'
     if intent=='formatting_info': return 'Yes. DIO Format treats presentation as a governed render step: templates, document geometry, headings, tables, references, PowerPoint masters and delivery profiles can be applied without rewriting the underlying content.','formatting=render_layer'
-    if intent=='product_info' and product: return PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.'),f'product={product}'
-    if intent=='general_info': return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
+    if intent=='product_info' and product:
+        copy=PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.')
+        if role=='operator': return f"Operator view: {copy}",f'product={product}'
+        return copy,f'product={product}'
+    if intent=='general_info':
+        if role=='operator':
+            return ("You’re on Vesper’s operator rail. DIO is the governed operating system behind the product, evidence, commercial, market, and execution rails I brief you on. I can surface jobs, customer work, mail, payments, Needs You decisions, campaigns, and current system truth without selling DIO back to you."),'role=operator; operator_capabilities=bounded'
+        return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
     return 'I’m not confident enough to route that safely yet. Tell me whether this is about HOMS, Evidex, Sophia, VAMP, translation/formatting, an uploaded file, or an existing DIO job and I’ll put it on the right rail.','classification=unresolved'
 
 def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None)->tuple[str,dict[str,Any]]:
@@ -195,8 +213,12 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     voice_profile_id=((persona.get('package') or {}).get('voice_profile_id'))
     voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,requested_profile=voice_profile_id)
     emit_event(event_log,'presence.persona_assigned','info','vesper_persona',persona['assignment_id'],{'experimental_assignment':persona.get('experimental_assignment'),'cell_id':((persona.get('package') or {}).get('cell_id')),'persona_id':((persona.get('package') or {}).get('persona_id')),'avatar_id':((persona.get('package') or {}).get('avatar_id')),'voice_profile_id':voice_profile_id,'stable_for_conversation':True},correlation)
-    summary=None; needs=None; intake=None; statuses=None
-    if decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
+    summary=None; needs=None; intake=None; statuses=None; capital=None; pricing=None
+    if decision['intent'] in CAPITAL_INTENTS:
+        capital=capital_query(dio_root,decision['intent'],text)
+    elif decision['intent']=='pricing_info' and role=='operator':
+        pricing=pricing_operator_query(dio_root,state_root=presence_root,text=text,product_hint=decision.get('product'))
+    elif decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
     elif decision['intent']=='intake_request' and decision.get('product'):
         intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
@@ -213,7 +235,9 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         else:
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
-    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record); reply=draft_with_ollama(decision,facts,fallback,interaction,persona)
+    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record,capital,pricing=pricing)
+    governed_context={'role':role,'audience':str(metadata.get('audience') or ('operator' if role=='operator' else 'public')),'authority_created':False}
+    reply=draft_with_ollama(decision,facts,fallback,interaction,persona,governed_context)
     try:
         reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
     except Exception as exc:
@@ -221,4 +245,4 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         emit_event(event_log,'presence.lingua_registration_failed','warning','presence_conversation',correlation,{'error':str(exc)[:180]},correlation)
     update_conversation(presence_root,conv,decision['intent'],decision.get('product'))
     emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses,'interaction':interaction,'persona':persona,'lingua':lingua}
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'interaction':interaction,'persona':persona,'lingua':lingua}

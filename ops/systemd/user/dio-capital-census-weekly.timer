@@ -1,0 +1,11 @@
+[Unit]
+Description=Run DIO broad Capital and Support census expansion weekly
+
+[Timer]
+OnCalendar=Sun *-*-* 07:20:00
+RandomizedDelaySec=30m
+Persistent=true
+Unit=dio-capital-census-weekly.service
+
+[Install]
+WantedBy=timers.target

@@ -14,6 +14,7 @@ from urllib.parse import parse_qs, quote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from cockpit_runtime import resolve_legacy_artifact_path  # noqa: E402
 from commerce.invoices import create_invoice, issue_invoice, list_invoices, load_invoice  # noqa: E402
 from dio_secrets import load_secret_env, save_secret_values, secret_status  # noqa: E402
 from scripts.manage_mail_intent import create_intent_from_payload  # noqa: E402
@@ -32,7 +33,6 @@ ALLOWED_ARTIFACT_ROOTS = tuple(
     root.resolve()
     for root in (
         ROOT,
-        Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite"),
         Path("/home/byron/Downloads/NicheFoundry_Phase11"),
         Path("/home/byron/KnowEdge_Microsoft_Mirror"),
     )
@@ -47,6 +47,9 @@ def _inside_allowed_root(path: Path) -> bool:
 def _resolve_artifact(raw: str) -> Path:
     if not raw.strip():
         raise ValueError("Artifact path is required")
+    legacy_target = resolve_legacy_artifact_path(raw, ROOT)
+    if legacy_target is not None:
+        return legacy_target
     candidate = Path(raw).expanduser()
     if not candidate.is_absolute():
         candidate = ROOT / candidate
