@@ -5,12 +5,14 @@ import tempfile
 from pathlib import Path
 
 from PIL import Image
+from lingua.semantic_law import build_semantic_law, validate_projection
+from lingua.product_projection import build_projection_plan
+from lingua.storyline_planner import project_story, validate_cross_surface_semantic_distance
 
 from scripts.build_multichannel_campaign_factory import (
     MATRIX,
     SIZES,
     build,
-    build_campaign_story,
     build_gamma_story_request,
     copy_package,
     validate_copy,
@@ -33,25 +35,40 @@ def test_every_channel_copy_package_passes_its_limits():
                 assert validate_copy(channel, package) == [], (product["id"], audience["id"], channel_id)
 
 
-def test_campaign_story_is_one_six_scene_governed_arc():
+def test_campaign_stories_preserve_bounded_truth_across_both_surfaces():
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     product = matrix["products"][0]
     audience = product["audiences"][0]
-    story = build_campaign_story(product, audience)
-    assert story["arc"] == ["hook", "pain", "workflow", "proof", "boundary", "cta"]
-    assert len(story["scenes"]) == 6
-    assert story["story_hash"].startswith("sha256:")
-    assert story["governance"]["publication"] == "held"
-    assert story["governance"]["spend"] == "disabled"
-    assert story["governance"]["market_validation_claimed"] is False
-    with tempfile.TemporaryDirectory() as temporary:
-        gamma = build_gamma_story_request(story, Path(temporary))
-        assert gamma["schema"] == "dio.gamma.campaign_story_request.v1"
-        assert gamma["num_cards"] == 6
-        assert gamma["input_text"].count("\n\n---\n\n") == 5
-        assert gamma["request_hash"].startswith("sha256:")
-        assert gamma["release"]["visual_review_required"] is True
-
+    law = build_semantic_law(product, audience)
+    projection = build_projection_plan(law, product, audience, matrix["channels"])
+    assert validate_projection(law, projection) == []
+    short = project_story(law, projection, product, audience, "vertical_short")
+    long = project_story(law, projection, product, audience, "landscape_explainer")
+    assert short["surface"] == "vertical_short"
+    assert long["surface"] == "landscape_explainer"
+    assert short["story_hash"].startswith("sha256:")
+    assert long["story_hash"].startswith("sha256:")
+    assert short["story_hash"] != long["story_hash"]
+    assert short["semantic_law_hash"] == long["semantic_law_hash"] == law["semantic_law_hash"]
+    assert short["projection_hash"] == long["projection_hash"] == projection["projection_hash"]
+    assert short["semantic_diversity"]["state"] == "PASS"
+    assert long["semantic_diversity"]["state"] == "PASS"
+    assert validate_cross_surface_semantic_distance(short, long) == []
+    for story in (short, long):
+        assert story["arc"] == [scene["role"] for scene in story["scenes"]]
+        assert len(story["scenes"]) >= 3
+        assert story["governance"]["publication"] == "held"
+        assert story["governance"]["spend"] == "disabled"
+        assert story["governance"]["market_validation_claimed"] is False
+        assert story["governance"]["authority_created"] is False
+        with tempfile.TemporaryDirectory() as temporary:
+            gamma = build_gamma_story_request(story, Path(temporary))
+            assert gamma["schema"] == "dio.gamma.campaign_story_request.v1"
+            assert gamma["num_cards"] == len(story["scenes"])
+            assert gamma["input_text"].count("\\n\\n---\\n\\n") == len(story["scenes"]) - 1
+            assert gamma["request_hash"].startswith("sha256:")
+            assert gamma["release"]["visual_review_required"] is True
+            assert gamma["release"]["operator_approval_required"] is True
 
 def test_factory_emits_real_assets_story_gamma_request_and_held_governance():
     with tempfile.TemporaryDirectory() as temporary:
