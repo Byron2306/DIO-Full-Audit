@@ -1,9 +1,11 @@
 # DIO Customer Journey Spine — Master Programme
 
-Status: **MASTER PLAN / PHASE 0 COMPLETE**  
-Branch basis: `snapshot/dio-spine-2026-09-17`  
+Status: **PROGRAMME COMPLETE / PHASES 0–8 VERIFIED**  
+Branch basis: `agent/dio-customer-journey-phase8`  
 Programme owner: DIO commercial organism  
-Phase 0 acceptance: `DIO_CUSTOMER_JOURNEY_PHASE0_ORGAN_CENSUS_FROZEN`
+Phase 0 acceptance: `DIO_CUSTOMER_JOURNEY_PHASE0_ORGAN_CENSUS_FROZEN`  
+Phase 7 acceptance: `DIO_CUSTOMER_JOURNEY_PHASE7_ORGAN_ADAPTER_GAUNTLET_VERIFIED`  
+Phase 8 acceptance: `DIO_CUSTOMER_JOURNEY_PHASE8_68_PRODUCT_BINDING_VERIFIED`
 
 ## Programme thesis
 
@@ -513,6 +515,10 @@ Each major fulfilment family reaches delivery through the same Journey Core and 
 
 ## Phase 8 — 68-Product Binding & Final Commercial Gauntlet
 
+**Status: PASS / 68 OF 68 PRODUCTS BOUND**  
+**Acceptance: `DIO_CUSTOMER_JOURNEY_PHASE8_68_PRODUCT_BINDING_VERIFIED`**  
+**Authoritative evidence: `docs/DIO_CUSTOMER_JOURNEY_PHASE8.md`**
+
 ### Objective
 
 Bind the full verified portfolio to the shared Customer Journey Spine.
@@ -550,6 +556,8 @@ product ID
 ### Exit gate
 
 **68/68 products compile into the Customer Journey Spine with no bespoke commerce plumbing, no unknown fulfilment route and no authority leakage.**
+
+**Exit gate result: PASS.** The verified Phase 8 registry resolves all 68 products across eight archetypes and ten fulfilment routes. Archetypes F and H received fresh controlled end-to-end proofs in Phase 8; A, B, C, D, E and G retain the exact pinned Phase 7 acceptance witness.
 
 ---
 
