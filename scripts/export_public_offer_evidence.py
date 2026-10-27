@@ -6,8 +6,12 @@ import argparse
 import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from presence_core.product_binding_registry import build_phase8_binding_registry
 
@@ -78,7 +82,7 @@ def export_public_offer_evidence(offer_contracts: Path, proof_registry: Path, ou
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     print(json.dumps(export_public_offer_evidence(args.root, args.root, args.out), indent=2))

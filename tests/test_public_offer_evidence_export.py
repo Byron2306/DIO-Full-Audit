@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 from scripts.export_public_offer_evidence import export_public_offer_evidence
@@ -41,3 +43,15 @@ def test_export_has_no_private_paths_or_operational_identifiers(tmp_path: Path) 
     assert '"source_path"' not in rendered
     assert '"repository_commit"' not in rendered
     assert '"customer_id"' not in rendered
+
+
+def test_export_cli_runs_outside_the_repository_working_directory(tmp_path: Path) -> None:
+    output = tmp_path / "public-offer-evidence.json"
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/export_public_offer_evidence.py"), "--out", str(output)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    assert json.loads(output.read_text(encoding="utf-8"))["offer_count"] == 68
