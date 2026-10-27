@@ -8,12 +8,17 @@ from http import HTTPStatus
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 import sys
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import parse_qs, quote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from cockpit_runtime import atlas_projection, patch_advanced_dashboard, runtime_readiness  # noqa: E402
+from cockpit_runtime import (  # noqa: E402
+    atlas_projection,
+    patch_advanced_dashboard,
+    resolve_legacy_artifact_path,
+    runtime_readiness,
+)
 from dio_secrets import load_secret_env  # noqa: E402
 from market_capital.cockpit import capital_support_cockpit  # noqa: E402
 from operator_evidence_intake import stage_controlled_evidence_run  # noqa: E402
@@ -79,6 +84,18 @@ def _capital_support_view(view: str) -> dict:
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
     server_version = "DIOBusinessWorkbench/3.8"
+
+    def _serve_artifact(self) -> None:
+        """Apply the narrow old-Host KnowEdge remap before the governed base gateway resolves the path."""
+        original_path = self.path
+        raw = (parse_qs(urlsplit(self.path).query).get("path") or [""])[0]
+        remapped = resolve_legacy_artifact_path(raw, ROOT)
+        if remapped is not None:
+            self.path = "/api/business/artifact?path=" + quote(str(remapped), safe="")
+        try:
+            super()._serve_artifact()
+        finally:
+            self.path = original_path
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")

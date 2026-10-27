@@ -53,6 +53,7 @@ def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() ->
     assert "authority_created" in source
 
 
+def test_legacy_artifact_compatibility_is_narrow_existing_and_wired_to_live_gateway() -> None:
 def test_sensorium_live_projection_is_visible_without_replaying_ms8_gate() -> None:
     source = read("scripts/serve_market_command_ms10.py")
     assert "MarketSensoriumStore" in source
@@ -105,8 +106,12 @@ def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     assert "candidate.relative_to(LEGACY_KNOWEDGE_ROOT)" in source
     assert "if not target.exists():" in source
     assert "return None" in source
-    gateway = read("scripts/serve_control_deck_ms10.py")
-    assert "Artifact path is outside the approved DIO output roots" in gateway
+    live_gateway = read("scripts/serve_business_workbench.py")
+    assert "resolve_legacy_artifact_path" in live_gateway
+    assert "resolve_legacy_artifact_path(raw, ROOT)" in live_gateway
+    assert "super()._serve_artifact()" in live_gateway
+    base_gateway = read("scripts/serve_control_deck_ms10.py")
+    assert "Artifact path is outside the approved DIO output roots" in base_gateway
 
 
 def test_artifact_gateway_actually_uses_narrow_legacy_remap() -> None:
