@@ -81,3 +81,60 @@ def test_customer_objective_statement_cannot_certify_its_own_evidence(tmp_path: 
     projection = json.loads((db.parent / 'VAMP_DOMAIN_PROJECTION.json').read_text())
     assert projection['rows'][0]['task_id'] is not None
     assert projection['rows'][0]['evidence_id'] is not None
+
+
+def test_zero_quantity_is_not_silently_promoted_to_one_required_output(tmp_path: Path):
+    rows = [
+        {'record_id': 'SCOPE', 'customer_supplied_record': 'Review period: January-June 2026.'},
+        {'record_id': 'OBJECTIVE', 'customer_supplied_record': 'Objective KPA1 requires 0 publications.'},
+    ]
+    with pytest.raises(ValueError, match='zero|positive|quantity'):
+        _build_vamp_database_v2(
+            {'packet_fingerprint': 'sha256:zero-source'},
+            tmp_path / 'projection/progress.db',
+            source_rows=rows,
+        )
+
+
+@pytest.mark.parametrize('statement', [
+    'Objective KPA1 requires -2 publications.',
+    'Objective KPA1 does not require two publications.',
+])
+def test_negated_or_negative_quantity_never_becomes_one_required_output(tmp_path: Path, statement: str):
+    rows = [
+        {'record_id': 'SCOPE', 'customer_supplied_record': 'Review period: January-June 2026.'},
+        {'record_id': 'OBJECTIVE', 'customer_supplied_record': statement},
+    ]
+    with pytest.raises(ValueError, match='negative|negated|quantity'):
+        _build_vamp_database_v2(
+            {'packet_fingerprint': 'sha256:invalid-quantity'},
+            tmp_path / 'projection/progress.db',
+            source_rows=rows,
+        )
+
+
+def test_grouped_requirement_quantity_retains_the_full_number(tmp_path: Path):
+    rows = [
+        {'record_id': 'SCOPE', 'customer_supplied_record': 'Review period: January-June 2026.'},
+        {'record_id': 'OBJECTIVE', 'customer_supplied_record': 'Objective KPA1 requires 1,500 indexed records.'},
+    ]
+    db = _build_vamp_database_v2(
+        {'packet_fingerprint': 'sha256:grouped-requirement'},
+        tmp_path / 'projection/progress.db',
+        source_rows=rows,
+    )
+    with sqlite3.connect(db) as con:
+        assert con.execute('select min_required from tasks').fetchone()[0] == 1500
+
+
+def test_malformed_grouped_requirement_is_not_truncated_to_a_smaller_target(tmp_path: Path):
+    rows = [
+        {'record_id': 'SCOPE', 'customer_supplied_record': 'Review period: January-June 2026.'},
+        {'record_id': 'OBJECTIVE', 'customer_supplied_record': 'Objective KPA1 requires 1,50 indexed records.'},
+    ]
+    with pytest.raises(ValueError, match='grouping|quantity|invalid'):
+        _build_vamp_database_v2(
+            {'packet_fingerprint': 'sha256:malformed-grouping'},
+            tmp_path / 'projection/progress.db',
+            source_rows=rows,
+        )

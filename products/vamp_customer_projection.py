@@ -32,7 +32,17 @@ def is_objective(text: str) -> bool:
 
 
 def objective_minimum(text: str) -> tuple[int, str]:
-    match=re.search(r'\b(?:requires?\s+(?:evidence of\s+)?|annual requirement:\s*)(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b',text,re.I)
+    if re.search(r'\b(?:does\s+not|do\s+not|not)\s+requires?\b', text, re.I):
+        raise ValueError('negated customer requirement cannot become a positive evidence quantity')
+    if re.search(r'\brequires?\s+(?:evidence of\s+)?-\s*\d+\b', text, re.I):
+        raise ValueError('negative customer objective quantity cannot become a positive target')
+    match=re.search(r'\b(?:requires?\s+(?:evidence of\s+)?|annual requirement:\s*)(\d[\d,]*|one|two|three|four|five|six|seven|eight|nine|ten)\b',text,re.I)
     words={word:i for i,word in enumerate(['one','two','three','four','five','six','seven','eight','nine','ten'],1)}
-    if match:return max(1,int(match[1]) if match[1].isdigit() else words[match[1].casefold()]),'explicit_source_quantity'
+    if match:
+        if match[1][0].isdigit() and not re.fullmatch(r'\d+|\d{1,3}(?:,\d{3})+', match[1]):
+            raise ValueError('invalid customer objective quantity grouping; source clarification required')
+        quantity = int(match[1].replace(',', '')) if match[1][0].isdigit() else words[match[1].casefold()]
+        if quantity == 0:
+            raise ValueError('explicit customer objective quantity must be positive; zero cannot be promoted to one')
+        return quantity, 'explicit_source_quantity'
     return 1,'presence_review_floor_only_not_an_authoritative_requirement_quantity'

@@ -25,3 +25,16 @@ environment configuration and dependencies.
 
 No customer rating, publication, external communication, payment or approval authority
 was granted by this repair.
+
+## Follow-up: declared requirement quantities
+
+A subsequent regression cycle found that `requires 0 publications` was silently
+rewritten into a one-publication minimum. Negative and negated requirements also
+fell through to that invented one-item target. Additionally, `requires 1,500 records`
+was parsed as `1`, and malformed `1,50` was silently truncated.
+
+VAMP now refuses explicit zero, negative, negated and malformed grouped quantities,
+while preserving valid comma-grouped positive quantities in full. The fallback
+presence-only review floor remains separately labelled for objective language that
+does not declare a parseable count; it is not an authoritative requirement quantity.
+All new regressions were observed failing before implementation and passing afterward.
