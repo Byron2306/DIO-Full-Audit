@@ -185,13 +185,13 @@ def _render_article_customer_artifact(result: dict[str, Any]) -> str:
 main{{width:min(1120px,calc(100% - 32px));margin:28px auto;background:var(--paper);box-shadow:0 18px 55px #1d2b2d20}}
 .hero{{padding:52px 7% 34px;border-bottom:1px solid var(--line)}}.eyebrow{{font:800 .78rem/1.2 system-ui,sans-serif;letter-spacing:.12em;color:var(--accent)}}
 h1{{font:750 clamp(2.7rem,6vw,5.4rem)/.96 system-ui,sans-serif;letter-spacing:-.055em;margin:.25em 0}}.standfirst{{font-size:1.25rem;color:#555;max-width:820px}}
-.grid{{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.75fr);gap:0}}.article{{padding:38px 7% 56px}}.article h2{{font:750 1.45rem/1.2 system-ui,sans-serif;margin-top:2.1em;color:#223}}
+.grid{{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.75fr);gap:0}}.article,.sophia{{min-width:0;overflow-wrap:anywhere}}.article{{padding:38px 7% 56px}}.article h2{{font:750 1.45rem/1.2 system-ui,sans-serif;margin-top:2.1em;color:#223}}
 .sophia{{padding:38px 32px;background:#f1f5f3;border-left:1px solid var(--line)}}.sophia h2,.sophia h3{{font-family:system-ui,sans-serif;color:var(--accent)}}
 .gate{{padding:14px 16px;background:#fff0d7;border-left:5px solid #c47b00;font:700 .9rem/1.45 system-ui,sans-serif}}
 table{{width:100%;border-collapse:collapse;font:14px/1.4 system-ui,sans-serif;margin:18px 0 28px}}th,td{{border:1px solid var(--line);padding:9px;vertical-align:top;text-align:left}}th{{background:#eef1ee}}
 .state{{font-weight:800}}.state.supported{{color:var(--ok)}}.state.refused{{color:var(--bad)}}ol,ul{{padding-left:1.3em}}small{{color:#667}}
 .truth{{padding:18px;border:1px solid #d8c49f;background:#fff8e8;font:14px/1.5 system-ui,sans-serif}}
-@media(max-width:860px){{.grid{{grid-template-columns:1fr}}.sophia{{border-left:0;border-top:1px solid var(--line)}}}}
+@media(max-width:860px){{.grid{{grid-template-columns:minmax(0,1fr)}}.sophia{{border-left:0;border-top:1px solid var(--line)}}table{{table-layout:fixed}}}}
 </style>
 </head>
 <body><main>

@@ -55,7 +55,7 @@ def _failing_beast(*, dio_root: Path, workspace: Path) -> dict:
     }
 
 
-def _seed_canon(root: Path, slug: str) -> tuple[Path, Path]:
+def _seed_legacy_canon(root: Path, slug: str) -> tuple[Path, Path]:
     site = root / "state" / "product_portfolio" / "canon_extensions" / slug / "site"
     site.mkdir(parents=True, exist_ok=True)
     artifact = site / "index.html"
@@ -81,6 +81,11 @@ def _seed_canon(root: Path, slug: str) -> tuple[Path, Path]:
         encoding="utf-8",
     )
     return artifact, proof
+
+
+def _seed_canon(root: Path, slug: str) -> tuple[Path, Path]:
+    _, _, seal = _seed_materialization(root, slug)
+    return seal.parent / "index.html", seal
 
 
 def test_native_profile_registry_covers_exactly_the_eleven_receipt_bound_extensions() -> None:
@@ -197,3 +202,115 @@ def test_native_batch_runs_all_eleven_cases(tmp_path: Path) -> None:
     assert receipt["acceptance_token"] == NATIVE_BATCH_VERIFIED_TOKEN
     assert set(receipt["products"]) == EXPECTED_SLUGS
     assert receipt["commercial_validation"] == "UNPROVED"
+
+
+def test_controlled_execution_renders_supplied_source_without_historical_canon_or_product_grade(tmp_path: Path) -> None:
+    from docx import Document
+    from products import canon_extension_native_product_grade as native
+
+    execute = getattr(native, "run_controlled_native_case", None)
+    assert callable(execute), "source-bound native execution must be usable separately from absent historical canon evidence"
+    rows = [
+        {"paragraph_id": "C1", "text": "Nala controlled finance review 2026"},
+        {"paragraph_id": "C2", "text": "Prepare a document review pack for a supplied vehicle quotation."},
+        {"paragraph_id": "C3", "text": "Vehicle quotation Q-861: SUPPLIED"},
+        {"paragraph_id": "C4", "text": "Signed current cash-flow schedule: MISSING"},
+        {"paragraph_id": "C5", "text": "Human review is required; no financing approval is recorded."},
+    ]
+    result = execute(slug="finance-readiness", source_rows=rows, title="Nala review", root=Path.cwd(), output_dir=tmp_path / "review", channels=["html", "docx"])
+    receipt = result["receipt"]
+    assert receipt["status"] == "CONTROLLED_NATIVE_REVIEW_RENDERED"
+    assert receipt["canon_provenance"] == "NOT_EVALUATED"
+    assert receipt["product_grade"] == "NOT_EVALUATED"
+    assert receipt["commercial_validation"] == "UNPROVED"
+    assert receipt["external_effects"] is False
+    assert receipt["authority_created"] is False
+    assert receipt["lingua_semantic_custody"] is True
+    assert receipt["beast_mechanical_pass"] is True
+    assert {row["channel"] for row in receipt["outputs"]} == {"html", "docx"}
+    for row in receipt["outputs"]:
+        target = Path(result["output_dir"]) / row["path"]
+        text = target.read_text() if row["channel"] == "html" else "\n".join(p.text for p in Document(target).paragraphs)
+        assert "Nala controlled finance review 2026" in text
+        assert "Vehicle quotation Q-861: SUPPLIED" in text
+        assert "Signed current cash-flow schedule: MISSING" in text
+        assert "Mhlabeni Solar Services" not in text
+        assert row["sha256"] == _sha(target)
+    registration = json.loads((tmp_path / "review/LINGUA_REGISTRATION_RECEIPT.json").read_text())
+    semantic = json.loads(Path(registration["object_path"]).read_text())
+    assert receipt["lingua_object_id"] == semantic["object_id"]
+    assert receipt["source_input_sha256"]
+    assert not (tmp_path / "review/PRODUCT_GRADE_RECEIPT.json").exists()
+
+
+def _seed_materialization(root: Path, slug: str) -> tuple[Path, Path, Path]:
+    artifact, seal_path = _seed_legacy_canon(root, slug)
+    anchor = root / "evidence/historical/PROFESSIONAL_EVIDENCE_53_X3_ANCHOR.json"
+    anchor.parent.mkdir(parents=True, exist_ok=True)
+    anchor.write_text('{"test_fixture":"historical lineage anchor"}\n')
+    generation = artifact.parent / "CANON_EXTENSION_MATERIALIZATION_RECEIPT.json"
+    profile_json = json.dumps(native_profile(slug), sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+    material = {
+        "schema": "dio.canon_extension.materialization_receipt.v1", "status": "PASS",
+        "canon_id": "CANON-EXT-" + slug.upper().replace("-", "_"), "slug": slug,
+        "primary_artifact": str(artifact.relative_to(root)), "primary_artifact_sha256": _sha(artifact),
+        "profile_fingerprint": "sha256:" + hashlib.sha256(profile_json).hexdigest(),
+        "historical_anchor": str(anchor.relative_to(root)), "historical_anchor_sha256": _sha(anchor),
+        "authority_created": False, "external_effects": False,
+    }
+    generation.write_text(json.dumps(material))
+    seal = json.loads(seal_path.read_text())
+    seal.update({"canon_id": "CANON-EXT-" + slug.upper().replace("-", "_"), "primary_artifact": str(artifact.relative_to(root)),
+                 "source_generation_receipt": str(generation.relative_to(root)),
+                 "source_generation_receipt_schema": material["schema"],
+                 "source_generation_receipt_sha256": _sha(generation), "strict_materialization_binding": True})
+    seal_path.write_text(json.dumps(seal))
+    return generation, anchor, seal_path
+
+
+@pytest.mark.parametrize("mutation,blocker", [
+    ("profile", "canon_materialization_profile_mismatch"),
+    ("missing_anchor", "canon_materialization_historical_anchor_missing"),
+    ("anchor_hash", "canon_materialization_historical_anchor_hash_mismatch"),
+    ("source_hash", "canon_materialization_source_hash_mismatch"),
+    ("identity", "canon_materialization_identity_mismatch"),
+    ("artifact_hash", "canon_materialization_artifact_mismatch"),
+])
+def test_native_materialization_checks_full_source_profile_and_anchor_chain(tmp_path: Path, mutation: str, blocker: str) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    generation, anchor, seal_path = _seed_materialization(root, "finance-readiness")
+    material = json.loads(generation.read_text())
+    if mutation == "profile": material["profile_fingerprint"] = "sha256:" + "0" * 64
+    elif mutation == "missing_anchor": anchor.unlink()
+    elif mutation == "anchor_hash": material["historical_anchor_sha256"] = "0" * 64
+    elif mutation == "identity": material["slug"] = "investorproof"
+    elif mutation == "artifact_hash": material["primary_artifact_sha256"] = "0" * 64
+    generation.write_text(json.dumps(material))
+    seal = json.loads(seal_path.read_text())
+    seal["source_generation_receipt_sha256"] = "0" * 64 if mutation == "source_hash" else _sha(generation)
+    seal_path.write_text(json.dumps(seal))
+    receipt = run_native_product_grade_case(slug="finance-readiness", root=root, output_dir=root / "run", beast_checker=_passing_beast)["receipt"]
+    assert receipt["status"] == "PRODUCT_GRADE_REFUSE"
+    assert blocker in receipt["critical_blockers"]
+    assert not (root / "run/customer_delivery").exists(), "untrusted provenance must refuse before buyer rendering"
+
+
+def test_native_materialization_accepts_a_matching_current_profile_and_anchor(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    _seed_materialization(root, "finance-readiness")
+    receipt = run_native_product_grade_case(slug="finance-readiness", root=root, output_dir=root / "run", beast_checker=_passing_beast)["receipt"]
+    assert receipt["status"] == "PRODUCT_GRADE_VERIFIED"
+    assert receipt.get("canon_provenance_scope") == "MATERIALIZATION_CURRENT_PROFILE_AND_HISTORICAL_ANCHOR_BOUND"
+
+
+def test_native_legacy_seal_cannot_downgrade_current_profile_provenance_requirements(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    _seed_legacy_canon(root, "finance-readiness")
+    receipt = run_native_product_grade_case(slug="finance-readiness", root=root, output_dir=root / "run", beast_checker=_passing_beast)["receipt"]
+    assert receipt["status"] == "PRODUCT_GRADE_REFUSE"
+    assert "canon_materialization_required_for_current_profile" in receipt["critical_blockers"]
+    assert receipt["canon_provenance_scope"] == "LEGACY_ARTIFACT_SEAL_ONLY"
+    assert not (root / "run/customer_delivery").exists()

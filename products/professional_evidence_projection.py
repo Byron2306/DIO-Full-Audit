@@ -129,6 +129,7 @@ def review_projection(packet: dict[str, Any], *, profile_id: str) -> dict[str, A
     register = packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"
     requirements = []
     inputs = []
+    issues = []
     for index, row in enumerate(rows, 1):
         key = f"REQ-{index:02d}"
         record_id = str(row.get("record_id") or f"R-{index:02d}")
@@ -151,11 +152,30 @@ def review_projection(packet: dict[str, Any], *, profile_id: str) -> dict[str, A
                 "target_requirement_keys": [key],
                 "relation": "supports",
                 "authority_grade": "source_backed",
-                "trust_state": "trusted_for_review",
-                "freshness_state": "current",
+                # Capture proves the bytes supplied, not their truth, approval
+                # or continuing validity. A later independent review can earn
+                # trust; projection must not grant it to every source row.
+                "trust_state": "captured_untrusted",
+                "freshness_state": "unknown",
             }
         )
-    issues = []
+        # Capturing a customer's statement is not evidence that an obligation
+        # was satisfied. Retain explicitly reported defects as review concerns.
+        # These are source-reported hypotheses, never professional conclusions.
+        concern = re.search(
+            r"\b(?:missing|omitted|unsigned|expired|unresolved|unverified|unsupported|"
+            r"inconsistent|contradict\w*|stale|awaiting|pending|late|not present|"
+            r"supplies no|no supporting|no matching|no starting|has not been|"
+            r"days after .*deadline|worth .+ but .+ marks|untrusted embedded note)\b",
+            statement, re.IGNORECASE,
+        )
+        if concern:
+            issues.append({
+                "requirement_key": key,
+                "challenge_type": "alternative_hypothesis",
+                "severity": "material",
+                "hypothesis": "Source-reported concern requiring verification: " + statement,
+            })
     exception = exception_text(packet)
     if exception:
         target = requirements[-1]["requirement_key"]
@@ -271,10 +291,11 @@ def homs_assess_projection(packet: dict[str, Any], target: Path) -> dict[str, An
     total = sum(float(row.get("marks") or 0) for row in criteria) or 1.0
     projected = {
         "title": str(rubric.get("assessment_title") or "Professional assessment sample"),
+        "total_marks": total,
         "criteria": [
             {
                 "name": f"{row.get('question')}: {row.get('memo')}",
-                "weight": round(float(row.get("marks") or 0) / total, 6),
+                "weight": float(row.get("marks") or 0),
             }
             for row in criteria
         ],

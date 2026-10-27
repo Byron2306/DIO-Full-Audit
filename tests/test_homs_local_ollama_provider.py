@@ -32,7 +32,7 @@ def test_homs_uses_global_ollama_model_without_provider_secret(monkeypatch):
     assert provider["selected_key_name"] == ""
     assert os.environ["HOMS_AI_TIMEOUT_SECONDS"] == "360"
     assert os.environ["HOMS_AI_MAX_RETRIES"] == "0"
-    assert os.environ["HOMS_AI_MAX_TOKENS"] == "512"
+    assert os.environ["HOMS_AI_MAX_TOKENS"] == "4000"
     assert run_batch.__defaults__[-2:] == ("ollama", "")
 
 

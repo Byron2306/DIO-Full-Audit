@@ -87,6 +87,8 @@ def test_installation_patches_only_execution_seams_and_keeps_route_constitution(
     layered = {
         "products.professional_evidence_final_compat",
         "products.professional_evidence_red13_compat",
+        "products.professional_evidence_final3_compat",
+        "products.professional_evidence_customer_surface_compat",
     }
     assert executor._run_vamp_corrected.__module__ in layered
     assert executor._run_market_radar.__module__ == "products.professional_evidence_final_compat"

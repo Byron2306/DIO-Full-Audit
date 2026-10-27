@@ -276,25 +276,19 @@ def _campaign_inputs(packet: dict[str, Any]) -> tuple[dict[str, Any], dict[str, 
     from products.professional_evidence_final_compat import _campaign_proof_bridge
 
     proof_bridge = _campaign_proof_bridge(packet)
-    product = {
-        "id": "PROFESSIONAL_CAMPAIGN_LAB",
-        "name": "Campaign Lab Professional Evidence Run",
-        "short_name": "Campaign Lab",
-        "offer": "bounded_professional_pilot",
-        "promise": "Compile one governed multichannel campaign coherently.",
-        "proof": "Vesper-bound source hashes remain inspectable.",
-        "cta": "Review the controlled pilot.",
-        "landing_page": "",
-        "proof_asset": str(proof_bridge.relative_to(ROOT)),
-        "source_image": "DIO.png",
-        "accent": "#e4b85f",
-    }
-    audience = {
-        "id": "professional_customer",
-        "name": "Professional operations buyers",
-        "pain": "Campaign work fragments across separate tools.",
-        "outcome": "One governed campaign pack for review.",
-    }
+    brief_path = packet["packet_dir"] / "SOURCES" / "campaign_brief.json"
+    brief = json.loads(brief_path.read_text(encoding="utf-8"))
+    product = dict(brief["product"])
+    audience = dict(brief["audience"])
+    for key in ("id", "name", "short_name", "offer", "promise", "proof", "cta"):
+        if not isinstance(product.get(key), str) or not product[key].strip():
+            raise ValueError(f"Campaign customer brief missing product.{key}")
+    for key in ("id", "name", "pain", "outcome"):
+        if not isinstance(audience.get(key), str) or not audience[key].strip():
+            raise ValueError(f"Campaign customer brief missing audience.{key}")
+    # File paths and release authority remain executor-owned; the customer brief
+    # supplies semantic content, never an arbitrary executable proof location.
+    product.update(proof_asset=str(proof_bridge.relative_to(ROOT)), source_image="DIO.png", accent="#e4b85f")
     return product, audience
 
 

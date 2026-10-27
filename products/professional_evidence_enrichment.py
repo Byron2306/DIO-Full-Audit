@@ -136,6 +136,42 @@ Agreement date: 3 February 2026. The signed agreement is authoritative only for 
 - The customer requests preparation and QA, not formal WCAG or PDF/UA certification.
 """))
 
+    if incarnation in {"Market Radar", "Opportunity Foundry"}:
+        intake = json.loads((packet_dir / "INTAKE.json").read_text(encoding="utf-8"))
+        added.append(_write_json(sources / "market_scope.json", {
+            "customer_request": intake["request"],
+            "queries": [
+                "evidence management compliance software South Africa small professional firms",
+                "South Africa SME document management software pricing compliance",
+            ],
+            "scope_origin": "Customer-selected evidence workflow and document transformation market hypothesis",
+            "evidence_boundary": "Discovery observations require verification; no demand or willingness to pay claim.",
+        }))
+    elif incarnation == "Campaign Lab":
+        added.append(_write_json(sources / "campaign_brief.json", {
+            "product": {
+                "id": "PROFESSIONAL_CAMPAIGN_LAB", "name": "DIO governed campaign pilot",
+                "short_name": "Campaign Lab", "offer": "bounded_professional_pilot",
+                "promise": "Compile one governed multichannel campaign coherently.",
+                "proof": "Vesper-bound source hashes remain inspectable.",
+                "cta": "Review the controlled pilot.", "landing_page": "",
+            },
+            "audience": {"id": "professional_customer", "name": "Professional operations buyers",
+                "pain": "Campaign work fragments across separate tools.",
+                "outcome": "One governed campaign pack for review."},
+            "customer_note": "Offer hypothesis only. Publication and spend remain held.",
+        }))
+    elif incarnation == "Vesper Desk":
+        intake = json.loads((packet_dir / "INTAKE.json").read_text(encoding="utf-8"))
+        added.append(_write_json(sources / "intake_email.json", {
+            "subject": "Contract obligations pack before Thursday review",
+            "sender": str(intake.get("organisation") or "Customer coordinator"),
+            "body": "Client email references contract BC-2026-14. The signed contract and Amendment 1 are attached. Please confirm receipt for the internal review on Thursday 27 August 2026.",
+            "attachment_names": "BC-2026-14.pdf; Amendment-1.pdf",
+            "intent": "contract obligations pack and acknowledgement draft",
+            "urgency": "Thursday 27 August 2026",
+        }))
+
     if not added:
         return manifest
 

@@ -163,17 +163,20 @@ def _profile(product_id: str, adapter_id: str = "adapter.shared") -> dict:
     )
 
 
-def _completed_adapter(label: str):
+def _completed_adapter(label: str, root: Path):
     def adapter(request: dict, execution_profile: dict) -> dict:
+        native = root / f"{label}.md"
+        native.write_text(f"# {label} findings\n\nSupplied evidence requires human review. The missing approval remains an open gap.\n", encoding="utf-8")
         return {
             "status": "COMPLETED",
             "artifacts": [
                 {
                     "artifact_id": f"ART-{label}",
                     "kind": "document",
-                    "file_name": f"{label}.pdf",
-                    "mime_type": "application/pdf",
-                    "sha256": "a" * 64,
+                    "file_name": native.name,
+                    "path": str(native),
+                    "mime_type": "text/markdown",
+                    "sha256": hashlib.sha256(native.read_bytes()).hexdigest(),
                     "release_state": "HELD",
                 }
             ],
@@ -221,7 +224,7 @@ def test_request_binds_case_scope_quote_settlement_and_profile_without_authority
 
 
 def test_same_adapter_serves_different_products_without_product_branching(tmp_path: Path) -> None:
-    adapters = {"adapter.shared": _completed_adapter("shared")}
+    adapters = {"adapter.shared": _completed_adapter("shared", tmp_path)}
 
     for product_id in ("Product Alpha", "Product Beta"):
         root = tmp_path / product_id.replace(" ", "-").lower()
@@ -243,7 +246,7 @@ def test_composite_adapter_returns_one_canonical_result_envelope(tmp_path: Path)
     result = dispatch_fulfilment(
         tmp_path,
         request,
-        {"adapter.composite": _completed_adapter("composite")},
+        {"adapter.composite": _completed_adapter("composite", tmp_path)},
     )
 
     assert result["schema"] == "dio.fulfilment_result.v1"
@@ -254,11 +257,12 @@ def test_composite_adapter_returns_one_canonical_result_envelope(tmp_path: Path)
         "format_core",
         "production_studio",
     ]
-    assert len(result["artifacts"]) == 3
+    assert len(result["artifacts"]) == 4
     assert all(artifact["release_state"] == "HELD" for artifact in result["artifacts"])
     shared = result["artifacts"][1:]
     assert [artifact["kind"] for artifact in shared] == [
         "customer_review_summary",
+        "customer_review_document",
         "production_studio_review_manifest",
     ]
     for artifact in shared:
@@ -266,9 +270,10 @@ def test_composite_adapter_returns_one_canonical_result_envelope(tmp_path: Path)
         assert path.is_file()
         assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
     html_summary = tmp_path / shared[0]["file_name"]
-    review_manifest = tmp_path / shared[1]["file_name"]
+    review_manifest = tmp_path / shared[2]["file_name"]
     assert "<html" in html_summary.read_text(encoding="utf-8")
     assert "ART-composite" in html_summary.read_text(encoding="utf-8")
+    assert "The missing approval remains an open gap" in html_summary.read_text(encoding="utf-8")
     manifest = json.loads(review_manifest.read_text(encoding="utf-8"))
     assert manifest["state"] == "HELD_FOR_REVIEW"
     assert manifest["route_artifacts"][0]["artifact_id"] == "ART-composite"
@@ -318,7 +323,7 @@ def test_dispatch_refuses_partial_shared_finish_configuration(tmp_path: Path) ->
         dispatch_fulfilment(
             tmp_path,
             request,
-            {"adapter.shared": _completed_adapter("partial")},
+            {"adapter.shared": _completed_adapter("partial", tmp_path)},
         )
 
 
@@ -330,7 +335,7 @@ def test_successful_dispatch_drives_strict_lifecycle_to_review_ready(tmp_path: P
     result = dispatch_fulfilment(
         tmp_path,
         request,
-        {"adapter.shared": _completed_adapter("final")},
+        {"adapter.shared": _completed_adapter("final", tmp_path)},
     )
     stored = load_case(tmp_path, case["case_id"])
 

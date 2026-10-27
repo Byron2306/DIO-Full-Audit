@@ -3,20 +3,18 @@ import sqlite3
 from pathlib import Path
 
 from products.professional_evidence_execution import _build_vamp_database
+from products.professional_evidence_corpus import materialize_customer_packet
+from products.professional_evidence_enrichment import enrich_customer_packet
+from products.professional_evidence_projection import load_packet
 
 
-def test_professional_vamp_sha1_matches_source_bytes(tmp_path, monkeypatch):
-    import products.professional_evidence_execution as execution
-
-    monkeypatch.setattr(
-        execution,
-        "evidence_rows",
-        lambda packet: [
-            {"customer_supplied_record": "Controlled source evidence"}
-        ],
-    )
-
-    packet = {"packet_fingerprint": "test-fingerprint"}
+def test_professional_vamp_sha1_matches_source_bytes(tmp_path):
+    # Use a real hash-bound packet so this regression applies to both the base
+    # adapter and the installed compatibility adapter, regardless of test order.
+    materialize_customer_packet("VAMP Performance", tmp_path)
+    packet_dir = next(tmp_path.glob("*/CUSTOMER_PACKET"))
+    enrich_customer_packet("VAMP Performance", packet_dir)
+    packet = load_packet(packet_dir)
     db_path = tmp_path / "projection" / "progress.db"
     db_path.parent.mkdir(parents=True)
 

@@ -207,6 +207,22 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
         _add_execution(executed, "evidex", ["evidence.campaign.proof"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_CAMPAIGN_PROOF.json")
 
     elif kind == "finance_readiness":
+        gap_map = build_readiness_gap_map(manifest)
+        _write_json(closure / "evidex" / "EVIDEX_READINESS_GAP_MAP.json", gap_map)
+        _add_execution(executed, "evidex", ["evidence.readiness.gap_map"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_READINESS_GAP_MAP.json")
+        # Render the executed evidence assessment, so the customer sees the
+        # missing documents rather than only the list of published requirements.
+        assessment = [
+            "Evidence readiness assessment",
+            f"Readiness state: {gap_map['readiness_state']}",
+            f"Mandatory evidence gaps: {gap_map['mandatory_gap_count']}",
+        ]
+        for row in gap_map["requirements"]:
+            evidence = ", ".join(row["supporting_evidence_ids"]) or "none supplied"
+            assessment.append(f"{row['requirement_id']} — {row['label']}: {row['state']}; evidence: {evidence}")
+            if row["state"] == "EVIDENCE_NEEDED":
+                assessment.append(f"Request {row['label']} before readiness review can close.")
+        body = "\n".join([body, *assessment, str(gap_map["decision_boundary"])])
         pack_dir = closure / "document_studio" / "finance_readiness_pack"
         pack = render_finance_readiness_pack(
             studio_id=manifest["studio_id"], title=title, body=body, audience=audience, out_dir=pack_dir, source_root=root
@@ -214,10 +230,6 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
         pack = _normalize_pack_path(pack, output_dir)
         _write_json(closure / "document_studio" / "DOCUMENT_STUDIO_FINANCE_PACK_RECEIPT.json", pack)
         _add_execution(executed, "document_studio", ["document.finance_readiness_pack"], "adapters/document_studio/studio_sales.py", "closure/document_studio/DOCUMENT_STUDIO_FINANCE_PACK_RECEIPT.json")
-
-        gap_map = build_readiness_gap_map(manifest)
-        _write_json(closure / "evidex" / "EVIDEX_READINESS_GAP_MAP.json", gap_map)
-        _add_execution(executed, "evidex", ["evidence.readiness.gap_map"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_READINESS_GAP_MAP.json")
 
     elif kind == "article":
         pack_dir = closure / "document_studio" / "publication_pack"
@@ -235,6 +247,12 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
     elif kind != "correspondence":
         raise StudioNativeClosureError(f"unsupported native closure kind: {kind}")
 
+    customer_entrypoint = pack["output_path"] if kind == "finance_readiness" else _release_entrypoint(kind)
+    if not (output_dir / customer_entrypoint).is_file():
+        raise StudioNativeClosureError("Studio customer artifact is missing")
+    release = prepare_studio_release(studio_id=manifest["studio_id"], entrypoint=customer_entrypoint)
+    _write_json(closure / "presence" / "PRESENCE_STUDIO_RELEASE.json", release)
+
     ledger = _ledger(manifest, executed)
     _write_json(output_dir / "NATIVE_CAPABILITY_CLOSURE_LEDGER.json", ledger)
     if not ledger["all_declared_capabilities_executed"]:
@@ -242,13 +260,20 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
         raise StudioNativeClosureError(f"Studio native closure incomplete: {missing}")
 
     artifacts = []
-    for path in sorted(p for p in closure.rglob("*") if p.is_file()):
+    proof_paths = {p for p in closure.rglob("*") if p.is_file()}
+    # Site assets live in the composed package, outside closure/. Include the
+    # customer surface and its local assets so proof verification covers what
+    # the customer opens, as well as the supporting organ receipts.
+    proof_paths.update(p for p in (output_dir / customer_entrypoint).parent.rglob("*") if p.is_file())
+    for path in sorted(proof_paths):
         artifacts.append({"path": str(path.relative_to(output_dir)), "sha256": _sha(path), "bytes": path.stat().st_size})
     ledger_path = output_dir / "NATIVE_CAPABILITY_CLOSURE_LEDGER.json"
     artifacts.append({"path": ledger_path.name, "sha256": _sha(ledger_path), "bytes": ledger_path.stat().st_size})
     proof = {
         "schema": "dio.studio_native_closure_proof_manifest.v1",
         "studio_id": manifest["studio_id"],
+        "customer_artifact_entrypoint": customer_entrypoint,
+        "customer_artifact_gate": "PASS",
         "base_native_execution_fingerprint": base["receipt"]["native_execution_fingerprint"],
         "base_proof_fingerprint": base["proof_manifest"]["proof_fingerprint"],
         "artifacts": artifacts,
@@ -271,6 +296,8 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
         "schema": "dio.studio_native_closure_receipt.v1",
         "studio_id": manifest["studio_id"],
         "studio_name": manifest["name"],
+        "customer_artifact_entrypoint": customer_entrypoint,
+        "customer_artifact_gate": "PASS",
         "native_capability_closure": "PASS",
         "organ_execution_truth": ledger["organ_execution_truth"],
         "native_organ_count": ledger["native_organ_count"],

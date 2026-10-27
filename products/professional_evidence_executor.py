@@ -214,7 +214,7 @@ def _run_document_corrected(packet: dict[str, Any], execution_dir: Path, *, inca
 
 def _run_opportunity_with_radar(packet: dict[str, Any], execution_dir: Path, *, online: bool, now: str) -> dict[str, Any]:
     radar = _run_market_radar(packet, execution_dir / "market_radar", online=online)
-    native = run_opportunity_foundry(packet, execution_dir / "opportunity_foundry", now=now)
+    native = run_opportunity_foundry(packet, execution_dir / "opportunity_foundry", now=now, market_receipt=radar["receipt"])
     binding = {
         "schema": "dio.opportunity_foundry.market_binding.v1",
         "market_radar_executor": radar["executor"],

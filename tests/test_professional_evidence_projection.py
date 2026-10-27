@@ -32,8 +32,8 @@ def test_review_projection_uses_only_allowed_governed_evidence_vocabulary(tmp_pa
     assert projection["packet_fingerprint"] == packet["packet_fingerprint"]
     for row in projection["review_evidence_inputs"]:
         assert row["authority_grade"] == "source_backed"
-        assert row["trust_state"] == "trusted_for_review"
-        assert row["freshness_state"] == "current"
+        assert row["trust_state"] == "captured_untrusted"
+        assert row["freshness_state"] == "unknown"
         assert row["source_ref"].startswith("customer-packet://")
 
 

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from adapters.beast_product_grade import run_beast_artifact_checks
+from adapters.format_core.renderer import build_paragraph_semantic_content, render_semantic_asset
 from adapters.lingua.lifecycle import register_product_source
 from products.canon_extension_native_profiles import NATIVE_CANON_EXTENSION_PROFILES, native_profile
 from products.canon_extension_product_grade import (
@@ -298,6 +299,102 @@ def _relative_inside(root: Path, path: Path) -> str | None:
         return None
 
 
+def run_controlled_native_case(
+    *,
+    slug: str,
+    source_rows: list[dict[str, str]],
+    title: str,
+    root: Path,
+    output_dir: Path,
+    channels: list[str] | None = None,
+    input_classification: str = "CALLER_SUPPLIED_REVIEW_CONTENT",
+) -> dict[str, Any]:
+    """Render supplied review content without asserting historical canon provenance.
+
+    This route preserves caller text through Lingua and Document Studio. It does
+    not draft expert conclusions or promote formatting success to ProductGrade.
+    """
+    profile = native_profile(slug)
+    if not source_rows or any(not str(row.get("text") or "").strip() for row in source_rows):
+        raise ValueError("controlled native execution requires nonempty supplied source rows")
+    if input_classification not in {"CALLER_SUPPLIED_REVIEW_CONTENT", "CONTROLLED_FIXTURE_SUMMARY"}:
+        raise ValueError("unsupported controlled input classification")
+    selected = list(dict.fromkeys(channels or ["html", "docx", "pdf"]))
+    if set(selected) - {"html", "docx", "pdf"}:
+        raise ValueError("controlled native review supports html, docx and pdf")
+    root = Path(root).resolve()
+    output_dir = Path(output_dir).resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    source_hash = hashlib.sha256(_canonical(source_rows)).hexdigest()
+    object_id = f"DIO-CONTROLLED-{slug.upper()}-{source_hash[:16]}"
+    semantic, registration = register_product_source(
+        state_root=output_dir / "lingua_state",
+        object_id=object_id,
+        source_version="1.0.0",
+        source_language="English",
+        source_rows=source_rows,
+        origin={
+            "product": slug,
+            "artifact_type": "controlled_source_review",
+            "artifact_id": object_id,
+            "audience": profile["buyer"],
+            "channel": "document_studio",
+            "source_input_sha256": source_hash,
+            "input_classification": input_classification,
+        },
+        domain=str(profile["family"]),
+        subject=title,
+    )
+    custody = _lingua_custody(slug=slug, rows=source_rows, semantic=semantic, registration=registration)
+    if not custody:
+        raise ValueError("controlled native source failed Lingua semantic custody")
+    _write_json(output_dir / "LINGUA_REGISTRATION_RECEIPT.json", registration)
+    projected_rows = [
+        {"paragraph_id": row["unit_id"], "text": row["source_text"]}
+        for row in semantic["source"]["units"]
+    ]
+    content = build_paragraph_semantic_content(
+        object_id=object_id,
+        version="1.0.0",
+        title=title,
+        source_language="English",
+        source_rows=projected_rows,
+        context={"product": slug, "artifact_type": "controlled_source_review", "audience": profile["buyer"]},
+    )
+    delivery = output_dir / "customer_delivery"
+    formatting = render_semantic_asset(
+        content, delivery, style_profile="dio_professional", delivery_profile="editable_review",
+        language="English", channels=selected, release_mode=False, source_root=root,
+    )
+    beast = run_beast_artifact_checks(dio_root=root, workspace=delivery)
+    receipt = {
+        "schema": "dio.canon_extension.controlled_source_review.v1",
+        "slug": slug,
+        "status": "CONTROLLED_NATIVE_REVIEW_RENDERED" if beast.get("mechanical_pass") is True else "CONTROLLED_NATIVE_REVIEW_REFUSE",
+        "input_classification": input_classification,
+        "source_input_sha256": source_hash,
+        "lingua_object_id": semantic["object_id"],
+        "lingua_source_document_hash": semantic["source"]["document_hash"],
+        "lingua_semantic_custody": custody,
+        "format_core_semantic_source_hash": formatting["semantic_source_hash"],
+        "format_core_qa": formatting["qa"],
+        "beast_mechanical_pass": beast.get("mechanical_pass") is True,
+        "beast_artifact_checks": beast,
+        "outputs": [{**row, "path": str(Path("customer_delivery") / row["path"])} for row in formatting["outputs"]],
+        "canon_provenance": "NOT_EVALUATED",
+        "product_grade": "NOT_EVALUATED",
+        "expert_content_quality": "NOT_EVALUATED",
+        "commercial_validation": "UNPROVED",
+        "external_effects": False,
+        "authority_created": False,
+        "human_gate": "NEEDS_YOU",
+        "claim_boundary": "Controlled source formatting and custody only. Caller content is preserved, not independently verified; historical canon provenance, professional judgments and commercial acceptance are not proved.",
+    }
+    receipt["receipt_fingerprint"] = _fingerprint(receipt)
+    _write_json(output_dir / "CONTROLLED_NATIVE_REVIEW_RECEIPT.json", receipt)
+    return {"receipt": receipt, "output_dir": str(output_dir)}
+
+
 def _base_receipt(*, slug: str, profile: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema": NATIVE_SCHEMA,
@@ -311,6 +408,7 @@ def _base_receipt(*, slug: str, profile: dict[str, Any], spec: dict[str, Any]) -
         "canon_artifact_sha256": "",
         "canon_proof_receipt": "",
         "canon_proof_receipt_sha256": "",
+        "canon_provenance_scope": "NOT_EVALUATED",
         "customer_artifact": "",
         "customer_artifact_sha256": "",
         "primary_artifact_sha256": "",
@@ -329,6 +427,64 @@ def _base_receipt(*, slug: str, profile: dict[str, Any], spec: dict[str, Any]) -
             "buyer demand, payment, legal approval, publication authority, investment interest, funding approval or market performance."
         ),
     }
+
+
+def _validate_current_materialization(
+    *, root: Path, canon: Path, spec: dict[str, Any], profile: dict[str, Any],
+    seal: dict[str, Any], receipt: dict[str, Any],
+) -> list[str]:
+    schema = "dio.canon_extension.materialization_receipt.v1"
+    filename = "CANON_EXTENSION_MATERIALIZATION_RECEIPT.json"
+    declared = str(seal.get("source_generation_receipt") or "")
+    is_materialization = (
+        seal.get("source_generation_receipt_schema") == schema
+        or Path(declared).name == filename
+        or seal.get("strict_materialization_binding") is True
+    )
+    if not is_materialization:
+        receipt["canon_provenance_scope"] = "LEGACY_ARTIFACT_SEAL_ONLY"
+        return ["canon_materialization_required_for_current_profile"]
+    receipt["canon_provenance_scope"] = "MATERIALIZATION_BINDING_REFUSED"
+    generation = (root / declared).resolve()
+    if not declared or generation != canon.parent / filename or not generation.is_relative_to(root):
+        return ["canon_materialization_source_path_mismatch"]
+    if not generation.is_file():
+        return ["canon_materialization_source_missing"]
+    blockers: list[str] = []
+    if seal.get("source_generation_receipt_schema") != schema:
+        blockers.append("canon_materialization_source_schema_invalid")
+    if str(seal.get("source_generation_receipt_sha256") or "").removeprefix("sha256:") != _sha(generation):
+        blockers.append("canon_materialization_source_hash_mismatch")
+    try:
+        material = json.loads(generation.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return [*blockers, "canon_materialization_source_invalid"]
+    if not isinstance(material, dict):
+        return [*blockers, "canon_materialization_source_invalid"]
+    if material.get("schema") != schema or material.get("status") != "PASS":
+        blockers.append("canon_materialization_source_not_verified")
+    for record in (seal, material):
+        if record.get("canon_id") != spec["canon_id"] or record.get("slug") != spec["slug"]:
+            blockers.append("canon_materialization_identity_mismatch")
+        if record.get("primary_artifact") != spec["primary_artifact"]:
+            blockers.append("canon_materialization_artifact_path_mismatch")
+    if str(material.get("primary_artifact_sha256") or "").removeprefix("sha256:") != receipt["canon_artifact_sha256"]:
+        blockers.append("canon_materialization_artifact_mismatch")
+    if material.get("profile_fingerprint") != _fingerprint(profile):
+        blockers.append("canon_materialization_profile_mismatch")
+    if material.get("authority_created") is not False or material.get("external_effects") is not False:
+        blockers.append("canon_materialization_authority_drift")
+    expected_anchor = "evidence/historical/PROFESSIONAL_EVIDENCE_53_X3_ANCHOR.json"
+    anchor = (root / str(material.get("historical_anchor") or "")).resolve()
+    if material.get("historical_anchor") != expected_anchor or not anchor.is_relative_to(root):
+        blockers.append("canon_materialization_historical_anchor_path_mismatch")
+    elif not anchor.is_file():
+        blockers.append("canon_materialization_historical_anchor_missing")
+    elif str(material.get("historical_anchor_sha256") or "").removeprefix("sha256:") != _sha(anchor):
+        blockers.append("canon_materialization_historical_anchor_hash_mismatch")
+    if not blockers:
+        receipt["canon_provenance_scope"] = "MATERIALIZATION_CURRENT_PROFILE_AND_HISTORICAL_ANCHOR_BOUND"
+    return blockers
 
 
 def run_native_product_grade_case(
@@ -379,6 +535,9 @@ def run_native_product_grade_case(
                 blockers.append("canon_proof_receipt_artifact_mismatch")
             if proof_data.get("authority_created") is not False or proof_data.get("external_effects") is not False:
                 blockers.append("canon_proof_receipt_authority_drift")
+            blockers.extend(_validate_current_materialization(
+                root=root, canon=canon, spec=spec, profile=profile, seal=proof_data, receipt=receipt,
+            ))
 
     if blockers:
         receipt["critical_blockers"] = sorted(set(blockers))

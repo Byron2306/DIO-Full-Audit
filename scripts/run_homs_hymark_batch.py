@@ -60,7 +60,9 @@ def configure_provider(secret_file: Path, provider_name: str, model: str) -> dic
         os.environ["HOMS_AI_MODEL"] = model or ollama_model()
         os.environ.setdefault("HOMS_AI_TIMEOUT_SECONDS", "360")
         os.environ.setdefault("HOMS_AI_MAX_RETRIES", "0")
-        os.environ.setdefault("HOMS_AI_MAX_TOKENS", "512")
+        # A marking response contains feedback and source quotes for every
+        # criterion. 512 tokens truncated that JSON even for two learners.
+        os.environ.setdefault("HOMS_AI_MAX_TOKENS", "4000")
         selected = "ollama"
         key_name = ""
     elif provider_name in {"nim", "nvidia", "nvidia_nim"}:
@@ -192,14 +194,24 @@ def normalize_assessment(raw: dict[str, Any], rubric: dict[str, Any]) -> dict[st
     return raw
 
 
-def assessment_response_is_complete(raw: dict[str, Any], rubric: dict[str, Any]) -> bool:
+def assessment_response_is_complete(raw: dict[str, Any], rubric: dict[str, Any], *, submission_text: str | None = None) -> bool:
     if raw.get("error") or not isinstance(raw.get("criteria_scores"), dict):
         return False
     if not rubric.get("criteria") or not raw["criteria_scores"]:
         return False
 
     normalized = normalize_assessment(dict(raw), rubric)
-    return all(item["feedback"] for item in normalized["criteria_scores"].values())
+    if not all(item["feedback"] for item in normalized["criteria_scores"].values()):
+        return False
+    if submission_text is not None:
+        source = " ".join(submission_text.split())
+        for item in normalized["criteria_scores"].values():
+            quotes = item.get("quotes")
+            if not isinstance(quotes, list) or not quotes:
+                return False
+            if any(not isinstance(quote, str) or not quote.strip() or " ".join(quote.split()) not in source for quote in quotes):
+                return False
+    return True
 
 
 def zip_dir(source: Path, target: Path) -> None:
@@ -290,8 +302,9 @@ def run_batch(
             provider_errors.append(f"{submission.name}: {type(exc).__name__}: provider failure redacted")
             raw = {"total_score": 0, "criteria_scores": {}, "overall_feedback": "Assessment failed.", "annotations": []}
 
-        if not provider_failed and not assessment_response_is_complete(raw, rubric):
-            provider_errors.append(f"{submission.name}: incomplete provider assessment; details redacted")
+        grounded = assessment_response_is_complete(raw, rubric, submission_text=text)
+        if not provider_failed and not grounded:
+            provider_errors.append(f"{submission.name}: incomplete or ungrounded provider assessment; details redacted")
 
         result = normalize_assessment(raw, rubric)
         result["student_id"] = submission.stem
@@ -299,6 +312,7 @@ def run_batch(
         result["provider"] = provider["selected_provider"]
         result["model"] = provider["selected_model"]
         result["requires_review"] = True
+        result["source_quote_grounding_passed"] = grounded
         results.append(result)
 
         feedback_path = feedback_dir / f"{submission.stem}_FEEDBACK.txt"

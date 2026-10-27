@@ -159,7 +159,7 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path) -> Path:
         )
         con.execute(
             "INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)",
-            (evidence, sha256(path)[:40], "PROFESSIONAL-001", 2026, "2026-08", domain, "", "", str(path), json.dumps(meta, sort_keys=True)),
+            (evidence, hashlib.sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", 2026, "2026-08", domain, "", "", str(path), json.dumps(meta, sort_keys=True)),
         )
         con.execute("INSERT INTO evidence_task VALUES(?,?,?,?,?)", (evidence, task, "customer_packet_domain_projection", 1.0, utc_now()))
         projection.append({"record_id": row.get("record_id"), "task_id": task, "evidence_id": evidence, "domain": domain, "record": record})

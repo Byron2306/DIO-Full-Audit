@@ -443,11 +443,14 @@ def _run_market_radar_current(packet: dict[str, Any], execution_dir: Path, *, on
 
     if not online:
         raise RuntimeError("Market Radar professional evidence run requires --online to refresh current public signals")
-    raw = MarketSensoriumCycle(ROOT).run(refresh_public=True, refresh_mail=False, mode="read_only")
+    scope_path = packet["packet_dir"] / "SOURCES" / "market_scope.json"
+    scope = json.loads(scope_path.read_text(encoding="utf-8"))
+    raw = MarketSensoriumCycle(ROOT).run_customer_scope(
+        queries=scope["queries"], packet_fingerprint=packet["packet_fingerprint"], output_dir=execution_dir)
     result = _normalise_market_receipt(raw)
     write_json(execution_dir / "MARKET_RADAR_CYCLE.json", result)
     return {
-        "executor": "market_sensorium.cycle.MarketSensoriumCycle.run",
+        "executor": "market_sensorium.cycle.MarketSensoriumCycle.run_customer_scope",
         "product_id": "market_radar",
         "terminal_artifact_kind": "source_bound_market_signal_brief",
         "domain_action_executed": False,

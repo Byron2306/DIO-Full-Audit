@@ -69,6 +69,96 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
+def _verify_provider_artifacts(result: dict[str, Any], execution_dir: Path) -> dict[str, str]:
+    """Verify the provider's existing commitments before discovering derivatives.
+
+    Rehashing whatever survived a route is not verification of that route's
+    declared outputs. A returned proof fingerprint also binds its on-disk
+    artifact inventory, including required machine-readable domain output.
+    """
+    import hashlib
+    import json
+    from products.professional_evidence_projection import sha256
+
+    verified: dict[str, str] = {}
+    receipt = result.get("receipt") or {}
+    containers: list[Any] = [receipt]
+    expected_proof = receipt.get("proof_fingerprint")
+    if expected_proof:
+        matched = False
+        for path in execution_dir.rglob("*MANIFEST*.json"):
+            value = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(value, dict) or value.get("proof_fingerprint") != expected_proof:
+                continue
+            core = {k: v for k, v in value.items() if k != "proof_fingerprint"}
+            digest = "sha256:" + hashlib.sha256(json.dumps(core, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+            if digest != expected_proof:
+                raise ValueError("native artifact proof manifest hash mismatch")
+            containers.append(value)
+            matched = True
+        if not matched:
+            raise ValueError("native artifact proof manifest is missing")
+
+    def visit(value: Any) -> None:
+        if isinstance(value, list):
+            for child in value:
+                visit(child)
+        elif isinstance(value, dict):
+            raw_path = value.get("path") or value.get("filename") or value.get("file_name") or value.get("raw_path")
+            digest = str(value.get("sha256") or "").removeprefix("sha256:")
+            if raw_path and len(digest) == 64 and "://" not in str(raw_path):
+                path = Path(str(raw_path))
+                if not path.is_absolute():
+                    direct = execution_dir / path
+                    candidates = [direct] if direct.is_file() else list(execution_dir.rglob(path.name)) if path.parent == Path(".") else []
+                    # Some native receipts deliberately retain an explicit path
+                    # relative to the repository, not the execution directory.
+                    if not candidates and path.is_file():
+                        candidates = [path]
+                else:
+                    candidates = [path]
+                if not candidates or not any(p.is_file() for p in candidates):
+                    raise ValueError(f"native artifact is missing: {raw_path}")
+                matches = [p.resolve() for p in candidates if p.is_file() and sha256(p) == digest]
+                if not matches:
+                    raise ValueError(f"native artifact hash mismatch: {raw_path}")
+                for path in matches:
+                    verified[str(path)] = digest
+            for child in value.values():
+                if isinstance(child, (list, dict)):
+                    visit(child)
+
+    for value in containers:
+        visit(value)
+    return verified
+
+
+def _finish_native_artifacts(packet: dict[str, Any], execution_dir: Path, incarnation: str, result: dict[str, Any]) -> dict[str, Any]:
+    from presence_core.shared_production_finish import render_held_artifacts_for_review
+    from products.professional_evidence_projection import sha256
+
+    verified = _verify_provider_artifacts(result, execution_dir)
+    # Prefer the editable/semantic rendition of the same native document while
+    # retaining distinct source documents. Internal JSON receipts are not prose.
+    priority = {".html": 0, ".htm": 0, ".docx": 1, ".md": 2, ".txt": 3, ".pdf": 4, ".csv": 5, ".pptx": 6}
+    selected: dict[str, Path] = {}
+    for path in sorted(execution_dir.rglob("*")):
+        if not path.is_file() or path.suffix.casefold() not in priority:
+            continue
+        key = str(path.relative_to(execution_dir).with_suffix("")).casefold()
+        previous = selected.get(key)
+        if previous is None or priority[path.suffix.casefold()] < priority[previous.suffix.casefold()]:
+            selected[key] = path
+    sources = [
+        {"artifact_id": f"NATIVE-{index:04d}", "kind": "native_customer_deliverable", "path": str(path), "file_name": str(path.relative_to(execution_dir)), "sha256": verified.get(str(path.resolve())) or sha256(path), "binding_state": "PROVIDER_DECLARED_HASH_VERIFIED" if str(path.resolve()) in verified else "POST_ROUTE_DISCOVERED_DERIVATIVE", "release_state": "HELD"}
+        for index, path in enumerate(selected.values(), 1)
+    ]
+    return render_held_artifacts_for_review(
+        state_root=execution_dir / "SHARED_PRODUCTION_FINISH", case_id=str(packet.get("case_id") or incarnation),
+        source_sha256=str(packet["packet_fingerprint"]).removeprefix("sha256:"), product_name=incarnation, artifacts=sources,
+    )
+
+
 def execute_prepared_customer_case(
     incarnation: str,
     case_root: Path,
@@ -128,6 +218,7 @@ def execute_prepared_customer_case(
             now=now,
             online=online,
         )
+        result["shared_production_finish"] = _finish_native_artifacts(packet, execution_dir, incarnation, result)
         blind = _blind_review(case_root, result, trace)
         if not blind["passed"]:
             raise RuntimeError("blind professional evidence review failed")
@@ -152,6 +243,7 @@ def execute_prepared_customer_case(
         "executor": result.get("executor"),
         "product_id": result.get("product_id"),
         "terminal_artifact_kind": result.get("terminal_artifact_kind"),
+        "shared_production_finish": result.get("shared_production_finish"),
         "product_pipeline_executed": result.get("product_pipeline_executed") is True,
         "domain_action_executed": result.get("domain_action_executed") is True,
         "prepared_by": prepared_by,

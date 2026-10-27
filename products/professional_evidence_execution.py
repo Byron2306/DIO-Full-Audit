@@ -520,16 +520,14 @@ def _run_vesper(packet: dict[str, Any], execution_dir: Path) -> dict[str, Any]:
     from scripts.route_intake import build_job, normalize_record, route_record, load_routes, write_job
 
     body = "\n".join(str(row.get("customer_supplied_record") or "") for row in evidence_rows(packet))
-    raw = {
-        "subject": "Contract obligations pack before Thursday review",
-        "sender": "Bluebird Consulting <client@example.invalid>",
-        "body": body,
-        "attachment_names": "BC-2026-14.pdf; Amendment-1.pdf",
-        "intent": "contract obligations pack and acknowledgement draft",
-        "urgency": "Thursday 27 August 2026",
-        "next_step": "route and draft only; do not send",
-        "risk": "moderate",
-    }
+    source = packet["packet_dir"] / "SOURCES" / "intake_email.json"
+    supplied = json.loads(source.read_text(encoding="utf-8")) if source.is_file() else {}
+    raw = {key: str(supplied.get(key) or "") for key in
+           ("subject", "sender", "body", "attachment_names", "intent", "urgency")}
+    raw["subject"] = raw["subject"] or str(packet["intake"]["request"])
+    raw["body"] = "\n\n".join([raw["body"], body]).strip()
+    raw["intent"] = raw["intent"] or str(packet["intake"]["request"])
+    raw.update(next_step="route and draft only; do not send", risk="moderate")
     record = normalize_record(raw)
     route = route_record(record, load_routes())
     job = build_job(record, route, redact=False)
@@ -538,7 +536,12 @@ def _run_vesper(packet: dict[str, Any], execution_dir: Path) -> dict[str, Any]:
         raise RuntimeError("Vesper intake did not retain pending human approval")
     draft = execution_dir / "VESPER_DRAFT_NEXT_STEP.md"
     draft.write_text(
-        "# Draft only — not sent\n\nThank you. We received the contract and Amendment 1 and have routed them for a controlled obligations review ahead of the requested Thursday review. A human operator will review the resulting pack before any reply or external delivery.\n",
+        "# Draft only — not sent\n\n"
+        f"Subject received: {record['subject']}\n\n"
+        f"Supplied attachment labels: {record['attachment_names'] or 'No attachment labels supplied'}. "
+        f"Requested timing: {record['urgency'] or 'Not specified'}.\n\n"
+        "The intake has been routed for human review. Attachment contents and acceptance remain unverified. "
+        "A human operator must review the resulting pack before any reply or external delivery.\n",
         encoding="utf-8",
     )
     receipt = {
