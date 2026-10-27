@@ -1,0 +1,134 @@
+{
+  "authority_created": false,
+  "evaluated_at": "2026-08-12T12:00:00+00:00",
+  "executor_created": false,
+  "external_effects": false,
+  "external_release_authorized": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "input_immutable": true,
+  "plan_fingerprint": "sha256:d1f3f427e012c8ef83b6cfde9508af575140c60a89fd3ad1569a1cd9c95d01bd",
+  "product_id": "dio_grantproof",
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_fingerprint": "sha256:b209342f1025dd7de1def401487137fd01aa13e03838d2e7c352d0387b96a837",
+  "runtime_version": "1.0.0",
+  "schema": "dio.meta_runtime.receipt.v1",
+  "step_receipts": [
+    {
+      "authority_created": false,
+      "dependency_receipts": [],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_evidence",
+      "input_fingerprints": {
+        "case": "sha256:a39d7903ea61b29d2eb4a17f9c4f2735e41d7aab827ff8b85f741247ef737ca2",
+        "obligation_bundle": "sha256:66d89c13f3bc3103406057817952e7fc86cc635a6635c7efd3e0116bf499826f",
+        "sufficiency": "sha256:294b8847ca8d9567f66d281c9aaa65793cc41092db09f5a173153eff8de5b31a"
+      },
+      "meta_id": "meta_evidence",
+      "outputs": {
+        "case_id": "CASE-CF07143A5E5FEC19",
+        "evidence_records": 2,
+        "fulfilment_adjudicated": false,
+        "gap_state": "GAPS_PRESENT",
+        "obligation_records": 3
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:2249e34e02a715ccee04095c4da3b6e784b8842a32e64a1d1da1d805f9fc4541"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:2249e34e02a715ccee04095c4da3b6e784b8842a32e64a1d1da1d805f9fc4541"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_assurance",
+      "input_fingerprints": {
+        "execution_receipt": "sha256:13dc97fb2a780c1fa7d4ec9dcd4d20240c9caa01fa36ffeda478de4ce6c71252",
+        "meta_evidence_receipt": "sha256:2249e34e02a715ccee04095c4da3b6e784b8842a32e64a1d1da1d805f9fc4541",
+        "proof_manifest": "sha256:92702d22f408c097c3959565d53155d7ce82f10b16026f4ed879dcee71a9eb7e"
+      },
+      "meta_id": "meta_assurance",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "e38d39c61da95f65c1b3f3bee41d10da7295d43bec3c543030a0b2cfb8db689d",
+          "HTML": "bf6e89964b520a57517d6cf738440a49d6e08ef64ee7cb2373a9e0380ba8f1d1",
+          "JSON": "c60f3650daf822fb188bf903ae369a457251608ce494566e7369df858f5707c0",
+          "PDF": "26fc6ca3e1f2bd5537371f04c6b987167ef8240bd8b49c0d049acce1b49340de"
+        },
+        "attention_state": "CLEAR",
+        "boundary_failures": [],
+        "execution_block_recommended": false,
+        "integrity_verified": true
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:bef2669434f6e8ba718eab85f1b8db05617d80e412301bc73f4403d6300d0355"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:2249e34e02a715ccee04095c4da3b6e784b8842a32e64a1d1da1d805f9fc4541",
+        "sha256:bef2669434f6e8ba718eab85f1b8db05617d80e412301bc73f4403d6300d0355"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_authority",
+      "input_fingerprints": {
+        "compiled_gates": "sha256:b19ba0dc2ec235522b591dfc448bacfb0407adc3746a59997b7a11990b54c614",
+        "execution_receipt": "sha256:13dc97fb2a780c1fa7d4ec9dcd4d20240c9caa01fa36ffeda478de4ce6c71252",
+        "meta_assurance_receipt": "sha256:bef2669434f6e8ba718eab85f1b8db05617d80e412301bc73f4403d6300d0355"
+      },
+      "meta_id": "meta_authority",
+      "outputs": {
+        "authority_observation": "NEEDS_YOU",
+        "authorization_created": false,
+        "capability_lease_created": false,
+        "execution_gate": "NEEDS_YOU",
+        "human_gate": "NEEDS_YOU",
+        "release_gate": "REFUSE"
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:22d6ee61c667833cefa108c45fb48b7ba178655cfd0eb092692c98cb837d93e2"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:2249e34e02a715ccee04095c4da3b6e784b8842a32e64a1d1da1d805f9fc4541",
+        "sha256:bef2669434f6e8ba718eab85f1b8db05617d80e412301bc73f4403d6300d0355",
+        "sha256:22d6ee61c667833cefa108c45fb48b7ba178655cfd0eb092692c98cb837d93e2"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_room",
+      "input_fingerprints": {
+        "artifact_set": "sha256:9112744f98daa1a1889e33f7c2299bacaaf65cd2122e2b1c24678f067f03e948",
+        "prior_meta_receipts": "sha256:670715dc41043f1254dc27ab4f10aaf8029941352734879048fca5e2a700aa74",
+        "proof_manifest": "sha256:92702d22f408c097c3959565d53155d7ce82f10b16026f4ed879dcee71a9eb7e"
+      },
+      "meta_id": "meta_room",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "e38d39c61da95f65c1b3f3bee41d10da7295d43bec3c543030a0b2cfb8db689d",
+          "HTML": "bf6e89964b520a57517d6cf738440a49d6e08ef64ee7cb2373a9e0380ba8f1d1",
+          "JSON": "c60f3650daf822fb188bf903ae369a457251608ce494566e7369df858f5707c0",
+          "PDF": "26fc6ca3e1f2bd5537371f04c6b987167ef8240bd8b49c0d049acce1b49340de"
+        },
+        "disclosure_candidate_only": true,
+        "external_release": false,
+        "integrity_verified": true,
+        "proof_fingerprint": "sha256:92702d22f408c097c3959565d53155d7ce82f10b16026f4ed879dcee71a9eb7e"
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:480528655294248004b4cf9bf4ffb718fc4f4a022b59d8bde2db9ce85b6df089"
+    }
+  ]
+}

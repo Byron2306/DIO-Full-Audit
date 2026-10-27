@@ -1,0 +1,46 @@
+{
+  "artifact_type": "proof_room_manifest",
+  "artifacts": [
+    {
+      "artifact_type": "JSON",
+      "filename": "EVIDENCE_PACK.json",
+      "sha256": "055ec21bca2d5ebfc60df93016fb5108766cfa921cb2f0267ab6d02b49b7ff1b"
+    },
+    {
+      "artifact_type": "HTML",
+      "filename": "EVIDENCE_PACK.html",
+      "sha256": "ac77ca83c7aa80de7a7300f145b7388cbdb17deaf6e04d9e98c7d665b1877c24"
+    },
+    {
+      "artifact_type": "DOCX",
+      "filename": "EVIDENCE_PACK.docx",
+      "sha256": "9dadb25a47fb7ee06fc724ef13d8a0381b63c035748c02fa3d114c89c8c327db"
+    },
+    {
+      "artifact_type": "PDF",
+      "filename": "EVIDENCE_PACK.pdf",
+      "sha256": "de055544ed3603fd56e8cce640ad66d584817153c75c623cc710ba6fc99e3f3c"
+    }
+  ],
+  "authority_created": false,
+  "case_id": "CASE-538BB088E3285D07",
+  "execution_performed": false,
+  "external_release": false,
+  "human_gate": {
+    "state": "NEEDS_YOU"
+  },
+  "obligation_bundle_fingerprint": "sha256:43a6b163beefa8da10f084398e65108f50e666a0087df31439962aeed039a70f",
+  "product_id": "dio_tenderproof",
+  "proof_fingerprint": "sha256:597b8f194c813015f734cc9111b1c5727c37dd23d622d4f161e4465254e58fb3",
+  "provider_id": "obligation_family_proof_pack_v1",
+  "required_sections": [
+    "contested_state_register",
+    "deadline_register",
+    "evidence_map",
+    "human_review_register",
+    "missing_evidence_register",
+    "provenance_manifest",
+    "requirement_or_obligation_ledger"
+  ],
+  "schema": "dio.obligation_family.proof_manifest.v1"
+}

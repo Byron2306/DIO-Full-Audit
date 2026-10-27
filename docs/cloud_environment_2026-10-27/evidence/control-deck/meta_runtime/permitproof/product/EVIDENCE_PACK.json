@@ -1,0 +1,211 @@
+{
+  "case_id": "CASE-FDC19190D41FFD09",
+  "contested_state_register": [],
+  "deadline_register": [
+    {
+      "deadline_id": "ODEAD-8E3CAC3B29CA1FA8",
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-2E9653449E98C4CE",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-53BE5F03E7CC9803",
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-B7A533BADEBF9577",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-273D6FC412E1867F",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "expiry",
+      "obligation_id": "OBL-630FEF5E3A8538A8",
+      "state": "expired"
+    }
+  ],
+  "evidence_map": [
+    {
+      "binding_id": "OBIND-02D8EBED348C3396",
+      "evidence_id": "EVID-A42E542A49FBFCB4",
+      "evidence_kind": "monitoring_report",
+      "freshness_state": "current",
+      "obligation_id": "OBL-2E9653449E98C4CE",
+      "relation": "supports",
+      "source_ref": "fixture://permitproof/evidence/primary",
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "binding_id": "OBIND-345FF816CA4ADD91",
+      "evidence_id": "EVID-471303D68CB4A617",
+      "evidence_kind": "renewal_certificate",
+      "freshness_state": "expired",
+      "obligation_id": "OBL-630FEF5E3A8538A8",
+      "relation": "supports",
+      "source_ref": "fixture://permitproof/evidence/expired",
+      "trust_state": "trusted_for_review"
+    }
+  ],
+  "human_review_register": {
+    "disclosure": "NEEDS_YOU",
+    "external_release": "REFUSE",
+    "fulfilment": "NEEDS_YOU"
+  },
+  "missing_evidence_register": [],
+  "product_id": "dio_permitproof",
+  "provenance_manifest": {
+    "authority_created": false,
+    "bundle_fingerprint": "sha256:eeec3d83ada503a33dc91d7ed7f050289ff40e5d928cadd0def6b888c19e7536",
+    "external_effects": false,
+    "projection": {
+      "authority_created": false,
+      "bundle_fingerprint": "sha256:eeec3d83ada503a33dc91d7ed7f050289ff40e5d928cadd0def6b888c19e7536",
+      "case_id": "CASE-FDC19190D41FFD09",
+      "execution_performed": false,
+      "external_release": false,
+      "requirement_map": {
+        "OBL-2E9653449E98C4CE": "REQ-F283E226A7788932",
+        "OBL-630FEF5E3A8538A8": "REQ-4A93AEB0C75C100F",
+        "OBL-B7A533BADEBF9577": "REQ-98AEC47D69ECF5F3"
+      },
+      "schema": "dio.obligation_projection_receipt.v1"
+    },
+    "source": {
+      "effective_at": "2026-07-01T00:00:00+00:00",
+      "expires_at": null,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_id": "permitproof-golden-reference-001",
+      "source_ref": "fixture://permitproof/golden-reference-001",
+      "source_type": "permit"
+    }
+  },
+  "requirement_or_obligation_ledger": [
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [],
+        "obligation_id": "OBL-2E9653449E98C4CE",
+        "status": "SATISFIED",
+        "status_basis": [
+          "all explicit evidence requirements have trusted, non-stale supporting evidence"
+        ],
+        "usable_evidence_ids": [
+          "EVID-A42E542A49FBFCB4"
+        ]
+      },
+      "evidence_binding_ids": [
+        "OBIND-02D8EBED348C3396"
+      ],
+      "evidence_requirements": [
+        "monitoring_report"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "reporting",
+      "obligation_id": "OBL-2E9653449E98C4CE",
+      "raw_text": "The operator shall provide the monitoring report.",
+      "responsible_party": "operator",
+      "review_required": false,
+      "source": {
+        "locator": "P-1",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_id": "permitproof-golden-reference-001",
+        "source_ref": "fixture://permitproof/golden-reference-001"
+      },
+      "statement": "The operator shall provide the monitoring report.",
+      "status": "SATISFIED",
+      "status_basis": [
+        "all explicit evidence requirements have trusted, non-stale supporting evidence"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [
+          "incident_notice"
+        ],
+        "obligation_id": "OBL-B7A533BADEBF9577",
+        "status": "MISSING",
+        "status_basis": [
+          "required trusted evidence is missing: ['incident_notice']"
+        ],
+        "usable_evidence_ids": []
+      },
+      "evidence_binding_ids": [],
+      "evidence_requirements": [
+        "incident_notice"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "retention",
+      "obligation_id": "OBL-B7A533BADEBF9577",
+      "raw_text": "The operator shall retain the incident notice.",
+      "responsible_party": "operator",
+      "review_required": false,
+      "source": {
+        "locator": "P-2",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_id": "permitproof-golden-reference-001",
+        "source_ref": "fixture://permitproof/golden-reference-001"
+      },
+      "statement": "The operator shall retain the incident notice.",
+      "status": "MISSING",
+      "status_basis": [
+        "required trusted evidence is missing: ['incident_notice']"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": null,
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [
+          "renewal_certificate"
+        ],
+        "obligation_id": "OBL-630FEF5E3A8538A8",
+        "status": "EXPIRED",
+        "status_basis": [
+          "explicit obligation expiry timestamp has been reached or passed"
+        ],
+        "usable_evidence_ids": []
+      },
+      "evidence_binding_ids": [
+        "OBIND-345FF816CA4ADD91"
+      ],
+      "evidence_requirements": [
+        "renewal_certificate"
+      ],
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "maintenance",
+      "obligation_id": "OBL-630FEF5E3A8538A8",
+      "raw_text": "The operator shall maintain the renewal certificate.",
+      "responsible_party": "operator",
+      "review_required": false,
+      "source": {
+        "locator": "P-3",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_id": "permitproof-golden-reference-001",
+        "source_ref": "fixture://permitproof/golden-reference-001"
+      },
+      "statement": "The operator shall maintain the renewal certificate.",
+      "status": "EXPIRED",
+      "status_basis": [
+        "explicit obligation expiry timestamp has been reached or passed"
+      ]
+    }
+  ]
+}

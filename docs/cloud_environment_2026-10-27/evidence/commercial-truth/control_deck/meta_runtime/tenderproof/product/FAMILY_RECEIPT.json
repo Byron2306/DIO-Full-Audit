@@ -1,0 +1,24 @@
+{
+  "authority_created": false,
+  "award_or_permit_decision_created": false,
+  "case_id": "CASE-538BB088E3285D07",
+  "evidence_sufficiency_state": "GAPS_PRESENT",
+  "executed_at": "2026-08-12T12:00:00+00:00",
+  "executor_id": "obligation_family_internal_runner_v1",
+  "external_effects": false,
+  "external_release": false,
+  "external_release_gate": "REFUSE",
+  "human_fulfilment_gate": "NEEDS_YOU",
+  "internal_processing": "COMPLETE",
+  "legal_opinion_created": false,
+  "obligation_status_counts": {
+    "EXPIRED": 1,
+    "MISSING": 1,
+    "SATISFIED": 1
+  },
+  "operator_id": "human.phase7_gauntlet",
+  "product_id": "dio_tenderproof",
+  "proof_fingerprint": "sha256:597b8f194c813015f734cc9111b1c5727c37dd23d622d4f161e4465254e58fb3",
+  "schema": "dio.obligation_family.execution_receipt.v1",
+  "waiver_created": false
+}

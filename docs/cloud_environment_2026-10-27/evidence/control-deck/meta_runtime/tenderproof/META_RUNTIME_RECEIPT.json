@@ -1,0 +1,134 @@
+{
+  "authority_created": false,
+  "evaluated_at": "2026-08-12T12:00:00+00:00",
+  "executor_created": false,
+  "external_effects": false,
+  "external_release_authorized": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "input_immutable": true,
+  "plan_fingerprint": "sha256:1fd452157d1ba9a0137391b974c58e7b9b675c7b6d844f99e04871afb49e5240",
+  "product_id": "dio_tenderproof",
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_fingerprint": "sha256:282427ae359ee499be4dac6021e3216f470048e94fc570eaba011ddad4f949ca",
+  "runtime_version": "1.0.0",
+  "schema": "dio.meta_runtime.receipt.v1",
+  "step_receipts": [
+    {
+      "authority_created": false,
+      "dependency_receipts": [],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_evidence",
+      "input_fingerprints": {
+        "case": "sha256:e73ac25dba9aacf8fadd56386bbecb3418dc40be38e6d66d19bec6b11ee20cbe",
+        "obligation_bundle": "sha256:43a6b163beefa8da10f084398e65108f50e666a0087df31439962aeed039a70f",
+        "sufficiency": "sha256:cd3ff7224dd226f714af5a3815d24eb912e43608339c5b961889c372355cd1bf"
+      },
+      "meta_id": "meta_evidence",
+      "outputs": {
+        "case_id": "CASE-538BB088E3285D07",
+        "evidence_records": 2,
+        "fulfilment_adjudicated": false,
+        "gap_state": "GAPS_PRESENT",
+        "obligation_records": 3
+      },
+      "product_id": "dio_tenderproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:ab59301681639bccc937eef04b4dcbf5637a80d7163641d09eea90e802a74ac8"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:ab59301681639bccc937eef04b4dcbf5637a80d7163641d09eea90e802a74ac8"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_assurance",
+      "input_fingerprints": {
+        "execution_receipt": "sha256:d3eb0c3888f917bae7cf24ec3564c70a437bbd11b61c8ab7b3017f3c0ea109ae",
+        "meta_evidence_receipt": "sha256:ab59301681639bccc937eef04b4dcbf5637a80d7163641d09eea90e802a74ac8",
+        "proof_manifest": "sha256:597b8f194c813015f734cc9111b1c5727c37dd23d622d4f161e4465254e58fb3"
+      },
+      "meta_id": "meta_assurance",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "9dadb25a47fb7ee06fc724ef13d8a0381b63c035748c02fa3d114c89c8c327db",
+          "HTML": "ac77ca83c7aa80de7a7300f145b7388cbdb17deaf6e04d9e98c7d665b1877c24",
+          "JSON": "055ec21bca2d5ebfc60df93016fb5108766cfa921cb2f0267ab6d02b49b7ff1b",
+          "PDF": "de055544ed3603fd56e8cce640ad66d584817153c75c623cc710ba6fc99e3f3c"
+        },
+        "attention_state": "CLEAR",
+        "boundary_failures": [],
+        "execution_block_recommended": false,
+        "integrity_verified": true
+      },
+      "product_id": "dio_tenderproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:deae21ce8805e51609b0ec295f8facb8975a6b9c818b3bf65ae4c283d55b131e"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:ab59301681639bccc937eef04b4dcbf5637a80d7163641d09eea90e802a74ac8",
+        "sha256:deae21ce8805e51609b0ec295f8facb8975a6b9c818b3bf65ae4c283d55b131e"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_authority",
+      "input_fingerprints": {
+        "compiled_gates": "sha256:b19ba0dc2ec235522b591dfc448bacfb0407adc3746a59997b7a11990b54c614",
+        "execution_receipt": "sha256:d3eb0c3888f917bae7cf24ec3564c70a437bbd11b61c8ab7b3017f3c0ea109ae",
+        "meta_assurance_receipt": "sha256:deae21ce8805e51609b0ec295f8facb8975a6b9c818b3bf65ae4c283d55b131e"
+      },
+      "meta_id": "meta_authority",
+      "outputs": {
+        "authority_observation": "NEEDS_YOU",
+        "authorization_created": false,
+        "capability_lease_created": false,
+        "execution_gate": "NEEDS_YOU",
+        "human_gate": "NEEDS_YOU",
+        "release_gate": "REFUSE"
+      },
+      "product_id": "dio_tenderproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:4898998cda7dada5d56e53600e9d15ab0ae71d872f6cfabb85203a4ca49be41e"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:ab59301681639bccc937eef04b4dcbf5637a80d7163641d09eea90e802a74ac8",
+        "sha256:deae21ce8805e51609b0ec295f8facb8975a6b9c818b3bf65ae4c283d55b131e",
+        "sha256:4898998cda7dada5d56e53600e9d15ab0ae71d872f6cfabb85203a4ca49be41e"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_room",
+      "input_fingerprints": {
+        "artifact_set": "sha256:a1ea37e215bf418271cb229404348b6c15faaa15586da02f7ef75707ace03f52",
+        "prior_meta_receipts": "sha256:b35ec207da801e87bc786f0c4077d971a3147bdf72d3c9d9d053a87c7dc8c008",
+        "proof_manifest": "sha256:597b8f194c813015f734cc9111b1c5727c37dd23d622d4f161e4465254e58fb3"
+      },
+      "meta_id": "meta_room",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "9dadb25a47fb7ee06fc724ef13d8a0381b63c035748c02fa3d114c89c8c327db",
+          "HTML": "ac77ca83c7aa80de7a7300f145b7388cbdb17deaf6e04d9e98c7d665b1877c24",
+          "JSON": "055ec21bca2d5ebfc60df93016fb5108766cfa921cb2f0267ab6d02b49b7ff1b",
+          "PDF": "de055544ed3603fd56e8cce640ad66d584817153c75c623cc710ba6fc99e3f3c"
+        },
+        "disclosure_candidate_only": true,
+        "external_release": false,
+        "integrity_verified": true,
+        "proof_fingerprint": "sha256:597b8f194c813015f734cc9111b1c5727c37dd23d622d4f161e4465254e58fb3"
+      },
+      "product_id": "dio_tenderproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:cffa669317d946cf4bb3b91ee5901c4af549934c4896d07ca8e64e58981ae720"
+    }
+  ]
+}
