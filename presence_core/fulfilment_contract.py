@@ -397,6 +397,30 @@ def dispatch_fulfilment(
     if not isinstance(evidence_refs, list) or not isinstance(organ_steps, list):
         raise ValueError("adapter evidence_refs and organ_steps must be lists")
 
+    capability_ids = {
+        str(row.get("capability_id") or "")
+        for row in request["execution_profile"].get("executor_capabilities") or []
+    }
+    shared_finish_ids = {
+        "format_core.semantic_finish",
+        "production_studio.customer_delivery",
+    }
+    configured_shared_finish = capability_ids & shared_finish_ids
+    if configured_shared_finish and configured_shared_finish != shared_finish_ids:
+        raise ValueError("Format Core and Production Studio must be configured together")
+    if configured_shared_finish:
+        from .shared_production_finish import finish_fulfilment_for_review
+
+        finish = finish_fulfilment_for_review(
+            state_root=state_root,
+            request=request,
+            artifacts=artifacts,
+        )
+        artifacts.extend(_normalise_artifacts(finish["artifacts"]))
+        evidence_refs.extend(finish["evidence_refs"])
+        organ_steps.extend(finish["organ_steps"])
+
+
     result = {
         "schema": FULFILMENT_RESULT_SCHEMA,
         "case_id": case_id,

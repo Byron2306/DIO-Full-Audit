@@ -7,10 +7,15 @@ from pathlib import Path
 from typing import Any
 
 from products.commercial_pricing_registry import build_commercial_pricing_registry
+from products.canonical_offer_contract import build_canonical_offer_contract
 
 from .fulfilment_contract import EXECUTION_PROFILE_SCHEMA
 from .intake_scope_quote import build_intake_requirement
 from .organ_adapter_gauntlet import ORGAN_FAMILIES
+from .shared_capability_registry import (
+    build_route_capability_plan,
+    build_shared_capability_registry,
+)
 
 
 BINDING_SCHEMA = "dio.customer_journey.phase8_product_binding.v1"
@@ -515,6 +520,14 @@ def _assert_exact_68(
         )
 
 
+def _assert_unique_product_ids(products: list[dict[str, Any]]) -> None:
+    product_ids = [str(row.get("product_id") or "").strip() for row in products]
+    if any(not product_id for product_id in product_ids):
+        raise ValueError("canonical commercial product_id must not be blank")
+    if len(product_ids) != len(set(product_ids)):
+        raise ValueError("canonical commercial product_id values must be unique")
+
+
 def compile_product_journey_binding(
     root: Path,
     product_name: str,
@@ -525,6 +538,7 @@ def compile_product_journey_binding(
         str(row["name"]): row
         for row in registry.get("products") or []
     }
+    _assert_unique_product_ids(list(products.values()))
     archetype_index = _index(ARCHETYPE_PRODUCTS, "archetype")
     route_index = _index(ROUTE_PRODUCTS, "route")
     _assert_exact_68(set(products), archetype_index, route_index)
@@ -539,7 +553,15 @@ def compile_product_journey_binding(
     archetype = deepcopy(ARCHETYPE_PROFILES[archetype_id])
     route_id = route_index[product_name]
     route = deepcopy(_route_registry(root)[route_id])
+    shared_capabilities = build_shared_capability_registry(root)
+    capability_plan = build_route_capability_plan(root, route_id, route)
     intake = build_intake_requirement(root, product_name)
+    offer_contract = build_canonical_offer_contract(
+        product=product,
+        intake=intake,
+        archetype=archetype,
+        route=route,
+    )
     manifest = _manifest_index(root).get(
         product_name,
         {
@@ -589,6 +611,7 @@ def compile_product_journey_binding(
             **pricing_basis,
             "pricing_profile_sha256": _canonical_hash(pricing_basis),
         },
+        "offer_contract": offer_contract,
         "quote_authority": deepcopy(product["quote_authority"]),
         "settlement_profile": {
             "allowed_classes": [
@@ -616,6 +639,11 @@ def compile_product_journey_binding(
             "proof_state": route["proof_state"],
             "proof_ref": deepcopy(route["proof_ref"]),
         },
+        "shared_capability_catalog": [
+            deepcopy(shared_capabilities[key])
+            for key in shared_capabilities
+        ],
+        "capability_plan": capability_plan,
         "human_authority_gates": deepcopy(archetype["human_gates"]),
         "deliverable_profile": {
             "artifact_families": deepcopy(archetype["deliverable_types"]),
@@ -652,6 +680,7 @@ def build_phase8_binding_registry(root: Path) -> dict[str, Any]:
     root = Path(root).resolve()
     commercial = build_commercial_pricing_registry(root)
     products = list(commercial.get("products") or [])
+    _assert_unique_product_ids(products)
     archetype_index = _index(ARCHETYPE_PRODUCTS, "archetype")
     route_index = _index(ROUTE_PRODUCTS, "route")
     commercial_names = {str(row["name"]) for row in products}
@@ -726,26 +755,20 @@ def build_phase8_execution_profile(
         },
         "executor_capabilities": [
             {
-                "capability_id": (
-                    "customer_journey.fulfilment."
-                    + str(fulfilment["route_id"])
-                ),
-                "resolution_state": "RESOLVED",
-                "provider": {
-                    "provider_id": fulfilment["adapter_id"],
-                    "provider_kind": fulfilment["execution_class"],
-                    "ref": fulfilment["source_path"],
-                    "execution_capable": True,
-                    "product_scope": [binding["product_id"]],
-                    "repository": fulfilment.get("repository"),
-                    "repository_commit": fulfilment.get(
-                        "repository_commit"
-                    ),
-                    "route_fingerprint": fulfilment[
-                        "route_fingerprint"
-                    ],
-                },
+                "capability_id": row["capability_id"],
+                "name": row["name"],
+                "purpose": row["purpose"],
+                "sequence": row["sequence"],
+                "execution_required": True,
+                "resolution_state": row["resolution_state"],
+                "activation_gate": row["activation_gate"],
+                "depends_on": deepcopy(row["depends_on"]),
+                "provider": deepcopy(row["provider"]),
+                "authority_created": False,
+                "external_send_authority": False,
             }
+            for row in binding["capability_plan"]
+            if row["execution_required"]
         ],
         "output_plan": {
             "schema": "dio.compiled_output_plan.v1",

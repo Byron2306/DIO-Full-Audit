@@ -28,5 +28,5 @@ def test_evidex_bridge_loads_shared_dio_epistemic_spine(monkeypatch) -> None:
 
     spine = module._load_spine()
 
-    assert spine.__name__ == "scripts.dio_epistemic_spine"
+    # The bridge deliberately loads the owned source by path under a private module name.\n    assert Path(spine.__file__).resolve() == (ROOT / "scripts" / "dio_epistemic_spine.py").resolve()\n    assert spine.__name__ == "_dio_owned_epistemic_spine"
     assert spine.claim_epistemic_state(support_count=1) == "SUPPORTED"

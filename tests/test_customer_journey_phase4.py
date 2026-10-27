@@ -119,7 +119,31 @@ def _profile(product_id: str, adapter_id: str = "adapter.shared") -> dict:
                     "product_scope": ["*"],
                 },
                 "reason": "test fixture",
-            }
+            },
+            {
+                "capability_id": "format_core.semantic_finish",
+                "execution_required": True,
+                "resolution_state": "RESOLVED",
+                "provider": {
+                    "provider_id": "dio.shared.format_core",
+                    "provider_kind": "native_python",
+                    "ref": "presence_core/shared_production_finish.py",
+                    "execution_capable": True,
+                    "product_scope": ["*"],
+                },
+            },
+            {
+                "capability_id": "production_studio.customer_delivery",
+                "execution_required": True,
+                "resolution_state": "RESOLVED",
+                "provider": {
+                    "provider_id": "dio.shared.production_studio",
+                    "provider_kind": "native_python",
+                    "ref": "presence_core/shared_production_finish.py",
+                    "execution_capable": True,
+                    "product_scope": ["*"],
+                },
+            },
         ],
         "gates": {
             "execution": {
@@ -224,9 +248,23 @@ def test_composite_adapter_returns_one_canonical_result_envelope(tmp_path: Path)
 
     assert result["schema"] == "dio.fulfilment_result.v1"
     assert result["fulfilment_request_sha256"] == request["fulfilment_request_sha256"]
-    assert [step["organ"] for step in result["organ_steps"]] == ["evidex", "format_core"]
-    assert len(result["artifacts"]) == 1
-    assert result["artifacts"][0]["release_state"] == "HELD"
+    assert [step["organ"] for step in result["organ_steps"]] == [
+        "evidex",
+        "format_core",
+        "format_core",
+        "production_studio",
+    ]
+    assert len(result["artifacts"]) == 3
+    assert all(artifact["release_state"] == "HELD" for artifact in result["artifacts"])
+    shared = result["artifacts"][1:]
+    assert [artifact["kind"] for artifact in shared] == [
+        "customer_review_summary",
+        "production_studio_review_manifest",
+    ]
+    for artifact in shared:
+        path = tmp_path / artifact["file_name"]
+        assert path.is_file()
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
     assert result["release_authority_created"] is False
     assert result["external_send_authority"] is False
     assert result["authority_created"] is False
@@ -251,6 +289,29 @@ def test_adapter_cannot_self_grant_release_or_send_authority(tmp_path: Path) -> 
 
     with pytest.raises(ValueError, match="adapter may not create release, send, or generic authority"):
         dispatch_fulfilment(tmp_path, request, {"adapter.rogue": rogue_adapter})
+
+
+def test_dispatch_refuses_partial_shared_finish_configuration(tmp_path: Path) -> None:
+    case = _eligible_case(tmp_path)
+    profile = _profile("Product Alpha")
+    profile["executor_capabilities"] = [
+        row
+        for row in profile["executor_capabilities"]
+        if row["capability_id"] != "production_studio.customer_delivery"
+    ]
+    profile.pop("execution_profile_sha256")
+    profile["execution_profile_sha256"] = _hash(profile)
+    request = build_fulfilment_request(tmp_path, case["case_id"], profile)
+
+    with pytest.raises(
+        ValueError,
+        match="Format Core and Production Studio must be configured together",
+    ):
+        dispatch_fulfilment(
+            tmp_path,
+            request,
+            {"adapter.shared": _completed_adapter("partial")},
+        )
 
 
 def test_successful_dispatch_drives_strict_lifecycle_to_review_ready(tmp_path: Path) -> None:
