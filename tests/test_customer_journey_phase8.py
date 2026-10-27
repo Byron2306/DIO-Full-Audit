@@ -12,6 +12,10 @@ from presence_core.product_binding_registry import (
     build_phase8_execution_profile,
     compile_product_journey_binding,
 )
+from presence_core.shared_capability_registry import (
+    build_route_capability_plan,
+    build_shared_capability_registry,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,6 +71,61 @@ def test_phase8_frozen_archetype_and_route_assignments_are_unique() -> None:
     assert set(archetype_names) == set(route_names)
 
 
+def test_shared_capability_registry_resolves_four_real_providers() -> None:
+    capabilities = build_shared_capability_registry(ROOT)
+
+    assert list(capabilities) == [
+        "format_core",
+        "production_studio",
+        "document_studio",
+        "nichefoundry",
+    ]
+    for capability in capabilities.values():
+        assert capability["resolution_state"] == "RESOLVED"
+        assert capability["provider"]["execution_capable"] is True
+        assert (ROOT / capability["provider"]["source_path"]).is_file()
+        assert capability["authority_created"] is False
+        assert capability["external_send_authority"] is False
+    assert capabilities["production_studio"]["provider"]["source_path"] == (
+        "presence_core/shared_production_finish.py"
+    )
+    assert capabilities["nichefoundry"]["provider"]["source_path"] == (
+        "scripts/run_nichefoundry_jobs.py"
+    )
+    assert capabilities["nichefoundry"]["provider"]["entrypoint"] == "write_job"
+
+
+def test_shared_capability_plan_has_route_specific_requirements() -> None:
+    route_provider = {
+        "adapter_id": "dio.organ.test",
+        "execution_class": "native",
+        "source_path": "presence_core/product_binding_registry.py",
+        "source_sha256": "a" * 64,
+        "repository": None,
+        "repository_commit": None,
+        "route_fingerprint": "b" * 64,
+    }
+
+    document = build_route_capability_plan(ROOT, "document_studio", route_provider)
+    campaign = build_route_capability_plan(ROOT, "nichefoundry_campaign", route_provider)
+    evidence = build_route_capability_plan(ROOT, "evidex_evidence", route_provider)
+
+    assert [row["capability_id"] for row in evidence] == [
+        "customer_journey.fulfilment.evidex_evidence",
+        "document_studio.document_pipeline",
+        "nichefoundry.campaign_materials",
+        "format_core.semantic_finish",
+        "production_studio.customer_delivery",
+    ]
+    assert [row["execution_required"] for row in evidence] == [True, False, False, True, True]
+    assert document[1]["route_requirement"] == "REQUIRED_WITHIN_NATIVE_ROUTE"
+    assert campaign[2]["route_requirement"] == "REQUIRED_WITHIN_NATIVE_ROUTE"
+    assert campaign[2]["activation_gate"] == "approved_media_request"
+    assert build_shared_capability_registry(ROOT)["nichefoundry"]["activation_gate"] == (
+        "approved_media_request"
+    )
+
+
 def test_every_binding_reuses_shared_lifecycle_and_preserves_authority_boundary() -> None:
     registry = build_phase8_binding_registry(ROOT)
 
@@ -80,6 +139,32 @@ def test_every_binding_reuses_shared_lifecycle_and_preserves_authority_boundary(
         assert binding["authority_created"] is False
         assert binding["external_send_authority"] is False
         assert binding["external_effects"] is False
+
+        catalog = binding["shared_capability_catalog"]
+        assert [row["name"] for row in catalog] == [
+            "Format Core",
+            "Production Studio",
+            "Document Studio",
+            "NicheFoundry",
+        ]
+        assert all(row["availability"] == "AVAILABLE_TO_ALL_CANONICAL_PRODUCTS" for row in catalog)
+        assert all(row["authority_created"] is False for row in catalog)
+
+        plan = binding["capability_plan"]
+        assert len(plan) == 5
+        assert [row["sequence"] for row in plan] == [10, 15, 16, 20, 30]
+        assert [row["execution_required"] for row in plan] == [True, False, False, True, True]
+        route_id = binding["fulfilment_profile"]["route_id"]
+        assert plan[1]["route_requirement"] == (
+            "REQUIRED_WITHIN_NATIVE_ROUTE"
+            if route_id in {"homs_learning", "document_studio"}
+            else "AVAILABLE_ON_APPROVED_REQUEST"
+        )
+        assert plan[2]["route_requirement"] == (
+            "REQUIRED_WITHIN_NATIVE_ROUTE"
+            if route_id == "nichefoundry_campaign"
+            else "AVAILABLE_ON_APPROVED_REQUEST"
+        )
 
         release = binding["release_profile"]
         assert release["exact_manifest_human_approval"] is True
@@ -180,8 +265,15 @@ def test_all_68_execution_profiles_are_deterministic_and_non_authoritative() -> 
         assert first["authority_created"] is False
         assert first["release_authority_created"] is False
         assert first["external_send_authority"] is False
-        assert len(first["executor_capabilities"]) == 1
-        assert first["executor_capabilities"][0]["resolution_state"] == "RESOLVED"
+        route_id = binding["fulfilment_profile"]["route_id"]
+        assert len(first["executor_capabilities"]) == 3
+        assert all(row["resolution_state"] == "RESOLVED" for row in first["executor_capabilities"])
+        assert all(row["execution_required"] is True for row in first["executor_capabilities"])
+        assert [row["capability_id"] for row in first["executor_capabilities"][:3]] == [
+            f"customer_journey.fulfilment.{route_id}",
+            "format_core.semantic_finish",
+            "production_studio.customer_delivery",
+        ]
 
 
 def test_missing_product_compiler_manifests_are_reported_not_invented() -> None:

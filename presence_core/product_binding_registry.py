@@ -11,6 +11,10 @@ from products.commercial_pricing_registry import build_commercial_pricing_regist
 from .fulfilment_contract import EXECUTION_PROFILE_SCHEMA
 from .intake_scope_quote import build_intake_requirement
 from .organ_adapter_gauntlet import ORGAN_FAMILIES
+from .shared_capability_registry import (
+    build_route_capability_plan,
+    build_shared_capability_registry,
+)
 
 
 BINDING_SCHEMA = "dio.customer_journey.phase8_product_binding.v1"
@@ -539,6 +543,8 @@ def compile_product_journey_binding(
     archetype = deepcopy(ARCHETYPE_PROFILES[archetype_id])
     route_id = route_index[product_name]
     route = deepcopy(_route_registry(root)[route_id])
+    shared_capabilities = build_shared_capability_registry(root)
+    capability_plan = build_route_capability_plan(root, route_id, route)
     intake = build_intake_requirement(root, product_name)
     manifest = _manifest_index(root).get(
         product_name,
@@ -616,6 +622,11 @@ def compile_product_journey_binding(
             "proof_state": route["proof_state"],
             "proof_ref": deepcopy(route["proof_ref"]),
         },
+        "shared_capability_catalog": [
+            deepcopy(shared_capabilities[key])
+            for key in shared_capabilities
+        ],
+        "capability_plan": capability_plan,
         "human_authority_gates": deepcopy(archetype["human_gates"]),
         "deliverable_profile": {
             "artifact_families": deepcopy(archetype["deliverable_types"]),
@@ -726,26 +737,20 @@ def build_phase8_execution_profile(
         },
         "executor_capabilities": [
             {
-                "capability_id": (
-                    "customer_journey.fulfilment."
-                    + str(fulfilment["route_id"])
-                ),
-                "resolution_state": "RESOLVED",
-                "provider": {
-                    "provider_id": fulfilment["adapter_id"],
-                    "provider_kind": fulfilment["execution_class"],
-                    "ref": fulfilment["source_path"],
-                    "execution_capable": True,
-                    "product_scope": [binding["product_id"]],
-                    "repository": fulfilment.get("repository"),
-                    "repository_commit": fulfilment.get(
-                        "repository_commit"
-                    ),
-                    "route_fingerprint": fulfilment[
-                        "route_fingerprint"
-                    ],
-                },
+                "capability_id": row["capability_id"],
+                "name": row["name"],
+                "purpose": row["purpose"],
+                "sequence": row["sequence"],
+                "execution_required": True,
+                "resolution_state": row["resolution_state"],
+                "activation_gate": row["activation_gate"],
+                "depends_on": deepcopy(row["depends_on"]),
+                "provider": deepcopy(row["provider"]),
+                "authority_created": False,
+                "external_send_authority": False,
             }
+            for row in binding["capability_plan"]
+            if row["execution_required"]
         ],
         "output_plan": {
             "schema": "dio.compiled_output_plan.v1",
