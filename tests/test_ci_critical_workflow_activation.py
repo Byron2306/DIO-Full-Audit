@@ -40,3 +40,12 @@ def test_phase5_test_failures_cannot_be_hidden_by_log_capture():
     for dependency in ('fastapi', 'uvicorn', 'httpx'):
         assert dependency in install.split()
     assert int(job['timeout-minutes']) <= 15
+
+
+def test_phase4_ci_installs_the_actual_document_renderer_dependencies():
+    job = workflow('dio-customer-journey-phase4.yml')['jobs']['universal-fulfilment']
+    install = next(step['run'] for step in job['steps'] if step.get('name') == 'Install test dependencies')
+    # The exercised fulfilment path imports Format Core's DOCX, PPTX and image
+    # renderers, even when the test's source document is only a held review.
+    for dependency in ('python-docx', 'python-pptx', 'pillow'):
+        assert dependency in install.split()
