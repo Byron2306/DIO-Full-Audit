@@ -265,6 +265,14 @@ def test_composite_adapter_returns_one_canonical_result_envelope(tmp_path: Path)
         path = tmp_path / artifact["file_name"]
         assert path.is_file()
         assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
+    html_summary = tmp_path / shared[0]["file_name"]
+    review_manifest = tmp_path / shared[1]["file_name"]
+    assert "<html" in html_summary.read_text(encoding="utf-8")
+    assert "ART-composite" in html_summary.read_text(encoding="utf-8")
+    manifest = json.loads(review_manifest.read_text(encoding="utf-8"))
+    assert manifest["state"] == "HELD_FOR_REVIEW"
+    assert manifest["route_artifacts"][0]["artifact_id"] == "ART-composite"
+    assert manifest["format_core_html"]["sha256"] == shared[0]["sha256"]
     assert result["release_authority_created"] is False
     assert result["external_send_authority"] is False
     assert result["authority_created"] is False

@@ -67,11 +67,11 @@
 - Produces: `finish_fulfilment_for_review(state_root, request, artifacts) -> dict[str, Any]`.
 - Consumes: required Format Core and Production Studio capability IDs from the execution profile.
 
-- [ ] Write a failing dispatch test requiring a real Format Core HTML artifact and Production Studio review manifest.
-- [ ] Implement a provider-neutral review finisher over the route adapter's held artifact inventory.
-- [ ] Invoke the finisher from dispatch only when both shared capability IDs are required.
-- [ ] Refuse partial Format Core/Production Studio configurations.
-- [ ] Run Phase 4 through Phase 8 tests and confirm the real files survive deliverable-manifest validation.
+- [x] Write a failing dispatch test requiring a real Format Core HTML artifact and Production Studio review manifest.
+- [x] Implement a provider-neutral review finisher over the route adapter's held artifact inventory.
+- [x] Invoke the finisher from dispatch only when both shared capability IDs are required.
+- [x] Refuse partial Format Core/Production Studio configurations.
+- [x] Run Phase 4 through Phase 8 tests and confirm the real files survive deliverable-manifest validation.
 
 ### Production-media correction (2026-10-27)
 
