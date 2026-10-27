@@ -159,7 +159,12 @@ def synthesize_pocket_story(
             raise CampaignMediaError(f"Story scene {index} has no narration for Pocket TTS.")
         scene_id = str(scene.get("scene_id") or f"scene_{index:02d}")
         audio_path = narration_dir / f"{index:02d}.wav"
-        voice_receipt = synthesize_voice(text=text, output_path=audio_path, plan=plan)
+        try:
+            voice_receipt = synthesize_voice(text=text, output_path=audio_path, plan=plan)
+        except Exception as exc:
+            raise CampaignMediaError(
+                f"Pocket TTS Vera is unavailable for {scene_id}; campaign media remains held: {exc}"
+            ) from exc
         if not audio_path.is_file() or audio_path.stat().st_size < 44:
             raise CampaignMediaError(f"Pocket TTS did not create valid audio for {scene_id}.")
         with audio_path.open("rb") as audio_file:

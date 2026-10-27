@@ -79,5 +79,5 @@
 - [x] Remove Gamma as a required campaign renderer; use local, semantic scene composition and retain the human visual-release gate.
 - [x] Keep music selection limited to recorded-rights catalog assets or intentional silence when no suitable cleared track exists.
 - [x] Bind production rendering to the declared DIO Gilded asset-pack manifest and fail closed when the canonical pack is absent from the checkout.
-- [ ] Restore the declared `HOMS_CORPO_CULT_V1` manifest and asset files into an approved workspace location, verify each file hash and dimensions, then run a held campaign render.
+- [x] Restore the declared `HOMS_CORPO_CULT_V1` manifest and asset files into an approved workspace location, verify each file hash and dimensions, then run a held campaign render.
 

@@ -90,6 +90,27 @@ def test_piper_is_rejected_for_production_campaign_narration(tmp_path: Path) -> 
         )
 
 
+def test_unavailable_pocket_tts_is_a_held_campaign_error(monkeypatch, tmp_path: Path) -> None:
+    plan = {
+        "state": "ready_for_internal_render",
+        "public_default_authorized": True,
+        "backend": "pocket_tts",
+        "voice_url": "vera",
+        "profile_id": "vera_pocket_public",
+    }
+    monkeypatch.setattr(voice, "build_voice_plan", lambda **_kwargs: plan)
+    monkeypatch.setattr(media.legacy, "require_tool", lambda _name: Path("/usr/bin/ffprobe"))
+    monkeypatch.setattr(voice, "synthesize_voice", lambda **_kwargs: (_ for _ in ()).throw(ConnectionRefusedError("offline")))
+    import pytest
+
+    with pytest.raises(media.CampaignMediaError, match="Pocket TTS Vera is unavailable"):
+        media.synthesize_pocket_story(
+            [{"scene_id": "scene_a", "narration": "A reviewable story."}],
+            tmp_path,
+            {"required": True, "provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "remote_tts_allowed": False},
+        )
+
+
 def test_gilded_asset_pack_fails_closed_when_the_declared_manifest_is_missing(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(media, "ROOT", tmp_path)
     (tmp_path / "config" / "media").mkdir(parents=True)
