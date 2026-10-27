@@ -72,7 +72,7 @@ def test_vamp_projection_uses_profile_domains_and_populates_rows(tmp_path: Path)
     assert "PROFESSIONAL" not in task_domains
     assert "RESEARCH" in task_domains
     assert "ENGAGEMENT" in task_domains
-    assert task_count == evidence_count == mapping_count == 4
+    assert task_count == evidence_count == mapping_count == 3
     assert (db.parent / "VAMP_DOMAIN_PROJECTION.json").is_file()
 
 

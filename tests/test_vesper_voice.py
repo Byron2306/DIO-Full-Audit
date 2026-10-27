@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import os
 from pathlib import Path
 
-from presence_core.voice import build_voice_plan, synthesize_piper_http, synthesize_voice
+import pytest
+
+from presence_core.voice import build_voice_plan, synthesize_piper_http, synthesize_voice, verified_vera_runtime_inventory
 
 
 def make_root(tmp_path: Path) -> Path:
@@ -134,3 +138,57 @@ def test_pocket_tts_render_uses_vera_without_creating_send_authority(tmp_path: P
     assert receipt["external_action_executed"] is False
     assert receipt["send_authorized"] is False
     assert Path(receipt["audio_path"]).read_bytes().startswith(b"RIFF")
+
+
+@pytest.mark.parametrize("default_profile", [None, "piper_test"])
+def test_public_voice_fails_closed_when_default_is_missing_or_unapproved(
+    tmp_path: Path, monkeypatch, default_profile: str | None
+) -> None:
+    root = make_root(tmp_path)
+    path = root / "config" / "vesper_voice_profiles.json"
+    registry = json.loads(path.read_text())
+    registry["default_public_profile"] = default_profile
+    path.write_text(json.dumps(registry))
+    monkeypatch.setenv("DIO_VESPER_VOICE_PROFILE", "pocket_test")
+
+    plan = build_voice_plan(root=root, language="English", interaction=None, public_default_only=True)
+
+    assert plan["profile_id"] == default_profile
+    assert plan["state"] == "not_renderable"
+    assert plan["public_default_authorized"] is False
+    with pytest.raises(RuntimeError, match="not renderable"):
+        synthesize_voice(text="Hello", output_path=tmp_path / "blocked.wav", plan=plan)
+
+
+def test_local_vera_inventory_rechecks_observed_files_and_service(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.delenv("DIO_VESPER_RUNTIME_INVENTORY", raising=False)
+    monkeypatch.delenv("DIO_VESPER_POCKET_TTS_URL", raising=False)
+    model = tmp_path / "model.safetensors"
+    voice = tmp_path / "vera.safetensors"
+    model.write_bytes(b"test model fixture")
+    voice.write_bytes(b"test voice fixture")
+    model_hash = hashlib.sha256(model.read_bytes()).hexdigest()
+    voice_hash = hashlib.sha256(voice.read_bytes()).hexdigest()
+    inventory_path = tmp_path / "state/presence/voice_verification/vera_runtime_inventory.json"
+    inventory_path.parent.mkdir(parents=True)
+    inventory_path.write_text(json.dumps({
+        "schema": "dio.vesper.local_verified_runtime_inventory.v1",
+        "evidence_class": "LOCAL_VERIFIED_RUNTIME_INVENTORY",
+        "service": {"endpoint": "http://127.0.0.1:8000/tts", "pid": os.getpid(),
+                    "command": Path(f"/proc/{os.getpid()}/cmdline").read_bytes().decode().strip("\0").split("\0")},
+        "files": [{"role": "model", "path": str(model), "sha256": model_hash},
+                  {"role": "voice", "path": str(voice), "sha256": voice_hash}],
+        "model_provenance": {"model_id": "fixture", "model_revision": "fixture", "model_sha256": model_hash,
+                             "voice_id": "vera", "voice_revision": "fixture", "voice_sha256": voice_hash,
+                             "runtime_source": "local_observed_inventory"},
+    }))
+
+    proof = verified_vera_runtime_inventory(tmp_path)
+    assert proof["runtime_inventory"]["sha256"] == hashlib.sha256(inventory_path.read_bytes()).hexdigest()
+    assert proof["model_provenance"]["voice_sha256"] == voice_hash
+
+    with pytest.raises(RuntimeError, match="endpoint"):
+        verified_vera_runtime_inventory(tmp_path, base_url="http://127.0.0.1:8999")
+    voice.write_bytes(b"different voice fixture")
+    with pytest.raises(RuntimeError, match="hash mismatch"):
+        verified_vera_runtime_inventory(tmp_path)

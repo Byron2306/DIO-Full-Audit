@@ -97,7 +97,8 @@ def test_voice_requires_cached_local_model_before_calling_the_existing_asr(websi
     assert not public.read_replies(website['conversation_id'], website['session_token'])['replies']
 
 
-def test_voice_uses_existing_asr_and_binds_source_digest_without_authority(website, tmp_path, monkeypatch):
+@pytest.mark.parametrize("render_unavailable", [False, True])
+def test_voice_uses_existing_asr_and_binds_source_digest_without_authority(website, tmp_path, monkeypatch, render_unavailable):
     from scripts import sync_vesper_presence_edge as transport
     model = tmp_path / 'cached-local-asr'
     model.mkdir()
@@ -107,11 +108,45 @@ def test_voice_uses_existing_asr_and_binds_source_digest_without_authority(websi
         'text': 'What do you need from me for ContractProof?', 'provider': 'faster-whisper-local',
         'audio_sha256': hashlib.sha256(audio).hexdigest(), 'audio_bytes': len(audio), 'mime_type': 'audio/webm',
     })
+    rendered_audio = b'RIFF' + b'controlled-render-test-fixture' * 8
+
+    class Response:
+        content = rendered_audio
+        def raise_for_status(self):
+            pass
+
+    def render_vera(url, *, data, timeout):
+        assert url == 'http://127.0.0.1:8000/tts'
+        assert data['voice_url'] == 'vera'
+        assert 'ContractProof' in data['text']
+        if render_unavailable:
+            raise RuntimeError('controlled renderer outage')
+        return Response()
+
+    monkeypatch.setattr('presence_core.voice.httpx.post', render_vera)
     result = public.accept_voice({'conversation_id': website['conversation_id'], 'client_message_id': 'voice-1',
                                   'audio_b64': base64.b64encode(audio).decode(), 'mime_type': 'audio/webm'},
                                  website['session_token'])
     assert result['receipt']['authority_created'] is False
-    assert 'ContractProof' in public.read_replies(website['conversation_id'], website['session_token'])['replies'][0]['reply']['text']
+    reply = public.read_replies(website['conversation_id'], website['session_token'])['replies'][0]['reply']
+    assert 'ContractProof' in reply['text']
+    if render_unavailable:
+        assert reply['audio']['state'] == 'text_only'
+        assert reply['audio']['reason'] == 'voice_render_unavailable'
+        assert 'content_b64' not in reply['audio']
+    else:
+        assert reply['audio']['state'] == 'ready'
+        assert reply['audio']['profile_id'] == 'vera_pocket_public'
+        assert reply['audio']['backend'] == 'pocket_tts'
+        assert base64.b64decode(reply['audio']['content_b64']) == rendered_audio
+        assert reply['audio']['audio_sha256'] == hashlib.sha256(rendered_audio).hexdigest()
+    assert reply['audio']['presentation_only'] is True
+    assert reply['audio']['authority_created'] is False
+    repeated = public.accept_voice({'conversation_id': website['conversation_id'], 'client_message_id': 'voice-1',
+                                    'audio_b64': base64.b64encode(audio).decode(), 'mime_type': 'audio/webm'},
+                                   website['session_token'])
+    assert repeated['receipt'] == result['receipt']
+    assert len(public.read_replies(website['conversation_id'], website['session_token'])['replies']) == 1
 
 
 def test_http_serves_actual_website_and_session_token_protocol(website, tmp_path, monkeypatch):

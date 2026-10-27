@@ -516,9 +516,30 @@ def _post_message(
         raise VesperWebChatError("canonical Presence returned no reply")
 
     assistant_number = len(session["messages"]) + 1
-    session["messages"].append(
-        {"message_id": f"MSG-{assistant_number:04d}", "role": "vesper", "text": answer, "created_at": now, "attachment_ids": []}
-    )
+    assistant_message = {"message_id": f"MSG-{assistant_number:04d}", "role": "vesper", "text": answer, "created_at": now, "attachment_ids": []}
+    reply = presence.get("reply") or {}
+    if reply.get("voice_eligible") and (reply.get("voice_plan") or {}).get("state") == "ready_for_internal_render":
+        from presence_core.voice import synthesize_voice
+        from presence_core.telegram_transport import normalize_spoken_text
+        try:
+            voice_receipt = synthesize_voice(
+                text=normalize_spoken_text(answer),
+                output_path=_presence_root(state_root) / "voice_outbox" / f"{conversation_id}-{assistant_number}.wav",
+                plan=reply["voice_plan"], timeout=30.0,
+            )
+            audio = Path(voice_receipt["audio_path"]).read_bytes()
+            if len(audio) > int(os.getenv("DIO_PRESENCE_WEB_VOICE_REPLY_MAX_BYTES", "3145728")):
+                raise ValueError("voice_reply_exceeds_web_limit")
+            assistant_message["audio"] = {
+                "state": "ready", "mime_type": "audio/wav", "content_b64": base64.b64encode(audio).decode("ascii"),
+                "profile_id": voice_receipt.get("profile_id"), "backend": voice_receipt.get("backend"),
+                "audio_sha256": voice_receipt.get("audio_sha256"), "presentation_only": True, "authority_created": False,
+            }
+        except Exception:
+            # Audio availability must not discard an already accepted canonical text response.
+            assistant_message["audio"] = {"state": "text_only", "reason": "voice_render_unavailable",
+                                          "presentation_only": True, "authority_created": False}
+    session["messages"].append(assistant_message)
     session["updated_at"] = now
     session["session_fingerprint"] = _fingerprint({key: value for key, value in session.items() if key != "session_fingerprint"})
     _write_json(_session_path(state_root, conversation_id), session)

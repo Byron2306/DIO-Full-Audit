@@ -49,7 +49,7 @@ def test_checked_in_music_catalog_is_byte_verified_and_selectable() -> None:
     assert result["title"] == "Warm Sunset by MusicLFiles"
 
 
-def test_zero_semantic_match_is_not_reused_as_generic_background(monkeypatch, tmp_path: Path) -> None:
+def test_unverified_episode_track_cannot_replace_canonical_music(monkeypatch, tmp_path: Path) -> None:
     irrelevant = {
         "path": tmp_path / "generic.ogg",
         "attribution": tmp_path / "ATTRIBUTION.md",
@@ -62,12 +62,12 @@ def test_zero_semantic_match_is_not_reused_as_generic_background(monkeypatch, tm
     monkeypatch.setattr(music_projection, "_catalog", lambda: [irrelevant])
     monkeypatch.setattr(music_projection, "_fresh_projection_music", lambda **kwargs: None)
     result = select_projection_music(_surface_plan(), _product(), _audience(), "HOMS--teachers")
-    assert result["mode"] == "none"
-    assert result["selection_basis"] == "intentional_silence_no_semantically_matched_cleared_track"
+    assert result["mode"] == "rights_recorded"
+    assert result["selection_basis"] == "canonical_byte_verified_local_catalog"
     assert "generic.ogg" not in result["path"]
 
 
-def test_semantically_matching_cleared_track_is_selected(monkeypatch, tmp_path: Path) -> None:
+def test_semantic_labels_alone_cannot_approve_unverified_track(monkeypatch, tmp_path: Path) -> None:
     track = {
         "path": tmp_path / "warm-sunset.ogg",
         "attribution": tmp_path / "ATTRIBUTION.md",
@@ -80,12 +80,12 @@ def test_semantically_matching_cleared_track_is_selected(monkeypatch, tmp_path: 
     monkeypatch.setattr(music_projection, "_catalog", lambda: [track])
     result = select_projection_music(_surface_plan(), _product(), _audience(), "HOMS--teachers")
     assert result["mode"] == "rights_recorded"
-    assert result["title"] == "Warm Sunset"
-    assert result["selection_basis"] == "audience_projection_catalog_match"
-    assert result["match_score"] > 0
+    assert result["title"] == "Warm Sunset by MusicLFiles"
+    assert result["selection_basis"] == "canonical_byte_verified_local_catalog"
+    assert result["rights_receipt_sha256"]
 
 
-def test_fresh_rights_search_is_used_before_silence(monkeypatch) -> None:
+def test_canonical_render_does_not_download_an_unverified_fresh_track(monkeypatch) -> None:
     monkeypatch.setattr(music_projection, "_catalog", lambda: [])
     sourced = {
         **_surface_plan()["music"],
@@ -96,7 +96,8 @@ def test_fresh_rights_search_is_used_before_silence(monkeypatch) -> None:
     }
     monkeypatch.setattr(music_projection, "_fresh_projection_music", lambda **kwargs: sourced)
     result = select_projection_music(_surface_plan(), _product(), _audience(), "HOMS--teachers")
-    assert result == sourced
+    assert result["selection_basis"] == "canonical_byte_verified_local_catalog"
+    assert result["path"] != sourced["path"]
 
 
 def test_fresh_music_source_includes_user_local_ffprobe_and_surfaces_failures(monkeypatch, tmp_path: Path) -> None:
@@ -122,7 +123,7 @@ def test_fresh_music_source_includes_user_local_ffprobe_and_surfaces_failures(mo
     monkeypatch.setattr(music_projection.subprocess, "run", fail_without_ffprobe)
 
     with pytest.raises(RuntimeError, match="ffprobe: not found"):
-        select_projection_music(_surface_plan(), _product(), _audience(), "HOMS--teachers")
+        music_projection._fresh_projection_music(plan=_surface_plan()["music"], product=_product(), audience=_audience(), family_id="HOMS--teachers", surface_plan=_surface_plan())
 
     env = captured["env"]
     assert isinstance(env, dict)

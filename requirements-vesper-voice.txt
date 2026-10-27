@@ -1,0 +1,4 @@
+# Optional local voice ingress for Vesper. Use an existing cached ASR model directory.
+faster-whisper==1.2.1
+# faster-whisper 1.2.1 calls av.open(metadata_errors=...), removed by PyAV 19.
+av==16.1.0

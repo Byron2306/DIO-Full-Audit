@@ -173,3 +173,18 @@ def test_prepared_journey_checks_provider_hashes_before_shared_finishing(tmp_pat
     receipt = json.loads(next(tmp_path.glob("*/PROFESSIONAL_EVIDENCE_RECEIPT.json")).read_text())
     assert receipt["status"] == "FAIL_EXECUTION"
     assert "native artifact" in receipt["error"].casefold()
+
+
+def test_nested_document_provider_receipts_keep_their_relative_paths(tmp_path: Path) -> None:
+    from products.professional_evidence_prepared_executor import _verify_provider_artifacts
+
+    job = tmp_path / "document_studio" / "LOCALIZE"
+    path = job / "formatted" / "Afrikaans" / "FORMAT_CORE_RECEIPT.json"
+    path.parent.mkdir(parents=True)
+    path.write_text('{"status":"rendered_review_candidate"}')
+    receipt = {"outputs": [{"path": "formatted/Afrikaans/FORMAT_CORE_RECEIPT.json", "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}]}
+    verified = _verify_provider_artifacts({"receipt": receipt}, tmp_path)
+    assert str(path.resolve()) in verified
+    path.write_text("tampered")
+    with pytest.raises(ValueError, match="hash mismatch"):
+        _verify_provider_artifacts({"receipt": receipt}, tmp_path)

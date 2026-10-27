@@ -120,10 +120,21 @@ def _vamp_domain(record: str) -> str:
     return next(domain for domain in VAMP_DOMAIN_PRIORITY if scores[domain] == best)
 
 
-def _build_vamp_database_v2(packet: dict[str, Any], target: Path) -> Path:
+def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows: list[dict[str, str]] | None = None) -> Path:
     """Project customer records into the actual domain vocabulary VAMP accepts."""
 
-    rows = evidence_rows(packet)
+    supplied_rows = source_rows if source_rows is not None else evidence_rows(packet)
+    # A source document can contain both scope metadata and real objectives.
+    # Split explicit statements before classifying; never drop its whole body.
+    rows = []
+    for supplied in supplied_rows:
+        text = str(supplied.get("customer_supplied_record") or "")
+        statements = [part.strip() for part in re.split(r"\r?\n+|(?<=[.!?;])\s+(?=(?:Objective|KPA\d|Review period)\b)", text, flags=re.I) if part.strip()]
+        rows.extend({**supplied, "customer_supplied_record": statement} for statement in statements)
+    from products.vamp_customer_projection import review_window, is_objective, objective_minimum
+    window = review_window(rows)
+    if not any(is_objective(str(row.get("customer_supplied_record") or "")) for row in rows):
+        raise ValueError("actual source-bound VAMP objectives are required; metadata alone is not an objective")
     evidence_dir = target.parent / "vamp_evidence"
     evidence_dir.mkdir(parents=True, exist_ok=True)
     if target.exists():
@@ -142,6 +153,8 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path) -> Path:
 
     for index, row in enumerate(rows, 1):
         record = str(row.get("customer_supplied_record") or "").strip()
+        if re.match(r"review period\s*:", record, re.I) and not is_objective(record):
+            continue
         task = f"PRO-TASK-{index:02d}"
         evidence = f"PRO-E-{index:02d}"
         domain = _vamp_domain(record)
@@ -152,17 +165,23 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path) -> Path:
             "customer_packet_fingerprint": packet["packet_fingerprint"],
             "profile_domain_projection": domain,
             "rating_authority_created": False,
+            "event_date_verified": False,
+            "month_bucket_basis": "review_scope_end_bucket_only_not_an_event_date",
         }
-        con.execute(
-            "INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)",
-            (task, domain, record[:120], "2026-01-01", "2026-08-31", "review_period", 1, 1, "lag", "{}"),
-        )
+        objective = is_objective(record)
+        minimum, minimum_basis = objective_minimum(record)
+        if objective:
+            con.execute(
+                "INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)",
+                (task, domain, record, window["start"], window["end"], "review_period", minimum, minimum, "lag", json.dumps({"minimum_required_basis": minimum_basis})),
+            )
         con.execute(
             "INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)",
-            (evidence, hashlib.sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", 2026, "2026-08", domain, "", "", str(path), json.dumps(meta, sort_keys=True)),
+            (evidence, hashlib.sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", window["year"], window["months"][-1], domain, "", "", str(path), json.dumps(meta, sort_keys=True)),
         )
-        con.execute("INSERT INTO evidence_task VALUES(?,?,?,?,?)", (evidence, task, "customer_packet_domain_projection", 1.0, utc_now()))
-        projection.append({"record_id": row.get("record_id"), "task_id": task, "evidence_id": evidence, "domain": domain, "record": record})
+        if objective:
+            con.execute("INSERT INTO evidence_task VALUES(?,?,?,?,?)", (evidence, task, "customer_packet_domain_projection", 1.0, utc_now()))
+        projection.append({"record_id": row.get("record_id"), "task_id": task if objective else None, "evidence_id": evidence, "domain": domain, "record": record, "minimum_required_basis": minimum_basis if objective else None})
     con.commit()
     con.close()
     write_json(
@@ -172,6 +191,8 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path) -> Path:
             "packet_fingerprint": packet["packet_fingerprint"],
             "profile_id": "university_generic_v1",
             "allowed_domains": list(VAMP_DOMAIN_PRIORITY),
+            "review_window": window,
+            "evidence_dates_independently_verified": False,
             "rows": projection,
             "rating_authority_created": False,
             "human_review_required": True,
@@ -343,6 +364,9 @@ def _evidex_executor(packet: dict[str, Any], execution_dir: Path) -> dict[str, A
             "next_step": "prepare governed evidence pack",
         }],
         "evidence": [{"text_extract": body}],
+        "source_records": [{"record_id": str(row.get("record_id") or f"R-{i:02d}"),
+                            "text": str(row.get("customer_supplied_record") or "")}
+                           for i, row in enumerate(rows, 1)],
     }
     write_json(execution_dir.parent / "PROJECTION" / "EVIDEX_JOB.json", job)
     receipt = run_evidex(job, execution_dir)

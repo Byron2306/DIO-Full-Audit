@@ -276,6 +276,8 @@ def render_art_directed_scene(
         _role_mark(draw, role=role, accent=accent, x=margin, y=round(height * 0.75), width=width)
 
     output.parent.mkdir(parents=True, exist_ok=True)
+    from products.canonical_marketing_media import apply_golden_identity
+    canvas, golden_identity = apply_golden_identity(canvas, brand_owner=str(product.get("brand_owner") or "customer"))
     canvas.convert("RGB").save(output, quality=94, subsampling=0)
     return {
         "schema": "dio.document_studio.local_scene_frame.v1",
@@ -288,12 +290,14 @@ def render_art_directed_scene(
         "height": height,
         "art_direction_hash": art_direction_hash,
         "source": "document_studio_local_compositor",
+        "golden_identity": golden_identity,
     }
 
 
 def render_story_frames(*, story: dict[str, Any], art_direction: dict[str, Any], directory: Path) -> dict[str, Any]:
     family_id = str(story.get("family_id") or "")
     product, audience = resolve_product_audience(family_id)
+    product = {**product, "brand_owner": "dio"}
     source_path = ROOT / str(product.get("source_image") or "")
     if not source_path.is_file():
         raise LocalMediaCompositorError(f"Configured source image does not exist: {source_path}")

@@ -114,7 +114,10 @@ def read_replies(cid, token, *, after=0):
             continue
         receipt_path = web._session_path(STATE_ROOT, cid).parent / f"MESSAGE_RECEIPT_{index-1:04d}.json"
         receipt = json.loads(receipt_path.read_text())
-        rows.append({"sequence": index, "reply": {"text": message["text"]},
+        reply = {"text": message["text"]}
+        if message.get("audio"):
+            reply["audio"] = message["audio"]
+        rows.append({"sequence": index, "reply": reply,
                      "canonical_conversation_id": receipt.get("canonical_conversation_id"),
                      "canonical_case_id": receipt.get("canonical_case_id"),
                      "source_message_id": receipt.get("source_message_id")})

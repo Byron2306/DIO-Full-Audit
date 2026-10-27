@@ -1204,6 +1204,7 @@ def ollama_generate(
     max_predict: Optional[int] = None,
     request_thinking_map: bool = True,
     challenge_type: Optional[str] = None,
+    response_format: Optional[dict] = None,
 ) -> dict:
     """Call Ollama generate endpoint using urllib."""
     model = model or OLLAMA_MODEL
@@ -1234,6 +1235,8 @@ def ollama_generate(
         "keep_alive": "10m",      # keep model warm between requests
         "options": options,
     }
+    if response_format is not None:
+        payload["format"] = response_format
     if system_prompt:
         system_suffix = "\n\nBe direct and concise. State limits honestly."
         if request_thinking_map:
@@ -8072,7 +8075,7 @@ def _canonical_product_review_boundary():
     if path.is_symlink() or path.resolve() != path:
         raise ValueError("canonical_product_boundary_source_escape")
     raw = path.read_bytes()
-    if hashlib.sha256(raw).hexdigest() != "d5cae3899a3116b40a45b3f4ac794d7bbdcd46afd732360d22f6c78c15452405":
+    if hashlib.sha256(raw).hexdigest() != "af5630e9cee6f5a9f7b91c4ccef9cf6c694368a69a1bdf3137555876d77bf3a7":
         raise ValueError("canonical_product_boundary_source_digest_mismatch")
     module = types.ModuleType("_dio_canonical_product_review")
     module.__file__ = str(path)
@@ -12099,8 +12102,11 @@ class PresenceHandler(SimpleHTTPRequestHandler):
                     model=lane_model,
                     calibration_mode=is_calibration,
                     max_predict=lane_max_predict,
-                    request_thinking_map=True,
+                    request_thinking_map=not bool(body.get("dio_review_preparation_mode")),
                     challenge_type=_challenge_type or None,
+                    response_format=(product_review_boundary.diagnostic_output_schema(body)
+                        if product_review_boundary is not None and body.get("dio_review_preparation_mode") == "held_diagnostic_draft"
+                        else None),
                 )
             raw_model_response = reasoned_result.get("response", "") if reasoned_result.get("status") == "ok" else ""
             raw_visible_response = raw_model_response

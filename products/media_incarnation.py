@@ -94,11 +94,10 @@ def _gradient(size:tuple[int,int])->Image.Image:
 
 def _render_card(path:Path,size:tuple[int,int],*,eyebrow:str,headline:str,body:str,cta:str,index:str|None=None)->None:
     """DIO-owned promotional card only. Educational semantic graphics are unaffected."""
-    # This renderer is currently used for IncidentReadinessProof. Do not borrow
-    # HOMS Command Hall artwork for a different product identity. Until a
-    # product-specific, rights-verified asset pack is bound, use the original
-    # DIO house-style gradient generated locally by this module.
-    image=_gradient(size).convert("RGBA")
+    # Retain the product background and compose the verified generic DIO eye.
+    from products.canonical_marketing_media import apply_golden_identity
+    branded, _ = apply_golden_identity(_gradient(size), brand_owner="dio")
+    image=branded.convert("RGBA")
     w,h=size
     veil=Image.new("RGBA",size,(3,5,9,150))
     image=Image.alpha_composite(image,veil)
@@ -187,6 +186,7 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
     narration=youtube/"NARRATION.wav"
     from presence_core.voice import build_voice_plan,synthesize_voice
     voice_policy=json.loads((ROOT/"config/media/dio_gilded_house_style.json").read_text())["voice"]
+    shutil.copy2(ROOT/voice_policy["attribution"], youtube/"VOICE_ATTRIBUTION.md")
     plan=build_voice_plan(root=ROOT,language="English",interaction=None,requested_profile=voice_policy["default_profile_id"])
     if (plan.get("state")!="ready_for_internal_render" or not plan.get("public_default_authorized")
         or plan.get("backend")!="pocket_tts" or plan.get("voice_url")!="vera"):
@@ -196,6 +196,10 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
     for row in script:
         clip=clip_dir/f"SCENE_{row['id']:02}.wav"
         receipt=synthesize_voice(text=row["narration"],output_path=clip,plan=plan,timeout=120.0)
+        from presence_core.voice import verified_vera_runtime_inventory
+        from products.canonical_marketing_media import verify_voice_receipt
+        receipt.update(verified_vera_runtime_inventory(ROOT))
+        verify_voice_receipt(receipt, clip)
         if receipt.get("backend")!="pocket_tts" or receipt.get("voice_url")!="vera" or _sha(clip)!=receipt.get("audio_sha256"):
             raise MediaIncarnationError("VERA voice receipt integrity mismatch")
         with wave.open(str(clip),"rb") as wf:
@@ -236,8 +240,13 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
     for row,seconds in zip(script,durations):
         parts.extend([f"file 'scenes/SCENE_{row['id']:02}.png'",f"duration {seconds:.6f}"])
     parts.append(f"file 'scenes/SCENE_{script[-1]['id']:02}.png'");concat.write_text("\n".join(parts)+"\n",encoding="utf-8")
+    from products.canonical_marketing_media import approved_music
+    music=approved_music()
+    shutil.copy2(music["attribution"], youtube/"MUSIC_ATTRIBUTION.md")
+    _write_json(youtube/"MUSIC_RIGHTS_RECEIPT.json",music)
     video=youtube/"FINAL_VIDEO.mp4"
-    _run([tools["ffmpeg"],"-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(concat),"-i",str(narration),
+    _run([tools["ffmpeg"],"-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(concat),"-i",str(narration),"-stream_loop","-1","-i",music["path"],
+      "-filter_complex","[1:a]volume=1.0[voice];[2:a]volume=0.10[music];[voice][music]amix=inputs=2:duration=first:normalize=0[a]","-map","0:v:0","-map","[a]",
       "-vf","fps=30,format=yuv420p","-c:v","libx264","-preset","medium","-crf","20","-c:a","aac","-b:a","128k","-shortest",
       "-map_metadata","-1","-movflags","+faststart","-fflags","+bitexact","-flags:v","+bitexact","-flags:a","+bitexact",str(video)])
     probe=_probe(video,tools["ffprobe"])
@@ -289,7 +298,7 @@ def build_media_incarnation(*,output_dir:Path,root:Path=ROOT,now:str=NOW)->dict[
       "nichefoundry_adapter_execution":"PASS","native_nichefoundry_execution":"REFUSE","nichefoundry_live_adapter_invoked":True,
       "nichefoundry_native_engine_invoked":False,"ad_asset_rendering":"PASS","carousel_rendering":"PASS",
       "thumbnail_rendering":"PASS","youtube_script_completeness":"PASS","narration_rendering":"PASS","caption_alignment":"PASS",
-      "video_rendering":"PASS","sophia_media_review":"PASS","evidex_asset_provenance":"PASS","deterministic_media_toolchain":"PASS",
+      "video_rendering":"PASS","sophia_media_review":"PASS","evidex_asset_provenance":"PASS","deterministic_media_toolchain":"NOT_CLAIMED_FOR_SAMPLED_VERA_AUDIO",
       "video_duration_seconds":media["duration_seconds"],"voice_profile":"vera_pocket_public","visual_profile":"dio_gilded_house_v1","network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE",
       "external_send":"REFUSE","human_gate":"NEEDS_YOU","proof_fingerprint":proof["proof_fingerprint"]}
     receipt["media_fingerprint"]=_fingerprint(receipt);_write_json(output_dir/"MEDIA_INCARNATION_RECEIPT.json",receipt)

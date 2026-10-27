@@ -366,6 +366,16 @@ def document_studio_projection(packet: dict[str, Any], target: Path, *, service:
         "provider": "ollama",
         "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
+    if is_translation:
+        # Select a dedicated local translation provider explicitly in new
+        # product requests; never replace a replayed request's declared model.
+        request.update({
+            "translation_engine": "lingua",
+            "lingua_translation_backend": "marian_local",
+            "lingua_terminology_profile": "professional_af_v1",
+            "remote_processing_approved": False,
+            "automated_language_critic": False,
+        })
     write_json(target, request)
     return request
 

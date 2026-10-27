@@ -1,5 +1,7 @@
 # All 68 DIO products: execution, quality and capability integration
 
+Subsequent integration and qualification results: [sellable product pathways](2026-10-27-sellable-product-pathways.md). This document retains the earlier execution baseline; the follow-up records Sophia's approved covenant, Lingua translation, new customer routes and corrected VAMP/Evidex quality findings.
+
 All 68 offers have an execution and quality disposition below. The evidence distinguishes canonical customer-shaped journeys, native extension proof, controlled supplied-source rendering, and Studio closures. A pipeline pass is not a professional-quality pass.
 
 ## Results

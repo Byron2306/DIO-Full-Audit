@@ -950,8 +950,8 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
         ) or None,
         language=target_language,
     )
-    voice_profile_id=((persona.get('package') or {}).get('voice_profile_id'))
-    voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,requested_profile=voice_profile_id)
+    voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,public_default_only=True)
+    voice_profile_id=voice_plan.get('profile_id')
     emit_event(event_log,'presence.persona_assigned','info','vesper_persona',persona['assignment_id'],{'experimental_assignment':persona.get('experimental_assignment'),'cell_id':((persona.get('package') or {}).get('cell_id')),'persona_id':((persona.get('package') or {}).get('persona_id')),'avatar_id':((persona.get('package') or {}).get('avatar_id')),'voice_profile_id':voice_profile_id,'stable_for_conversation':True},correlation)
     summary=None; needs=None; intake=None; statuses=None; capital=None; pricing=None
     if decision['intent'] in CAPITAL_INTENTS:

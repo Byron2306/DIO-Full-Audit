@@ -110,7 +110,15 @@ def _verify_provider_artifacts(result: dict[str, Any], execution_dir: Path) -> d
                 path = Path(str(raw_path))
                 if not path.is_absolute():
                     direct = execution_dir / path
-                    candidates = [direct] if direct.is_file() else list(execution_dir.rglob(path.name)) if path.parent == Path(".") else []
+                    # Providers use paths relative to their own nested job root.
+                    # Retain the entire declared suffix: a basename match alone
+                    # could bind a different language or another source's file.
+                    candidates = [direct] if direct.is_file() else [
+                        candidate for candidate in execution_dir.rglob(path.name)
+                        if ".." not in path.parts
+                        and candidate.relative_to(execution_dir).parts[-len(path.parts):] == path.parts
+                        and candidate.resolve().is_relative_to(execution_dir.resolve())
+                    ]
                     # Some native receipts deliberately retain an explicit path
                     # relative to the repository, not the execution directory.
                     if not candidates and path.is_file():

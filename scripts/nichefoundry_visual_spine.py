@@ -267,6 +267,7 @@ def render_art_directed_campaign_media(
     nfr = nichefoundry_root or media_v3.DEFAULT_NICHEFOUNDRY_ROOT
     variant_receipts: dict[str, Any] = {}
     art_hashes: dict[str, str] = {}
+    golden_pack = media_v3._gilded_asset_pack()
 
     for surface, variant in variants.items():
         story = dict(variant.get("story") or {})
@@ -289,16 +290,13 @@ def render_art_directed_campaign_media(
         )
 
         music_spec = dict(variant.get("music") or {})
-        music: Path | None = None
-        attribution = ""
-        if music_spec.get("mode") == "rights_recorded":
-            music = Path(str(music_spec.get("path") or "")).expanduser().resolve()
-            attribution_path = Path(str(music_spec.get("attribution") or "")).expanduser().resolve()
-            if not music.is_file() or not attribution_path.is_file():
-                raise media_v3.CampaignMediaError(f"Rights-recorded music or attribution is missing for {surface}.")
-            attribution = str(attribution_path)
-        elif music_spec.get("mode") != "none":
-            raise media_v3.CampaignMediaError(f"Projected music mode is invalid for {surface}: {music_spec.get('mode')}")
+        from products.canonical_marketing_media import approved_music
+        try:
+            music_spec = approved_music(music_spec)
+        except ValueError as exc:
+            raise media_v3.CampaignMediaError(str(exc)) from exc
+        music = Path(music_spec["path"])
+        attribution = music_spec["attribution"]
 
         output_spec = dict(variant.get("output") or {})
         output = Path(str(output_spec.get("path") or "")).expanduser().resolve()
@@ -307,8 +305,18 @@ def render_art_directed_campaign_media(
         if width < 320 or height < 320:
             raise media_v3.CampaignMediaError(f"Projected output dimensions are invalid for {surface}.")
 
+        from PIL import Image
+        from products.canonical_marketing_media import apply_golden_identity
+        branded_images = []
+        for index, image_path in enumerate(images, 1):
+            with Image.open(image_path) as source:
+                branded, _ = apply_golden_identity(source, brand_owner="dio")
+            branded_path = variant_dir / f"golden-scene-{index:02d}.png"
+            branded_path.parent.mkdir(parents=True, exist_ok=True)
+            branded.save(branded_path)
+            branded_images.append(branded_path)
         rendered = render_cinematic_format(
-            scene_images=images,
+            scene_images=branded_images,
             narration=list(voice_receipt["scenes"]),
             music=music,
             music_volume=float(music_spec.get("volume") or 0.0),
@@ -322,6 +330,8 @@ def render_art_directed_campaign_media(
             "art_direction_hash": visual_binding["art_direction_hash"],
             "visual_source": {
                 "selected": "document_studio_local_compositor",
+                "golden_asset_pack": golden_pack,
+                "rendered_images": [{"path": str(p), "sha256": media_v3.legacy.sha256_file(p)} for p in branded_images],
                 "scene_count": len(images),
                 "gamma_candidate": _gamma_candidate_state(variant),
             },

@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from presence_core.engine import process_envelope
 
 
@@ -31,9 +33,41 @@ def test_presence_returns_stable_persona_avatar_and_voice_plan(tmp_path: Path, m
     assert first["persona"]["experimental_assignment"] is True
     assert first["persona"]["assignment_id"] == second["persona"]["assignment_id"]
     assert first["reply"]["avatar_id"] == second["reply"]["avatar_id"]
-    assert first["reply"]["voice_plan"]["profile_id"] == first["persona"]["package"]["voice_profile_id"]
+    assert first["reply"]["voice_plan"]["profile_id"] == "vera_pocket_public"
     assert first["lingua"]["persona_context"]["assignment_id"] == first["persona"]["assignment_id"]
     assert first["authority"]["executed_external_action"] is False
+
+
+@pytest.mark.parametrize("profile", ["piper_free_local_baseline", "openvoice2_sa_warm_candidate"])
+def test_presence_voice_identity_survives_stale_environment_and_persona(
+    tmp_path: Path, monkeypatch, profile: str
+) -> None:
+    root = _root(tmp_path)
+    monkeypatch.setenv("DIO_PRESENCE_IDENTITY_SALT", "i" * 40)
+    monkeypatch.setenv("DIO_VESPER_PERSONA_LAB", "1")
+    monkeypatch.setenv("DIO_VESPER_VOICE_PROFILE", profile)
+    lab_path = root / "config" / "vesper_persona_lab.json"
+    lab = json.loads(lab_path.read_text())
+    for candidate in lab["voice_candidates"].values():
+        candidate["voice_profile_id"] = profile
+    lab_path.write_text(json.dumps(lab))
+    cfg = {"state_root": "state/presence", "event_log": "telemetry/dio_events.jsonl", "routes_path": "config/routes.json"}
+    envelope = {"channel": "webchat", "external_user_id": "legacy-voice", "text": "Hello", "message_type": "voice"}
+
+    first = process_envelope(envelope, root, cfg)
+    second = process_envelope(envelope, root, cfg)
+
+    # The historical assignment remains intact; the live speech identity is canonical.
+    assert second["persona"]["package"]["voice_profile_id"] == profile
+    assert first["persona"]["assignment_id"] == second["persona"]["assignment_id"]
+    plan = second["reply"]["voice_plan"]
+    assert plan["profile_id"] == "vera_pocket_public"
+    assert plan["backend"] == "pocket_tts"
+    assert plan["voice_url"] == "vera"
+    assert plan["state"] == "ready_for_internal_render"
+    assert plan["public_default_authorized"] is True
+    assert second["reply"]["voice_eligible"] is True
+    assert second["authority"]["executed_external_action"] is False
 
 
 def test_aggro_regulation_does_not_change_persona_identity(tmp_path: Path, monkeypatch) -> None:

@@ -267,93 +267,11 @@ def _fresh_projection_music(
 
 
 def select_projection_music(surface_plan: dict[str, Any], product: dict[str, Any], audience: dict[str, Any], family_id: str) -> dict[str, Any]:
-    """Choose music from semantic fit, source a fresh cleared track, or intentionally use silence.
-
-    Zero-score catalog matches are deliberately NOT used. That is the anti-corporate-sausage rule:
-    an available track is not automatically an appropriate track.
-    """
+    """Select verified, pinned local music for canonical production marketing."""
+    from products.canonical_marketing_media import approved_music
     plan = dict(surface_plan["music"])
     explicit = str(os.environ.get("DIO_CAMPAIGN_MUSIC") or "").strip()
-    explicit_attr = str(os.environ.get("DIO_CAMPAIGN_MUSIC_ATTRIBUTION") or "").strip()
-    if explicit and explicit_attr:
-        music = Path(explicit).expanduser().resolve()
-        attribution = Path(explicit_attr).expanduser().resolve()
-        if music.is_file() and attribution.is_file():
-            return {
-                **plan,
-                "mode": "rights_recorded",
-                "path": str(music),
-                "attribution": str(attribution),
-                "selection_basis": "operator_environment_override",
-            }
-
-    cached = _cached_projection_music(plan=plan, product=product, audience=audience, family_id=family_id)
-    if cached:
-        return cached
-
-    wanted = _tokens(
-        " ".join(
-            [
-                str(plan.get("family") or ""),
-                " ".join(str(item) for item in plan.get("keywords") or []),
-                str(product.get("name") or ""),
-                str(audience.get("name") or ""),
-                str(audience.get("pain") or ""),
-                str(audience.get("outcome") or ""),
-            ]
-        )
-    )
-    scored: list[tuple[int, str, dict[str, Any]]] = []
-    for row in _catalog():
-        score = len(wanted & _tokens(row["metadata"]))
-        tie = hashlib.sha256(f"{family_id}:{surface_plan.get('arc_family')}:{row['path']}".encode("utf-8")).hexdigest()
-        scored.append((score, tie, row))
-    if scored:
-        score, _tie, row = max(scored, key=lambda item: (item[0], item[1]))
-        if score > 0:
-            return {
-                **plan,
-                "mode": "rights_recorded",
-                "path": str(row["path"]),
-                "attribution": str(row["attribution"]),
-                "rights_receipt": str(row["receipt"]),
-                "title": row["title"],
-                "artist": row["artist"],
-                "licence": row["licence"],
-                "selection_basis": "audience_projection_catalog_match",
-                "match_score": score,
-            }
-
-    source_error = None
-    try:
-        sourced = _fresh_projection_music(
-            plan=plan,
-            product=product,
-            audience=audience,
-            family_id=family_id,
-            surface_plan=surface_plan,
-        )
-    except MusicSourceUnavailable as exc:
-        if plan.get("allow_silence") is not True:
-            raise
-        sourced = None
-        source_error = str(exc)
-    if sourced:
-        return sourced
-
-    if plan.get("allow_silence") is True:
-        result = {
-            **plan,
-            "mode": "none",
-            "path": "",
-            "attribution": "",
-            "selection_basis": "intentional_silence_no_semantically_matched_cleared_track",
-        }
-        if source_error:
-            result.update(
-                selection_basis="intentional_silence_music_source_unavailable",
-                music_source_state="unavailable",
-                music_source_error=source_error,
-            )
-        return result
-    raise RuntimeError("LINGUA projection requires an appropriate rights-recorded music asset, and none could be selected or sourced.")
+    selected = approved_music(root=ROOT)
+    if explicit and Path(explicit).expanduser().resolve() != Path(selected["path"]):
+        raise ValueError("DIO_CAMPAIGN_MUSIC must select canonical music with verified rights")
+    return {**plan, **selected}

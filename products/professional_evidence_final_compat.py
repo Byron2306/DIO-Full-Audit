@@ -99,6 +99,85 @@ def _tutor_document_upload(source: Path) -> list[dict[str, Any]]:
     ]
 
 
+def _run_sophia_tutor_source_grounded(packet, execution_dir, *, operator_id, now, profile_review):
+    """Prepare usable source-based practice, without claiming a taught session."""
+    from adapters.sophia.review_pipeline import run_review
+    intake = packet["intake"]
+    if intake.get("customer_authorised_processing") is not True:
+        raise ValueError("Sophia Tutor requires case-specific source processing authorization")
+    provider = intake.get("reasoned_provider", "ollama")
+    model = intake.get("reasoned_model") or os.environ.get("OLLAMA_MODEL", "granite3.2:2b")
+    if provider != "ollama" or not isinstance(model, str) or not model.strip():
+        raise ValueError("Sophia Tutor requires a named local Ollama model")
+    source = packet["packet_dir"] / "SOURCES/manuscript.md"
+    if not source.is_file():
+        raise FileNotFoundError("Sophia Tutor source notes are missing")
+    boundary = exception_text(packet)
+    if not boundary:
+        raise ValueError("Sophia Tutor requires the supplied learner authorship boundary")
+    request = {
+        "schema": "dio.sophia_review_request.v1", "job_id": "PRO-SOPHIA-TUTOR-TEACHING",
+        "title": "Sophia Tutor source-grounded practice preparation",
+        "document_path": str(source), "research_question": str(intake.get("request") or ""),
+        "external_retrieval": False, "reasoned_review_approved": True,
+        "reasoned_provider": provider, "reasoned_model": model.strip(),
+        "review_mode": "held_diagnostic_draft", "review_focus": "bounded_source_grounded_teaching",
+        "human_approval_required": True, "customer_packet_fingerprint": packet["packet_fingerprint"],
+    }
+    request_path = execution_dir.parent / "PROJECTION/SOPHIA_TUTOR_REQUEST.json"
+    write_json(request_path, request)
+    output = run_review(request, request_path, execution_dir / "sophia_native",
+        os.environ.get("SOPHIA_BASE_URL", "http://127.0.0.1:7070"),
+        ROOT / "cross_folder_variants/Integritas-Mechanicus/A_CODE")
+    commentary = json.loads((output / "REVIEWER_COMMENTARY.json").read_text())
+    native_receipt = json.loads((output / "SOPHIA_REVIEW_RECEIPT.json").read_text())
+    if (commentary.get("status") != "held_diagnostic_draft"
+        or commentary.get("diagnostic_validation", {}).get("passed") is not True
+        or native_receipt.get("metrics", {}).get("diagnostic_source_checks_passed") is not True
+        or native_receipt.get("preparation_state") != "engineering_draft_prepared"
+        or any(item.get("constitutional_release_authorized") is not False
+               or item.get("delivery_released") is not False for item in [commentary, native_receipt])):
+        raise RuntimeError("Sophia Tutor source-grounded teaching preparation failed its held diagnostic checks")
+    diagnostic = commentary["diagnostic_validation"]
+    report = diagnostic["report"]
+    lines = ["# Sophia Tutor — source-grounded practice draft", "", "Status: HELD FOR HUMAN REVIEW. No completed teaching session or learning gain is claimed.", "",
+        "Assignment boundary: I cannot write or provide a submission-ready answer to your graded assignment. You own your answer; this sheet supports your own practice.", "",
+        "## Your learning request", "", request["research_question"], "", "## Source and scope", "", report["assessment"]]
+    for index, row in enumerate(diagnostic["comments"], 1):
+        lines.extend(["", f"## Practice {index} — [{row['anchor']}]", "", f"> {row['quote']}", "",
+            f"Question to consider: {row['issue']}", "", f"Practice task: {row['action']}", "",
+            "Your own attempt: ______________________________", "",
+            "Self-check: point to the quoted source; distinguish its statement from your own inference and an unanswered question.", "",
+            "Source boundary: the quote is verified against your supplied notes. The underlying scholarly claim is not independently verified.", "",
+            f"Additional limit: {row.get('limit') or 'A learner answer is needed before tailored feedback.'}"])
+    lines.extend(["", "## Unknowns and next step", "", report["evidence_limits"], "",
+        "Bring your own attempted answer for feedback. No learner work, mastery, grade or completed tutoring dialogue is inferred from this preparation.", ""])
+    execution_dir.mkdir(parents=True, exist_ok=True)
+    (execution_dir / "SOPHIA_TUTOR_STUDY_RECORD.md").write_text("\n".join(lines))
+    profile_result = profile_review(packet, execution_dir / "profile_review", profile_id="sophia_tutor", operator_id=operator_id, now=now)
+    receipt = {
+        "schema": "dio.professional_evidence.sophia_tutor_preparation.v1",
+        "packet_fingerprint": packet["packet_fingerprint"], "source_sha256": sha256(source),
+        "tutoring_mode": "bounded_source_grounded_teaching", "learning_support_draft_prepared": True,
+        "native_dialogic_tutoring": False, "teaching_turn_completed": False,
+        "learner_response_received": False, "learning_gain_claimed": False,
+        "provider": provider, "model": model.strip(), "remote_processing": False,
+        "native_candidate_sha256": commentary.get("candidate_sha256"),
+        "native_review_receipt": str(output / "SOPHIA_REVIEW_RECEIPT.json"),
+        "native_diagnostic_source_checks_passed": True,
+        "constitutional_release_authorized": False, "constitutional_approval_verified": False,
+        "delivery_released": False, "human_review_gate": "NEEDS_YOU", "external_release_gate": "REFUSE",
+        "authority_created": False, "external_effects": False, "market_validation_claimed": False,
+        "profile_receipt": profile_result.get("receipt") or {},
+    }
+    write_json(execution_dir / "SOPHIA_TUTOR_RECEIPT.json", receipt)
+    return {"executor": "Sophia native local source-grounded teaching preparation + evidence profile",
+        "product_id": "sophia_tutor", "profile_id": "sophia_tutor",
+        "terminal_artifact_kind": "held_source_grounded_teaching_candidate",
+        "domain_action_executed": False, "product_pipeline_executed": True,
+        "receipt": receipt, "profile_result": profile_result}
+
+
 def _run_sophia_tutor(
     packet: dict[str, Any],
     execution_dir: Path,
@@ -125,8 +204,8 @@ def _run_sophia_tutor(
     common = {
         "session_token": session_token,
         "reasoned_integrity_lane": True,
-        "reasoned_provider": "gemini",
-        "reasoned_model": os.environ.get("SOPHIA_TUTOR_MODEL", "gemini-flash-lite-latest"),
+        "reasoned_provider": "ollama",
+        "reasoned_model": packet["intake"].get("reasoned_model") or os.environ.get("OLLAMA_MODEL", "granite3.2:2b"),
         "reasoned_max_predict": 700,
         "document_evidence_task": "dio_professional_sophia_tutor",
         "document_uploads": document_uploads,
@@ -271,6 +350,9 @@ def _run_vamp_current(
     from products.unpromoted_evidence_profile import load_unpromoted_evidence_profile
 
     db = _build_vamp_database(packet, execution_dir.parent / "PROJECTION" / "progress.db")
+    from products.vamp_customer_projection import review_window
+    from products.professional_evidence_projection import evidence_rows
+    window = review_window(evidence_rows(packet))
     profile = ROOT / "config" / "vamp_profiles" / "university_generic_v1.json"
     request = {
         "schema": "dio.vamp_snapshot_request.v1",
@@ -280,9 +362,9 @@ def _run_vamp_current(
             "kind": "vamp_sqlite",
             "database_path": str(db),
             "staff_id": "PROFESSIONAL-001",
-            "year": 2026,
+            "year": window["year"],
         },
-        "review": {"months": ["2026-08"]},
+        "review": {"months": window["months"]},
         "privacy_mode": "professional_customer_controlled",
         "consents": {
             "evidence_owner_authorized": True,

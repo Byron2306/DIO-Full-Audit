@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 
 from presence_core import voice
@@ -40,6 +41,7 @@ def test_pocket_tts_campaign_narration_uses_approved_vera_and_writes_receipt(
         "profile_id": "vera_pocket_public",
     }
     monkeypatch.setattr(voice, "build_voice_plan", lambda **_kwargs: plan)
+    monkeypatch.setattr(voice, "verified_vera_runtime_inventory", lambda *_a, **_k: {"model_provenance": {"voice_id": "vera", "model_id": "test-runtime"}})
     monkeypatch.setattr(media.legacy, "require_tool", lambda _name: Path("/usr/bin/ffprobe"))
     monkeypatch.setattr(media.legacy, "probe_duration", lambda _path, _ffprobe: 1.25)
 
@@ -52,6 +54,7 @@ def test_pocket_tts_campaign_narration_uses_approved_vera_and_writes_receipt(
             "voice_url": plan["voice_url"],
             "send_authorized": False,
             "text": text,
+            "audio_sha256": hashlib.sha256(output_path.read_bytes()).hexdigest(),
         }
 
     monkeypatch.setattr(voice, "synthesize_voice", synthesize)
@@ -99,6 +102,7 @@ def test_unavailable_pocket_tts_is_a_held_campaign_error(monkeypatch, tmp_path: 
         "profile_id": "vera_pocket_public",
     }
     monkeypatch.setattr(voice, "build_voice_plan", lambda **_kwargs: plan)
+    monkeypatch.setattr(voice, "verified_vera_runtime_inventory", lambda *_a, **_k: {"model_provenance": {"voice_id": "vera", "model_id": "test-runtime"}})
     monkeypatch.setattr(media.legacy, "require_tool", lambda _name: Path("/usr/bin/ffprobe"))
     monkeypatch.setattr(voice, "synthesize_voice", lambda **_kwargs: (_ for _ in ()).throw(ConnectionRefusedError("offline")))
     import pytest

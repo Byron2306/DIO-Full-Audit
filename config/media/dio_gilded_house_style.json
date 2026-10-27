@@ -11,7 +11,14 @@
     "material": "black glass, reflective stone, restrained bronze",
     "verified_state_accent": "warm luminous gold only for verified or operator-authorized status",
     "type": "cream typographic accents with large negative space",
-    "prohibitions": ["fake product UI", "invented evidence", "glowing brain", "humanoid robot", "decorative HUD", "public-facing cult terminology"]
+    "prohibitions": [
+      "fake product UI",
+      "invented evidence",
+      "glowing brain",
+      "humanoid robot",
+      "decorative HUD",
+      "public-facing cult terminology"
+    ]
   },
   "voice": {
     "default_profile_id": "vera_pocket_public",
@@ -19,12 +26,15 @@
     "voice_url": "vera",
     "endpoint": "http://127.0.0.1:8000/tts",
     "allow_silent_fallback": false,
-    "language": "English"
+    "language": "English",
+    "attribution": "media/voice_catalog/VERA_ATTRIBUTION.md",
+    "attribution_sha256": "93c656bf1e4c2fc99c15f34cc6fe890668492f9aaf044008ac9309aaf9131a58"
   },
   "authority": {
     "generated_as_proof": "REFUSE",
     "external_send": "REFUSE",
     "publication": "NEEDS_YOU",
     "visual_release": "NEEDS_YOU"
-  }
+  },
+  "source_manifest_sha256": "ad53849ba2aff551dbb60d83c72d110914f6bf200e755fce52e2293e8fdc2bd6"
 }

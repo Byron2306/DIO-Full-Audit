@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -281,24 +280,20 @@ def reel_script(strategy: dict[str, Any], product: dict[str, Any]) -> list[dict[
 
 
 def _render_hustle_reel(request_path: Path) -> tuple[str, str]:
+    from scripts.build_campaign_media_v3 import synthesize_pocket_story, _render_projected_format
+    from products.canonical_marketing_media import approved_music
     request = json.loads(request_path.read_text(encoding="utf-8"))
     output = Path(request["outputs"]["vertical_reel"])
-    receipt = output.parent / "NICHEFOUNDRY_REEL_RECEIPT.json"
-    existing = json.loads(receipt.read_text(encoding="utf-8")) if receipt.is_file() else {}
-    current = output.is_file() and output.stat().st_size > 10000 and existing.get("request_hash") == request["request_hash"]
-    error = ""
-    if not current:
-        completed = subprocess.run(
-            ["node", str(base.FOUNDRY / "scripts" / "build_dio_campaign_reel.js"), str(request_path)],
-            cwd=base.FOUNDRY,
-            capture_output=True,
-            text=True,
-            timeout=240,
-        )
-        if completed.returncode != 0:
-            error = (completed.stderr or completed.stdout).strip()[-800:]
-    state = "ready" if output.is_file() and output.stat().st_size > 10000 else ("failed" if error else "brief_ready")
-    return state, error
+    try:
+        beats = request["script_brief"]["beats"]
+        scenes = [{"scene_id": row["beat"], "narration": row["message"]} for row in beats]
+        music = approved_music()
+        voice = synthesize_pocket_story(scenes, output.parent / "narration", {"required": True, "provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "remote_tts_allowed": False})
+        result = _render_projected_format(scene_images=[Path(p) for p in request["scene_images"]], narration=voice["scenes"], music=Path(music["path"]), music_volume=music["volume"], output=output, width=1080, height=1920, brand_owner="dio")
+        base.write_json(output.parent / "NICHEFOUNDRY_REEL_RECEIPT.json", {"request_hash": request["request_hash"], "output": result, "voice": voice, "music": music, "publication": "held", "spend": "disabled"})
+        return "ready", ""
+    except Exception as exc:
+        return "failed", str(exc)[-1600:]
 
 
 def upgrade_family(
@@ -314,6 +309,7 @@ def upgrade_family(
     assets = directory / "assets"
     copy_dir = directory / "copy"
     strategy = commercial_strategy(product, audience, playbook)
+    product = {**product, "brand_owner": "dio"}
     source_path = ROOT / product["source_image"]
     source = base.Image.open(source_path)
 
@@ -394,7 +390,7 @@ def upgrade_family(
         "music": {
             "path": "",
             "attribution": "",
-            "voice_required": False,
+            "voice_required": True,
             "selection_state": "unselected",
             "rights_verified": False,
         },

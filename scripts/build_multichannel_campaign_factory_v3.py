@@ -160,6 +160,8 @@ def draw_poster(
     draw.rounded_rectangle((margin, rule_y, box_right, rule_y + footer_font.size + 26), radius=4, fill=accent)
     draw.text((margin + 20, rule_y + 10), footer_text, font=footer_font, fill="#07111d")
     output.parent.mkdir(parents=True, exist_ok=True)
+    from products.canonical_marketing_media import apply_golden_identity
+    canvas, _ = apply_golden_identity(canvas, brand_owner=str(product.get("brand_owner") or "customer"))
     canvas.convert("RGB").save(output, quality=94)
 
 
@@ -313,6 +315,7 @@ _select_music = select_projection_music
 
 
 def build_family(product: dict[str, Any], audience: dict[str, Any], channels: dict[str, Any], output_root: Path, render_reels: bool) -> dict[str, Any]:
+    product = {**product, "brand_owner": "dio"}
     family_id = f"{product['id']}--{audience['id']}"
     directory = output_root / slug(product["id"]) / slug(audience["id"])
     assets = directory / "assets"

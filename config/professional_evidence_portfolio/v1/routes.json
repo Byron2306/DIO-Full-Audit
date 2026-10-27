@@ -74,7 +74,7 @@
     "PermitProof": {"route": "obligation_family", "product_id": "dio_permitproof", "source_type": "permit", "input_start": "raw_customer_files", "required_terminal": "evidence_pack"},
 
     "Document Studio Edit": {"route": "document_studio_raw", "service": "edit", "input_start": "raw_customer_files", "required_terminal": "reviewable_document_pack"},
-    "Document Studio Localize": {"route": "document_studio_raw", "service": "edit_and_translate", "input_start": "raw_customer_files", "required_terminal": "reviewable_localized_pack"},
+    "Document Studio Localize": {"route": "document_studio_raw", "service": "translation", "input_start": "raw_customer_files", "required_terminal": "reviewable_localized_pack"},
     "Document Studio Publish": {"route": "document_studio_raw", "service": "edit", "input_start": "raw_customer_files", "required_terminal": "publication_ready_pack"},
     "Accessible Publish": {"route": "document_studio_accessible_raw", "input_start": "raw_customer_files", "required_terminal": "accessible_publication_pack"},
     "DossierOps": {"route": "dossierops_raw_composition", "input_start": "raw_customer_files", "required_terminal": "dossier_bundle"},

@@ -272,104 +272,14 @@ def render_campaign_media(
     *,
     nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT,
 ) -> dict[str, Any]:
-    request = read_json(request_path)
-    gamma = read_json(gamma_receipt_path)
-    if request.get("schema") != "nichefoundry.dio_campaign_production_request.v2":
-        raise CampaignMediaError("Expected a nichefoundry.dio_campaign_production_request.v2 request.")
-    if request.get("voice", {}).get("provider") != "piper_local" or request.get("voice", {}).get("required") is not True:
-        raise CampaignMediaError("Campaign media contract requires voice.provider=piper_local and required=true.")
-    if gamma.get("state") != "ready" or gamma.get("request_hash") != request.get("gamma_request_hash"):
-        raise CampaignMediaError("Current Gamma story receipt does not match this campaign request.")
-
-    scenes = list((request.get("story") or {}).get("scenes") or [])
-    cards = list(gamma.get("cards") or [])
-    if not scenes or len(cards) != len(scenes):
-        raise CampaignMediaError("Gamma card count must exactly match the campaign story scene count.")
-    scene_images = [Path(row["path"]).expanduser().resolve() for row in cards]
-    if any(not path.is_file() for path in scene_images):
-        raise CampaignMediaError("One or more Gamma campaign cards are missing.")
-
-    music = Path(str((request.get("music") or {}).get("path") or "")).expanduser().resolve()
-    attribution = Path(str((request.get("music") or {}).get("attribution") or "")).expanduser().resolve()
-    if not music.is_file() or not attribution.is_file():
-        raise CampaignMediaError("A rights-recorded music bed and attribution file are required.")
-
-    output_dir = request_path.parent / "media"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    piper_receipt = synthesize_piper_story(scenes, output_dir, nichefoundry_root=nichefoundry_root)
-    ffmpeg = require_tool("ffmpeg")
-    ffprobe = require_tool("ffprobe")
-    narration = list(piper_receipt["scenes"])
-
-    outputs = request.get("outputs") or {}
-    vertical_path = Path(str(outputs.get("vertical_reel") or "")).expanduser().resolve()
-    landscape_path = Path(str(outputs.get("long_form_explainer") or "")).expanduser().resolve()
-    if not str(vertical_path) or not str(landscape_path):
-        raise CampaignMediaError("Campaign request must define both vertical_reel and long_form_explainer output paths.")
-
-    vertical = _render_format(
-        scene_images=scene_images,
-        narration=narration,
-        music=music,
-        output=vertical_path,
-        width=1080,
-        height=1920,
-        ffmpeg=ffmpeg,
-        ffprobe=ffprobe,
+    raise CampaignMediaError(
+        "Legacy Piper campaign rendering is retired. Use build_campaign_media_v3.py "
+        "with canonical Pocket TTS Vera, golden DIO assets and verified local music."
     )
-    landscape = _render_format(
-        scene_images=scene_images,
-        narration=narration,
-        music=music,
-        output=landscape_path,
-        width=1920,
-        height=1080,
-        ffmpeg=ffmpeg,
-        ffprobe=ffprobe,
-    )
-
-    receipt = {
-        "schema": "dio.campaign_media_receipt.v1",
-        "family_id": request.get("family_id"),
-        "request_hash": request.get("request_hash"),
-        "gamma_request_hash": request.get("gamma_request_hash"),
-        "created_at": utc_now(),
-        "state": "ready",
-        "story_scene_count": len(scenes),
-        "gamma": {
-            "generation_id": gamma.get("generation_id"),
-            "card_count": len(cards),
-            "receipt": str(gamma_receipt_path.resolve()),
-            "visual_review_required": True,
-        },
-        "voice": {
-            "provider": "piper_local",
-            "local_only": True,
-            "model": piper_receipt["model"],
-            "model_sha256": piper_receipt["model_sha256"],
-            "receipt": str((output_dir / "PIPER_NARRATION_RECEIPT.json").resolve()),
-        },
-        "music": {
-            "path": str(music),
-            "attribution": str(attribution),
-        },
-        "outputs": {
-            "vertical_reel": vertical,
-            "long_form_explainer": landscape,
-        },
-        "governance": {
-            "publication": "held_for_operator_approval",
-            "spend": "disabled",
-            "synthetic_media_review_required": True,
-            "market_validation_claimed": False,
-        },
-    }
-    write_json(output_dir / "CAMPAIGN_MEDIA_RECEIPT.json", receipt)
-    return receipt
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Render a Gamma campaign story with mandatory local Piper narration.")
+    parser = argparse.ArgumentParser(description="Retired campaign entrypoint; use build_campaign_media_v3.py.")
     parser.add_argument("request", type=Path, help="NICHEFOUNDRY_PRODUCTION_REQUEST.json")
     parser.add_argument("gamma_receipt", type=Path, help="GAMMA_STORY_RECEIPT.json")
     parser.add_argument("--nichefoundry-root", type=Path, default=DEFAULT_NICHEFOUNDRY_ROOT)
