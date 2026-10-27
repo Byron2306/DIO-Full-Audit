@@ -303,15 +303,32 @@ def build_evidence_review_package(product_name: str, packet: Mapping[str, Any], 
     native=run_controlled_evidence_review(case,profile=profile,requirements=requirements,evidence_inputs=evidence,issues=issues,
                                          output_dir=out/'native_review',operator_id='customer-specialist-workbench',now=now)
     matrix=native['review_pack']['requirement_evidence_matrix'];issue_register=native['review_pack']['issue_register']
-    blocks=[_heading('Your evidence review'),_paragraph(f"{len(matrix)} requirements and {len(evidence)} supplied records were processed using the {product_name} evidence-review profile. Source presence and quoted statements are recorded; independent truth, freshness and domain conclusions remain unverified."),
+    requirement_count = f"{len(matrix)} {'requirement' if len(matrix) == 1 else 'requirements'}"
+    record_count = f"{len(evidence)} supplied {'record' if len(evidence) == 1 else 'records'}"
+    blocks=[_heading('Your evidence review'),_paragraph(f"{requirement_count} and {record_count} were processed using the {product_name} evidence-review profile. Source presence and quoted statements are recorded; independent truth, freshness and domain conclusions remain unverified."),
             _heading('Requirement and evidence matrix'),_table(['Requirement','Source requirement','Evidence references','Review state'],[[r['requirement_key'],r['statement'],', '.join(r['evidence_ids']) or 'No record supplied',r['review_state']] for r in matrix])]
     if issue_register:blocks += [_heading('Issues requiring a decision'),_table(['Requirement','Source-reported issue','Review priority'],[[r['requirement_key'],r['hypothesis'],r['severity']] for r in issue_register])]
+    specialist_worksheet = None
+    from products.customer_evidence_specialist import WORKSHEETS, build_specialist_worksheet
+    if product_name in WORKSHEETS:
+        specialist_worksheet, specialist_blocks = build_specialist_worksheet(
+            product_name=product_name, packet=packet, matrix=matrix, sources=sources, quote_anchor=_quote,
+        )
+        _json(out / 'SPECIALIST_REVIEW_WORKSHEET.json', specialist_worksheet)
+        blocks.extend(specialist_blocks)
+    profile_scope = str(profile.get('scope_limit') or profile.get('human_gate_reason') or 'Evidence preparation and review support.')
+    customer_scope = (specialist_worksheet['claim_boundary']
+                      if specialist_worksheet is not None and 'no canonical atlas scope record' in profile_scope.casefold()
+                      else profile_scope)
     blocks += [_heading('Next review steps'),_paragraph('Verify the supplied records with their owners, check currency and applicability of the requirements, and resolve the listed documentary gaps before making a domain decision.'),
-               _heading('Scope and evidence handoff'),_paragraph(str(profile.get('scope_limit') or profile.get('human_gate_reason') or 'Evidence preparation and review support.'))]
+               _heading('Scope and evidence handoff'),_paragraph(customer_scope)]
     return _render(product_name,packet,sources,blocks,out,render_pdf=render_pdf,
                    details={'executed_providers':['products.evidence_review.run_controlled_evidence_review'],'profile_id':profile_id,
                             'profile_source_sha256':_sha(profile_path.read_bytes()),'native_processing_receipt':native['receipt'],
-                            'domain_engine_invoked':False,'requirements':matrix,'review_actions':issue_register})
+                            'domain_engine_invoked':False,'requirements':matrix,'review_actions':issue_register,
+                            'native_profile_scope':profile_scope,
+                            **({'specialist_worksheet': {'schema': specialist_worksheet['schema'], 'section': specialist_worksheet['section'], 'human_review_required': True}}
+                               if specialist_worksheet is not None else {})})
 
 
 def build_correspondence_package(packet: Mapping[str, Any], output_dir: str | Path, *, render_pdf: bool = True) -> dict[str, Any]:
