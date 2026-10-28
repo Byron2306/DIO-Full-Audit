@@ -26,6 +26,7 @@ from market_command.catalog import load_catalogs  # noqa: E402
 from market_command.core import MarketStore  # noqa: E402
 from market_command.intelligence import IntelligenceStore  # noqa: E402
 from adapters.marketing.readiness import adapter_readiness  # noqa: E402
+from presence_core.config import state_base  # noqa: E402
 
 
 DEFAULT_POLICY = {
@@ -1199,6 +1200,73 @@ def synthetic_activity(jobs: list[dict[str, Any]], campaigns: list[dict[str, Any
     return activity
 
 
+def collect_vesper_customer_intakes(root: Path | None = None, limit: int = 80) -> dict[str, Any]:
+    """Read a privacy-bounded operator projection of canonical Vesper sessions."""
+    session_root = (root or state_base(ROOT) / "vesper" / "web_chat").expanduser().resolve()
+    paths = sorted(session_root.glob("VWC-*/SESSION.json"), key=lambda item: item.stat().st_mtime, reverse=True)[:limit] if session_root.is_dir() else []
+    rows: list[dict[str, Any]] = []
+    for path in paths:
+        try:
+            session = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if session.get("schema") != "dio.vesper.web_chat.session.v1":
+            continue
+        route = session.get("route") or {}
+        handoff = session.get("handoff") or {}
+        customer_messages = [item for item in session.get("messages") or [] if item.get("role") == "customer"]
+        last = customer_messages[-1] if customer_messages else {}
+        contact = session.get("contact") or {}
+        rows.append({
+            "conversation_id": str(session.get("conversation_id") or path.parent.name),
+            "created_at": str(session.get("created_at") or ""),
+            "updated_at": str(session.get("updated_at") or ""),
+            "surface": str(session.get("surface") or ""),
+            "contact": {key: str(contact.get(key) or "") for key in ("name", "email", "organisation")},
+            "route_state": str(route.get("state") or "UNRESOLVED"),
+            "incarnation": str(route.get("incarnation") or session.get("incarnation_hint") or ""),
+            "handoff_state": str(handoff.get("state") or "NOT_READY"),
+            "canonical_case_id": str(session.get("canonical_case_id") or ""),
+            "request_preview": str(last.get("text") or "")[:360],
+            "intake_context": dict(last.get("intake_context") or {}),
+            "attachment_count": len(last.get("attachment_ids") or []),
+            "human_gate": str(session.get("human_gate") or "NEEDS_YOU"),
+            "external_effects": bool(session.get("external_effects", False)),
+        })
+    return {
+        "schema": "dio.vesper.customer_intakes.dashboard.v1",
+        "total_sessions_seen": len(paths),
+        "open_count": sum(row["handoff_state"] != "READY_FOR_PRODUCT_EXECUTION" for row in rows),
+        "ready_for_handoff_count": sum(row["handoff_state"] == "READY_FOR_PRODUCT_EXECUTION" for row in rows),
+        "needs_clarification_count": sum(row["route_state"] != "RESOLVED" for row in rows),
+        "recent": rows,
+    }
+
+
+def collect_product_qualification(path: Path | None = None) -> dict[str, Any]:
+    report_path = path or ROOT / "acceptance_runs" / "68-product-sellability-20261027" / "68_PRODUCT_QUALIFICATION.json"
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        if report.get("schema") != "dio.customer_product_qualification.v1":
+            raise ValueError("unsupported qualification report")
+        summary = report.get("summary") or {}
+        return {
+            "state": "AVAILABLE",
+            "as_of": str(report.get("evidence_as_of") or ""),
+            "offer_count": int(summary.get("offer_count") or 0),
+            "pilot_candidate_count": int(summary.get("operator_assessed_pilot_named_offers") or 0),
+            "pilot_capability_count": int(summary.get("distinct_pilot_capabilities") or 0),
+            "professional_signoff_count": int(summary.get("independent_professional_signoffs") or 0),
+            "extension_verified_count": int(summary.get("current_native_canonical_extensions_verified") or 0),
+            "extension_denominator": int(summary.get("native_canonical_extension_denominator") or 0),
+            "disposition_counts": dict(summary.get("current_disposition_counts") or {}),
+            "report_path": str(report_path.resolve().relative_to(ROOT.resolve())),
+            "commercial_validation": "UNPROVED",
+        }
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return {"state": "UNAVAILABLE", "commercial_validation": "UNPROVED"}
+
+
 def build_dashboard_state(
     runs_root: Path | None = None,
     deliverables_root: Path | None = None,
@@ -1218,6 +1286,8 @@ def build_dashboard_state(
     vamp_jobs = collect_vamp_jobs(ROOT / "state" / "vamp_jobs")
     document_studio_jobs = collect_document_studio_jobs(ROOT / "state" / "document_studio_jobs")
     product_workflows = collect_product_workflows(ROOT / "state" / "product_jobs")
+    vesper_customer_intakes = collect_vesper_customer_intakes()
+    product_qualification = collect_product_qualification()
     leads = collect_leads(ROOT / "state" / "leads")
     video_candidates = collect_video_candidates(ROOT / "deliverables" / "dio_video_candidates" / "DIO_VIDEO_CANDIDATE_REGISTRY.json")
     product_portfolio = collect_product_portfolio(ROOT / "state" / "product_portfolio" / "DIO_META_PORTFOLIO_ATLAS_IMPORT.json")
@@ -1288,6 +1358,8 @@ def build_dashboard_state(
         "vamp_jobs": vamp_jobs,
         "document_studio_jobs": document_studio_jobs,
         "product_workflows": product_workflows,
+        "vesper_customer_intakes": vesper_customer_intakes,
+        "product_qualification": product_qualification,
         "leads": leads,
         "business_telemetry": telemetry,
         "orders": orders,

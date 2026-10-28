@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dioworkflows.co.za/schemas/vesper_public_intake.schema.json",
+  "title": "Vesper public customer intake contract",
+  "description": "Versioned browser-to-Vesper contract. Customer statements remain unverified; attachments enter quarantine; this contract grants no execution or external authority.",
+  "oneOf": [
+    {
+      "title": "Open website session",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intake_contract", "operation", "surface"],
+      "properties": {
+        "intake_contract": {"const": "dio.vesper.public_intake.v1"},
+        "operation": {"const": "open_session"},
+        "surface": {"enum": ["dio_web", "product_site", "vesper"]},
+        "incarnation_hint": {"type": ["string", "null"], "maxLength": 160},
+        "contact": {"$ref": "#/$defs/contact"}
+      }
+    },
+    {
+      "title": "Submit customer message",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intake_contract", "operation", "conversation_id", "client_message_id", "message", "attachments"],
+      "properties": {
+        "intake_contract": {"const": "dio.vesper.public_intake.v1"},
+        "operation": {"const": "submit_message"},
+        "conversation_id": {"type": "string", "pattern": "^VWC-[A-Z0-9][A-Z0-9-]{7,63}$"},
+        "client_message_id": {"type": "string", "minLength": 1, "maxLength": 128},
+        "message": {"type": "string", "maxLength": 12000},
+        "incarnation_hint": {"type": ["string", "null"], "maxLength": 160},
+        "product_context_changed": {"type": "boolean"},
+        "contact": {"$ref": "#/$defs/contact"},
+        "intake_context": {"$ref": "#/$defs/intake_context"},
+        "attachments": {"type": "array", "maxItems": 1, "items": {"$ref": "#/$defs/attachment"}}
+      }
+    },
+    {
+      "title": "Submit voice message",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intake_contract", "operation", "conversation_id", "client_message_id", "audio_b64", "mime_type"],
+      "properties": {
+        "intake_contract": {"const": "dio.vesper.public_intake.v1"},
+        "operation": {"const": "submit_voice"},
+        "conversation_id": {"type": "string", "pattern": "^VWC-[A-Z0-9][A-Z0-9-]{7,63}$"},
+        "client_message_id": {"type": "string", "minLength": 1, "maxLength": 128},
+        "audio_b64": {"type": "string", "minLength": 1},
+        "mime_type": {"enum": ["audio/webm", "audio/ogg", "audio/mp4", "audio/mpeg", "audio/wav", "audio/x-wav"]},
+        "incarnation_hint": {"type": ["string", "null"], "maxLength": 160},
+        "product_context_changed": {"type": "boolean"},
+        "contact": {"$ref": "#/$defs/contact"},
+        "intake_context": {"$ref": "#/$defs/intake_context"}
+      }
+    }
+  ],
+  "$defs": {
+    "contact": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string", "maxLength": 160},
+        "email": {"type": "string", "maxLength": 254, "anyOf": [{"const": ""}, {"format": "email"}]},
+        "organisation": {"type": "string", "maxLength": 240}
+      }
+    },
+    "intake_context": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "desired_outcome": {"type": "string", "maxLength": 1200},
+        "needed_by": {"type": "string", "maxLength": 1200},
+        "work_context": {"type": "string", "maxLength": 1200}
+      }
+    },
+    "attachment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["file_name", "mime_type", "content_b64"],
+      "properties": {
+        "file_name": {"type": "string", "minLength": 1, "maxLength": 180},
+        "mime_type": {"type": "string", "maxLength": 120},
+        "content_b64": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

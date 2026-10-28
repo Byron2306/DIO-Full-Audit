@@ -23,7 +23,9 @@ SESSION_SCHEMA = "dio.vesper.web_chat.session.v1"
 MESSAGE_RECEIPT_SCHEMA = "dio.vesper.web_chat.message_receipt.v1"
 PROFESSIONAL_BINDING_SCHEMA = "dio.vesper.web_chat.professional_binding.v1"
 DEFAULT_STATE_ROOT = state_path("vesper", "web_chat", dio_root=ROOT)
-MAX_MESSAGE_CHARS = 12000
+# Includes the bounded structured intake fields compiled into the customer
+# message envelope (up to 3 x 1200 context chars plus semantic labels).
+MAX_MESSAGE_CHARS = 20000
 ROUTE_STOPWORDS = {
     "the", "and", "for", "with", "from", "this", "that", "into", "your", "their", "our", "you", "please",
     "need", "want", "help", "make", "give", "show", "review", "prepare", "build", "work", "ready", "human",
@@ -139,13 +141,29 @@ def _process_web_turn(session: dict[str, Any], payload: dict[str, Any], *,
         if hint not in set(canonical_incarnations()):
             raise VesperWebChatError(f"unknown canonical incarnation hint: {hint}")
         session["incarnation_hint"] = hint
+    message_text = str(payload.get("message") or "").strip()
+    intake_context = payload.get("intake_context") or {}
+    semantic_labels = {
+        "desired_outcome": "Customer-stated desired outcome (unverified)",
+        "needed_by": "Customer-stated requested date (unverified)",
+        "work_context": "Customer-stated use context (unverified)",
+    }
+    semantic_parts = [message_text] if message_text else []
+    for key, label in semantic_labels.items():
+        value = str(intake_context.get(key) or "").strip()
+        if value:
+            semantic_parts.append(f"{label}: {value}")
+    semantic_text = "\n\n".join(semantic_parts)
     envelope = {
         "channel": "webchat", "external_user_id": session["conversation_id"],
         "source_message_id": message_id, "message_type": "text",
-        "text": str(payload.get("message") or "").strip(),
+        "text": semantic_text,
         "metadata": {"provider": "vesper_web", "incarnation_hint": hint,
                      "email": str((session.get("contact") or {}).get("email") or ""),
                      "contact_identity_verified": False,
+                     "contact": dict(session.get("contact") or {}),
+                     "intake_contract": str(payload.get("intake_contract") or "dio.vesper.public_intake.v1"),
+                     "customer_intake_context": dict(intake_context),
                      "attachment_count_held_in_quarantine": len(quarantined),
                      "attachment_processing_authorized": False},
     }
@@ -293,6 +311,7 @@ def _public_session(session: dict[str, Any]) -> dict[str, Any]:
         "canonical_case_id": session.get("canonical_case_id"),
         "canonical_case_stage": session.get("canonical_case_stage"),
         "incarnation_hint": session.get("incarnation_hint"),
+        "contact": dict(session.get("contact") or {}),
         "route": session.get("route") or {},
         "state": session["state"],
         "messages": session["messages"],
@@ -487,10 +506,13 @@ def _post_message(
             "message_id": f"MSG-{message_number:04d}",
             "role": "customer",
             "text": text,
+            "intake_context": dict(payload.get("intake_context") or {}),
             "created_at": now,
             "attachment_ids": attachment_ids,
         }
     )
+    if isinstance(payload.get("contact_update"), dict):
+        session["contact"] = dict(payload["contact_update"])
     quarantine_root = ((quarantine_output_root / "state") if quarantine_output_root is not None
                        else _presence_root(state_root).parent) / "vesper" / "quarantine"
     presence, route = _process_web_turn(session, payload, state_root=state_root,
@@ -558,6 +580,8 @@ def _post_message(
         "quarantine_manifest_schema": (quarantine_manifest or {}).get("schema"),
         "handoff_state": session["handoff"]["state"],
         "channel": "web_chat",
+        "intake_contract": str(payload.get("intake_contract") or "dio.vesper.public_intake.v1"),
+        "intake_context_fields": sorted(key for key, value in (payload.get("intake_context") or {}).items() if value),
         "whatsapp_used": False,
         "telegram_used": False,
         "human_gate": "NEEDS_YOU",

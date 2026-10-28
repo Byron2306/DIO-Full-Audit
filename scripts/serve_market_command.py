@@ -96,6 +96,23 @@ class Handler(SimpleHTTPRequestHandler):
             base["adapter_readiness"] = {c["id"]: adapter_readiness(c["id"]) for c in catalogs["channels"]["channels"]}
             base["intelligence"] = intelligence_store().state()
             base["agency_outreach"] = list_agency_outreach(ROOT)
+            qualification_path = ROOT / "acceptance_runs" / "68-product-sellability-20261027" / "68_PRODUCT_QUALIFICATION.json"
+            try:
+                qualification = json.loads(qualification_path.read_text(encoding="utf-8"))
+                summary = qualification.get("summary") or {}
+                if qualification.get("schema") != "dio.customer_product_qualification.v1":
+                    raise ValueError("unsupported qualification snapshot")
+                base["product_qualification"] = {
+                    "state": "AVAILABLE",
+                    "as_of": qualification.get("evidence_as_of"),
+                    "offer_count": int(summary.get("offer_count") or 0),
+                    "pilot_candidate_count": int(summary.get("operator_assessed_pilot_named_offers") or 0),
+                    "independent_signoffs": int(summary.get("independent_professional_signoffs") or 0),
+                    "extension_verified": int(summary.get("current_native_canonical_extensions_verified") or 0),
+                    "extension_denominator": int(summary.get("native_canonical_extension_denominator") or 0),
+                }
+            except (OSError, json.JSONDecodeError, TypeError, ValueError):
+                base["product_qualification"] = {"state": "UNAVAILABLE"}
             base["schema"] = "dio.market_command.state.v2"
             self.send_json(base)
             return

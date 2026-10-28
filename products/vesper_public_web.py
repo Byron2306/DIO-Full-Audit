@@ -9,11 +9,15 @@ import json
 from pathlib import Path
 import secrets
 import time
+import re
 
 from products import vesper_web_chat as web
 
 STATE_ROOT = web.DEFAULT_STATE_ROOT
 PUBLIC_SESSION_TTL_SECONDS = 24 * 60 * 60
+INTAKE_CONTRACT = "dio.vesper.public_intake.v1"
+MAX_CONTEXT_CHARS = 1200
+EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
 
 
 class PublicWebAccessError(web.VesperWebChatError):
@@ -29,9 +33,21 @@ class PublicWebVoiceUnavailable(web.VesperWebChatError):
 
 
 def open_session(payload):
-    if payload.get("surface") not in {None, "dio_web", "vesper"}:
+    if not isinstance(payload, dict):
+        raise PublicWebInputError("website intake must be an object")
+    contract = payload.get("intake_contract")
+    if contract not in {None, INTAKE_CONTRACT}:
+        raise PublicWebInputError("unsupported website intake contract")
+    if contract == INTAKE_CONTRACT and payload.get("operation") != "open_session":
+        raise PublicWebInputError("website intake operation does not match session endpoint")
+    surface = str(payload.get("surface") or "dio_web").strip()
+    if surface not in {"dio_web", "product_site", "vesper"}:
         raise PublicWebInputError("unsupported website surface")
-    created = web.create_session({}, state_root=STATE_ROOT)
+    hint = str(payload.get("incarnation_hint") or "").strip() or None
+    if hint and hint not in set(web.canonical_incarnations()):
+        raise PublicWebInputError("unknown canonical product context")
+    contact = _normalize_contact(payload.get("contact"))["contact"] if "contact" in payload else {}
+    created = web.create_session({"surface": surface, "incarnation_hint": hint, **contact}, state_root=STATE_ROOT)
     cid = created["conversation_id"]
     token = secrets.token_urlsafe(32)
     with web._session_lock(STATE_ROOT, cid):
@@ -40,7 +56,45 @@ def open_session(payload):
         session["public_web_token_expires_at"] = int(time.time()) + PUBLIC_SESSION_TTL_SECONDS
         session["session_fingerprint"] = web._fingerprint({k: v for k, v in session.items() if k != "session_fingerprint"})
         web._write_json(web._session_path(STATE_ROOT, cid), session)
-    return {"session": {"conversation_id": cid, "session_token": token}, "authority_created": False}
+    return {"intake_contract": INTAKE_CONTRACT,
+            "session": {"conversation_id": cid, "session_token": token,
+                        "surface": surface, "incarnation_hint": hint,
+                        "contact": created.get("contact") or {}}, "authority_created": False}
+
+
+def _normalize_contact(value):
+    if value is None:
+        return {}
+    if not isinstance(value, dict) or set(value) - {"name", "email", "organisation"}:
+        raise PublicWebInputError("contact must contain only name, email and organisation")
+    contact = {}
+    for key, limit in (("name", 160), ("email", 254), ("organisation", 240)):
+        raw = value.get(key, "")
+        if raw is None:
+            raw = ""
+        if not isinstance(raw, str) or len(raw) > limit:
+            raise PublicWebInputError(f"contact {key} is invalid")
+        contact[key] = raw.strip()
+    if contact["email"] and not EMAIL_PATTERN.fullmatch(contact["email"]):
+        raise PublicWebInputError("contact email is invalid")
+    return {"contact": contact}
+
+
+def _normalize_context(value):
+    if value is None:
+        return {}
+    allowed = {"desired_outcome", "needed_by", "work_context"}
+    if not isinstance(value, dict) or set(value) - allowed:
+        raise PublicWebInputError("request context contains unsupported fields")
+    context = {}
+    for key in sorted(allowed):
+        raw = value.get(key, "")
+        if raw is None:
+            raw = ""
+        if not isinstance(raw, str) or len(raw) > MAX_CONTEXT_CHARS:
+            raise PublicWebInputError(f"request context {key} is invalid")
+        context[key] = raw.strip()
+    return context
 
 
 def owning_session(cid, token):
@@ -63,12 +117,19 @@ def owning_session(cid, token):
 
 
 def _message(payload, *, text=None):
+    if not isinstance(payload, dict):
+        raise PublicWebInputError("website message must be an object")
+    contract = payload.get("intake_contract")
+    if contract not in {None, INTAKE_CONTRACT}:
+        raise PublicWebInputError("unsupported website intake contract")
+    if contract == INTAKE_CONTRACT and payload.get("operation") not in {"submit_message", "submit_voice"}:
+        raise PublicWebInputError("website intake operation does not match message endpoint")
     event = str(payload.get("client_message_id") or "").strip()
     if not event:
         raise PublicWebInputError("client message identity is required")
     attachments = payload.get("attachments") or []
     if not isinstance(attachments, list) or len(attachments) > 1:
-        raise PublicWebInputError("the website accepts one attachment per message")
+        raise PublicWebInputError("website intake accepts one attachment per message")
     converted = []
     for row in attachments:
         if not isinstance(row, dict):
@@ -77,10 +138,13 @@ def _message(payload, *, text=None):
             data = base64.b64decode(str(row.get("content_b64") or ""), validate=True)
         except ValueError as exc:
             raise PublicWebInputError("invalid attachment bytes") from exc
-        if not 0 < len(data) <= 2097152:
+        if not 0 < len(data) <= 2 * 1024 * 1024:
             raise PublicWebInputError("attachment must be between 1 byte and 2 MiB")
-        converted.append({"filename": str(row.get("file_name") or ""),
-                          "mime_type": str(row.get("mime_type") or "application/octet-stream"),
+        filename = str(row.get("filename") or row.get("file_name") or "")
+        mime_type = str(row.get("mime_type") or "application/octet-stream")
+        role = str(row.get("role") or "customer_source")
+        converted.append({"filename": filename,
+                          "mime_type": mime_type, "role": role,
                           "content_base64": str(row.get("content_b64") or "")})
     hint = str(payload.get("incarnation_hint") or "").strip()
     if hint.casefold() == "vesper":
@@ -88,10 +152,15 @@ def _message(payload, *, text=None):
     return {"message": str(payload.get("message") or "") if text is None else str(text),
             "client_message_id": event, "attachments": converted,
             "incarnation_hint": hint or None,
+            "contact_update": _normalize_contact(payload.get("contact"))["contact"] if "contact" in payload else None,
+            "intake_context": _normalize_context(payload.get("intake_context")),
+            "intake_contract": INTAKE_CONTRACT,
             "product_context_changed": payload.get("product_context_changed") is True}
 
 
 def accept_message(payload, token):
+    if payload.get("intake_contract") == INTAKE_CONTRACT and payload.get("operation") != "submit_message":
+        raise PublicWebInputError("website intake operation does not match message endpoint")
     cid = str(payload.get("conversation_id") or "")
     owning_session(cid, token)
     result = web.post_message(cid, _message(payload), state_root=STATE_ROOT)
@@ -125,6 +194,8 @@ def read_replies(cid, token, *, after=0):
 
 
 def accept_voice(payload, token):
+    if payload.get("intake_contract") == INTAKE_CONTRACT and payload.get("operation") != "submit_voice":
+        raise PublicWebInputError("website intake operation does not match voice endpoint")
     cid = str(payload.get("conversation_id") or "")
     owning_session(cid, token)
     _message({**payload, "attachments": []}, text="voice preflight")
