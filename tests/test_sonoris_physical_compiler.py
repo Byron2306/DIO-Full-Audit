@@ -307,12 +307,12 @@ class BlackMetalDrumStateV02Tests(unittest.TestCase):
         self.assertTrue(rows)
 
         self.assertIn(
-            "FROZEN_CYMBAL",
+            "WITHDRAWN_RIDE",
             funcs,
         )
 
         self.assertIn(
-            "FROZEN_KICK",
+            "WITHDRAWN_KICK",
             funcs,
         )
 

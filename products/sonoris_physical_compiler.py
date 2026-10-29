@@ -904,18 +904,44 @@ def _guitar_section(
 
         anchor = tonal_root + anchor_offset
 
-        # V0.5.2 REGISTER LIFT
-        #
-        # WAR_ASCENT begins on the low strings and then suddenly jumps
-        # into the upper register while preserving harmonic relationships.
-        #
-        # Bass remains low, so the lift feels vertical rather than like
-        # a modulation.
-        if (
-            family == "WAR_ASCENT"
-            and local_bar >= max(1, bars // 2)
-        ):
-            anchor += 12
+        register_device = _governed_register_device(
+            section
+        )
+
+        # ----------------------------------------------------
+        # GOVERNED REGISTER REALIZATION
+        # ----------------------------------------------------
+
+        if register_device == "REGISTER_REVELATION":
+            # Sudden vertical opening in second half.
+            if local_bar >= max(1, bars // 2):
+                anchor += 12
+
+        elif register_device == "LOW_TO_HIGH_RETURN":
+            # First quarter low, middle returns low, final quarter opens.
+            quarter = max(1, bars // 4)
+
+            if local_bar >= bars - quarter:
+                anchor += 12
+
+        elif register_device == "OCTAVE_SHADOW":
+            # Every second bar shadows the same harmony an octave higher.
+            if local_bar % 2 == 1:
+                anchor += 12
+
+        elif register_device == "NONE":
+            # Preserve the proven Where-the-Pines behavior for WAR_ASCENT
+            # only when no governed register device is explicitly present.
+            if (
+                family == "WAR_ASCENT"
+                and local_bar >= max(1, bars // 2)
+            ):
+                anchor += 12
+
+        else:
+            raise RuntimeError(
+                f"UNKNOWN_REGISTER_DEVICE: {register_device}"
+            )
 
         voices = _bm_shape(
             anchor,
@@ -1005,6 +1031,48 @@ def _guitar_section(
 
     return out
 
+
+def _governed_drum_state(
+    section: Mapping[str, Any],
+    family: str,
+) -> str:
+    """
+    Governed plan wins.
+
+    Legacy family-derived behavior remains only as fallback for old plans.
+    """
+    explicit = section.get("drum_state")
+
+    if explicit:
+        return str(explicit)
+
+    fallback = {
+        "FROST_SIGIL": "FROST_BLAST",
+        "CORRUPTED_SIGIL": "FULL_BLAST",
+        "KNIFE": "DOUBLE_KICK_STORM",
+        "FROZEN_FIELD": "WITHDRAWN_BLAST",
+        "TRANSFIGURED_SIGIL": "FROST_BLAST",
+        "WAR_ASCENT": "MARTIAL_BLAST",
+    }
+
+    return fallback.get(
+        family,
+        "FROST_BLAST",
+    )
+
+
+def _governed_register_device(
+    section: Mapping[str, Any],
+) -> str:
+    return str(
+        section.get(
+            "register_device",
+            "NONE",
+        )
+    )
+
+
+
 def _drum_section(
     section: Mapping[str, Any],
     *,
@@ -1030,12 +1098,18 @@ def _drum_section(
         )
     )
 
+    drum_state = _governed_drum_state(
+        section,
+        family,
+    )
+
     rng = random.Random(
         _seed(
             seed,
-            "bm-drums-v05",
+            "governed-drums-v1",
             section_index,
             family,
+            drum_state,
         )
     )
 
@@ -1076,129 +1150,42 @@ def _drum_section(
     for local_bar in range(bars):
         t = (start_bar + local_bar) * TPQ * 4
 
-        # Harmonic fields and drums now share one macro clock.
-        if family in BM_HARMONIC_SPANS:
-            (
-                span_index,
-                anchor_offset,
-                shape_type,
-                bar_in_span,
-                span_boundary,
-            ) = _bm_harmonic_state(
-                family,
-                local_bar,
-            )
-        else:
-            span_index = 0
-            span_boundary = local_bar == 0
+        # ====================================================
+        # FROST BLAST
+        # ====================================================
 
-        # ----------------------------------------------------
-        # FROST / TRANSFIGURED:
-        # stable alternating blast field.
-        # ----------------------------------------------------
-
-        if family in {
-            "FROST_SIGIL",
-            "TRANSFIGURED_SIGIL",
-        }:
+        if drum_state == "FROST_BLAST":
             for sub in range(16):
                 tick = t + sub * (TPQ // 4)
 
                 if sub % 2 == 0:
-                    cymbal_note = 51
-
-                    # Very subtle macro-harmonic acknowledgement.
-                    # Only first attack of a new span gets a crash.
-                    if (
-                        span_boundary
-                        and local_bar > 0
-                        and sub == 0
-                    ):
-                        cymbal_note = 49
-
                     hit(
                         tick,
-                        cymbal_note,
-                        82,
-                        (
-                            "HARMONIC_BOUNDARY_CRASH"
-                            if cymbal_note == 49
-                            else "FROST_RIDE"
-                        ),
+                        51,
+                        84,
+                        "FROST_RIDE",
                     )
 
                     hit(
                         tick,
                         36,
-                        90,
+                        91,
                         "FROST_KICK",
                         interaction_source=family,
                     )
-
                 else:
                     hit(
                         tick,
                         38,
-                        85,
+                        87,
                         "FROST_SNARE",
                     )
 
-        # ----------------------------------------------------
-        # CORRUPTED:
-        # same blast for the entire harmonic span.
-        # No per-bar cleverness.
-        # ----------------------------------------------------
+        # ====================================================
+        # FULL BLAST
+        # ====================================================
 
-        elif family == "CORRUPTED_SIGIL":
-            for sub in range(16):
-                tick = t + sub * (TPQ // 4)
-
-                if sub % 2 == 0:
-                    note = (
-                        49
-                        if (
-                            span_boundary
-                            and local_bar > 0
-                            and sub == 0
-                        )
-                        else 51
-                    )
-
-                    hit(
-                        tick,
-                        note,
-                        89,
-                        (
-                            "HARMONIC_BOUNDARY_CRASH"
-                            if note == 49
-                            else "BLAST_RIDE"
-                        ),
-                    )
-
-                    hit(
-                        tick,
-                        36,
-                        98,
-                        "BLAST_KICK",
-                        interaction_source=family,
-                    )
-
-                else:
-                    hit(
-                        tick,
-                        38,
-                        93,
-                        "BLAST_SNARE",
-                    )
-
-        # ----------------------------------------------------
-        # KNIFE:
-        #
-        # Harmony changes every bar, but the DRUMMER does not
-        # perform a fill every bar. The blast remains one state.
-        # ----------------------------------------------------
-
-        elif family == "KNIFE":
+        elif drum_state == "FULL_BLAST":
             for sub in range(16):
                 tick = t + sub * (TPQ // 4)
 
@@ -1207,26 +1194,151 @@ def _drum_section(
                         tick,
                         51,
                         91,
-                        "KNIFE_RIDE",
+                        "BLAST_RIDE",
+                    )
+
+                    hit(
+                        tick,
+                        36,
+                        99,
+                        "BLAST_KICK",
+                        interaction_source=family,
                     )
                 else:
                     hit(
                         tick,
                         38,
-                        97,
-                        "KNIFE_SNARE",
+                        96,
+                        "BLAST_SNARE",
                     )
 
-                if rng.random() > 0.07:
+        # ====================================================
+        # DOUBLE KICK STORM
+        # ====================================================
+
+        elif drum_state == "DOUBLE_KICK_STORM":
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    hit(
+                        tick,
+                        51,
+                        90,
+                        "STORM_RIDE",
+                    )
+                else:
+                    hit(
+                        tick,
+                        38,
+                        96,
+                        "STORM_SNARE",
+                    )
+
+                hit(
+                    tick,
+                    36,
+                    101,
+                    "STORM_KICK",
+                    interaction_source=family,
+                )
+
+        # ====================================================
+        # WITHDRAWN BLAST
+        #
+        # Still black-metal motion. Not doom. Not silence.
+        # ====================================================
+
+        elif drum_state == "WITHDRAWN_BLAST":
+            harmonic_span_bars = int(
+                section.get(
+                    "harmonic_span_bars",
+                    2,
+                )
+            )
+
+            if harmonic_span_bars <= 0:
+                raise RuntimeError(
+                    "INVALID_HARMONIC_SPAN_BARS: "
+                    f"{harmonic_span_bars}"
+                )
+
+            for eighth in range(8):
+                tick = t + eighth * (TPQ // 2)
+
+                # Preserve the V0.5 macro-harmonic boundary event.
+                #
+                # The drummer remains withdrawn, but the first cymbal
+                # attack of each NEW harmonic span becomes a crash.
+                is_boundary = (
+                    local_bar > 0
+                    and local_bar % harmonic_span_bars == 0
+                    and eighth == 0
+                )
+
+                if is_boundary:
+                    hit(
+                        tick,
+                        49,
+                        78,
+                        "FROZEN_BOUNDARY_CRASH",
+                    )
+                else:
+                    hit(
+                        tick,
+                        51,
+                        70 if eighth % 2 else 76,
+                        "WITHDRAWN_RIDE",
+                    )
+
+                if eighth in {0, 4}:
                     hit(
                         tick,
                         36,
-                        100,
-                        "KNIFE_DOUBLE_KICK",
+                        74,
+                        "WITHDRAWN_KICK",
                         interaction_source=family,
                     )
 
-            # Only every TWO bars gets macro punctuation.
+            if local_bar % 2 == 1:
+                hit(
+                    t + TPQ * 3,
+                    38,
+                    72,
+                    "DISTANT_SNARE",
+                )
+
+        # ====================================================
+        # MARTIAL BLAST
+        # ====================================================
+
+        elif drum_state == "MARTIAL_BLAST":
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    hit(
+                        tick,
+                        51,
+                        91,
+                        "MARTIAL_RIDE",
+                    )
+
+                    hit(
+                        tick,
+                        36,
+                        101,
+                        "MARTIAL_KICK",
+                        interaction_source=family,
+                    )
+                else:
+                    hit(
+                        tick,
+                        38,
+                        95,
+                        "MARTIAL_SNARE",
+                    )
+
             if (
                 local_bar > 0
                 and local_bar % 2 == 0
@@ -1234,68 +1346,15 @@ def _drum_section(
                 hit(
                     t,
                     49,
-                    91,
-                    "KNIFE_PHRASE_CRASH",
+                    96,
+                    "MARTIAL_PHRASE_CRASH",
                 )
 
-        # ----------------------------------------------------
-        # FROZEN FIELD:
-        #
-        # Tremolo stays fast.
-        # Drums create the illusion of vast harmonic time.
-        # ----------------------------------------------------
+        # ====================================================
+        # ASHEN CONTINUUM
+        # ====================================================
 
-        elif gesture == "FROZEN_SUSPENSION":
-            for eighth in range(8):
-                tick = t + eighth * (TPQ // 2)
-
-                note = 51
-
-                if (
-                    span_boundary
-                    and local_bar > 0
-                    and eighth == 0
-                ):
-                    note = 49
-
-                hit(
-                    tick,
-                    note,
-                    68 if eighth % 2 else 74,
-                    (
-                        "FROZEN_BOUNDARY_CRASH"
-                        if note == 49
-                        else "FROZEN_CYMBAL"
-                    ),
-                )
-
-                if eighth in {0, 4}:
-                    hit(
-                        tick,
-                        36,
-                        72,
-                        "FROZEN_KICK",
-                        interaction_source="harmonic_field",
-                    )
-
-            # One distant snare every TWO bars.
-            if local_bar % 2 == 1:
-                hit(
-                    t + TPQ * 3,
-                    38,
-                    70,
-                    "DISTANT_SNARE",
-                )
-
-        # ----------------------------------------------------
-        # COLLAPSE.
-        # ----------------------------------------------------
-
-        elif raw_gesture == "COLLAPSE":
-            # V0.5.2: ASHEN CONTINUUM
-            #
-            # Keep the drummer moving. Slightly less violent than KNIFE,
-            # but never enough of a density drop to read as a pause.
+        elif drum_state == "ASHEN_CONTINUUM":
             for sub in range(16):
                 tick = t + sub * (TPQ // 4)
 
@@ -1312,9 +1371,8 @@ def _drum_section(
                         36,
                         84,
                         "ASHEN_KICK",
-                        interaction_source="ashen_continuum",
+                        interaction_source=family,
                     )
-
                 else:
                     hit(
                         tick,
@@ -1323,90 +1381,20 @@ def _drum_section(
                         "ASHEN_SNARE",
                     )
 
-            # Only one harmonic-boundary crash, halfway through.
-            if local_bar == max(1, bars // 2):
-                hit(
-                    t,
-                    49,
-                    88,
-                    "ASHEN_SHIFT_CRASH",
-                )
+        else:
+            raise RuntimeError(
+                f"UNKNOWN_GOVERNED_DRUM_STATE: {drum_state}"
+            )
 
-        elif family == "WAR_ASCENT":
-            for sub in range(16):
-                tick = t + sub * (TPQ // 4)
-
-                if sub % 2 == 0:
-                    hit(
-                        tick,
-                        51,
-                        90,
-                        "WAR_RIDE",
-                    )
-
-                    hit(
-                        tick,
-                        36,
-                        100,
-                        "WAR_KICK",
-                        interaction_source=family,
-                    )
-
-                else:
-                    hit(
-                        tick,
-                        38,
-                        95,
-                        "WAR_SNARE",
-                    )
-
-            # Punctuation every two bars only.
-            if (
-                local_bar > 0
-                and local_bar % 2 == 0
-            ):
-                hit(
-                    t,
-                    49,
-                    94,
-                    "WAR_PHRASE_CRASH",
-                )
-
-        # ----------------------------------------------------
-        # RELEASE.
-        # ----------------------------------------------------
-
-        elif raw_gesture == "RELEASE":
-            if local_bar == 0:
-                hit(
-                    t,
-                    49,
-                    66,
-                    "RELEASE_CRASH",
-                    duration=TPQ * 2,
-                )
-
-            if local_bar == bars - 1:
-                hit(
-                    t + TPQ * 3,
-                    36,
-                    46,
-                    "FINAL_KICK",
-                )
-
-        # Only one section-exit crash.
+        # One section-boundary crash only.
         if (
             local_bar == bars - 1
-            and raw_gesture not in {
-                "COLLAPSE",
-                "RELEASE",
-            }
-            and gesture != "FROZEN_SUSPENSION"
+            and raw_gesture != "RELEASE"
         ):
             hit(
                 t + TPQ * 3 + TPQ // 2,
                 49,
-                89,
+                88,
                 "SECTION_EXIT_CRASH",
                 duration=TPQ // 3,
             )
