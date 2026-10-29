@@ -1,0 +1,1612 @@
+"""Sonoris physical-performance compiler.
+
+Genre grammar does not directly prescribe notes.
+
+The compiler transforms:
+
+    governed composition plan
+        -> gesture contracts
+        -> role interaction
+        -> physical performance intent
+        -> instrument-realizable events
+
+Renderers must consume this intent. They must not infer musical intent from
+bar numbers, track names, or hard-coded song-specific ranges.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, asdict
+from typing import Any, Mapping
+import hashlib
+import json
+import random
+
+
+TPQ = 480
+
+
+@dataclass(frozen=True)
+class PhysicalEvent:
+    role: str
+    tick: int
+    duration: int
+    pitch: int
+    velocity: int
+    gesture: str
+    articulation: str
+    stroke: str | None = None
+    function: str | None = None
+    interaction_source: str | None = None
+    phrase_id: str | None = None
+
+    # Guitar-family events may represent a physical fretboard shape rather
+    # than one isolated MIDI pitch. `pitch` remains the anchor/root for
+    # compatibility; `pitches` contains the actually sounded voices.
+    pitches: tuple[int, ...] | None = None
+
+    # Describes why the voices coexist physically.
+    shape_type: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        row = asdict(self)
+        if row["pitches"] is not None:
+            row["pitches"] = list(row["pitches"])
+        return row
+
+
+@dataclass(frozen=True)
+class GestureContract:
+    name: str
+
+    # Composition behavior.
+    density: float
+    instability: float
+    repetition: float
+    phrase_pressure: float
+    register_motion: float
+
+    # Guitar body.
+    tremolo_probability: float
+    mute_probability: float
+    downpick_bias: float
+    sustain_probability: float
+
+    # Rhythm section.
+    kick_coupling: float
+    blast_probability: float
+    backbeat_probability: float
+    cymbal_density: float
+
+    # Ensemble.
+    bass_lock: float
+    silence_probability: float
+
+
+BLACK_METAL_GESTURES: dict[str, GestureContract] = {
+    "TRANCE": GestureContract(
+        "TRANCE",
+        density=0.72,
+        instability=0.28,
+        repetition=0.88,
+        phrase_pressure=0.56,
+        register_motion=0.22,
+        tremolo_probability=0.94,
+        mute_probability=0.03,
+        downpick_bias=0.50,
+        sustain_probability=0.94,
+        kick_coupling=0.42,
+        blast_probability=0.30,
+        backbeat_probability=0.12,
+        cymbal_density=0.78,
+        bass_lock=0.66,
+        silence_probability=0.02,
+    ),
+    "SPRINT": GestureContract(
+        "SPRINT",
+        density=0.95,
+        instability=0.48,
+        repetition=0.55,
+        phrase_pressure=0.94,
+        register_motion=0.38,
+        tremolo_probability=0.74,
+        mute_probability=0.24,
+        downpick_bias=0.62,
+        sustain_probability=0.38,
+        kick_coupling=0.90,
+        blast_probability=0.88,
+        backbeat_probability=0.14,
+        cymbal_density=0.88,
+        bass_lock=0.86,
+        silence_probability=0.01,
+    ),
+    "PANIC": GestureContract(
+        "PANIC",
+        density=0.97,
+        instability=0.96,
+        repetition=0.18,
+        phrase_pressure=0.98,
+        register_motion=0.72,
+        tremolo_probability=0.68,
+        mute_probability=0.10,
+        downpick_bias=0.50,
+        sustain_probability=0.45,
+        kick_coupling=0.82,
+        blast_probability=0.94,
+        backbeat_probability=0.06,
+        cymbal_density=0.92,
+        bass_lock=0.68,
+        silence_probability=0.04,
+    ),
+    "STOMP": GestureContract(
+        "STOMP",
+        density=0.42,
+        instability=0.38,
+        repetition=0.64,
+        phrase_pressure=0.85,
+        register_motion=0.22,
+        tremolo_probability=0.05,
+        mute_probability=0.72,
+        downpick_bias=0.88,
+        sustain_probability=0.42,
+        kick_coupling=0.96,
+        blast_probability=0.04,
+        backbeat_probability=0.90,
+        cymbal_density=0.48,
+        bass_lock=0.96,
+        silence_probability=0.08,
+    ),
+    "COLLAPSE": GestureContract(
+        "COLLAPSE",
+        density=0.14,
+        instability=0.62,
+        repetition=0.22,
+        phrase_pressure=0.24,
+        register_motion=0.18,
+        tremolo_probability=0.04,
+        mute_probability=0.02,
+        downpick_bias=0.55,
+        sustain_probability=0.98,
+        kick_coupling=0.18,
+        blast_probability=0.00,
+        backbeat_probability=0.05,
+        cymbal_density=0.28,
+        bass_lock=0.40,
+        silence_probability=0.42,
+    ),
+    "HOOK": GestureContract(
+        "HOOK",
+        density=0.56,
+        instability=0.36,
+        repetition=0.78,
+        phrase_pressure=0.76,
+        register_motion=0.30,
+        tremolo_probability=0.20,
+        mute_probability=0.20,
+        downpick_bias=0.72,
+        sustain_probability=0.72,
+        kick_coupling=0.82,
+        blast_probability=0.14,
+        backbeat_probability=0.72,
+        cymbal_density=0.58,
+        bass_lock=0.88,
+        silence_probability=0.03,
+    ),
+    "RELEASE": GestureContract(
+        "RELEASE",
+        density=0.08,
+        instability=0.18,
+        repetition=0.52,
+        phrase_pressure=0.06,
+        register_motion=0.10,
+        tremolo_probability=0.00,
+        mute_probability=0.00,
+        downpick_bias=0.50,
+        sustain_probability=1.00,
+        kick_coupling=0.08,
+        blast_probability=0.00,
+        backbeat_probability=0.00,
+        cymbal_density=0.15,
+        bass_lock=0.28,
+        silence_probability=0.66,
+    ),
+}
+
+
+BLACK_METAL_INTERVAL_POOL = (
+    0,   # root
+    1,   # minor second
+    3,   # minor third
+    5,   # fourth
+    6,   # tritone
+    7,   # fifth
+    8,   # minor sixth / augmented fifth colour
+    10,  # minor seventh
+    12,
+)
+
+
+def _seed(seed: int, *parts: object) -> int:
+    raw = ":".join([str(seed), *(str(x) for x in parts)])
+    return int(hashlib.sha256(raw.encode()).hexdigest()[:16], 16)
+
+
+def _clamp_velocity(value: float) -> int:
+    return max(1, min(127, round(value)))
+
+
+def _choose_interval(
+    rng: random.Random,
+    *,
+    previous: int,
+    contract: GestureContract,
+) -> int:
+    """Choose movement from behavioral pressure, not a memorized riff."""
+
+    if rng.random() < contract.repetition:
+        return previous
+
+    if rng.random() < contract.instability:
+        unstable = (1, 3, 6, 8, 10)
+        return rng.choice(unstable)
+
+    stable = (0, 3, 5, 7, 12)
+    return rng.choice(stable)
+
+
+def _stroke(
+    rng: random.Random,
+    *,
+    contract: GestureContract,
+    ordinal: int,
+    tremolo: bool,
+) -> str:
+    if tremolo:
+        return "DOWN" if ordinal % 2 == 0 else "UP"
+
+    return "DOWN" if rng.random() < contract.downpick_bias else "UP"
+
+
+def _bm_pitch_field(
+    gesture: str,
+    *,
+    tonal_root: int,
+) -> tuple[int, ...]:
+    """
+    Black-metal pitch fields are deliberately narrow.
+
+    This is not a melody scale. It is a set of gravitational tones around
+    a pedal center. Repetition and pressure matter more than novelty.
+    """
+    fields = {
+        # Root, minor second, minor third, tritone, fifth.
+        "TRANCE": (0, 1, 3, 6, 7),
+
+        # Strong root pedal with hostile neighbouring colours.
+        "SPRINT": (0, 0, 0, 1, 3, 6, 7),
+
+        # More unstable, but still magnetized to root.
+        "PANIC": (0, 0, 1, 3, 6, 7, 8),
+
+        # Heavy chordal/root gravity.
+        "STOMP": (0, 0, 3, 6, 7),
+
+        # Almost static.
+        "COLLAPSE": (0, 1, 6),
+
+        # Recognisable, repeatable identity.
+        "HOOK": (0, 3, 6, 7),
+
+        # Final tonal trace.
+        "RELEASE": (0,),
+    }
+
+    return tuple(
+        tonal_root + interval
+        for interval in fields[gesture]
+    )
+
+
+def _bm_make_cell(
+    gesture: str,
+    *,
+    tonal_root: int,
+    rng: random.Random,
+) -> tuple[int, ...]:
+    """
+    Generate a small reusable pitch cell.
+
+    The important property is recurrence. A cell is created once and reused
+    across many attacks. Black-metal pressure comes from repetition and
+    transformation, not from choosing a fresh note every sixteenth.
+    """
+    field = _bm_pitch_field(
+        gesture,
+        tonal_root=tonal_root,
+    )
+
+    if gesture == "TRANCE":
+        length = 4
+    elif gesture in {"SPRINT", "PANIC"}:
+        length = 8
+    elif gesture == "HOOK":
+        length = 4
+    else:
+        length = 2
+
+    cell = [tonal_root]
+
+    for _ in range(length - 1):
+        if gesture == "TRANCE":
+            # Mostly pedal-tone hypnosis.
+            nxt = tonal_root if rng.random() < 0.64 else rng.choice(field)
+
+        elif gesture == "SPRINT":
+            # Root pressure with sparse hostile punctuation.
+            nxt = tonal_root if rng.random() < 0.72 else rng.choice(field)
+
+        elif gesture == "PANIC":
+            # Instability without abandoning tonal gravity.
+            nxt = tonal_root if rng.random() < 0.42 else rng.choice(field)
+
+        elif gesture == "HOOK":
+            nxt = rng.choice(field)
+
+        else:
+            nxt = tonal_root
+
+        cell.append(nxt)
+
+    return tuple(cell)
+
+
+def _bm_transform_cell(
+    cell: tuple[int, ...],
+    *,
+    gesture: str,
+    tonal_root: int,
+    rng: random.Random,
+) -> tuple[int, ...]:
+    """
+    Phrase-level mutation.
+
+    Mutations are intentionally conservative: one changed tone is enough
+    to create development without turning repetition into prog noodling.
+    """
+    if len(cell) <= 1:
+        return cell
+
+    probability = {
+        "TRANCE": 0.16,
+        "SPRINT": 0.22,
+        "PANIC": 0.38,
+        "STOMP": 0.10,
+        "HOOK": 0.18,
+        "COLLAPSE": 0.04,
+        "RELEASE": 0.00,
+    }[gesture]
+
+    if rng.random() >= probability:
+        return cell
+
+    out = list(cell)
+    field = _bm_pitch_field(
+        gesture,
+        tonal_root=tonal_root,
+    )
+
+    index = rng.randrange(1, len(out))
+    out[index] = rng.choice(field)
+
+    return tuple(out)
+
+
+
+def _bm_shape(
+    anchor: int,
+    kind: str,
+) -> tuple[int, ...]:
+    """
+    Original black-metal fretboard primitives.
+
+    Pedal shapes preserve the low anchor while moving only the upper voice.
+    This allows extreme local picking density with extremely slow harmonic
+    motion.
+    """
+    shapes = {
+        "POWER": (0, 7),
+        "OCTAVE": (0, 12),
+        "TRITONE": (0, 6),
+        "MINOR_DYAD": (0, 3),
+        "POWER_OCTAVE": (0, 7, 12),
+
+        # Low pedal + upper voice.
+        "PEDAL_M2": (0, 13),
+        "PEDAL_M3": (0, 15),
+        "PEDAL_TT": (0, 18),
+        "PEDAL_P5": (0, 19),
+        "PEDAL_M6": (0, 20),
+        "PEDAL_M3_SHARP": (0, 16),
+    }
+
+    return tuple(
+        anchor + interval
+        for interval in shapes[kind]
+    )
+
+
+
+BM_HARMONIC_SPANS = {
+    # --------------------------------------------------------
+    # FROST SIGIL — 4 bars
+    #
+    # D pedal:
+    #   F  -> Eb -> Ab -> F
+    #
+    # Sorrow first, evil in the third bar.
+    # --------------------------------------------------------
+    "FROST_SIGIL": (
+        (1, 0, "PEDAL_M3"),
+        (1, 0, "PEDAL_M2"),
+        (1, 0, "PEDAL_TT"),
+        (1, 0, "PEDAL_M3"),
+    ),
+
+    # --------------------------------------------------------
+    # CORRUPTED SIGIL — 8 bars
+    #
+    # D pedal:
+    #   F -> Gb -> Ab -> Eb
+    #
+    # Two bars per harmonic state. This is intentionally
+    # hypnotic rather than riff-busy.
+    # --------------------------------------------------------
+    "CORRUPTED_SIGIL": (
+        (2, 0, "PEDAL_M3"),
+        (2, 0, "PEDAL_M3_SHARP"),
+        (2, 0, "PEDAL_TT"),
+        (2, 0, "PEDAL_M2"),
+    ),
+
+    # --------------------------------------------------------
+    # KNIFE — 8 bars
+    #
+    # One-bar roots:
+    #   D -> Eb -> D -> Ab -> D -> F -> Eb -> D
+    #
+    # This is the fastest harmonic motion in the piece, but
+    # even here each harmony survives an ENTIRE BAR.
+    # --------------------------------------------------------
+    "KNIFE": (
+        (1, 0, "POWER"),
+        (1, 1, "POWER"),
+        (1, 0, "POWER"),
+        (1, 6, "POWER"),
+        (1, 0, "POWER"),
+        (1, 3, "POWER"),
+        (1, 1, "POWER"),
+        (1, 0, "POWER"),
+    ),
+
+    # --------------------------------------------------------
+    # FROZEN FIELD — 8 bars
+    #
+    # D pedal:
+    #   Ab -> A -> F -> Eb
+    #
+    # Two bars per state. Surface stays fast; harmony crawls.
+    # --------------------------------------------------------
+    "FROZEN_FIELD": (
+        (2, 0, "PEDAL_TT"),
+        (2, 0, "PEDAL_P5"),
+        (2, 0, "PEDAL_M3"),
+        (2, 0, "PEDAL_M2"),
+    ),
+
+    # --------------------------------------------------------
+    # TRANSFIGURED SIGIL — 8 bars
+    #
+    # D pedal:
+    #   Ab -> Bb -> F -> Eb
+    #
+    # Related to the opening, but emotionally wider/sadder.
+    # --------------------------------------------------------
+    "TRANSFIGURED_SIGIL": (
+        (2, 0, "PEDAL_TT"),
+        (2, 0, "PEDAL_M6"),
+        (2, 0, "PEDAL_M3"),
+        (2, 0, "PEDAL_M2"),
+    ),
+
+    # --------------------------------------------------------
+    # WAR ASCENT — 8 bars
+    #
+    # Roots:
+    #   D -> F -> Eb -> Ab -> D -> Bb -> Ab -> Eb
+    #
+    # More martial, but still one complete bar per harmony.
+    # --------------------------------------------------------
+    "WAR_ASCENT": (
+        (1, 0, "POWER_OCTAVE"),
+        (1, 3, "POWER"),
+        (1, 1, "POWER"),
+        (1, 6, "POWER_OCTAVE"),
+        (1, 0, "POWER"),
+        (1, 8, "POWER"),
+        (1, 6, "POWER"),
+        (1, 1, "POWER"),
+    ),
+}
+
+
+def _bm_expand_harmonic_spans(
+    family: str,
+) -> tuple[tuple[int, int, str, int], ...]:
+    """
+    Expand span definitions into one entry per local bar.
+
+    Returns:
+        (span_index, anchor_offset, shape_type, bar_in_span)
+
+    This lets all instruments see the SAME macro-harmonic clock.
+    """
+    spans = BM_HARMONIC_SPANS[family]
+
+    expanded = []
+
+    for span_index, (
+        bars,
+        anchor_offset,
+        shape_type,
+    ) in enumerate(spans):
+        for bar_in_span in range(bars):
+            expanded.append(
+                (
+                    span_index,
+                    anchor_offset,
+                    shape_type,
+                    bar_in_span,
+                )
+            )
+
+    return tuple(expanded)
+
+
+def _bm_harmonic_state(
+    family: str,
+    local_bar: int,
+) -> tuple[int, int, str, int, bool]:
+    """
+    Return harmonic state for one bar.
+
+    If a caller provides more bars than the canonical family length,
+    cycle the complete harmonic trajectory rather than inventing notes.
+    """
+    expanded = _bm_expand_harmonic_spans(family)
+
+    if not expanded:
+        raise ValueError(
+            f"EMPTY_BM_HARMONIC_SPANS: {family}"
+        )
+
+    index = local_bar % len(expanded)
+
+    (
+        span_index,
+        anchor_offset,
+        shape_type,
+        bar_in_span,
+    ) = expanded[index]
+
+    span_boundary = bar_in_span == 0
+
+    return (
+        span_index,
+        anchor_offset,
+        shape_type,
+        bar_in_span,
+        span_boundary,
+    )
+
+
+BM_RIFF_FAMILIES = {
+    # D pedal, upper voice F → Ab → Eb → F
+    "FROST_SIGIL": (
+        (0, "PEDAL_M3"),
+        (0, "PEDAL_TT"),
+        (0, "PEDAL_M2"),
+        (0, "PEDAL_M3"),
+    ),
+
+    # Same identity, poisoned:
+    # F → Gb → Ab → Eb
+    "CORRUPTED_SIGIL": (
+        (0, "PEDAL_M3"),
+        (0, "PEDAL_M3_SHARP"),
+        (0, "PEDAL_TT"),
+        (0, "PEDAL_M2"),
+    ),
+
+    # Moving power-field:
+    # D → Eb → F → Ab
+    "BLIZZARD_ASCENT": (
+        (0, "POWER"),
+        (1, "POWER"),
+        (3, "POWER"),
+        (6, "POWER"),
+    ),
+
+    # Narrow hostile chromatic chain:
+    # D → Eb → D → Ab → D → F → Eb → D
+    "KNIFE": (
+        (0, "POWER"),
+        (1, "POWER"),
+        (0, "POWER"),
+        (6, "POWER"),
+        (0, "POWER"),
+        (3, "POWER"),
+        (1, "POWER"),
+        (0, "POWER"),
+    ),
+
+    # Surface remains fast while harmony barely moves:
+    # D pedal + Ab → A → F → Eb
+    "FROZEN_FIELD": (
+        (0, "PEDAL_TT"),
+        (0, "PEDAL_P5"),
+        (0, "PEDAL_M3"),
+        (0, "PEDAL_M2"),
+    ),
+
+    # Return of opening DNA, but no literal repeat:
+    # D pedal + Ab → Bb → F → Eb
+    "TRANSFIGURED_SIGIL": (
+        (0, "PEDAL_TT"),
+        (0, "PEDAL_M6"),
+        (0, "PEDAL_M3"),
+        (0, "PEDAL_M2"),
+    ),
+
+    # Final martial ascent:
+    # D → F → Eb → Ab → D → Bb → Ab → Eb
+    "WAR_ASCENT": (
+        (0, "POWER_OCTAVE"),
+        (3, "POWER"),
+        (1, "POWER"),
+        (6, "POWER_OCTAVE"),
+        (0, "POWER"),
+        (8, "POWER"),
+        (6, "POWER"),
+        (1, "POWER"),
+    ),
+}
+
+
+def _bm_riff_family(
+    section_index: int,
+    raw_gesture: str,
+) -> str:
+    """
+    Song-specific riff-chain selection for Where the Pines Forget.
+
+    Canonical section indices in the composition plan are ONE-BASED:
+
+      1 TRANCE     -> FROST_SIGIL
+      2 SPRINT     -> CORRUPTED_SIGIL
+      3 PANIC      -> KNIFE
+      4 STOMP      -> FROZEN_FIELD
+      5 COLLAPSE   -> structural void
+      6 TRANCE     -> TRANSFIGURED_SIGIL
+      7 HOOK       -> WAR_ASCENT
+      8 RELEASE    -> unresolved release
+
+    Raw-gesture fallback keeps this compiler safe if a caller supplies
+    sections without the canonical numbering.
+    """
+    by_index = {
+        1: "FROST_SIGIL",
+        2: "CORRUPTED_SIGIL",
+        3: "KNIFE",
+        4: "FROZEN_FIELD",
+        6: "TRANSFIGURED_SIGIL",
+        7: "WAR_ASCENT",
+    }
+
+    by_gesture = {
+        "TRANCE": "FROST_SIGIL",
+        "SPRINT": "CORRUPTED_SIGIL",
+        "PANIC": "KNIFE",
+        "STOMP": "FROZEN_FIELD",
+        "HOOK": "WAR_ASCENT",
+    }
+
+    return by_index.get(
+        section_index,
+        by_gesture.get(raw_gesture, raw_gesture),
+    )
+
+
+def _bm_effective_gesture(
+    section_index: int,
+    raw_gesture: str,
+) -> str:
+    # STOMP no longer means slow/heavy/doom in this BM grammar.
+    #
+    # Do NOT infer this from section_index: PANIC is canonical index 3.
+    if raw_gesture == "STOMP":
+        return "FROZEN_SUSPENSION"
+    return raw_gesture
+
+
+
+def _guitar_section(
+    section: Mapping[str, Any],
+    *,
+    tonal_root: int,
+    bpm: int,
+    seed: int,
+) -> list[PhysicalEvent]:
+    section_index = int(section["index"])
+    raw_gesture = str(section["gesture"])
+
+    gesture = str(
+        section.get("execution_gesture")
+        or _bm_effective_gesture(
+            section_index,
+            raw_gesture,
+        )
+    )
+
+    family = str(
+        section.get("riff_family")
+        or _bm_riff_family(
+            section_index,
+            raw_gesture,
+        )
+    )
+
+    rng = random.Random(
+        _seed(
+            seed,
+            "bm-harmonic-span-v05",
+            section_index,
+            family,
+        )
+    )
+
+    start_bar = int(section["start_bar"])
+    bars = int(section["bars"])
+
+    # --------------------------------------------------------
+    # Structural voids remain exceptional.
+    # --------------------------------------------------------
+
+    if raw_gesture == "COLLAPSE":
+        # V0.5.2: ASHEN CONTINUUM
+        #
+        # No pause. No breakdown. No perceptual drop.
+        # The right hand remains at full tremolo speed while the harmony
+        # changes slowly underneath it.
+        out = []
+
+        subdivisions = 16
+        step = (TPQ * 4) // subdivisions
+
+        for local_bar in range(bars):
+            bar_tick = (
+                start_bar + local_bar
+            ) * TPQ * 4
+
+            # First half: D + Ab
+            # Second half: D + Eb
+            shape_type = (
+                "PEDAL_TT"
+                if local_bar < max(1, bars // 2)
+                else "PEDAL_M2"
+            )
+
+            voices = _bm_shape(
+                tonal_root,
+                shape_type,
+            )
+
+            for ordinal in range(subdivisions):
+                stroke = (
+                    "DOWN"
+                    if ordinal % 2 == 0
+                    else "UP"
+                )
+
+                accent = (
+                    5 if ordinal == 0
+                    else 2 if ordinal in {4, 8, 12}
+                    else 0
+                )
+
+                out.append(
+                    PhysicalEvent(
+                        role="rhythm_guitar",
+                        tick=bar_tick + ordinal * step,
+                        duration=max(
+                            18,
+                            round(step * 0.91),
+                        ),
+                        pitch=tonal_root,
+                        pitches=voices,
+                        velocity=_clamp_velocity(
+                            85
+                            + accent
+                            + rng.uniform(-2, 2)
+                        ),
+                        gesture="ASHEN_CONTINUUM",
+                        articulation=f"SUSTAIN_{stroke}",
+                        stroke=stroke,
+                        function="ASHEN_CONTINUUM",
+                        phrase_id=(
+                            f"ASHEN_CONTINUUM-"
+                            f"{section_index}-"
+                            f"{local_bar // 2}"
+                        ),
+                        shape_type=shape_type,
+                    )
+                )
+
+        return out
+
+    if raw_gesture == "RELEASE":
+        return [
+            PhysicalEvent(
+                role="rhythm_guitar",
+                tick=start_bar * TPQ * 4,
+                duration=max(
+                    TPQ * 2,
+                    bars * TPQ * 4 - TPQ // 2,
+                ),
+                pitch=tonal_root,
+                pitches=_bm_shape(
+                    tonal_root,
+                    "PEDAL_M2",
+                ),
+                shape_type="PEDAL_M2",
+                velocity=58,
+                gesture="RELEASE",
+                articulation="SUSTAIN_DOWN",
+                stroke="DOWN",
+                function="UNRESOLVED_RELEASE",
+                phrase_id=f"RELEASE-{section_index}",
+            )
+        ]
+
+    if family not in BM_HARMONIC_SPANS:
+        raise RuntimeError(
+            f"BM_V05_HARMONIC_FAMILY_MISSING: {family}"
+        )
+
+    subdivisions = 16
+    step = (TPQ * 4) // subdivisions
+
+    out: list[PhysicalEvent] = []
+
+    for local_bar in range(bars):
+        absolute_bar = start_bar + local_bar
+        bar_tick = absolute_bar * TPQ * 4
+
+        (
+            span_index,
+            anchor_offset,
+            shape_type,
+            bar_in_span,
+            span_boundary,
+        ) = _bm_harmonic_state(
+            family,
+            local_bar,
+        )
+
+        anchor = tonal_root + anchor_offset
+
+        # V0.5.2 REGISTER LIFT
+        #
+        # WAR_ASCENT begins on the low strings and then suddenly jumps
+        # into the upper register while preserving harmonic relationships.
+        #
+        # Bass remains low, so the lift feels vertical rather than like
+        # a modulation.
+        if (
+            family == "WAR_ASCENT"
+            and local_bar >= max(1, bars // 2)
+        ):
+            anchor += 12
+
+        voices = _bm_shape(
+            anchor,
+            shape_type,
+        )
+
+        phrase_id = (
+            f"{family}-"
+            f"section{section_index}-"
+            f"span{span_index}"
+        )
+
+        # ----------------------------------------------------
+        # CRITICAL V0.5 LAW:
+        #
+        # The SAME harmonic shape survives every tremolo attack
+        # in this whole bar.
+        #
+        # Right hand = frantic.
+        # Harmony = glacial.
+        # ----------------------------------------------------
+
+        for ordinal in range(subdivisions):
+            stroke = (
+                "DOWN"
+                if ordinal % 2 == 0
+                else "UP"
+            )
+
+            articulation = f"SUSTAIN_{stroke}"
+
+            if gesture == "FROZEN_SUSPENSION":
+                base_velocity = 79
+            elif family == "KNIFE":
+                base_velocity = 100
+            elif family == "WAR_ASCENT":
+                base_velocity = 98
+            elif family == "CORRUPTED_SIGIL":
+                base_velocity = 94
+            else:
+                base_velocity = 87
+
+            # Accents follow beats, never harmonic micro-changes.
+            if ordinal == 0:
+                accent = 6
+            elif ordinal in {4, 8, 12}:
+                accent = 2
+            else:
+                accent = 0
+
+            # Slightly announce a genuine harmonic-span boundary,
+            # but never enough to sound like a prog accent.
+            if (
+                span_boundary
+                and local_bar > 0
+                and ordinal == 0
+            ):
+                accent += 2
+
+            velocity = _clamp_velocity(
+                base_velocity
+                + accent
+                + rng.uniform(-2.5, 2.5)
+            )
+
+            duration = max(
+                18,
+                round(step * 0.90),
+            )
+
+            out.append(
+                PhysicalEvent(
+                    role="rhythm_guitar",
+                    tick=bar_tick + ordinal * step,
+                    duration=duration,
+                    pitch=anchor,
+                    pitches=voices,
+                    velocity=velocity,
+                    gesture=gesture,
+                    articulation=articulation,
+                    stroke=stroke,
+                    function=family,
+                    phrase_id=phrase_id,
+                    shape_type=shape_type,
+                )
+            )
+
+    return out
+
+def _drum_section(
+    section: Mapping[str, Any],
+    *,
+    guitar: list[PhysicalEvent],
+    seed: int,
+) -> list[PhysicalEvent]:
+    section_index = int(section["index"])
+    raw_gesture = str(section["gesture"])
+
+    gesture = str(
+        section.get("execution_gesture")
+        or _bm_effective_gesture(
+            section_index,
+            raw_gesture,
+        )
+    )
+
+    family = str(
+        section.get("riff_family")
+        or _bm_riff_family(
+            section_index,
+            raw_gesture,
+        )
+    )
+
+    rng = random.Random(
+        _seed(
+            seed,
+            "bm-drums-v05",
+            section_index,
+            family,
+        )
+    )
+
+    start_bar = int(section["start_bar"])
+    bars = int(section["bars"])
+
+    out: list[PhysicalEvent] = []
+
+    def hit(
+        tick: int,
+        note: int,
+        velocity: int,
+        function: str,
+        *,
+        duration: int = TPQ // 10,
+        interaction_source: str | None = None,
+    ) -> None:
+        out.append(
+            PhysicalEvent(
+                role="drums",
+                tick=tick,
+                duration=duration,
+                pitch=note,
+                velocity=max(
+                    1,
+                    min(
+                        127,
+                        velocity + rng.randint(-3, 3),
+                    ),
+                ),
+                gesture=gesture,
+                articulation="STRIKE",
+                function=function,
+                interaction_source=interaction_source,
+            )
+        )
+
+    for local_bar in range(bars):
+        t = (start_bar + local_bar) * TPQ * 4
+
+        # Harmonic fields and drums now share one macro clock.
+        if family in BM_HARMONIC_SPANS:
+            (
+                span_index,
+                anchor_offset,
+                shape_type,
+                bar_in_span,
+                span_boundary,
+            ) = _bm_harmonic_state(
+                family,
+                local_bar,
+            )
+        else:
+            span_index = 0
+            span_boundary = local_bar == 0
+
+        # ----------------------------------------------------
+        # FROST / TRANSFIGURED:
+        # stable alternating blast field.
+        # ----------------------------------------------------
+
+        if family in {
+            "FROST_SIGIL",
+            "TRANSFIGURED_SIGIL",
+        }:
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    cymbal_note = 51
+
+                    # Very subtle macro-harmonic acknowledgement.
+                    # Only first attack of a new span gets a crash.
+                    if (
+                        span_boundary
+                        and local_bar > 0
+                        and sub == 0
+                    ):
+                        cymbal_note = 49
+
+                    hit(
+                        tick,
+                        cymbal_note,
+                        82,
+                        (
+                            "HARMONIC_BOUNDARY_CRASH"
+                            if cymbal_note == 49
+                            else "FROST_RIDE"
+                        ),
+                    )
+
+                    hit(
+                        tick,
+                        36,
+                        90,
+                        "FROST_KICK",
+                        interaction_source=family,
+                    )
+
+                else:
+                    hit(
+                        tick,
+                        38,
+                        85,
+                        "FROST_SNARE",
+                    )
+
+        # ----------------------------------------------------
+        # CORRUPTED:
+        # same blast for the entire harmonic span.
+        # No per-bar cleverness.
+        # ----------------------------------------------------
+
+        elif family == "CORRUPTED_SIGIL":
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    note = (
+                        49
+                        if (
+                            span_boundary
+                            and local_bar > 0
+                            and sub == 0
+                        )
+                        else 51
+                    )
+
+                    hit(
+                        tick,
+                        note,
+                        89,
+                        (
+                            "HARMONIC_BOUNDARY_CRASH"
+                            if note == 49
+                            else "BLAST_RIDE"
+                        ),
+                    )
+
+                    hit(
+                        tick,
+                        36,
+                        98,
+                        "BLAST_KICK",
+                        interaction_source=family,
+                    )
+
+                else:
+                    hit(
+                        tick,
+                        38,
+                        93,
+                        "BLAST_SNARE",
+                    )
+
+        # ----------------------------------------------------
+        # KNIFE:
+        #
+        # Harmony changes every bar, but the DRUMMER does not
+        # perform a fill every bar. The blast remains one state.
+        # ----------------------------------------------------
+
+        elif family == "KNIFE":
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    hit(
+                        tick,
+                        51,
+                        91,
+                        "KNIFE_RIDE",
+                    )
+                else:
+                    hit(
+                        tick,
+                        38,
+                        97,
+                        "KNIFE_SNARE",
+                    )
+
+                if rng.random() > 0.07:
+                    hit(
+                        tick,
+                        36,
+                        100,
+                        "KNIFE_DOUBLE_KICK",
+                        interaction_source=family,
+                    )
+
+            # Only every TWO bars gets macro punctuation.
+            if (
+                local_bar > 0
+                and local_bar % 2 == 0
+            ):
+                hit(
+                    t,
+                    49,
+                    91,
+                    "KNIFE_PHRASE_CRASH",
+                )
+
+        # ----------------------------------------------------
+        # FROZEN FIELD:
+        #
+        # Tremolo stays fast.
+        # Drums create the illusion of vast harmonic time.
+        # ----------------------------------------------------
+
+        elif gesture == "FROZEN_SUSPENSION":
+            for eighth in range(8):
+                tick = t + eighth * (TPQ // 2)
+
+                note = 51
+
+                if (
+                    span_boundary
+                    and local_bar > 0
+                    and eighth == 0
+                ):
+                    note = 49
+
+                hit(
+                    tick,
+                    note,
+                    68 if eighth % 2 else 74,
+                    (
+                        "FROZEN_BOUNDARY_CRASH"
+                        if note == 49
+                        else "FROZEN_CYMBAL"
+                    ),
+                )
+
+                if eighth in {0, 4}:
+                    hit(
+                        tick,
+                        36,
+                        72,
+                        "FROZEN_KICK",
+                        interaction_source="harmonic_field",
+                    )
+
+            # One distant snare every TWO bars.
+            if local_bar % 2 == 1:
+                hit(
+                    t + TPQ * 3,
+                    38,
+                    70,
+                    "DISTANT_SNARE",
+                )
+
+        # ----------------------------------------------------
+        # COLLAPSE.
+        # ----------------------------------------------------
+
+        elif raw_gesture == "COLLAPSE":
+            # V0.5.2: ASHEN CONTINUUM
+            #
+            # Keep the drummer moving. Slightly less violent than KNIFE,
+            # but never enough of a density drop to read as a pause.
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    hit(
+                        tick,
+                        51,
+                        80,
+                        "ASHEN_RIDE",
+                    )
+
+                    hit(
+                        tick,
+                        36,
+                        84,
+                        "ASHEN_KICK",
+                        interaction_source="ashen_continuum",
+                    )
+
+                else:
+                    hit(
+                        tick,
+                        38,
+                        80,
+                        "ASHEN_SNARE",
+                    )
+
+            # Only one harmonic-boundary crash, halfway through.
+            if local_bar == max(1, bars // 2):
+                hit(
+                    t,
+                    49,
+                    88,
+                    "ASHEN_SHIFT_CRASH",
+                )
+
+        elif family == "WAR_ASCENT":
+            for sub in range(16):
+                tick = t + sub * (TPQ // 4)
+
+                if sub % 2 == 0:
+                    hit(
+                        tick,
+                        51,
+                        90,
+                        "WAR_RIDE",
+                    )
+
+                    hit(
+                        tick,
+                        36,
+                        100,
+                        "WAR_KICK",
+                        interaction_source=family,
+                    )
+
+                else:
+                    hit(
+                        tick,
+                        38,
+                        95,
+                        "WAR_SNARE",
+                    )
+
+            # Punctuation every two bars only.
+            if (
+                local_bar > 0
+                and local_bar % 2 == 0
+            ):
+                hit(
+                    t,
+                    49,
+                    94,
+                    "WAR_PHRASE_CRASH",
+                )
+
+        # ----------------------------------------------------
+        # RELEASE.
+        # ----------------------------------------------------
+
+        elif raw_gesture == "RELEASE":
+            if local_bar == 0:
+                hit(
+                    t,
+                    49,
+                    66,
+                    "RELEASE_CRASH",
+                    duration=TPQ * 2,
+                )
+
+            if local_bar == bars - 1:
+                hit(
+                    t + TPQ * 3,
+                    36,
+                    46,
+                    "FINAL_KICK",
+                )
+
+        # Only one section-exit crash.
+        if (
+            local_bar == bars - 1
+            and raw_gesture not in {
+                "COLLAPSE",
+                "RELEASE",
+            }
+            and gesture != "FROZEN_SUSPENSION"
+        ):
+            hit(
+                t + TPQ * 3 + TPQ // 2,
+                49,
+                89,
+                "SECTION_EXIT_CRASH",
+                duration=TPQ // 3,
+            )
+
+    return out
+
+def _bass_section(
+    section: Mapping[str, Any],
+    *,
+    guitar: list[PhysicalEvent],
+    drums: list[PhysicalEvent],
+    tonal_root: int,
+    seed: int,
+) -> list[PhysicalEvent]:
+    gesture = str(section["gesture"])
+    contract = BLACK_METAL_GESTURES[gesture]
+    rng = random.Random(_seed(seed, "bass", section["index"], gesture))
+
+    start_tick = int(section["start_bar"]) * TPQ * 4
+    end_tick = int(section["end_bar"]) * TPQ * 4
+
+    guitar_events = [
+        event
+        for event in guitar
+        if start_tick <= event.tick < end_tick
+    ]
+
+    kick_ticks = {
+        event.tick
+        for event in drums
+        if start_tick <= event.tick < end_tick
+        and event.function in {"KICK", "DOUBLE_KICK"}
+    }
+
+    # Bass responds to guitar phrase anchors and kick landmarks.
+    anchors: dict[int, PhysicalEvent] = {}
+
+    for event in guitar_events:
+        quantized = (event.tick // (TPQ // 2)) * (TPQ // 2)
+
+        if quantized not in anchors or event.velocity > anchors[quantized].velocity:
+            anchors[quantized] = event
+
+    out: list[PhysicalEvent] = []
+
+    for tick, guitar_event in sorted(anchors.items()):
+        locked = tick in kick_ticks or rng.random() < contract.bass_lock
+
+        if not locked and rng.random() > 0.35:
+            continue
+
+        pitch = max(28, min(50, guitar_event.pitch - 12))
+
+        # At unstable gestures bass may answer chromatically rather than
+        # doubling the guitar verbatim.
+        if contract.instability > 0.75 and rng.random() < 0.28:
+            pitch += rng.choice((-1, 1, 6))
+
+        articulation = (
+            "VICIOUS"
+            if contract.phrase_pressure > 0.75
+            else "DIRTY"
+        )
+
+        duration = (
+            TPQ // 2
+            if articulation == "VICIOUS"
+            else TPQ
+        )
+
+        out.append(
+            PhysicalEvent(
+                role="bass",
+                tick=tick,
+                duration=duration,
+                pitch=pitch,
+                velocity=_clamp_velocity(
+                    69 + contract.phrase_pressure * 30 + rng.uniform(-6, 6)
+                ),
+                gesture=gesture,
+                articulation=articulation,
+                function="LOCK" if locked else "COUNTER",
+                interaction_source=(
+                    "kick+guitar"
+                    if tick in kick_ticks
+                    else "guitar"
+                ),
+            )
+        )
+
+    # Collapse/release are allowed to become almost static.
+    if not out and gesture in {"COLLAPSE", "RELEASE"}:
+        out.append(
+            PhysicalEvent(
+                "bass",
+                start_tick,
+                max(TPQ, end_tick - start_tick - 30),
+                tonal_root - 12,
+                62,
+                gesture,
+                "DIRTY",
+                function="DRONE",
+            )
+        )
+
+    return out
+
+
+def compile_physical_performance(
+    plan: Mapping[str, Any],
+    *,
+    seed: int = 20261028,
+) -> dict[str, Any]:
+    primary = plan["grammar"]["primary"]["key"]
+
+    if primary != "black_metal":
+        raise ValueError(
+            "physical compiler v0.1 currently admits black_metal only"
+        )
+
+    tonal_root = 38  # D2 guitar reference register for first acceptance specimen.
+    bpm = int(plan["musical_frame"]["tempo_bpm"])
+
+    guitar: list[PhysicalEvent] = []
+    drums: list[PhysicalEvent] = []
+    bass: list[PhysicalEvent] = []
+
+    section_receipts: list[dict[str, Any]] = []
+
+    for section in plan["sections"]:
+        g = _guitar_section(
+            section,
+            tonal_root=tonal_root,
+            bpm=bpm,
+            seed=seed,
+        )
+
+        d = _drum_section(
+            section,
+            guitar=g,
+            seed=seed,
+        )
+
+        b = _bass_section(
+            section,
+            guitar=g,
+            drums=d,
+            tonal_root=tonal_root,
+            seed=seed,
+        )
+
+        guitar.extend(g)
+        drums.extend(d)
+        bass.extend(b)
+
+        section_receipts.append(
+            {
+                "section": section["section"],
+                "gesture": section["gesture"],
+                "contract": asdict(
+                    BLACK_METAL_GESTURES[section["gesture"]]
+                ),
+                "event_counts": {
+                    "guitar": len(g),
+                    "bass": len(b),
+                    "drums": len(d),
+                },
+            }
+        )
+
+    payload = {
+        "schema": "dio.sonoris.physical_performance_plan.v1",
+        "compiler_version": "0.1.0",
+        "genre": primary,
+        "seed": seed,
+        "tempo_bpm": bpm,
+        "ticks_per_beat": TPQ,
+        "performance_model": (
+            "behavior->interaction->physical intent->instrument realization"
+        ),
+        "sections": section_receipts,
+        "roles": {
+            "rhythm_guitar": [event.to_dict() for event in guitar],
+            "bass": [event.to_dict() for event in bass],
+            "drums": [event.to_dict() for event in drums],
+        },
+        "invariants": {
+            "song_specific_bar_range_articulation_rules": False,
+            "renderer_may_infer_gesture_from_bar_number": False,
+            "physical_articulation_is_explicit": True,
+            "role_interaction_is_explicit": True,
+        },
+    }
+
+    canonical = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode()
+
+    payload["sha256"] = hashlib.sha256(canonical).hexdigest()
+
+    return payload
