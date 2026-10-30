@@ -1,0 +1,334 @@
+{
+  "schema": "dio.sonoris.metal_style_models.v1",
+  "method": "Reference tabs and notation are research provenance only. They inform abstract genre observations and production behavior. Executable riff cells, harmonic routes, lead phrases, and note sequences are generated per song from Sonoris motif DNA.",
+  "tuning_presets": {
+    "E_standard": {
+      "label": "E standard",
+      "low_midi": 40
+    },
+    "Eb_standard": {
+      "label": "E♭ standard",
+      "low_midi": 39
+    },
+    "D_standard": {
+      "label": "D standard",
+      "low_midi": 38
+    },
+    "C_standard": {
+      "label": "C standard",
+      "low_midi": 36
+    },
+    "B_standard": {
+      "label": "B standard",
+      "low_midi": 35
+    },
+    "drop_D": {
+      "label": "Drop D",
+      "low_midi": 38
+    },
+    "drop_C": {
+      "label": "Drop C",
+      "low_midi": 36
+    },
+    "drop_B": {
+      "label": "Drop B",
+      "low_midi": 35
+    }
+  },
+  "profiles": {
+    "thrash_metal": {
+      "tuning": "E_standard",
+      "tonal_center": "E-minor",
+      "tone": "tight_thrashing",
+      "drums": "thrash",
+      "bass": "locked_pick",
+      "extra": "off",
+      "observations": "Fast downpicked pedal notes, palm-muted sixteenths or eighths, chromatic turnarounds and sudden rests; snare backbeat and double-kick bursts.",
+      "study_artists": [
+        "Metallica",
+        "Megadeth",
+        "Slayer",
+        "Havok",
+        "Power Trip"
+      ],
+      "reference_urls": [
+        "https://www.metallica.com/store/master-of-puppets---guitar-tablature-book/M504.html",
+        "https://www.songsterr.com/a/wsa/slayer-tabs-a5046",
+        "https://www.songsterr.com/a/wsa/megadeth-tabs-a212?inst=guitar",
+        "https://www.songsterr.com/a/wsa/havok-prepare-for-attack-tab-s392273",
+        "https://www.songsterr.com/a/wsa/power-trip-tabs-a56617?inst=guitar"
+      ]
+    },
+    "death_metal": {
+      "tuning": "C_standard",
+      "tonal_center": "C-minor",
+      "tone": "brutal_low",
+      "drums": "blast_breakdown",
+      "bass": "unison_then_counter",
+      "extra": "off",
+      "observations": "Chromatic or diminished movement, rapid tremolo, riff mutations and half-time slam contrast; blast sections are punctuated by weight and rests.",
+      "study_artists": [
+        "Death",
+        "Deicide",
+        "Suffocation"
+      ],
+      "reference_urls": [
+        "https://www.gotabs.com/death/symbolic-tab",
+        "https://www.songsterr.com/a/wsa/suffocation-liege-of-inveracity-bass-tab-s406723",
+        "https://www.songsterr.com/a/wsa/deicide-dead-by-dawn-drum-tab-s29249",
+        "https://www.songsterr.com/a/wsa/deicide-homage-for-satan-standard-c-tab-s1260505",
+        "https://www.songsterr.com/a/wsa/suffocation-tabs-a5311"
+      ]
+    },
+    "power_metal": {
+      "tuning": "E_standard",
+      "tonal_center": "E-minor",
+      "tone": "bright_anthem",
+      "drums": "gallop_double_kick",
+      "bass": "root_fifth",
+      "extra": "keys",
+      "observations": "Galloping rhythm guitar, diatonic lift and harmonized melodic lead; steady double-kick and keyboard or orchestral color support the chorus.",
+      "study_artists": [
+        "Blind Guardian",
+        "Helloween",
+        "Rhapsody",
+        "Sabaton"
+      ],
+      "reference_urls": [
+        "https://songparts.com/songs/blind-guardian/mirror-mirror",
+        "https://www.songsterr.com/a/wsa/helloween-tabs-a2864",
+        "https://www.songsterr.com/a/wsa/rhapsody-of-fire-emerald-sword-tab-s399089",
+        "https://www.songsterr.com/a/wsa/sabaton-primo-victoria-tab-s51039"
+      ]
+    },
+    "doom_metal": {
+      "tuning": "C_standard",
+      "tonal_center": "C-minor",
+      "tone": "doom_fuzz",
+      "drums": "doom_half_time",
+      "bass": "long_weight",
+      "extra": "off",
+      "observations": "Slow sustained chords, feedback or fuzz, sparse tragic melody, tritone and minor descent; long air between attacks is central.",
+      "study_artists": [
+        "Candlemass",
+        "Electric Wizard",
+        "Paradise Lost",
+        "Saint Vitus"
+      ],
+      "reference_urls": [
+        "https://www.gotabs.com/candlemass/solitude-tab",
+        "https://www.songsterr.com/a/wsa/g-standard-funeralopolis-by-electric-wizard-tab-s2431465",
+        "https://www.songsterr.com/a/wsa/paradise-lost-tabs-a4456",
+        "https://www.songsterr.com/a/wsa/saint-vitus-tabs-a15901"
+      ]
+    },
+    "glam_metal": {
+      "tuning": "Eb_standard",
+      "tonal_center": "E-major",
+      "tone": "arena_crunch",
+      "drums": "arena_backbeat",
+      "bass": "root_fifth",
+      "extra": "keys",
+      "observations": "Open arena backbeat, bright power chords, blues/pentatonic lead answer, high chorus lift and spacious stereo guitar doubles.",
+      "study_artists": [
+        "Mötley Crüe",
+        "Def Leppard",
+        "Poison"
+      ],
+      "reference_urls": [
+        "https://www.songsterr.com/a/wsa/motley-crue-kickstart-my-heart-tab-s897907",
+        "https://www.songsterr.com/a/wsa/def-leppard-tabs-a164",
+        "https://www.songsterr.com/a/wsa/poison-tabs-a170"
+      ]
+    },
+    "folk_metal": {
+      "tuning": "D_standard",
+      "tonal_center": "D-minor",
+      "tone": "folk_crunch",
+      "drums": "folk_dance",
+      "bass": "dance_root",
+      "extra": "folk",
+      "observations": "Dance meters and modal pedal guitar support a foreground folk melody; acoustic or reed color and heavier sections trade the lead.",
+      "study_artists": [
+        "Eluveitie",
+        "Ensiferum",
+        "Korpiklaani"
+      ],
+      "reference_urls": [
+        "https://www.songsterr.com/a/wsa/eluveitie-inis-mona-tab-s33938t0",
+        "https://www.songsterr.com/a/wsa/korpiklaani-vodka-tab-s29520",
+        "https://www.songsterr.com/a/wsa/ensiferum-tabs-a2100",
+        "https://www.songsterr.com/a/wsa/eluveitie-tabs-a7441?inst=guitar"
+      ]
+    },
+    "prog_metal": {
+      "tuning": "drop_D",
+      "tonal_center": "D-minor",
+      "tone": "precise_progressive",
+      "drums": "odd_unison",
+      "bass": "counterpoint",
+      "extra": "keys",
+      "observations": "Changing meter, asymmetric accents and interlocking unison passages; clean and heavy textures, independent bass and keyboard development.",
+      "study_artists": [
+        "Dream Theater",
+        "Tool",
+        "Opeth"
+      ],
+      "reference_urls": [
+        "https://www.songsterr.com/a/wsa/tool-schism-chords-s6700",
+        "https://www.songsterr.com/a/wsa/dream-theater-pull-me-under-tab-s6248t6",
+        "https://www.songsterr.com/a/wsa/dream-theater-tabs-a16?inst=guitar",
+        "https://www.songsterr.com/a/wsa/opeth-tabs-a4613?inst=guitar"
+      ]
+    },
+    "industrial_metal": {
+      "tuning": "drop_D",
+      "tonal_center": "D-minor",
+      "tone": "machine_gate",
+      "drums": "machine_grid",
+      "bass": "synth_unison",
+      "extra": "keys",
+      "observations": "Repetitive gated guitar and machine grid interact with synth bass or noise, with mechanical precision and sudden dropouts.",
+      "study_artists": [
+        "Nine Inch Nails",
+        "Rammstein",
+        "Static-X"
+      ],
+      "reference_urls": [
+        "https://www.songsterr.com/a/wsa/rammstein-du-hast-drop-d-tab-s3777509",
+        "https://www.songsterr.com/a/wsa/nine-inch-nails-head-like-a-hole-bass-tab-s48760t0",
+        "https://www.songsterr.com/a/wsa/nine-inch-nails-tabs-a4369",
+        "https://www.songsterr.com/a/wsa/static-x-tabs-a6870?inst=guitar"
+      ]
+    },
+    "alternative_metal": {
+      "tuning": "drop_C",
+      "tonal_center": "C-minor",
+      "tone": "wide_alternative",
+      "drums": "quiet_loud",
+      "bass": "melodic_counter",
+      "extra": "keys",
+      "observations": "Airy or clean verse against a wide heavy chorus, suspended or octave voicings, melodic bass and textural keys.",
+      "study_artists": [
+        "Breaking Benjamin",
+        "Deftones",
+        "System of a Down"
+      ],
+      "reference_urls": [
+        "https://www.songsterr.com/a/wsa/deftones-tabs-a183",
+        "https://www.songsterr.com/a/wsa/system-of-a-down-toxicity-tab-s21961",
+        "https://www.songsterr.com/a/wsa/breaking-benjamin-tabs-a1216",
+        "https://www.songsterr.com/a/wsa/system-of-a-down-tabs-a29"
+      ]
+    },
+    "nu_metal": {
+      "tuning": "drop_B",
+      "tonal_center": "B-minor",
+      "tone": "sub_percussive",
+      "drums": "half_time_syncopated",
+      "bass": "locked_low",
+      "extra": "keys",
+      "observations": "Very low detuned one-note and octave rhythm, rests and offbeat accents over half-time or percussive drums; bass and texture carry hook weight.",
+      "study_artists": [
+        "Slipknot",
+        "Limp Bizkit",
+        "Linkin Park"
+      ],
+      "reference_urls": [
+        "https://www.songsterr.com/a/wsa/slipknot-duality-drop-d-bass-tab-s1627006",
+        "https://www.songsterr.com/a/wsa/slipknot-tabs-a98",
+        "https://www.songsterr.com/a/wsa/limp-bizkit-tabs-a61",
+        "https://www.songsterr.com/a/wsa/linkin-park-tabs-a145"
+      ]
+    }
+  },
+  "tone_profiles": {
+    "tight_thrashing": {
+      "drive": 0.62,
+      "tone": 0.57,
+      "pregain": 4,
+      "lowpass_hz": 6500,
+      "highpass_hz": 82,
+      "room": 0.03
+    },
+    "brutal_low": {
+      "drive": 0.81,
+      "tone": 0.43,
+      "pregain": 7,
+      "lowpass_hz": 5800,
+      "highpass_hz": 72,
+      "room": 0.02
+    },
+    "bright_anthem": {
+      "drive": 0.57,
+      "tone": 0.67,
+      "pregain": 4,
+      "lowpass_hz": 7200,
+      "highpass_hz": 85,
+      "room": 0.08
+    },
+    "doom_fuzz": {
+      "drive": 0.74,
+      "tone": 0.31,
+      "pregain": 5,
+      "lowpass_hz": 4400,
+      "highpass_hz": 58,
+      "room": 0.18
+    },
+    "arena_crunch": {
+      "drive": 0.46,
+      "tone": 0.64,
+      "pregain": 3,
+      "lowpass_hz": 7000,
+      "highpass_hz": 95,
+      "room": 0.1
+    },
+    "folk_crunch": {
+      "drive": 0.43,
+      "tone": 0.59,
+      "pregain": 2,
+      "lowpass_hz": 6800,
+      "highpass_hz": 90,
+      "room": 0.09
+    },
+    "precise_progressive": {
+      "drive": 0.58,
+      "tone": 0.54,
+      "pregain": 4,
+      "lowpass_hz": 6600,
+      "highpass_hz": 85,
+      "room": 0.05
+    },
+    "machine_gate": {
+      "drive": 0.75,
+      "tone": 0.46,
+      "pregain": 6,
+      "lowpass_hz": 5600,
+      "highpass_hz": 90,
+      "room": 0.01
+    },
+    "wide_alternative": {
+      "drive": 0.51,
+      "tone": 0.48,
+      "pregain": 3,
+      "lowpass_hz": 6100,
+      "highpass_hz": 80,
+      "room": 0.13
+    },
+    "sub_percussive": {
+      "drive": 0.72,
+      "tone": 0.38,
+      "pregain": 6,
+      "lowpass_hz": 5200,
+      "highpass_hz": 60,
+      "room": 0.04
+    }
+  },
+  "composition_model": {
+    "kind": "song_specific_motif_dna",
+    "fixed_source_phrase_execution": false,
+    "fixed_riff_cell_execution": false,
+    "fixed_harmonic_route_execution": false,
+    "fixed_lead_degree_execution": false
+  }
+}

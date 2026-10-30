@@ -1,0 +1,574 @@
+{
+  "schema": "dio.sonoris.legacy_metal_tab_model_fields.v1",
+  "status": "RESEARCH_ARCHIVE_ONLY",
+  "executable": false,
+  "source": "config/sonoris/metal_style_models_v1.json",
+  "note": "Historical fixed riff cells, harmonic routes, and lead-degree pools retained only as research provenance. Sonoris runtime composition now generates song-specific motif DNA.",
+  "profiles": {
+    "thrash_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.5,
+            1,
+            1.5,
+            2,
+            2.5,
+            3,
+            3.5
+          ],
+          "degrees": [
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            6,
+            5
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1,
+            1.75,
+            2,
+            2.5,
+            3.25
+          ],
+          "degrees": [
+            0,
+            0,
+            3,
+            2,
+            0,
+            6,
+            0
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        -1,
+        -5,
+        -2
+      ],
+      "lead_degrees": [
+        0,
+        3,
+        6,
+        7,
+        10
+      ]
+    },
+    "death_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.25,
+            0.5,
+            0.75,
+            1,
+            1.25,
+            1.5,
+            1.75,
+            2,
+            2.25,
+            2.5,
+            2.75,
+            3,
+            3.25,
+            3.5,
+            3.75
+          ],
+          "degrees": [
+            0,
+            0,
+            1,
+            0,
+            6,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            6,
+            5,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            0.75,
+            1,
+            1.5,
+            2,
+            2.25,
+            2.5,
+            3
+          ],
+          "degrees": [
+            0,
+            6,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            6,
+            0
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        1,
+        -1,
+        6
+      ],
+      "lead_degrees": [
+        0,
+        1,
+        3,
+        6,
+        7,
+        10
+      ]
+    },
+    "power_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.25,
+            0.5,
+            1,
+            1.25,
+            1.5,
+            2,
+            2.25,
+            2.5,
+            3,
+            3.25,
+            3.5
+          ],
+          "degrees": [
+            0,
+            0,
+            0,
+            5,
+            5,
+            5,
+            7,
+            7,
+            7,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1,
+            1.25,
+            1.5,
+            2,
+            2.5,
+            3
+          ],
+          "degrees": [
+            0,
+            0,
+            3,
+            3,
+            3,
+            5,
+            7,
+            0
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        5,
+        7,
+        3
+      ],
+      "lead_degrees": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        9,
+        10
+      ]
+    },
+    "doom_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            1.5,
+            3
+          ],
+          "degrees": [
+            0,
+            6,
+            -2
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            2,
+            3.25
+          ],
+          "degrees": [
+            0,
+            -1,
+            6
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        -5,
+        6,
+        -2
+      ],
+      "lead_degrees": [
+        0,
+        3,
+        5,
+        6,
+        7,
+        10
+      ]
+    },
+    "glam_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.75,
+            1.5,
+            2,
+            2.75,
+            3.5
+          ],
+          "degrees": [
+            0,
+            0,
+            5,
+            0,
+            7,
+            0
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1.5,
+            2,
+            2.5,
+            3
+          ],
+          "degrees": [
+            0,
+            3,
+            5,
+            0,
+            7,
+            5
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        5,
+        7,
+        0
+      ],
+      "lead_degrees": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9
+      ]
+    },
+    "folk_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.75,
+            1.5,
+            2.25,
+            3
+          ],
+          "degrees": [
+            0,
+            0,
+            5,
+            0,
+            7
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1,
+            1.5,
+            2,
+            2.5,
+            3
+          ],
+          "degrees": [
+            0,
+            0,
+            3,
+            5,
+            0,
+            7,
+            5
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        5,
+        -2,
+        7
+      ],
+      "lead_degrees": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        10
+      ]
+    },
+    "prog_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.75,
+            1.25,
+            2.25,
+            2.75,
+            3.25,
+            4.25
+          ],
+          "degrees": [
+            0,
+            0,
+            3,
+            6,
+            0,
+            5,
+            7
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1.5,
+            2,
+            2.75,
+            3.5,
+            4
+          ],
+          "degrees": [
+            0,
+            5,
+            0,
+            6,
+            3,
+            7,
+            0
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        3,
+        5,
+        6
+      ],
+      "lead_degrees": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        10
+      ]
+    },
+    "industrial_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            1,
+            1.5,
+            2,
+            2.75,
+            3.5
+          ],
+          "degrees": [
+            0,
+            0,
+            0,
+            6,
+            0,
+            0
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1.5,
+            2.5,
+            3
+          ],
+          "degrees": [
+            0,
+            0,
+            1,
+            0,
+            6
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        0,
+        6,
+        0
+      ],
+      "lead_degrees": [
+        0,
+        1,
+        6,
+        7
+      ]
+    },
+    "alternative_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            1,
+            1.75,
+            3
+          ],
+          "degrees": [
+            0,
+            0,
+            5,
+            6
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.75,
+            1.5,
+            2.5,
+            3.25
+          ],
+          "degrees": [
+            0,
+            3,
+            0,
+            7,
+            0
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        3,
+        5,
+        6
+      ],
+      "lead_degrees": [
+        0,
+        3,
+        5,
+        7,
+        10
+      ]
+    },
+    "nu_metal": {
+      "riff_cells": [
+        {
+          "onsets": [
+            0,
+            0.75,
+            1.75,
+            2.5,
+            3.25
+          ],
+          "degrees": [
+            0,
+            0,
+            1,
+            0,
+            6
+          ]
+        },
+        {
+          "onsets": [
+            0,
+            0.5,
+            1.5,
+            2.75,
+            3.5
+          ],
+          "degrees": [
+            0,
+            0,
+            5,
+            0,
+            1
+          ]
+        }
+      ],
+      "progression": [
+        0,
+        1,
+        0,
+        6
+      ],
+      "lead_degrees": [
+        0,
+        1,
+        3,
+        5,
+        6
+      ]
+    }
+  }
+}
