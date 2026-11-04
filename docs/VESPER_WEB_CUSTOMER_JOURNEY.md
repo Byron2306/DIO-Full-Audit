@@ -24,3 +24,20 @@ Invoice issuance, checkout creation/capture, outbound email, fulfillment executi
 ## Operational boundary
 
 This implementation adds the journey API to the local Vesper service and public API allowlist, and adds the matching panel to the website checkout. The website checkout already had a user-owned retry-safety diff; that change was preserved. The website edits are local and uncommitted, and the public API package/site have not been installed or published from this workspace.
+# Durable Journey Command Ledger (2026-11-04)
+
+`presence_core.production_journey.advance_production_journey` adds a SQLite
+command ledger around the existing canonical Vesper action runtime. It binds a
+caller command ID to the case, action, action reference, actor labels and payload
+hash. Reusing a completed command returns its saved result; reusing the ID with
+different inputs fails closed.
+
+An interrupted handler is recorded as `NEEDS_RECONCILIATION` and is never
+automatically replayed. An operator must record evidence to confirm whether the
+effect completed. If no effect occurred, the original command stays held and a
+new command ID is required. This protects against duplicate external effects,
+but it does not make downstream handlers transactional or prove that their
+effects succeeded. `actor_id` is an audit label supplied by the caller; this
+module does not authenticate it. Controlled Outlook send, attempt leasing,
+provider reconciliation, service cutover and a customer mailbox trace remain
+separate unfinished release gates in the production journey plan.
