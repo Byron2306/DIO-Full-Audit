@@ -210,7 +210,7 @@ def open_intake(
             "INTAKE_OPEN",
             evidence_ref="journey_core:intake_opened",
         )
-    elif current != "INTAKE_OPEN":
+    elif current not in {"INTAKE_OPEN", "FILES_RECEIVED_QUARANTINED"}:
         raise ValueError(f"intake cannot open from customer journey stage: {current}")
 
     provided = deepcopy((case.get("intake") or {}).get("provided_inputs") or {})
@@ -253,8 +253,8 @@ def record_intake_inputs(
     case = load_case(state_root, str(case_id))
     if case is None:
         raise ValueError(f"customer case not found: {case_id}")
-    if str(case.get("stage") or "") != "INTAKE_OPEN":
-        raise ValueError("typed intake input requires INTAKE_OPEN stage")
+    if str(case.get("stage") or "") not in {"INTAKE_OPEN", "FILES_RECEIVED_QUARANTINED"}:
+        raise ValueError("typed intake input requires an open or quarantined-file intake")
     if not isinstance(inputs, dict) or not inputs:
         raise ValueError("typed intake inputs are required")
 
@@ -324,8 +324,8 @@ def assess_scope(
     case = load_case(state_root, str(case_id))
     if case is None:
         raise ValueError(f"customer case not found: {case_id}")
-    if str(case.get("stage") or "") not in {"INTAKE_OPEN", "SCOPE_ASSESSED"}:
-        raise ValueError("scope assessment requires INTAKE_OPEN stage")
+    if str(case.get("stage") or "") not in {"INTAKE_OPEN", "FILES_RECEIVED_QUARANTINED", "SCOPE_ASSESSED"}:
+        raise ValueError("scope assessment requires an open intake or quarantined-file case")
 
     product_ref = str(case.get("product_id") or "").strip()
     provided = deepcopy((case.get("intake") or {}).get("provided_inputs") or {})
@@ -372,7 +372,7 @@ def assess_scope(
         )
         return receipt
 
-    if str(case.get("stage") or "") == "INTAKE_OPEN":
+    if str(case.get("stage") or "") in {"INTAKE_OPEN", "FILES_RECEIVED_QUARANTINED"}:
         case = transition_case(
             state_root,
             str(case_id),
@@ -410,6 +410,16 @@ def assess_scope(
 
 
 def _quote_request(case: dict[str, Any], product: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
+    attachments = [
+        {
+            "attachment_id": str(row.get("attachment_id") or ""),
+            "file_name": str(row.get("original_file_name") or ""),
+            "sha256": str(row.get("sha256") or ""),
+            "state": str(row.get("state") or "quarantined"),
+        }
+        for row in case.get("attachments") or []
+        if isinstance(row, dict)
+    ]
     request = {
         "schema": QUOTE_REQUEST_SCHEMA,
         "case_id": case.get("case_id"),
@@ -419,6 +429,11 @@ def _quote_request(case: dict[str, Any], product: dict[str, Any], receipt: dict[
         "scope_receipt_sha256": receipt.get("scope_receipt_sha256"),
         "primary_scope_unit": receipt.get("primary_scope_unit"),
         "scope_quantity": receipt.get("scope_quantity"),
+        "requested_outcome": receipt.get("requested_outcome"),
+        "scope_dimensions": deepcopy(
+            (case.get("scope") or {}).get("secondary_dimensions") or {}
+        ),
+        "source_attachments": attachments,
         "pricing_model": product.get("pricing_model"),
         "quote_authority_mode": (product.get("quote_authority") or {}).get("mode"),
         "authority_created": False,
@@ -480,6 +495,15 @@ def prepare_quote(
     ceiling = int(quote_policy.get("autonomous_ceiling_zar") or 0)
     mode = str(quote_policy.get("mode") or "operator_review")
 
+    # Document Studio Edit is scoped in pages while its current pricing rule is
+    # per-document and commercially unvalidated. Do not turn a tier reference
+    # into an automatic 12-report quote; route the sample and bounded scope to
+    # an operator for a reviewed amount.
+    if product.get("name") == "Document Studio Edit":
+        mode = "operator_review"
+        if not case.get("attachments"):
+            raise ValueError("Document Studio Edit quote review requires one quarantined sample attachment")
+
     if mode != "bounded_estimate" or ceiling < 1 or amount > ceiling:
         reason = (
             "quote_authority_requires_operator_review"
@@ -536,7 +560,8 @@ def prepare_quote(
             summary=(
                 f"Review quote request {request['quote_request_id']} for "
                 f"{product.get('name')} · governed reference R{amount:,} · "
-                f"case {case_id}. Confirm or decline pricing before any invoice or checkout."
+                f"case {case_id}. Review the attached sample and page-bounded scope, "
+                "then confirm or decline pricing before any invoice or checkout."
             ),
         )
         needs_ids = list(case.get("needs_you_ids") or [])
@@ -704,7 +729,10 @@ def approve_operator_review_quote(
 
     mode = str((product.get("quote_authority") or {}).get("mode") or "")
     pending_reason = str(pending.get("reason") or "")
-    if mode != "operator_review" and pending_reason != "quote_amount_exceeds_autonomous_ceiling":
+    if mode != "operator_review" and pending_reason not in {
+        "quote_amount_exceeds_autonomous_ceiling",
+        "document_sample_and_unit_price_review_required",
+    }:
         raise ValueError("quote request does not require operator approval")
 
     pricing_reference = deepcopy(pending.get("pricing_reference") or {})

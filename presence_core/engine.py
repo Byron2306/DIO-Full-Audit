@@ -490,6 +490,98 @@ def _case_intake_reply(name: str, profile: dict[str, Any], case: dict[str, Any],
     prefix = f'For {name}, that clarifies who the work is for. I still need ' if buyer_context_refined else f'For {name}, tell me '
     return prefix + ', '.join(parts[:-1]) + (', and ' if len(parts) > 1 else '') + parts[-1] + '.'
 
+
+def _document_quote_scope_reply(
+    product: str,
+    case: dict[str, Any],
+    message: str,
+    *,
+    presence_root: Path | None = None,
+    conversation_id: str | None = None,
+) -> str | None:
+    """Answer a document quote request with the actual scope and next steps."""
+    if not re.search(r"\b(?:quote|quotation|estimate)\b", str(message or ""), re.I):
+        return None
+    if str(product or "") not in {
+        "Document Studio Edit",
+        "Document Studio Localize",
+        "Document Studio Publish",
+    }:
+        return None
+
+    stage = str(case.get("stage") or "")
+    if stage in {"PRICE_RECOMMENDED", "QUOTE_READY", "INVOICE_DRAFTED", "INVOICE_SENT"}:
+        return None
+
+    details = {
+        "Document Studio Edit": (
+            "Document Studio Edit is the best fit: it can professionally edit and standardise "
+            "headings, typography, tables, page layout and supplied branding while preserving "
+            "the factual wording. Document Studio Publish is for preparing already-approved "
+            "content for publication, so it is not the right first step for this editing job."
+        ),
+        "Document Studio Localize": (
+            "Document Studio Localize is the right fit for adapting approved material into "
+            "another language, with terminology and language review kept visible."
+        ),
+        "Document Studio Publish": (
+            "Document Studio Publish is the right fit for preparing approved content into "
+            "controlled publication formats while preserving its supplied wording."
+        ),
+    }[product]
+
+    attachments = [
+        row for row in case.get("attachments") or []
+        if isinstance(row, dict)
+    ]
+    intake_reference = None
+    if presence_root is not None and conversation_id:
+        for candidate in re.findall(r"\bPRES-[A-Z0-9]{8,32}\b", str(message or "").upper()):
+            path = Path(presence_root) / "intakes" / f"{candidate}.json"
+            try:
+                recorded = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if str(recorded.get("conversation_id") or "") == str(conversation_id):
+                intake_reference = candidate
+                break
+    case_id = str(case.get("case_id") or "").strip()
+    if intake_reference and case_id:
+        reference_note = (
+            f" I’ll retain your existing intake reference {intake_reference} and keep this "
+            f"work linked to case {case_id}."
+        )
+    elif case_id:
+        reference_note = f" This remains linked to case {case_id}."
+    else:
+        reference_note = ""
+    if attachments:
+        sample_step = (
+            f"I can see {len(attachments)} uploaded file(s). They remain quarantined and "
+            "have not been assessed or used to set the scope or price. An operator must clear "
+            "and review the sample first; if the configured scanner is unavailable, it stays held."
+        )
+    else:
+        sample_step = (
+            "Please attach one representative English DOCX with typical headings, tables, and "
+            "page layouts. It will be held in quarantine and not used to assess or price the work "
+            "until an operator clears and reviews it. If the configured scanner is unavailable, "
+            "the sample stays held."
+        )
+
+    return (
+        details + reference_note + " To prepare a bounded quote, the next step is a human feasibility and scope "
+        "review of one sample; after that, DIO can list the included work, exclusions, price "
+        "and approval steps for your decision. " + sample_step + " "
+        "One sample cannot establish the total pages across all 12 reports, so please confirm "
+        "the exact total or a maximum page cap; your current estimate is 96–180 pages. Also "
+        "confirm final output format(s), deadline, whether grammar or house-style editing is "
+        "allowed beyond visual formatting, and attach a style guide or logo if available. "
+        "If the reports use several materially different layouts, tell me how many layout types "
+        "the sample represents. This request has not authorised "
+        "document processing, paid work or payment, and no quote has been issued."
+    )
+
 def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None,lingua_state_root:Path|None=None)->tuple[str,dict[str,Any]]:
     metadata=envelope.get('metadata') or {}
     explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
@@ -1328,6 +1420,24 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
 
     if case_price_reply is not None:
         reply = case_price_reply
+
+    document_quote_reply = None
+    if (
+        role == "public"
+        and quote_ready_reply is None
+        and case_price_reply is None
+        and isinstance(customer_case, dict)
+    ):
+        document_quote_reply = _document_quote_scope_reply(
+            str(customer_case.get("product_id") or ""),
+            customer_case,
+            text,
+            presence_root=presence_root,
+            conversation_id=correlation,
+        )
+
+    if document_quote_reply is not None:
+        reply = document_quote_reply
 
     if (
         role == 'public'

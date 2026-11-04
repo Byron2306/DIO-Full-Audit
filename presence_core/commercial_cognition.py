@@ -499,6 +499,79 @@ def _tier_hint(message: str) -> str | None:
     return None
 
 
+
+def _document_edit_job(message: str) -> bool:
+    """Recognize existing-document formatting without inferring translation."""
+    text = str(message or "").casefold()
+
+    document = re.search(
+        r"\b(reports?|documents?|docx|word files?|manuscripts?|proposals?)\b",
+        text,
+    )
+    if not document:
+        return False
+
+    # Genuine language adaptation must not be silently routed to Edit.
+    translation = re.search(
+        r"\b(translate|locali[sz]e)\s+(?:the\s+)?"
+        r"(?:documents?|reports?|files?|content)?\s*"
+        r"(?:into|to)\s+\w+|"
+        r"\b(?:need|want|request|require)\s+"
+        r"(?:a\s+)?translation\b",
+        text,
+    )
+    if translation:
+        return False
+
+    signals = (
+        r"\bformat(?:ted|ting)?\b",
+        r"\bconsistent|inconsistent|standardi[sz]e\b",
+        r"\bheadings?|typography|margins?\b",
+        r"\btables?|page layouts?|page numbering\b",
+        r"\bheaders?|footers?|branding\b",
+        r"\bproofread|editing|technical edit\b",
+    )
+    return sum(bool(re.search(pattern, text)) for pattern in signals) >= 2
+
+
+def _document_operation_override(message: str) -> str | None:
+    """Use the requested document operation to select an existing sibling."""
+    text = str(message or "").casefold()
+    if not re.search(
+        r"\b(reports?|documents?|docx|word files?|manuscripts?|proposals?)\b",
+        text,
+    ):
+        return None
+
+    positive_translation = re.search(
+        r"\b(?:translate|locali[sz]e)\b.{0,100}\b(?:into|to)\s+[a-z][a-z-]+\b|"
+        r"\b(?:translate|locali[sz]e)\s+(?:these|the|my|our)?\s*"
+        r"(?:reports?|documents?|files?|content)\b.{0,80}\b"
+        r"(?:afrikaans|english|french|german|spanish| isi?zulu|xhosa|language)\b|"
+        r"\b(?:need|want|require|request)\s+(?:a\s+)?"
+        r"(?:translation|locali[sz]ation)\b",
+        text,
+    )
+    if positive_translation and not re.search(
+        r"\b(?:do\s+not|don't|dont|not|no\s+need\s+for)\b.{0,50}"
+        r"\b(?:translate|translation|locali[sz]e|locali[sz]ation)\b",
+        text,
+    ):
+        return "Document Studio Localize"
+
+    if re.search(
+        r"\b(?:prepare|format|make|produce|convert|package)\b.{0,80}"
+        r"\b(?:for publication|for publishing|publication-ready|publish-ready|to publish)\b|"
+        r"\bpublish\s+(?:this|these|the|approved)\s+"
+        r"(?:report|document|manuscript|content|material|package)\b",
+        text,
+    ):
+        return "Document Studio Publish"
+
+    if _document_edit_job(text):
+        return "Document Studio Edit"
+    return None
+
 def resolve_commercial_cognition(
     root: Path,
     message: str,
@@ -524,7 +597,18 @@ def resolve_commercial_cognition(
     explicit_names = sorted({name for start, end, name in mentions
                              if not any(a <= start and end <= b and b-a > end-start
                                         for a, b, other in mentions)})
-    if len(explicit_names) > 1:
+    document_operation = _document_operation_override(message)
+    if document_operation:
+        route = {
+            "state": "RESOLVED",
+            "incarnation": document_operation,
+            "basis": "document_operation_morphology",
+            "candidates": [
+                {"incarnation": document_operation, "score": None}
+            ],
+            "authority_created": False,
+        }
+    elif len(explicit_names) > 1:
         route = {"state": "NEEDS_YOU", "incarnation": None,
                  "basis": "multiple_explicit_products",
                  "candidates": [{"incarnation": name, "score": None} for name in explicit_names],

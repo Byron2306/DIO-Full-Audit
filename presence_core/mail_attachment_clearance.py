@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import shutil
 import subprocess
 from datetime import datetime, timezone
@@ -23,15 +24,44 @@ class ClamAvScanner(Protocol):
 class ClamAvCommandScanner:
     """Use the local ClamAV command when it is installed; otherwise hold safely."""
 
+    MAX_SIGNATURE_AGE_SECONDS = 48 * 60 * 60
+
     def __init__(self, executable: str = "clamscan") -> None:
         self.executable = executable
         self.engine_version: str | None = None
         self.signature_version: str | None = None
+        self.signature_date: datetime | None = None
+        binary = shutil.which(self.executable)
+        if binary:
+            try:
+                version = subprocess.run(
+                    [binary, "--version"], check=False, capture_output=True,
+                    text=True, timeout=10,
+                )
+            except (OSError, subprocess.SubprocessError):
+                return
+            match = re.search(
+                r"^ClamAV\s+([^/\s]+)/([0-9]+)/(.+?)\s*$",
+                (version.stdout or "").strip(),
+            )
+            if version.returncode == 0 and match:
+                try:
+                    parsed = datetime.strptime(match.group(3), "%a %b %d %H:%M:%S %Y")
+                except ValueError:
+                    return
+                self.engine_version = match.group(1)
+                self.signature_version = match.group(2)
+                self.signature_date = parsed.astimezone(timezone.utc)
 
     def scan(self, path: Path) -> Mapping[str, Any]:
         binary = shutil.which(self.executable)
         if not binary:
             return {"state": "unavailable", "reason": "clamav_not_installed"}
+        if not self.engine_version or not self.signature_version or not self.signature_date:
+            return {"state": "unavailable", "reason": "clamav_version_or_signature_metadata_unavailable"}
+        signature_age = (datetime.now(timezone.utc) - self.signature_date).total_seconds()
+        if signature_age < 0 or signature_age > self.MAX_SIGNATURE_AGE_SECONDS:
+            return {"state": "stale", "reason": "clamav_signatures_stale"}
         try:
             result = subprocess.run(
                 [binary, "--no-summary", "--", str(path)],
@@ -69,7 +99,17 @@ def inspect_mail_attachments(attachments: Sequence[Mapping[str, Any]], *, scanne
         else:
             result = scanner.scan(path)
             raw_state = str(result.get("state") or "unavailable")
-            state = "clean" if raw_state == "clean" else ("held_scanner_unavailable" if raw_state == "unavailable" else "held_malware_or_error")
+            state = (
+                "clean" if raw_state == "clean"
+                else "held_stale_signatures" if raw_state == "stale"
+                else "held_scanner_unavailable" if raw_state == "unavailable"
+                else "held_malware_or_error"
+            )
+            if state == "clean" and not (
+                getattr(scanner, "engine_version", None)
+                and getattr(scanner, "signature_version", None)
+            ):
+                state = "held_scanner_unavailable"
         row.update({
             "inspection_state": state,
             "scanned_at": _now(),

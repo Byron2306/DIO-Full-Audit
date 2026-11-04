@@ -131,11 +131,33 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
             "settlement_receipt_sha256": settlement.get("settlement_receipt_sha256"),
         },
         "fulfilment": {
+            "job_id": (
+                fulfilment.get("job_id")
+                or next(
+                    (
+                        row.get("job_id")
+                        for row in reversed(case.get("job_links") or [])
+                        if isinstance(row, dict) and row.get("job_id")
+                    ),
+                    None,
+                )
+            ),
             "state": fulfilment.get("state"),
             "fulfilment_result_sha256": (fulfilment.get("result") or {}).get(
                 "fulfilment_result_sha256"
             ),
         },
+        "attachments": [
+            {
+                "attachment_id": str(row.get("attachment_id") or ""),
+                "file_name": str(row.get("original_file_name") or ""),
+                "sha256": str(row.get("sha256") or ""),
+                "state": str(row.get("state") or "quarantined"),
+                "safe_to_parse": row.get("safe_to_parse") is True,
+            }
+            for row in case.get("attachments") or []
+            if isinstance(row, dict)
+        ],
         "deliverables": {
             "manifest_id": manifest.get("manifest_id"),
             "manifest_sha256": manifest.get("manifest_sha256"),
@@ -151,6 +173,11 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
             "return_pack_state": receipt.get("return_pack_state"),
         },
         "communication": {
+            "contact_email": str(case.get("contact_email") or "").strip() or None,
+            "customer_id": str(case.get("customer_id") or "").strip() or None,
+            "customer_identity_state": str(
+                (case.get("customer_identity") or {}).get("state") or "unverified"
+            ),
             "outlook_draft_count": len((case.get("outlook") or {}).get("draft_ids") or []),
             "outlook_sent_receipt_count": len((case.get("outlook") or {}).get("send_receipt_ids") or []),
             "email_address_present": bool(str(case.get("contact_email") or "").strip()),

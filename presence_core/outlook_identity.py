@@ -26,9 +26,10 @@ def verify_outlook_identity(request: Mapping[str, Any]) -> dict[str, Any]:
     sender = str(request.get("sender") or "").strip().lower()
     if not sender:
         raise OutlookIdentityError("Outlook identity requires a sender address.")
-    if request.get("shared_mailbox") and not request.get("operator_id"):
-        raise OutlookIdentityError("Shared Outlook mailbox binding requires an identified operator.")
     token = str(request.get("session_token") or "")
+    operator_id = str(request.get("operator_id") or "").strip()
+    if request.get("shared_mailbox") and not token and not operator_id:
+        raise OutlookIdentityError("Shared Outlook mailbox binding requires a signed customer session or identified operator.")
     if token:
         try:
             raw, supplied = token.rsplit(".", 1)
@@ -52,11 +53,25 @@ def verify_outlook_identity(request: Mapping[str, Any]) -> dict[str, Any]:
             raise OutlookIdentityError("Outlook identity session token lifetime is invalid.")
         customer_id = str(payload["customer_id"])
         method = "signed_customer_session"
-    elif request.get("operator_id"):
+    elif operator_id:
         customer_id = str(request.get("customer_id") or "")
         if not customer_id:
             raise OutlookIdentityError("Operator Outlook binding requires customer_id.")
+        reason = str(request.get("binding_reason") or "").strip()
+        evidence_ref = str(request.get("evidence_ref") or "").strip()
+        if not reason or not evidence_ref:
+            raise OutlookIdentityError("Operator Outlook binding requires a reason and evidence reference.")
         method = "identified_operator"
     else:
         raise OutlookIdentityError("Outlook sender is unverified; signed session or operator binding required.")
-    return {"schema": "dio.outlook_identity_binding.v1", "binding_state": "verified", "customer_id": customer_id, "sender": sender, "method": method, "verified_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(), **({"session_expires_at": expires_at.replace(microsecond=0).isoformat()} if method == "signed_customer_session" else {})}
+    return {
+        "schema": "dio.outlook_identity_binding.v1",
+        "binding_state": "verified",
+        "customer_id": customer_id,
+        "sender": sender,
+        "method": method,
+        "verified_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        **({"session_expires_at": expires_at.replace(microsecond=0).isoformat()} if method == "signed_customer_session" else {}),
+        **({"operator_id": operator_id, "binding_reason": reason, "evidence_ref": evidence_ref}
+           if method == "identified_operator" else {}),
+    }

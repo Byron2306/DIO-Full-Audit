@@ -76,6 +76,19 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
     def send_json(self, payload: dict, status: HTTPStatus = HTTPStatus.OK) -> None:
         self._send((json.dumps(payload, indent=2, ensure_ascii=False) + "\n").encode("utf-8"), "application/json; charset=utf-8", status)
 
+    def send_download(self, body: bytes, filename: str) -> None:
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "application/zip")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Content-Disposition", f'attachment; filename="{filename}"')
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Frame-Options", "SAMEORIGIN")
+        self.send_header("Referrer-Policy", "same-origin")
+        self._cors()
+        self.end_headers()
+        self.wfile.write(body)
+
     def _read_json(self) -> dict:
         length = int(self.headers.get("Content-Length", "0") or "0")
         if length < 2 or length > MAX_REQUEST_BYTES:
@@ -118,6 +131,39 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
                 elif route == '/api/vesper/web/journey':
                     public_web.owning_session(cid, token)
                     self.send_json({'journey': web.customer_journey(cid), 'authority_created': False})
+                elif route == '/api/vesper/web/invoice':
+                    session = public_web.owning_session(cid, token)
+                    case_id = str(session.get('canonical_case_id') or '')
+                    if not case_id:
+                        raise VesperWebChatError('issued customer invoice is unavailable')
+                    from presence_core.customer_cases import load_case
+                    from commerce.invoices import load_invoice
+                    case = load_case(web._presence_root(DEFAULT_STATE_ROOT), case_id)
+                    invoice_id = str(((case or {}).get('commercial') or {}).get('invoice_id') or '')
+                    if not case or not invoice_id or (case.get('commercial') or {}).get('invoice_state') != 'issued':
+                        raise VesperWebChatError('issued customer invoice is unavailable')
+                    invoice = load_invoice(ROOT, invoice_id)
+                    if invoice.get('state') != 'issued':
+                        raise VesperWebChatError('issued customer invoice is unavailable')
+                    case_email = str(case.get('contact_email') or '').strip().lower()
+                    invoice_email = str((invoice.get('customer') or {}).get('email') or '').strip().lower()
+                    if case_email and invoice_email != case_email:
+                        raise VesperWebChatError('invoice customer binding needs reconciliation')
+                    document = Path(str(invoice.get('document_path') or '')).resolve()
+                    invoice_root = (ROOT / 'state' / 'invoices').resolve()
+                    if invoice_root not in document.parents or not document.is_file():
+                        raise VesperWebChatError('issued customer invoice is unavailable')
+                    self._send(document.read_bytes(), 'text/html; charset=utf-8')
+                elif route == '/api/vesper/web/package':
+                    session = public_web.owning_session(cid, token)
+                    case_id = str(session.get('canonical_case_id') or '')
+                    from presence_core.customer_cases import load_case
+                    from presence_core.web_package_transport import load_authorized_web_package
+                    case = load_case(web._presence_root(DEFAULT_STATE_ROOT), case_id) if case_id else None
+                    if not case:
+                        raise VesperWebChatError('released customer package is unavailable')
+                    package, filename = load_authorized_web_package(web._presence_root(DEFAULT_STATE_ROOT), case)
+                    self.send_download(package.read_bytes(), filename)
                 else:
                     self.send_json({'error': 'not_found'}, HTTPStatus.NOT_FOUND)
             except public_web.PublicWebAccessError as exc:
