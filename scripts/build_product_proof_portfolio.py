@@ -85,6 +85,9 @@ def best_deliverable(repo: Path, product: dict, evidence_as_of: str) -> tuple[Pa
         raise ValueError(f"No in-snapshot deliverable for {product['product_id']}")
 
     if product["product_id"] == "homs_exam":
+        candidate = repo / "deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip"
+        if candidate.is_file() and in_snapshot(candidate, evidence_as_of):
+            return candidate, "homs_grades_01_11_candidate_bundle_plus_full_grade12_nsc_style_candidate", future_count
         candidate = repo / "deliverables/homs_best_randomized_exam_candidates_20261104_v2/HOMS_RANDOMIZED_EXAM_CANDIDATES_GRADES_01_12.zip"
         if candidate.is_file() and in_snapshot(candidate, evidence_as_of):
             return candidate, "saved_homs_grade_01_12_candidate_bundle", future_count
@@ -117,6 +120,20 @@ def best_product_receipt(repo: Path, product: dict, evidence_as_of: str) -> Path
     if evidence:
         return min(evidence, key=lambda item: (scenario_rank(item), len(str(item)), str(item)))
     return None
+
+
+def readiness_verdicts(record: dict) -> dict:
+    """Keep route execution separate from readiness claims."""
+    route = str(record.get("route_status") or "").upper()
+    execution = "PASS" if route == "PASS_FULL_PIPELINE" else ("FAIL" if route.startswith(("FAIL", "ERROR")) else "UNVERIFIED")
+    quality = "PASS" if record.get("independent_professional_signoff") else "UNVERIFIED"
+    acceptance_value = str(record.get("buyer_acceptance") or "").upper()
+    acceptance = "PASS" if acceptance_value in {"ESTABLISHED", "PROVED", "PROVEN"} else ("FAIL" if acceptance_value in {"REJECTED", "FAILED"} else "UNVERIFIED")
+    release = "PASS" if record.get("release_authorized") else "HELD"
+    evidence = "TRACEABLE_UNVALIDATED" if record.get("product_evidence") and record.get("artifact_sha256") else "UNVERIFIED"
+    states = {"execution": execution, "output_quality": quality, "evidence_validity": evidence, "customer_acceptance": acceptance, "release": release}
+    return {"dimensions": states, "professional_readiness": "READY" if all(value == "PASS" for value in states.values()) else "NOT_ESTABLISHED",
+            "interpretation": "A route PASS proves execution only. TRACEABLE_UNVALIDATED proves byte lineage where present; semantic correctness requires an independent subject-matter review."}
 
 
 class LocalReferences(HTMLParser):
@@ -317,6 +334,7 @@ def main() -> int:
                 "release_authorized": bool(product.get("qualification_grants_release_authority", False)),
             }
         )
+        records[-1]["readiness_verdicts"] = readiness_verdicts(records[-1])
 
     # These three creative organs are tracked outside the 68-offer customer catalog.
     # Include their strongest locally recorded media proofs as a clearly separate supplement.
@@ -428,7 +446,7 @@ def main() -> int:
         "qualification_snapshot_sha256": sha256(qualification),
         "source_snapshot_generated_at": snapshot.get("generated_at"),
         "evidence_as_of": snapshot.get("evidence_as_of"),
-        "selection_policy": "One selected customer-facing artifact per catalog offer, paired with its current product-specific receipt or evidence record when present. Selection prefers PDF, then PPTX, DOCX, XLSX, HTML, image, ZIP, Markdown, CSV, JSON; ties prefer a reviewed-final or baseline/normal path. HOMS Exam selects the saved Grades 1-12 candidate ZIP. HTML-local assets are collected when referenced.",
+        "selection_policy": "One selected customer-facing artifact per catalog offer, paired with its current product-specific receipt or evidence record when present. Selection prefers PDF, then PPTX, DOCX, XLSX, HTML, image, ZIP, Markdown, CSV, JSON; ties prefer a reviewed-final or baseline/normal path. HOMS Exam selects the saved Grades 1-11 candidate ZIP plus the complete Grade 12 two-paper candidate ZIP. HTML-local assets are collected when referenced.",
         "important_limit": "These are review proofs and controlled examples. They do not certify professional quality, source truth, customer acceptance, commercial viability, or release authorization. Synthetic inputs remain synthetic.",
         "summary": {
             "catalog_offers": len(records),
@@ -438,6 +456,11 @@ def main() -> int:
             "independent_professional_signoffs": sum(bool(record["independent_professional_signoff"]) for record in records),
             "buyer_acceptance_established": sum(record["buyer_acceptance"] == "ESTABLISHED" for record in records),
             "release_authorized": sum(record["release_authorized"] for record in records),
+            "execution_pass": sum(record["readiness_verdicts"]["dimensions"]["execution"] == "PASS" for record in records),
+            "output_quality_unverified": sum(record["readiness_verdicts"]["dimensions"]["output_quality"] == "UNVERIFIED" for record in records),
+            "evidence_traceable_unvalidated": sum(record["readiness_verdicts"]["dimensions"]["evidence_validity"] == "TRACEABLE_UNVALIDATED" for record in records),
+            "customer_acceptance_unverified": sum(record["readiness_verdicts"]["dimensions"]["customer_acceptance"] == "UNVERIFIED" for record in records),
+            "release_held": sum(record["readiness_verdicts"]["dimensions"]["release"] == "HELD" for record in records),
         },
         "products": records,
         "supplemental_creative_organs": creative_records,
@@ -448,7 +471,8 @@ def main() -> int:
             "product_id", "name", "suite", "disposition", "pilot_candidate", "route_status", "artifact_source_class",
             "future_dated_references_excluded", "primary_artifact", "source_artifact", "artifact_sha256", "artifact_bytes",
             "product_evidence_path", "product_evidence_sha256", "independent_professional_signoff",
-            "buyer_acceptance", "commercial_validation", "release_authorized", "quality_limits",
+            "buyer_acceptance", "commercial_validation", "release_authorized", "execution_verdict",
+            "output_quality_verdict", "evidence_validity_verdict", "customer_acceptance_verdict", "release_verdict", "professional_readiness", "quality_limits",
         ]
         writer = csv.DictWriter(stream, fieldnames=fields)
         writer.writeheader()
@@ -459,6 +483,12 @@ def main() -> int:
                 "product_evidence_path": receipt.get("path", ""),
                 "product_evidence_sha256": receipt.get("sha256", ""),
                 "quality_limits": " | ".join(record["quality_limits"]),
+                "execution_verdict": record["readiness_verdicts"]["dimensions"]["execution"],
+                "output_quality_verdict": record["readiness_verdicts"]["dimensions"]["output_quality"],
+                "evidence_validity_verdict": record["readiness_verdicts"]["dimensions"]["evidence_validity"],
+                "customer_acceptance_verdict": record["readiness_verdicts"]["dimensions"]["customer_acceptance"],
+                "release_verdict": record["readiness_verdicts"]["dimensions"]["release"],
+                "professional_readiness": record["readiness_verdicts"]["professional_readiness"],
             })
 
     cards = []
@@ -511,11 +541,11 @@ This package selects one strongest available customer-facing artifact for each o
 - The artifacts are controlled examples and held review material. **They are not professional certifications, customer acceptance, verified source truth, commercial validation, or release authorization.**
 - The current qualification snapshot records {index['summary']['independent_professional_signoffs']}/68 independent professional sign-offs and {index['summary']['release_authorized']} release authorizations.
 - Product-specific limitations are retained in each portfolio record and the index. Sonoris, Pictora and Dicere media candidates are included as a separate appendix because they are creative organs, not catalog offers.
-- HOMS Exam links to the saved randomized Grades 1–12 exam and memo candidate bundle. Those exams remain drafts requiring educator moderation; Grade 12 is a 50-mark focused assessment, not a full Grade 12 CAPS examination.
+- HOMS Exam links to randomized Grades 1–11 exam and memo candidates and a complete Grade 12 two-paper Business Studies candidate (150 marks per paper, 120 minutes per paper). All remain drafts requiring educator moderation and release authorization.
 
 ## Selection and integrity
 
-Selection is deterministic and based on the current qualification snapshot's `customer_deliverable_refs`, with PDF preferred, followed by editable office files, HTML and other formats. HOMS Exam uses the saved Grades 1–12 candidate ZIP. Local HTML dependencies are copied when referenced. Every copied output and route receipt has a SHA-256 hash in the manifest. Hash verification establishes byte identity only, not content correctness.
+Selection is deterministic and based on the current qualification snapshot's `customer_deliverable_refs`, with PDF preferred, followed by editable office files, HTML and other formats. HOMS Exam uses the saved Grades 1–11 candidate ZIP plus the complete Grade 12 two-paper candidate ZIP. Local HTML dependencies are copied when referenced. Every copied output and route receipt has a SHA-256 hash in the manifest. Hash verification establishes byte identity only, not content correctness.
 """
     (output / "README.md").write_text(readme, encoding="utf-8")
 

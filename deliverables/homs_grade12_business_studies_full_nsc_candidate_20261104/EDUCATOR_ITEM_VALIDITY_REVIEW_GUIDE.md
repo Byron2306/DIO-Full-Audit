@@ -1,0 +1,3 @@
+# Grade 12 item-validity review
+
+Review every item against CAPS coverage and the exact paper structure. For multiple choice, verify there is one defensibly best answer and that all distractors are false for a stated reason. For constructed response, compare every mark in the prompt with a concrete memo point, allow defensible alternatives, and check the cognitive demand demonstrated by the task rather than its label. Check grade-appropriate language, fairness, ambiguity, case sufficiency and timing. Record a decision and initials for every row. Blank/PENDING entries mean unreviewed, not passed.

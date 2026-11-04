@@ -1,0 +1,2605 @@
+{
+  "schema": "dio.product_readiness_verdicts.v1",
+  "generated_at": "2026-11-04T16:30:29+00:00",
+  "qualification_snapshot_sha256": "301ecdc4e2de4cfe36024ba4e8a733617039cdde31a6282ceefd02eee813c16c",
+  "method": "Execution, output quality, evidence validity, customer acceptance and release are independent verdicts. A route PASS never promotes another dimension. TRACEABLE_UNVALIDATED means byte lineage exists, not that the interpretation is correct.",
+  "summary": {
+    "execution": {
+      "PASS": 68
+    },
+    "output_quality": {
+      "UNVERIFIED": 68
+    },
+    "evidence_validity": {
+      "TRACEABLE_UNVALIDATED": 67,
+      "UNVERIFIED": 1
+    },
+    "customer_acceptance": {
+      "UNVERIFIED": 68
+    },
+    "release": {
+      "HELD": 68
+    },
+    "professional_readiness": {
+      "NOT_ESTABLISHED": 68
+    }
+  },
+  "products": [
+    {
+      "product_id": "accessible_publish",
+      "name": "Accessible Publish",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This synthetic browser pass covers at most ten links and ten forms per viewport. It does not verify destination correctness, server-side responses, custom widgets, full journeys, screen-reader behavior, PDF/UA, WCAG conformance or customer acceptance.",
+        "The four-viewport contrast/focus observation is from a deliberately defective synthetic fixture; it is detector evidence, not a customer-site result or an accessibility pass."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/ACCESSIBLE_PUBLISH_CUSTOMER_REVIEW_BUNDLE_20261104_V1/index.html",
+      "artifact_sha256": "943e40cf59de07512933f6adc072bd9326e38a151c1daea251874f84d961c9e6",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/ACCESSIBLE_PUBLISH_LINK_FORM_DEMO_20261102_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4155,
+        "sha256": "2ef57ada710598cec5afa0f77affb7b33b9245f519c9e70b8760067d50fb12be"
+      }
+    },
+    {
+      "product_id": "agent_authority",
+      "name": "Agent Authority",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The example and telemetry are synthetic customer declarations. Seraph hash-chain checks do not establish signer identity, source authenticity, live telemetry coverage or actual deployed-agent behavior; no capability grant, approval or external action results."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/AI_TRUST_REVIEW_SURFACES_20261102_V1/agent-authority/agent-authority/EXECUTION/AI_TRUST_DOSSIER.pdf",
+      "artifact_sha256": "cf8c6677796102c4cdb58672d9e8832d9feae5e34ad80a5a47b1c4f499ebe0b5",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/AI_TRUST_REVIEW_SURFACES_20261102_V1/agent-authority/agent-authority/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4473,
+        "sha256": "4ce535503c5d3243f5723a1dd25e752ac8b8826ac7eb71a9baa7fc5a2d1b5b27"
+      }
+    },
+    {
+      "product_id": "ai_incidentroom",
+      "name": "AI IncidentRoom",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/ai-incidentroom/ai-incidentroom/EXECUTION/AIINCIDENTROOM_REVIEW_PACK.html",
+      "artifact_sha256": "a0d6c3a3b1793355690ea7a9f909f0618e135d1408586d1bf835d382ad54e62f",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/ai-incidentroom/ai-incidentroom/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4058,
+        "sha256": "e7dcd8751471d6206ccba825b83974e209b4b975a59877358023b1519e8eaff3"
+      }
+    },
+    {
+      "product_id": "article_publication",
+      "name": "Article Publication",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Exact source lineage identifies the customer assertions used, but does not verify truth, rights, attribution, factual accuracy or suitability for publication."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/report-pitch/reviewed-final-v4/unseen/article/dio-article-f4948071d3-english.pdf",
+      "artifact_sha256": "f3f50d0d41c891306ca36aea9c6ed5ae86fa2f56abc2adf71ee30f3247013f1a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/ARTICLE_PUBLICATION_BYTE_LINEAGE_20261101_V1/article-publication/article-publication/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 8660,
+        "sha256": "22062847e8983f821d58c0c5185a006da7b2d598c676907775ee1ce5e0541754"
+      }
+    },
+    {
+      "product_id": "article_publication_studio",
+      "name": "Article Publication Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Editorial quality, usage rights and citation authenticity require review; journal acceptance is unproved.",
+        "Byte-accurate source binding verifies where a customer assertion came from, not whether it is true, independently sourced, licensed or suitable for publication. Human editorial and rights review remain required.",
+        "The validator confirms packet row identity and worksheet completeness only. It does not authenticate a source, establish claim truth, rights, privacy, attribution or reviewer competence and cannot authorize publication; separate publication authority remains required."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/report-pitch/reviewed-final-v4/unseen/article/dio-article-f4948071d3-english.pdf",
+      "artifact_sha256": "f3f50d0d41c891306ca36aea9c6ed5ae86fa2f56abc2adf71ee30f3247013f1a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/ARTICLE_PUBLICATION_STUDIO_EDITORIAL_REVIEW_20261104_V2/article-publication-studio/article-publication-studio/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 9012,
+        "sha256": "dce09db7b989c9954c9074f4d3f0455ff888127c62c349460012a558175db2a2"
+      }
+    },
+    {
+      "product_id": "assuranceroom",
+      "name": "AssuranceRoom",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/assuranceroom/normal/customer_delivery/customer-70a65e72f0e64cbaed9f9780-en.pdf",
+      "artifact_sha256": "a25ff7d4b53a557a3e6c4ed0ca88732a639036822d888904bf2e2438a902483a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/assuranceroom/assuranceroom/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4048,
+        "sha256": "42c19543ff6d6e661c80086f37e4df7b82828d4e31ffae3b09db7cea78faf033"
+      }
+    },
+    {
+      "product_id": "auditproof",
+      "name": "AuditProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/auditproof/normal/customer_delivery/customer-7a83630e8dfd4b095671223b-en.pdf",
+      "artifact_sha256": "021dcf631b4d9c1d04f5d86f093bde8b6f21b3ee0c921fe80d6e36a566e64bef",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/auditproof/auditproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4030,
+        "sha256": "7aa116a09df87236441f813af0359731a051fb7989f0ec9936f25835b4743d18"
+      }
+    },
+    {
+      "product_id": "campaign_lab",
+      "name": "Campaign Lab",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled example is synthetic. The diagram describes the campaign production sequence; it does not show authenticated customer software operation or prove the service log, image rights, audience fit or campaign effectiveness. Human brand/content review is required before publication; no spend or external effects are authorized.",
+        "Reviewer entries are local notes and do not establish claims, image rights, audience suitability or campaign performance. They do not publish content or authorize spend."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/CAMPAIGN_LAB_REVIEW_SURFACE_20261102_V1/CAMPAIGN_LAB_REVIEW.html",
+      "artifact_sha256": "5d9020975f1e06d15a51eaa616005a22d994bb3020a4b1508c729eec152538ac",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/CAMPAIGN_LAB_CUSTOMER_EXECUTION_20261102_V2/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 44120,
+        "sha256": "e017719ca92abfccea0e09fe36964f61e5ed764b5fb8a8e31fd0ca321a25e144"
+      }
+    },
+    {
+      "product_id": "certificationproof",
+      "name": "CertificationProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/certificationproof/certificationproof/EXECUTION/CERTIFICATIONPROOF_REVIEW_PACK.html",
+      "artifact_sha256": "d9be1db913cbb35b53a4e969fddbf37ae668322b0112fb4591e0b523566df889",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/certificationproof/certificationproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4078,
+        "sha256": "f12253e3a8659784537d78952b49deb384a39c1a1433a827ac1ef5f2e6242fa5"
+      }
+    },
+    {
+      "product_id": "changeproof",
+      "name": "ChangeProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The packet is synthetic and all system/source/evaluation details remain customer-declared; Seraph did not independently inspect model artifacts or execute evaluations. The review is a change-risk signal, not model approval, production authorization or assurance certification."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/AI_TRUST_REVIEW_SURFACES_20261102_V1/changeproof/changeproof/EXECUTION/AI_TRUST_DOSSIER.pdf",
+      "artifact_sha256": "cbfe75c5e4e1a828451f251e6b6b638677ae4b0aa8d738ccb6b8702a6280da08",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/AI_TRUST_REVIEW_SURFACES_20261102_V1/changeproof/changeproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4466,
+        "sha256": "d5b6a8b76c760c37d712d107cad224874108e9c67f4be8aec6a7eb755c7f41ca"
+      }
+    },
+    {
+      "product_id": "contract_desk",
+      "name": "Contract Desk",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Exact source linkage and weekday arithmetic are verified. The agreement does not define business day or jurisdiction/holiday treatment; the candidate date is not certified, and lateness, breach, legal significance, statement truth, applicability and professional approval remain unestablished."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/customer-pathways-delivery-v8/contract/baseline/customer_delivery/customer-18f17dc7fb19aef6008a7f7b-en.pdf",
+      "artifact_sha256": "0d6a9b0508b0eef90cb25f619fff9f1b51048a5bd29a0d9587cd7e2e0b14b577",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/CONTRACT_DESK_SOURCE_LINEAGE_VALIDATION_20261101_V1/contract-desk/contract-desk/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 6550,
+        "sha256": "320b9bee2122efafd603f362ff85c82ba3e2c08a3bb3f0007ecd31a77d4a1489"
+      }
+    },
+    {
+      "product_id": "contractproof",
+      "name": "ContractProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The controlled example is synthetic. Customer contract/evidence statements remain unverified and all three obligation states require the contract owner and legal reviewer; integrity verification is not a legal opinion, waiver, fulfilment decision or external delivery."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/CONTRACTPROOF_CUSTOMER_EXECUTION_20261102_V1/contractproof/EVIDENCE_PACK.pdf",
+      "artifact_sha256": "be9497eaa9673226e739aa291d6cac05171e631ce88f12c5d2cbf03e152d4b64",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/CONTRACTPROOF_CUSTOMER_EXECUTION_20261102_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 25461,
+        "sha256": "9323a94567567ee62af4b1261fc4c1a35a4f09e9bf5bf6731b1af9be659267f0"
+      }
+    },
+    {
+      "product_id": "controldrift",
+      "name": "ControlDrift",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/controldrift/controldrift/EXECUTION/CONTROLDRIFT_REVIEW_PACK.html",
+      "artifact_sha256": "9a16d7c08ab1733d9b3e63f6c4dfedc051b04f93fdbdc3f4bfa2be2c173e7e92",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/controldrift/controldrift/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4043,
+        "sha256": "a43a2dd21a7fcca9254d0a1ef10290d8cf804edad21cdb71a7eec594eb045eec"
+      }
+    },
+    {
+      "product_id": "corporate_readiness",
+      "name": "Corporate Readiness",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/CORPORATE_READINESS_SOURCE_ISSUE_LINEAGE_20261104_V2/customer_delivery/customer-7d9ab7a0b693c928880403a4-en.pdf",
+      "artifact_sha256": "37708d16c1e6c2217065f1f4a3b430b068ceb1e27bc27552a2017f73d482b3b1",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/SOURCE_PACKET_CUSTOMER_BATCH_20261102_V1/corporate-readiness/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 10846,
+        "sha256": "340c3e4fe63530e3f460247a58e5e7e236076d95a4bf556a74186aeec2c21fd7"
+      }
+    },
+    {
+      "product_id": "cpdproof",
+      "name": "CPDProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "A recorded relevance decision does not establish source authenticity, event date, evidence sufficiency or objective achievement. The synthetic sample remains unverified and no performance rating or employment decision is made."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/CPDPROOF_VAMP_REVIEW_SURFACE_20261104_V3/EXECUTION/vamp_evidence_review/VAMP_EVIDENCE_REVIEW.html",
+      "artifact_sha256": "059ec016009cd12cb3437f5492cf9829ef2030df33b5162453e61df053da702f",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/CPDPROOF_ATTACHMENT_DATE_REVIEW_20261102_V2/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 29385,
+        "sha256": "cdd8852b43b2df78b3c640621e6de7b1eef1b02cef72c26c1998e283344f68ed"
+      }
+    },
+    {
+      "product_id": "criticalai_assurance",
+      "name": "CriticalAI Assurance",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/criticalai-assurance/criticalai-assurance/EXECUTION/CRITICALAIASSURANCE_REVIEW_PACK.html",
+      "artifact_sha256": "a96addac4c8442d2eaf8def921f19b9cb7e51e3aa192d8ddd1da2e6f2fdac887",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/criticalai-assurance/criticalai-assurance/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4088,
+        "sha256": "21818d81cee2736a88863a5c07de7d485a25c6baefcf94c01088f30d6e8a2766"
+      }
+    },
+    {
+      "product_id": "cyberassurance",
+      "name": "CyberAssurance",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/cyberassurance/cyberassurance/EXECUTION/CYBERASSURANCE_REVIEW_PACK.html",
+      "artifact_sha256": "bf0107b17adbf459c7fe9b0dfd3cbb18986066880d92e72acfa08a0916e808b8",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/cyberassurance/cyberassurance/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4055,
+        "sha256": "d7f7562c0bac0c4fd7dc95933eb4337653588f7ab9c695eb8e4698c30777b727"
+      }
+    },
+    {
+      "product_id": "diligenceroom",
+      "name": "DiligenceRoom",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/diligenceroom/normal/customer_delivery/customer-8e5926003ecd3b49311c3954-en.pdf",
+      "artifact_sha256": "0bb04d26c854135cd03453fafe82073f87c7d864b2b2e122555b1874d07c8522",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/diligenceroom/diligenceroom/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4048,
+        "sha256": "ea609e90bc3e88efe8f111659cdf7efdc448a71607158dcc223de85e7a08ebe1"
+      }
+    },
+    {
+      "product_id": "dio_ai_assurance",
+      "name": "DIO AI Assurance",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/AI_TRUST_REVIEW_SURFACES_20261102_V1/dio-ai-assurance/EXECUTION/component_aitrustproof/AI_TRUST_DOSSIER.pdf",
+      "artifact_sha256": "a616e5475c5041a9e548813725333bc19931a0b8587f0bda23dfb8a5e431d229",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/DIO_AI_ASSURANCE_TELEMETRY_CASE_BINDING_20261102_V2/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 16783,
+        "sha256": "c094c271f7d5d7c4fd1d7c695af9630fae8dbf4fd74aeca518f26607f0ce66f9"
+      }
+    },
+    {
+      "product_id": "dio_regops",
+      "name": "DIO RegOps",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The customer register binds source statements and provides review follow-ups; it does not verify truth, legal applicability, regulatory deadlines, filing authority, or owner appointment. The configured readiness result remains REFUSE and professional review is required."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/DIO_REGOPS_CUSTOMER_REVIEW_REGISTER_20261104_V3/dio-regops/dio-regops/dio-regops/EXECUTION/REGOPS_READINESS_PACK.html",
+      "artifact_sha256": "96751e8669fd96e58e1eee826bc5582b49e165623bbb859b2b336f0b60530c92",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/DIO_REGOPS_CUSTOMER_REVIEW_REGISTER_20261104_V3/dio-regops/dio-regops/dio-regops/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4348,
+        "sha256": "547b1c7c343920352041bc1decffff753716f54d93737b18a8d3a82b8bc8bd5d"
+      }
+    },
+    {
+      "product_id": "document_studio_edit",
+      "name": "Document Studio Edit",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "UNVERIFIED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled short manuscript is synthetic. Automated integrity checks do not establish editorial quality; flagged paragraphs remain source-preserved, all edits require a technical editor, and no output is released."
+      ],
+      "source_artifact": "acceptance_runs/68-product-integration-20261027/canonical-repaired/normal/document-studio-edit/EXECUTION/document_studio/PRO-DOCUMENT_STUDIO_EDIT/CLEAN_EDITED_COPY.docx",
+      "artifact_sha256": "4059b408a7b05183841c2372c065f3d2bc15f6c73391abf6450ccd0fa7d525b0",
+      "product_evidence": null
+    },
+    {
+      "product_id": "document_studio_localize",
+      "name": "Document Studio Localize",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The current synthetic draft corrects the observed phrase-level semantic and terminology defects, but glossary terms are unapproved machine proposals. A proficient Afrikaans reviewer must assess the complete translation; linguistic approval and delivery remain blocked."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/DOCUMENT_STUDIO_LOCALIZE_CUSTOMER_EXECUTION_20261103_V6/document_studio/DIO_LOCALIZE_V6/pdf/BILINGUAL_REVIEW_COPY.pdf",
+      "artifact_sha256": "130600e17f1f7410a40054d82724ead8099ec028d7bb4115607c4e16396cdef3",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/DOCUMENT_STUDIO_LOCALIZE_SEMANTIC_TERM_20261101_V4/document-studio-localize/document-studio-localize/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 11135,
+        "sha256": "188dff1520259458df68e8aedd962797bb109e0b1963748f3212bc13aba8e6b7"
+      }
+    },
+    {
+      "product_id": "document_studio_publish",
+      "name": "Document Studio Publish",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source remains an unfinished draft despite the packet approval claim. The format-only route does not correct its wording or verify content, citations, rights or metadata; reconcile source status and complete editorial review before publication."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/DOCUMENT_STUDIO_PUBLISH_CUSTOMER_EXECUTION_20261104_V4/formatted/publication-14c0fe40557275d3-english.pdf",
+      "artifact_sha256": "7db5fc4587b12a9ffa403ac441c7ec84b543b4cfe3f2d03cb1c7c1b40bc6a46d",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/DOCUMENT_STUDIO_PUBLISH_CUSTOMER_EXECUTION_20261104_V4/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4477,
+        "sha256": "60a529e03c72d36cdbb5261540e45d0dff057913ccec0f40b3b3d0a96aaebbee"
+      }
+    },
+    {
+      "product_id": "donorproof",
+      "name": "DonorProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/donorproof/normal/customer_delivery/customer-86ce3c64ff3afd3f29ec40bf-en.pdf",
+      "artifact_sha256": "2a7694e3c6af0eb676b0a162f1c264eb39cc496aaf5295f12297ee2a97766d08",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/donorproof/donorproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4030,
+        "sha256": "60d9396cb565e3e924f963152f4b5f8a925eb64d7dec3316c61442604bd9fb9d"
+      }
+    },
+    {
+      "product_id": "dora_vendor_assurance",
+      "name": "DORA Vendor Assurance",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/dora-vendor-assurance/dora-vendor-assurance/EXECUTION/DORAVENDORASSURANCE_REVIEW_PACK.html",
+      "artifact_sha256": "ab5188716a44839ccaa5dbe20ad974c5651642335ae17dbc994ba01d4bc6ecb6",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/dora-vendor-assurance/dora-vendor-assurance/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4091,
+        "sha256": "b8edf502454a386f22faa22f49a3ded2820a29204c7ecbff92c593945d61d391"
+      }
+    },
+    {
+      "product_id": "dossierops",
+      "name": "DossierOps",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/DOSSIEROPS_REVIEW_SURFACE_ROUTE_20261102_V1/dossierops/dossierops/EXECUTION/DOSSIEROPS_DOSSIER_INDEX.html",
+      "artifact_sha256": "b79bb484e8a870a17bcab12d6227b6467621a226d6b96893778699273615eee0",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/DOSSIEROPS_REVIEW_SURFACE_ROUTE_20261102_V1/dossierops/dossierops/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 11852,
+        "sha256": "4708c71910bc969778f56260292f0181e508344b456c97d36273bb2571163c08"
+      }
+    },
+    {
+      "product_id": "entrepreneurproof",
+      "name": "EntrepreneurProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/ENTREPRENEURPROOF_SOURCE_ISSUE_LINEAGE_20261104_V2/customer_delivery/customer-3e01cb1592e652c08279e1d2-en.pdf",
+      "artifact_sha256": "b228e2d093e3ccfa4d6d2b1f390e22dffdcece3aed13ae5b4feacd6ed90e9a41",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/SOURCE_PACKET_CUSTOMER_BATCH_20261102_V1/entrepreneurproof/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 10959,
+        "sha256": "2488ccec3bddc23c19dcf61ed140d17489bb31b3883c4f591eed0e90592c801a"
+      }
+    },
+    {
+      "product_id": "evidex_evidenceops",
+      "name": "Evidex EvidenceOps",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Obtain underlying dated records and establish population/period comparability; reported quantities are not verified delivery.",
+        "Scope and population values are customer-declared and unverified. Exact metadata matches do not authenticate records or prove delivery; requested fields guide review and do not independently reconcile quantities.",
+        "Attachment hashing and text extraction do not authenticate the sender, establish document truth, verify row completeness or adjudicate support. A reviewer must inspect original records and resolve each discrepancy; no outcome or release is certified."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/customer-pathways-delivery-v8/evidex/baseline/customer_delivery/customer-cb49b4e1e0e9a8afc3d4b8a5-en.pdf",
+      "artifact_sha256": "8a75e49902b93dc8bfb03b9b067a44d7f0f3292228a8cff2ac23044f223f4f8e",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDEX_ATTACHED_SOURCE_DEMO_20261102_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 27578,
+        "sha256": "2e8e5c038a0005741d1d13d1efb9b31c24618a5b048d53ab1223edc027236750"
+      }
+    },
+    {
+      "product_id": "finance_readiness",
+      "name": "Finance Readiness",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Byte-bound record identity is verified. Customer statement truth, source currency, financial conclusions, lender applicability/eligibility and professional approval remain unestablished."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/customer-pathways-delivery-v8/readiness/baseline/customer_delivery/customer-03f3221f017dc2b1c8f3f13b-en.pdf",
+      "artifact_sha256": "8f9076cd91fc8d6d5e9d465144736b076825d8b2cd403a2b9e7b05bb2671680a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/FINANCE_READINESS_BYTE_BINDING_VALIDATION_20261101_V1/finance-readiness/finance-readiness/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 6850,
+        "sha256": "91be9850a1b28b06985e9a475cb60f32c5ee79501ed5eba751bd8cfafbb9024a"
+      }
+    },
+    {
+      "product_id": "finance_readiness_studio",
+      "name": "Finance Readiness Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The route verifies source-row identity and arithmetic over customer assertions only. It does not authenticate records, establish lender requirements, determine affordability or make a financing decision."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/customer-pathways-delivery-v8/readiness/baseline/customer_delivery/customer-03f3221f017dc2b1c8f3f13b-en.pdf",
+      "artifact_sha256": "8f9076cd91fc8d6d5e9d465144736b076825d8b2cd403a2b9e7b05bb2671680a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/FINANCE_READINESS_STUDIO_SOURCE_VALIDATION_20261101_V1/finance-readiness-studio/finance-readiness-studio/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 8879,
+        "sha256": "9e310d5a5fb602b325a740617d77bcf7c7bbbfee19432f0adfe73a70e156c818"
+      }
+    },
+    {
+      "product_id": "fundingfinder",
+      "name": "FundingFinder",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Confirm live availability and full rules with the funder; synthetic applicant examples do not certify eligibility.",
+        "Fresh source retrieval and source-bound pipeline QA do not prove current application availability, full-rule coverage, customer eligibility, funding decisions or buyer acceptance; confirm with each funder.",
+        "This is a synthetic applicant demonstration, not customer acceptance or an eligibility opinion; live availability and complete rules still require funder confirmation.",
+        "The synthetic profile does not establish eligible applicant role, qualifying learning programme, Annexure A priority alignment, programme count, unemployed learner age composition or submission readiness. The official page says applications cannot currently be submitted; monitor Services SETA for application arrangements and confirm current requirements. This route does not certify eligibility or award likelihood.",
+        "The application system is currently unavailable and Services SETA has not published application arrangements in the captured notice. Applicant eligibility, required records, final approved strategic criteria and closing time remain unverified; no eligibility decision, score, award likelihood or submission is asserted."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/controlled-baseline/report/funding-63fbc441301c-english.pdf",
+      "artifact_sha256": "dffebffb55e7ea78d09833e73ca77b4b94013db698e2308a5308c44a1b6850de",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/FUNDINGFINDER_LIVE_CUSTOMER_ROUTE_20261104_V3/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 20862,
+        "sha256": "1ff494c9ba63eef468b4105311562351a6d748f1667a819af7369a700277f68d"
+      }
+    },
+    {
+      "product_id": "grantproof",
+      "name": "GrantProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The controlled packet is synthetic and its source/evidence assertions are not independently verified. Candidate extraction is not legal interpretation; the responsible grant, permit, policy or tender owner must review each candidate and supply authoritative, current records.",
+        "Source coordinates establish where the supplied bytes occur, not whether a clause was interpreted correctly or is legally current. Customer instrument and evidence assertions remain untrusted, and a qualified owner must review them before reliance."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/GRANTPROOF_SOURCE_ALIGNED_REVIEW_20261104_V5/evidence_pack/EVIDENCE_PACK.pdf",
+      "artifact_sha256": "b43dab5d1e0e157424e7669977a97d47a5f829abcc66ccbb176df0c8527f996a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/GRANTPROOF_SOURCE_ALIGNED_REVIEW_20261104_V5/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5553,
+        "sha256": "30837d6e3efff3110bb44ee5a43f9e62e6c9fc00ed63e3faad96242807491aaa"
+      }
+    },
+    {
+      "product_id": "homs_accreditation",
+      "name": "HOMS Accreditation",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The demonstrated checklist is customer-defined, not an independently verified regulator standard. Customer records remain untrusted and unknown in freshness. The current output is a preparation pack with two open gaps; no accreditation decision, attestation or external release is authorized."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/HOMS_ACCREDITATION_CUSTOMER_PACKET_EXECUTION_20261101_V4/customer_delivery/customer-e3cd014ae77c1a60e99438f4-en.docx",
+      "artifact_sha256": "70df625a1ebe853cdc4d5563b24a7323ae11934e328df446c5afbc8270431421",
+      "product_evidence": {
+        "path": "product_evidence_receipt/HOMS_ACCREDITATION_CUSTOMER_PACKET_EVIDENCE_20261101.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/HOMS_ACCREDITATION_CUSTOMER_PACKET_EVIDENCE_20261101.json",
+        "kind": "evidence_record",
+        "bytes": 9182,
+        "sha256": "dd8218eb83f1dd9b06eac4d6ff00807136323d61f6b83a8db6e640ec251e0ad5"
+      }
+    },
+    {
+      "product_id": "homs_assess",
+      "name": "HOMS Assess",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Unseen rubrics and submissions, scoring accuracy and annotation grounding remain to be independently assessed.",
+        "Assessment reasoning quality remains an unresolved qualification gap.",
+        "The fresh route confirms blank fields for blocked/incomplete submissions. It does not exercise a clean, unflagged proposal, and it provides no scoring-accuracy, educator-acceptance or classroom-release evidence.",
+        "The local Granite 3.2 2B response was incomplete for both synthetic learners; this run proves safe score withholding under the observed failure, not marking accuracy or reliable assessment completion.",
+        "The local 2.5B scorer did not satisfy the pointwise response contract in V13, after about 572 seconds. This is a provider completeness/throughput failure, not evidence that the pointwise mark proposals are accurate.",
+        "Matched paired passes do not prove scoring correctness or cross-run stability. Learner A’s 42/50 remains provisional and learner B’s score is withheld; an educator must confirm every mark and feedback line against the memo.",
+        "In V28, the local model still proposed 12/12 on the contradicted graph criterion and left one separate memo point unreturned per learner. Both assessment totals were withheld; the graph proposal remains unaccepted and requires direct educator adjudication. Scoring accuracy and product qualification remain unproved.",
+        "The question-scoped replay uses two synthetic Grade 10 submissions and does not establish marking accuracy, general language coverage, provider reliability, or classroom readiness. Educator adjudication remains required.",
+        "An earlier fresh route did not exercise the targeted definition reversal. The later V3 route exercises one exact wording only; broader concept detection, scoring accuracy and educator acceptance remain unproved, and provider incompleteness persists.",
+        "The interactive form only prepares educator CSVs. The existing validator must check each entry; no score is issued, no classroom release is authorized, and the synthetic route does not establish scoring accuracy or educator acceptance.",
+        "The new route verifies customer packet binding and review-surface delivery, not marking accuracy. The local provider failed its bounded completeness/grounding gate for both learners; no score was issued, and educator review remains required.",
+        "The controlled synthetic comparison improves response completeness and exact-quote coverage only. Both runs remain blocked with blank totals; no scoring-accuracy evidence, educator acceptance or classroom release is established.",
+        "Qwen3 remains unqualified for HOMS Assess in this environment because even the non-thinking prompt-mode probe exceeded practical latency. Granite 3.3 remains the local default, with totals held pending educator review.",
+        "This controlled synthetic Grade 10 comparison verifies clean-run provenance and documents model output variation, not marking accuracy. Pointwise quote gaps remain, all totals are withheld, and educator review is required.",
+        "Lexical overlap cannot determine whether a sentence substantively earns a point. The suggestions are not scoring evidence, automated totals remain withheld, and an educator must verify every point against the full response and memo.",
+        "Run-context hashes support reproducibility and comparison only; they do not prove score stability or marking accuracy. Both synthetic learner totals remain withheld and qualified-educator adjudication is required.",
+        "The safeguard detects this targeted phrasing only; it does not establish general scoring accuracy. The local provider still returned incomplete pointwise responses for both learners, and educators must review every mark and concept flag.",
+        "The locally installed Qwen3 4B candidate has no completed HOMS Assess result; its observed latency/failure makes it unsuitable for the current customer path until a bounded inference configuration is established.",
+        "The withholding gate prevents flagged proposals from appearing as issued scores; it does not establish the correctness of unflagged AI marks. Educator review remains required for every learner and every score.",
+        "This is a review-copy clarity improvement only. The local model still omitted 14 memo points across the two synthetic submissions; no numeric totals were issued, and scoring quality remains unresolved pending model or educator completion.",
+        "This small-model recovery improved point coverage only modestly and did not complete either response. Returned points remain provisional, missing points remain unscored, and HOMS Assess marking quality is unresolved.",
+        "This is a synthetic local-model route improvement, not a scoring-accuracy claim. One point remains unreturned; the fully returned submission still has unresolved marking-quality flags, and educator review is required.",
+        "Both totals remained withheld because unresolved marking-quality flags persisted (23 and 24 per learner in this run). Complete point coverage does not establish scoring accuracy; educator review remains required and classroom release is disabled.",
+        "The generated handoff remains blank; its totals are not calculated. Any later reconciliation still requires educator decisions for every point and every source marking-quality flag; validation does not issue marks or authorize classroom release.",
+        "The local 2B scorer still fails full point coverage despite explicit-zero prompt wording and a bounded missing-point retry. Missing points remain unscored; educator review or a more capable marking model is required. No score or classroom release was issued.",
+        "Question blocks only improve source navigation for human reviewers. They do not award or recommend marks, prove that a response meets a memo point, fix provider completeness, or authorize score issuance or classroom release.",
+        "The complete answer blocks improve educator source review only. Both synthetic learner totals remain withheld for incomplete pointwise responses; scoring accuracy and educator acceptance remain unresolved, and classroom release is unauthorized.",
+        "The numeric conflict rule is deliberately narrow: a numbered motion answer, a memo point with an explicit calculated distance and metric unit, and a directly stated learner distance. This single synthetic case does not establish general numeric contradiction detection or scoring accuracy; totals remain withheld and classroom release is unauthorized.",
+        "Question-scoped quotes establish traceability only, not correctness. This retrospective synthetic audit does not measure marking accuracy or replace educator judgment.",
+        "The recovery prompt and hold behavior are verified; quote recovery did not resolve the small local model’s missing point-level evidence. Educator assessment remains required, and marking accuracy is unproved.",
+        "The corrected point-quote contract is in place, but full-route inference has not completed with the available local models. Assessment totals remain withheld until source-grounded marks and educator review are complete.",
+        "Exact quote visibility improves reviewer traceability; it does not establish that a proposal is correct. All proposal decisions remain blank for educator review.",
+        "Five positive point proposals still lack exact answer quotes, and the response remains incomplete. No assessment total is issued until all points are grounded and an educator adjudicates them.",
+        "This single synthetic-question comparison is diagnostic only, not a scoring-accuracy benchmark. Neither local model completed the quote-grounding contract; educator review remains required and classroom release is unauthorized.",
+        "Question 1.3 remains incomplete for both synthetic learners. Exact quotes establish traceability, not mark correctness; no score is issued and educator review remains required.",
+        "Both model routes remain incomplete on Question 1.3. This experiment does not establish marking accuracy; totals are withheld and educator review remains required.",
+        "Both totals remain blocked by positive point proposals without exact question-scoped quotes and other marking-quality flags, including Learner B’s graph-concept conflict. Completeness does not establish marking correctness; educator adjudication is required.",
+        "Thirty positive point proposals still lack exact source quotes, and Learner B’s graph-concept conflict remains. Both totals are withheld; source traceability is not proof of correct marking.",
+        "This improves review access only; it does not validate the model proposals or reduce the 30 unresolved quote flags. Both learner totals remain withheld, and no marks are issued.",
+        "All diagnostic candidates are explicitly non-evidence. Both Grade 10 totals remain blocked by marking-quality flags; this adds review context only and does not establish scoring accuracy.",
+        "The alternate local model did not complete even a single-question call within the configured timeout. Granite remains the measured path; its full route still blocks both totals on quote-grounding and quality flags."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/HOMS_ASSESS_POINTWISE_QUOTE_SUGGESTIONS_20261102_V5_REVIEW_CONTEXT_BOUND/index.html",
+      "artifact_sha256": "957b391fa8897acdc3913771b4bb6dca263da185f8b1b07bd6b17c2adf3784c0",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/HOMS_ASSESS_TAIL_RECOVERY_20261102_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 10580,
+        "sha256": "e8f774397b34094e8ba4114a1f759a7e24e7c87108bb8f83d383e5cd89a52e73"
+      }
+    },
+    {
+      "product_id": "homs_curriculum",
+      "name": "HOMS Curriculum",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The 12-grade batch uses synthetic plan rows derived from the exam topic map. It validates source binding and candidate-match handling, not customer plan truth, complete CAPS coverage, term fit, curriculum adequacy, school compliance or approval. A curriculum owner must review actual complete school plans; classroom release remains unauthorized."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/HOMS_CURRICULUM_RANDOMIZED_SPINE_CUSTOMER_GRADE_BATCH_20261104_V27/index.html",
+      "artifact_sha256": "fb368a4cd25d9c58780e6b443badb7426f807381635ebcb38631260188898173",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/HOMS_CURRICULUM_RANDOMIZED_SPINE_CUSTOMER_GRADE_BATCH_20261104_V27/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 436,
+        "sha256": "2484230dd02db5875e08051dfe08e28ab856ba04daa1659cdf4623ec4eb4de6f"
+      }
+    },
+    {
+      "product_id": "homs_exam",
+      "name": "HOMS Exam",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Grades 1–11 remain randomized, CAPS-source-mapped draft candidates. Grade 12 now includes two original 150-mark / 120-minute Business Studies papers, each with a marking guideline and item-level educator validity review matrix.",
+        "The Grade 12 item matrix is intentionally blank/PENDING. No independent educator scoring, semantic memo validation, moderation, customer acceptance or release authorization is claimed.",
+        "CAPS source mapping and hash binding do not prove full-year curriculum coverage, item correctness, classroom suitability or DBE endorsement."
+      ],
+      "source_artifact": "deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip",
+      "artifact_sha256": "59727e5a0373c19c00dbfc3ad812ca8ee37136430db94d44313c81eee17b33d2",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "deliverables/homs_best_randomized_exam_candidates_20261104_v2/grade-01/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 8696,
+        "sha256": "ceeada2c2cb230cda2c8ce02202015aa79ed51e09cf90012391e956c702fc0d5"
+      }
+    },
+    {
+      "product_id": "homs_learning_studio",
+      "name": "HOMS Learning Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The planner supplies workflow fields, not lesson content or curriculum approval. Educators must complete and review the plan, confirm prerequisite instruction, examples, formative checks, differentiation, term fit, assessment validity and memo accuracy. Browser drafts are local and optional; educator approval and classroom release remain unrecorded and unauthorized."
+      ],
+      "source_artifact": "deliverables/homs_learning_studio_grade_batch_20261104_V31/index.html",
+      "artifact_sha256": "9556b5b8a58315b1aa0431fae7c9dc3cd1bd4aba0dfc0cf4e3033773f976082d",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/HOMS_LEARNING_STUDIO_CUSTOMER_PACKET_EXECUTION_20261102_G01_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 8200,
+        "sha256": "14751aa3ae012731c4f0c5a0c38ce7f6a8162ecca4ac2f7df80fea200d2af317"
+      }
+    },
+    {
+      "product_id": "homs_moderate",
+      "name": "HOMS Moderate",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "All 12 route runs are controlled synthetic drafts. Structural checks do not establish subject accuracy, CAPS coverage or moderation approval; educator review is required, independent moderation remains NOT ISSUED, and classroom release is unauthorized."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/homs-moderate/homs-moderate/EXECUTION/HOMSMODERATE_REVIEW_PACK.html",
+      "artifact_sha256": "b8dc91b4f331a25dff18bbc62374cf1027eec2e17d0e497c90e0a410b466e5ab",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/homs-moderate/homs-moderate/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4055,
+        "sha256": "ac0cecef9b0c1d31b7536badbd06a5b383601c2c93be4110c2b42bbfe36abb44"
+      }
+    },
+    {
+      "product_id": "impactproof",
+      "name": "ImpactProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/impactproof/normal/customer_delivery/customer-d6d6db68564d3dc53b71db1a-en.pdf",
+      "artifact_sha256": "25060c159298afcccc71b87fd57efc5e6e39a6d8400bcc4c13be461704fd0a4a",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/impactproof/impactproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4036,
+        "sha256": "ac0c9723078c0c5239354c15423438e4d13811fc868c7b8545ed06b736645c50"
+      }
+    },
+    {
+      "product_id": "incidentproof",
+      "name": "IncidentProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/incidentproof/incidentproof/EXECUTION/INCIDENTPROOF_REVIEW_PACK.html",
+      "artifact_sha256": "c448351222bd553615ccbc442c654d696123c60247ae56fe32104eb52de53b26",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/incidentproof/incidentproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4049,
+        "sha256": "5faed906f331ba060803917dc4529f98d33bedb4f17c4b70c7cba9fb235c3e81"
+      }
+    },
+    {
+      "product_id": "investorproof",
+      "name": "InvestorProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This check validates amount extraction, arithmetic and workbook consistency only. The supplied accounts are unaudited customer assertions; no audit opinion, valuation, investor suitability or funding approval is produced."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/INVESTORPROOF_SOURCE_ISSUE_LINEAGE_20261104_V2/customer_delivery/customer-f89b9211e551bfea1044f607-en.pdf",
+      "artifact_sha256": "50020e0bac09a4226d9cce9cfe986676d155ab5fa02eaf3fd204974ac30ed58c",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/INVESTORPROOF_SOURCE_AMOUNT_VALIDATION_20261101_V2/investorproof/investorproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 6982,
+        "sha256": "8c75899982b6ed05abc5b7906bb1a72ba9bac42351f51b1f34429ddc71aff1d6"
+      }
+    },
+    {
+      "product_id": "launch_studio",
+      "name": "Launch Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Brand, claims, rights, destination and release owners require review; no advertising spend or publication is authorized by qualification."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/launch-reviewed_v2/baseline/landing.html",
+      "artifact_sha256": "c18e80c761ba480e0e79819c0bf38ba07cc99e802da34a89193d9dc17ae78b78",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/LAUNCH_STUDIO_CUSTOMER_REVIEW_BUNDLE_20261104_V2/baseline/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 13258,
+        "sha256": "c507dcde8970cbd5af0cf7d337120fe164f68869b0de9e6abebfdac8323afac4"
+      }
+    },
+    {
+      "product_id": "market_radar",
+      "name": "Market Radar",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/MARKET_RADAR_CUSTOMER_EXECUTION_20261104_V3/EXECUTION/MARKET_RADAR_TARGET_BRIEF.md",
+      "artifact_sha256": "b39d669cb7e89b78d3dab4c6c23f21801f3ddd7a809d82ce0986339ad007ec29",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/market-radar/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 8279,
+        "sha256": "2050d45b6bc73d6ecdfd2c77c6263bdc9ebb1ddc6569b3ca1d041b9d06f16285"
+      }
+    },
+    {
+      "product_id": "modelproof",
+      "name": "ModelProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/modelproof/modelproof/EXECUTION/MODELPROOF_REVIEW_PACK.html",
+      "artifact_sha256": "8f2bc98059e9415b437447c3565145f696f459e2d04743cde3b6382e5f6352c0",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/modelproof/modelproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4031,
+        "sha256": "b6e490f55dc8e7f65ee4f50531200ccda8c146b6f79ddb44f11700bd74a0dc0a"
+      }
+    },
+    {
+      "product_id": "offer_lab",
+      "name": "Offer Lab",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/OFFER_LAB_SOURCE_REVIEW_ROUTE_20261104_V5/offer-lab/offer-lab/EXECUTION/OFFER_REVIEW.html",
+      "artifact_sha256": "82bbe4a67369cb941c2828016f0c93d7b2c6e55bca1969cfd7927c6dc4c15a55",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/OFFER_LAB_SOURCE_REVIEW_ROUTE_20261104_V5/offer-lab/offer-lab/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4293,
+        "sha256": "d3270e74f97a797cbab9ff0e4ad0643b90dfc06d42efd137f7f498a9ab0be606"
+      }
+    },
+    {
+      "product_id": "opportunity_foundry",
+      "name": "Opportunity Foundry",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/OPPORTUNITY_FOUNDRY_REVIEW_SURFACE_ROUTE_20261104_V3/opportunity-foundry/EXECUTION/OPPORTUNITY_FOUNDRY_REVIEW.html",
+      "artifact_sha256": "75cf06b72bf1eba55b6bd0899fa1142bb0b3795499cfe77735df4470a8960243",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/opportunity-foundry/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 7331,
+        "sha256": "1d9a4002d2755013a661c8f19da8510ad5b8d03175b4e78d95c191dd3e2ff2bc"
+      }
+    },
+    {
+      "product_id": "permitproof",
+      "name": "PermitProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The controlled packet is synthetic and its source/evidence assertions are not independently verified. Candidate extraction is not legal interpretation; the responsible grant, permit, policy or tender owner must review each candidate and supply authoritative, current records.",
+        "Source coordinates establish where the supplied bytes occur, not whether a clause was interpreted correctly or is legally current. Customer instrument and evidence assertions remain untrusted, and a qualified owner must review them before reliance."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/PERMITPROOF_SOURCE_ALIGNED_REVIEW_20261104_V1/evidence_pack/EVIDENCE_PACK.pdf",
+      "artifact_sha256": "86cc168ce411a57b28e64b13d9553d8348a7355e0d28c24f9ae9ff1fe6df5c9e",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/PERMITPROOF_SOURCE_ALIGNED_REVIEW_20261104_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5557,
+        "sha256": "3ddf349440df5aeda4a4cd1ee2aece58f8f800fb695a3b5fc3e5c18838e74f10"
+      }
+    },
+    {
+      "product_id": "policyproof",
+      "name": "PolicyProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The controlled packet is synthetic and its source/evidence assertions are not independently verified. Candidate extraction is not legal interpretation; the responsible grant, permit, policy or tender owner must review each candidate and supply authoritative, current records.",
+        "Source coordinates establish where the supplied bytes occur, not whether a clause was interpreted correctly or is legally current. Customer instrument and evidence assertions remain untrusted, and a qualified owner must review them before reliance."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/POLICYPROOF_SOURCE_ALIGNED_REVIEW_20261104_V1/evidence_pack/EVIDENCE_PACK.pdf",
+      "artifact_sha256": "b51a3e9746aefde76f6567980a3d4f2df27bae870a5232c98c5b1b3b24c349c7",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/POLICYPROOF_SOURCE_ALIGNED_REVIEW_20261104_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5555,
+        "sha256": "b465e22c18e47a328ffde68a908ce299676439b909e4d31e96934ee77b8b7607"
+      }
+    },
+    {
+      "product_id": "popia_readiness",
+      "name": "POPIA Readiness",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/POPIA_READINESS_SOURCE_ISSUE_LINEAGE_20261104_V2/customer_delivery/customer-f7c60da70f22f851ad194ee6-en.pdf",
+      "artifact_sha256": "40f12ae08e3eb6df6ce0f58e00f8929d8d1650297249d3364eaf8c51b959d901",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/SOURCE_PACKET_CUSTOMER_BATCH_20261102_V1/popia-readiness/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 10968,
+        "sha256": "5c8c6db9c39dd60f13eec7aec3d9d48194609ffe24f2b1e0b1df618d265cf83d"
+      }
+    },
+    {
+      "product_id": "professional_correspondence",
+      "name": "Professional Correspondence",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The sender reviews facts, tone, position and commitments; sending authority is separate.",
+        "The correspondence validator checks worksheet completeness and source-text identity only. It does not verify facts or legal positions; the named sender must decide tone, commitments and whether to send."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/customer-pathways-delivery-v8/correspondence/baseline/customer_delivery/customer-96c7c234f19d3b49c93168a9-en.pdf",
+      "artifact_sha256": "e9498f2a5e256e7e109534ec4aaf19d90a5d75d825a14f79688f4d0d40f15ed5",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_PACKAGE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/CORRESPONDENCE_EDITOR_REVIEW_VALIDATION_20261102_V4/professional-correspondence/CUSTOMER_PACKAGE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5677,
+        "sha256": "cb761b4a0abe181215f47874c1520738f7ed4685945dd16917c33f1063760c21"
+      }
+    },
+    {
+      "product_id": "professional_correspondence_studio",
+      "name": "Professional Correspondence Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The sender reviews facts, tone, position and commitments; sending authority is separate.",
+        "The correspondence validator checks worksheet completeness and source-text identity only. It does not verify facts or legal positions; the named sender must decide tone, commitments and whether to send."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/customer-pathways-delivery-v8/correspondence/baseline/customer_delivery/customer-96c7c234f19d3b49c93168a9-en.pdf",
+      "artifact_sha256": "e9498f2a5e256e7e109534ec4aaf19d90a5d75d825a14f79688f4d0d40f15ed5",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_PACKAGE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/CORRESPONDENCE_EDITOR_REVIEW_VALIDATION_20261102_V4/professional-correspondence-studio/CUSTOMER_PACKAGE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5677,
+        "sha256": "1f3c3d6150201ecc91bfc6aebd981fed1f9713be44335a22a5fee39b66d3d015"
+      }
+    },
+    {
+      "product_id": "programmeproof",
+      "name": "ProgrammeProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/programmeproof/normal/customer_delivery/customer-0fb615f52f39a98391cec9ee-en.pdf",
+      "artifact_sha256": "7f5a7eb072c7153a9a77836b618f4fc2a64499068ed27ec412f6f4caea2111c9",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/programmeproof/programmeproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4054,
+        "sha256": "81d9a560bfb166d17da29a38904e75b46bc32e63fa84ae85596ac900475ff112"
+      }
+    },
+    {
+      "product_id": "projectproof",
+      "name": "ProjectProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/projectproof/projectproof/EXECUTION/PROJECTPROOF_REVIEW_PACK.html",
+      "artifact_sha256": "c9a81b06c004e30f3e7d78d467fcac3fd205dece49a774708a18097df4b91efc",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/projectproof/projectproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4042,
+        "sha256": "5449f154f9a4bed7a172f3c6464143c380fac3002527b0e694cbf4da6f9bb6f3"
+      }
+    },
+    {
+      "product_id": "promotionproof",
+      "name": "PromotionProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "A recorded relevance decision does not establish source authenticity, event date, evidence sufficiency or objective achievement. The synthetic sample remains unverified and no performance rating or employment decision is made."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/PROMOTIONPROOF_VAMP_REVIEW_SURFACE_20261104_V3/EXECUTION/vamp_evidence_review/VAMP_EVIDENCE_REVIEW.html",
+      "artifact_sha256": "0b9452a0f3201b29d69a0fea925fef91dbcdf8dc3d12a70c56300c16e631a7f3",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/PROMOTIONPROOF_ATTACHMENT_RECONCILIATION_20261102_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 27768,
+        "sha256": "eacd8fae857a1886d3551f78c383aeb61c4ebc83859fee7f3bbb9c3f8ed4df00"
+      }
+    },
+    {
+      "product_id": "qualityproof",
+      "name": "QualityProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/qualityproof/normal/customer_delivery/customer-c158299dd6f7c6095781b0a9-en.pdf",
+      "artifact_sha256": "21328005341fa575435c07bf5f3641f13eb75ec7c459d308b7b612da527544fd",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/qualityproof/qualityproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4042,
+        "sha256": "ef8c3d3b63925d0170bd4e68a44ba4377bd344b7e8576f479f0dfc8a7efea48e"
+      }
+    },
+    {
+      "product_id": "releaseproof",
+      "name": "ReleaseProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/releaseproof/releaseproof/EXECUTION/RELEASEPROOF_REVIEW_PACK.html",
+      "artifact_sha256": "f38412dd2c99aa6bba8e5958e321fb72d3ad4cb322a06b9d7abdf947a99072e8",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/releaseproof/releaseproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4043,
+        "sha256": "cad851f6396181dd91c52c369e6ead5f6d74de2aca05a09750c278a6f88d9345"
+      }
+    },
+    {
+      "product_id": "report_pitch_studio",
+      "name": "Report & Pitch Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "Byte-accurate source lineage identifies the customer statements used but does not verify truth, source authenticity, rights, editorial quality or publication suitability."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/report-pitch/reviewed-final-v4/unseen/pitch/pitch_review.pdf",
+      "artifact_sha256": "4b5d765f9ba7313b2ef4b0fd071c99dc43c993c254b272948e5c50d040121580",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/REPORT_PITCH_SOURCE_BYTE_LINEAGE_20261102_V2/report-pitch-studio/report-pitch-studio/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 9786,
+        "sha256": "f89b04092e02092cd921f5b82f6ddc698344c9fb18b158e2b602a17f500594af"
+      }
+    },
+    {
+      "product_id": "site_studio",
+      "name": "Site Studio",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/SITE_STUDIO_PROFESSIONAL_DRAFT_20261104_V3/EXECUTION/site_draft/marketfront/index.html",
+      "artifact_sha256": "c7fe8c571c064f0ae84f9c036fa6c96a3f905453f3483d1969f88be1a0728874",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/SITE_STUDIO_ACCESSIBILITY_ROUTE_20261102_V1/site-studio/site-studio/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5340,
+        "sha256": "4a16f09ae178618aaead4dcd8e05c223cba74af79b9ebba07dd1dbec5628c54e"
+      }
+    },
+    {
+      "product_id": "sophia_integrity",
+      "name": "Sophia Integrity",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "The live process proof covers five synthetic acceptance runs only. Its hash chain is unsigned and has no trusted clock or independent collector; it does not prove model internals, customer acceptance, academic source truth, or review correctness."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/SOPHIA_SERAPH_PROCESS_PROOF_20261102_V3_LIVE/sophia-integrity/EXECUTION/profile_review/SOPHIAINTEGRITY_REVIEW_PACK.html",
+      "artifact_sha256": "58300c991c9a089bff7d1fd6948c7b775e263319e0ad400c7f240f1d5e605208",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/sophia-integrity/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 16543,
+        "sha256": "cc3001068ad7386216f797f029c92d22b5d8876d8046051d7fefd748ee7d4e69"
+      }
+    },
+    {
+      "product_id": "sophia_research",
+      "name": "Sophia Research",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "The live process proof covers five synthetic acceptance runs only. Its hash chain is unsigned and has no trusted clock or independent collector; it does not prove model internals, customer acceptance, academic source truth, or review correctness."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/SOPHIA_SERAPH_PROCESS_PROOF_20261102_V3_LIVE/sophia-research/EXECUTION/profile_review/SOPHIARESEARCH_REVIEW_PACK.html",
+      "artifact_sha256": "4bdae5e08642c90c8688fe350c0ec213c42edb59e396b3b3dbdc11affc504c14",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/sophia-research/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 16508,
+        "sha256": "f11ba1cc99f850b3f9ebe5754c4ff096c1f8160c2c4c735c6592272b921d9631"
+      }
+    },
+    {
+      "product_id": "sophia_review",
+      "name": "Sophia Review",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "The live process proof covers five synthetic acceptance runs only. Its hash chain is unsigned and has no trusted clock or independent collector; it does not prove model internals, customer acceptance, academic source truth, or review correctness."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/SOPHIA_SERAPH_PROCESS_PROOF_20261102_V3_LIVE/sophia-review/EXECUTION/sophia_native/PRO-SOPHIA-REVIEW/PRO-SOPHIA-REVIEW_SOPHIA_REVIEW_PACK.zip",
+      "artifact_sha256": "549e8e02aed5fe257d7b8316a5f174ff27ed7c14c9dbfcd827a8ac50a64edd4f",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/sophia-review/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 14496,
+        "sha256": "7548a7f88d4601025cb8fadd166b612f59d87e44041e066e88d2f58f9754fcc1"
+      }
+    },
+    {
+      "product_id": "sophia_supervisor",
+      "name": "Sophia Supervisor",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "The live process proof covers five synthetic acceptance runs only. Its hash chain is unsigned and has no trusted clock or independent collector; it does not prove model internals, customer acceptance, academic source truth, or review correctness."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/SOPHIA_SERAPH_PROCESS_PROOF_20261102_V3_LIVE/sophia-supervisor/EXECUTION/profile_review/SOPHIASUPERVISOR_REVIEW_PACK.html",
+      "artifact_sha256": "5e29bdb5e7b27c6ed43831981b3e9aa479c1cb30440968234242c412a686ce7f",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/sophia-supervisor/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 16580,
+        "sha256": "e51fb2d42cff90e8e590b143531762fea30f280bfbf5c0463d2705669e3fc5b8"
+      }
+    },
+    {
+      "product_id": "sophia_tutor",
+      "name": "Sophia Tutor",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created.",
+        "The live process proof covers five synthetic acceptance runs only. Its hash chain is unsigned and has no trusted clock or independent collector; it does not prove model internals, customer acceptance, academic source truth, or review correctness."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/SOPHIA_SERAPH_PROCESS_PROOF_20261102_V3_LIVE/sophia-tutor/EXECUTION/profile_review/SOPHIATUTOR_REVIEW_PACK.html",
+      "artifact_sha256": "c382f7896dc9a676d89eccff386e7282af1059af4cdcd83529d22e7298606113",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/NATIVE_PACKET_CUSTOMER_EXECUTIONS_20261102_V1/sophia-tutor/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 16395,
+        "sha256": "3710b14f3d5430e0f92d3302f6b2b75fb77aa01cca6d7bf19cec6fb2d3fb435b"
+      }
+    },
+    {
+      "product_id": "suppliercyberproof",
+      "name": "SupplierCyberProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/suppliercyberproof/suppliercyberproof/EXECUTION/SUPPLIERCYBERPROOF_REVIEW_PACK.html",
+      "artifact_sha256": "31a54ac9e62c6caa8154abb9ef9277fc2e3af7301f7dba5aff388db839495063",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/suppliercyberproof/suppliercyberproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4079,
+        "sha256": "b02edb3fd5ac061385ab8625f5f95efb18a762247cc9f7899f3c188d8588724a"
+      }
+    },
+    {
+      "product_id": "tenderproof",
+      "name": "TenderProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The controlled packet is synthetic and its source/evidence assertions are not independently verified. Candidate extraction is not legal interpretation; the responsible grant, permit, policy or tender owner must review each candidate and supply authoritative, current records.",
+        "Source coordinates establish where the supplied bytes occur, not whether a clause was interpreted correctly or is legally current. Customer instrument and evidence assertions remain untrusted, and a qualified owner must review them before reliance."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/TENDERPROOF_SOURCE_ALIGNED_REVIEW_20261104_V1/evidence_pack/EVIDENCE_PACK.pdf",
+      "artifact_sha256": "74a41b5c4e38c3f6fb9a196e4c7633bd3093a0a4d3cffc19bff43f9a9e38ccec",
+      "product_evidence": {
+        "path": "product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/TENDERPROOF_SOURCE_ALIGNED_REVIEW_20261104_V1/CUSTOMER_EXECUTION_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 5897,
+        "sha256": "c99cc92947fa01a247e57f10bdeb3f6fffb96317075dfa2a9506244cba47a80e"
+      }
+    },
+    {
+      "product_id": "vamp_performance",
+      "name": "VAMP Performance",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "The declared review period, extracted objectives and source-fragment anchors match the supplied register. Candidate links are not verified evidence; underlying artifacts, event dates, authenticity, sufficiency and achievement remain unverified. No employee rating or employment decision is made.",
+        "A recorded relevance decision does not establish source authenticity, event date, evidence sufficiency or objective achievement. The synthetic sample remains unverified and no performance rating or employment decision is made."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/vamp-quality/customer-release-candidate/customer_delivery/customer-fe243ba2c5cb967046b8e162-en.pdf",
+      "artifact_sha256": "d3a42b6f32b63c1bbc1b134fd91b9ae3259a73d83bca3ffe959034efcd6b1b4d",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/VAMP_REVIEW_WINDOW_BYTE_BINDING_20261101_V1/vamp-performance/vamp-performance/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 9663,
+        "sha256": "0844e5764564edd85216dcf113a50deb101dd92d456ae47f901783f6b3e6eb61"
+      }
+    },
+    {
+      "product_id": "vendorproof",
+      "name": "VendorProof",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This execution uses synthetic acceptance inputs. It proves only the current bounded customer-route behavior and artifact integrity; source truth, domain conclusions, customer acceptance and professional sign-off remain unestablished. Human review is required before any consequential use."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/EIGHT_SPECIALIST_CUSTOMER_QUALIFICATION_20261102_V2/vendorproof/normal/customer_delivery/customer-e96ce24adaa56210f7183a25-en.pdf",
+      "artifact_sha256": "756befc7e05603fdc5d231db1e4a16bf79128e1606102abe8e10bc94dfa2a52f",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/EVIDENCE_PROFILE_REVIEW_SURFACE_BATCH_20261102_V1/vendorproof/vendorproof/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4036,
+        "sha256": "e743761c15c0f5d3d7283954c61c243566b91ed5a9da245e87d191f4f3a2c49d"
+      }
+    },
+    {
+      "product_id": "vesper_desk",
+      "name": "Vesper Desk",
+      "execution": {
+        "verdict": "PASS",
+        "evidence": "PASS_FULL_PIPELINE"
+      },
+      "output_quality": {
+        "verdict": "UNVERIFIED",
+        "evidence": "no_independent_quality_signoff_recorded"
+      },
+      "evidence_validity": {
+        "verdict": "TRACEABLE_UNVALIDATED",
+        "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
+      },
+      "customer_acceptance": {
+        "verdict": "UNVERIFIED",
+        "evidence": "NOT_ESTABLISHED"
+      },
+      "release": {
+        "verdict": "HELD",
+        "evidence": "release authorization absent"
+      },
+      "professional_readiness": "NOT_ESTABLISHED",
+      "limitations": [
+        "This controlled route execution uses synthetic acceptance source records and does not establish customer acceptance or source truth. Review all source-derived output, domain assumptions and unresolved exceptions before consequential use; no professional sign-off or external release is created."
+      ],
+      "source_artifact": "acceptance_runs/68-product-sellability-20261027/VESPER_DESK_SOURCE_REVIEW_ROUTE_20261102_V3/vesper-desk/vesper-desk/EXECUTION/VESPER_REVIEW.html",
+      "artifact_sha256": "4fae3bf5f5f820d5185fea27138d1f080179ef72b939b1020677b7776ff85880",
+      "product_evidence": {
+        "path": "product_evidence_receipt/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "source_path": "acceptance_runs/68-product-sellability-20261027/VESPER_DESK_SOURCE_REVIEW_ROUTE_20261102_V3/vesper-desk/vesper-desk/PROFESSIONAL_EVIDENCE_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4229,
+        "sha256": "36e37083e56a9aaf5f1ce569b32d6e8bf944107c5345a9027c72d3589bae45f1"
+      }
+    }
+  ]
+}

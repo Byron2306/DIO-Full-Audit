@@ -1,0 +1,95 @@
+{
+  "schema": "dio.homs.grade12.full_nsc_candidate.v1",
+  "grade": 12,
+  "subject": "Business Studies",
+  "random_seed": 20261101,
+  "papers": [
+    {
+      "paper": 1,
+      "topics": "Business Environments and Business Operations",
+      "marks": 150,
+      "duration_minutes": 120
+    },
+    {
+      "paper": 2,
+      "topics": "Business Ventures and Business Roles",
+      "marks": 150,
+      "duration_minutes": 120
+    }
+  ],
+  "source": {
+    "title": "CAPS Business Studies Grades 10\u201312",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=zLnOddukw-4%3d&tabid=570&portalid=0&mid=1558",
+    "sha256": "e6f0a21b96fa87ccfccb732a9240a579bf0157916b86a1cdd98a2876cf76db27"
+  },
+  "exam_guideline_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=xNNzxwX_fBs%3D&forcedownload=true&mid=8872&portalid=0&tabid=2512",
+  "status": "DRAFT_REQUIRES_EDUCATOR_MODERATION",
+  "release_authorized": false,
+  "artifacts": [
+    {
+      "path": "CANDIDATE_MANIFEST.json",
+      "bytes": 2646,
+      "sha256": "1e3e3ee09ac7b282aff0c7b11fbd5dea4371828369228e0ab94517b8d25513c5"
+    },
+    {
+      "path": "EDUCATOR_ITEM_VALIDITY_REVIEW.csv",
+      "bytes": 15261,
+      "sha256": "e0872ad845568826c920c266842dc894025471c9cd69c4a50be5f71d31dc084d"
+    },
+    {
+      "path": "EDUCATOR_ITEM_VALIDITY_REVIEW_GUIDE.md",
+      "bytes": 602,
+      "sha256": "6f1900495b275a5ed1dc42c1d2053f33a3e6b9551f6059123bff744bab15137f"
+    },
+    {
+      "path": "HOMS_GRADE12_FULL_NSC_CANDIDATE.zip",
+      "bytes": 225843,
+      "sha256": "2f85480c4ea2019ab14ae3ef6f9cd99ca044f4c90f28fd018f1f94db8d53bdd7"
+    },
+    {
+      "path": "PAPER_1_EXAM.html",
+      "bytes": 9080,
+      "sha256": "bb610b18563a24acc64d407ddfefa36640f0b0f9fca0d70a9f04b18dfee5d152"
+    },
+    {
+      "path": "PAPER_1_EXAM.pdf",
+      "bytes": 108734,
+      "sha256": "eefe97994aa3ced081f8a2daf93e1fad28a4b89073f56491f92150b2e52de2cb"
+    },
+    {
+      "path": "PAPER_1_MEMO.html",
+      "bytes": 9926,
+      "sha256": "520bbbbc816af1f971d375b0bf5dd1ae99f78156276c032ab817836d9e7e76c1"
+    },
+    {
+      "path": "PAPER_1_MEMO.pdf",
+      "bytes": 101268,
+      "sha256": "f8fe235f2cb4714dc8cc2f244134885ed62ed7a6203b6452bf63b9877385c953"
+    },
+    {
+      "path": "PAPER_2_EXAM.html",
+      "bytes": 9039,
+      "sha256": "1d1f0ab56b589625c53b792800ef39e92922f3ecaafc34b94abe7420f83cf290"
+    },
+    {
+      "path": "PAPER_2_EXAM.pdf",
+      "bytes": 107591,
+      "sha256": "50ab43a4f714f2fa05907269f420cf7ea0e3a38aeeaddeb2045e5a4aadc00b71"
+    },
+    {
+      "path": "PAPER_2_MEMO.html",
+      "bytes": 10170,
+      "sha256": "91862214155dfad076a652f2efa9583f5a75ab9a814839eec52173fe44d0c032"
+    },
+    {
+      "path": "PAPER_2_MEMO.pdf",
+      "bytes": 101743,
+      "sha256": "2a1237a10c27501cf288692af6455bc7f994a0439aec12b3b7511e0e4c17d26e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 630,
+      "sha256": "c18c5a41ae265ffa6a7650a41f64f6aef7c579e4c324c3ebdee381f5baed4a79"
+    }
+  ]
+}
