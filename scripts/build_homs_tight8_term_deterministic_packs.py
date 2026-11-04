@@ -30,6 +30,7 @@ from apply_homs_design_law import (  # noqa: E402
 from attach_homs_source_assets import DEFAULT_BANK as DEFAULT_SOURCE_BANK, attach_sources  # noqa: E402
 from build_homs_tight8_term_contextual_packs import TERM_FOCI, TIGHT8  # noqa: E402
 from run_hymark_exam_builder import (  # noqa: E402
+    load_grade_profile,
     load_subject_profile,
     sum_question_marks,
     sum_rubric_marks,
@@ -48,6 +49,17 @@ SUBJECT_META = {
     "life_sciences": ("Life Sciences", "fet.life_sciences", "data_diagram_practical_investigation", "English"),
     "geography": ("Geography", "fet.geography", "source_based_plus_extended_response", "English"),
     "history": ("History", "fet.history", "source_based_plus_essay", "English"),
+}
+
+QUESTION_FAMILIES = {
+    "english_language": ["literal_comprehension", "analyse_tone_or_register", "evaluate_visual_message", "summarise_key_points", "edit_language", "analyse_tone_or_register", "edit_language", "compose_extended_response"],
+    "afrikaans_language": ["letterlike_begrip", "toon_of_register_analise", "visuele_boodskap_evalueer", "opsom", "taalredigering", "toon_of_register_analise", "taalredigering", "uitgebreide_skryfreaksie"],
+    "life_orientation": ["identify_issue", "evaluate_choice_or_consequence", "propose_support_strategy", "evaluate_choice_or_consequence", "justify_recommendation", "reflect_on_personal_action"],
+    "mathematics": ["solve_equation", "interpret_function", "calculate_measure", "analyse_data", "prove_geometry_statement"],
+    "physical_sciences": ["define_law_or_concept", "interpret_graph", "explain_relationship", "calculate_with_formula", "evaluate_investigation", "analyse_apparatus", "evaluate_investigation", "explain_relationship"],
+    "life_sciences": ["define_term", "interpret_graph", "explain_process", "predict_outcome", "evaluate_investigation", "evaluate_investigation", "evaluate_investigation", "explain_process"],
+    "geography": ["read_map_evidence", "explain_physical_process", "analyse_graph_or_table", "compare_spatial_patterns", "evaluate_human_environment_interaction", "write_extended_geographical_response"],
+    "history": ["contextualise_source", "compare_sources", "evaluate_reliability", "compare_sources", "explain_causation", "argumentative_essay"],
 }
 
 
@@ -215,7 +227,7 @@ def generic_sections(subject_id: str, focus: dict[str, str]) -> list[dict[str, A
     if subject_id in {"physical_sciences", "life_sciences"}:
         return [
             {"title": "Section A: Concepts And Data", "mode": "data_response", "instructions": "Use the supplied data, diagram or graph.", "stimulus": f"Data/diagram stimulus linked to {focus['focus']}.", "questions": [
-                q("1.1", "Define one key concept from the term focus.", 2, ["Definition scientifically accurate."]),
+                q("1.1", "State one key concept from the term focus and explain how it applies to the supplied context.", 2, ["Concept accurately stated.", "Application to context is relevant."]),
                 q("1.2", "Describe the trend or relationship shown by the supplied data.", 5, ["Trend described.", "Evidence cited."]),
                 q("1.3", "Explain the process or principle using correct terminology.", 8, ["Correct terms.", "Logical explanation."]),
                 q("1.4", "Calculate or infer a result from the supplied values and show working where needed.", 5, ["Working shown.", "Answer accurate."]),
@@ -272,11 +284,34 @@ def rubric_for(sections: list[dict[str, Any]]) -> list[dict[str, Any]]:
     ]
 
 
+def apply_question_contract(sections: list[dict[str, Any]], subject_id: str) -> None:
+    """Give deterministic items the same explicit ontology fields as model items."""
+    families=iter(QUESTION_FAMILIES[subject_id])
+    for section in sections:
+        for question in section.get("questions") or []:
+            text=str(question.get("question") or "").casefold()
+            question["question_family"]=next(families)
+            if any(v in text for v in ("evaluate", "recommend", "justify", "reliable", "sustainable", "judge")):
+                bloom="evaluate"
+            elif any(v in text for v in ("summary", "summarise", "opsomming", "opsom")):
+                bloom="analyze"
+            elif any(v in text for v in ("create", "write", "compose", "action plan", "essay", "produce", "skryf")):
+                bloom="create"
+            elif any(v in text for v in ("analyse", "analyze", "compare", "interpret", "trend", "relationship", "pattern", "viewpoint", "contextualise", "kontekstualiseer")):
+                bloom="analyze"
+            elif any(v in text for v in ("calculate", "solve", "complete", "apply", "rewrite", "edit", "identify", "state", "describe", "define", "explain", "verduidelik", "noem")):
+                bloom="apply"
+            else:
+                bloom="apply"
+            question["bloom_level"]=bloom
+
+
 def build_pack(subject_id: str, term: str) -> dict[str, Any]:
     subject, profile_id, family, language = SUBJECT_META[subject_id]
     focus = TERM_FOCI[subject_id][term]
     sections = language_sections(subject_id, focus) if subject_id in {"english_language", "afrikaans_language"} else generic_sections(subject_id, focus)
     title_subject = "Afrikaans" if subject_id == "afrikaans_language" else subject
+    apply_question_contract(sections, subject_id)
     pack = {
         "schema": "knowedge.homs_assessment_pack.v1",
         "subject": title_subject,
@@ -301,6 +336,34 @@ def build_pack(subject_id: str, term: str) -> dict[str, Any]:
         "generation_backend": "deterministic_caps_term_template_with_provider_enrichment_ready",
     }
     return pack
+
+
+def link_visual_references(pack: dict[str, Any]) -> None:
+    """Make learner questions point to the source pages actually embedded."""
+    assets=pack.get("source_assets") or []
+    if not assets: return
+    refs=[(f"Source {i}",asset) for i,asset in enumerate(assets,start=1)]
+    def choose(family: str):
+        preferred=(
+            ["map_extract","topographic_map_and_orthophoto","synoptic_weather_map"] if family=="read_map_evidence" else
+            ["graph_or_chart","data_table"] if family in {"analyse_graph_or_table","interpret_graph","analyse_data"} else
+            ["text_extract"] if family in {"literal_comprehension","letterlike_begrip","contextualise_source","evaluate_reliability","summarise_key_points","opsom"} else
+            ["photograph_or_image","cartoon"] if family in {"evaluate_visual_message","visuele_boodskap_evalueer"} else
+            ["diagram_or_model"] if family=="label_diagram" else [])
+        selected=[(name,a) for name,a in refs if a.get("source_type") in preferred]
+        if not selected: selected=refs[:1]
+        if family in {"compare_sources","compare_spatial_patterns"} and len(selected)<2:
+            selected=refs[:2]
+        return selected
+    for section in pack.get("sections") or []:
+      for question in section.get("questions") or []:
+        selected=choose(str(question.get("question_family") or ""))
+        if not selected: continue
+        labels=[name for name,_ in selected]
+        question["source_reference"]=labels
+        note="Refer to "+(" and ".join(labels))+"."
+        if note.casefold() not in str(question.get("question") or "").casefold():
+            question["question"]=str(question.get("question") or "").rstrip()+" ("+note+")"
 
 
 def convert_pdf(docx_path: Path, out_dir: Path) -> Path | None:
@@ -338,11 +401,12 @@ def build_one(subject_id: str, term: str, out_root: Path) -> dict[str, Any]:
         dry_run=False,
     )
     pack = load_design_json(job_dir / "assessment_pack.json")
+    link_visual_references(pack)
     pack.setdefault("source_embedding", {})
     pack["source_embedding"]["generated_visual_policy"] = "suppress_generated_visuals_when_source_assets_present"
     write_json(job_dir / "assessment_pack.json", pack)
 
-    request = {"total_marks": 50, "visual_blueprint": pack["visual_blueprint"], "subject_profile": load_subject_profile(subject_id), "term": term}
+    request = {"total_marks": 50, "grade_profile": load_grade_profile(12), "visual_blueprint": pack["visual_blueprint"], "subject_profile": load_subject_profile(subject_id), "term": term}
     errors = validate_assessment_pack(pack, request)
     design_receipt = apply_design_law(job_dir, DEFAULT_DESIGN_LAW, DEFAULT_ASSESSMENT_DESIGN)
     design_law = load_design_json(DEFAULT_DESIGN_LAW)

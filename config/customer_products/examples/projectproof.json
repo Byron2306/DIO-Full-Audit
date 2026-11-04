@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-PROJECTPROOF-001",
+  "title": "Project delivery evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "PLAN",
+      "text": "Project baseline: customer onboarding release was due 2026-10-15; approved scope includes identity integration, migration, and staff training."
+    },
+    {
+      "source_id": "STATUS",
+      "text": "Delivery update: identity integration passed staging on 2026-10-12; migration rehearsal completed for 70% of records; staff training attendance is not attached."
+    },
+    {
+      "source_id": "DEPENDENCY",
+      "text": "Dependency note: production credential approval remains pending with the customer security team; no signed acceptance or revised launch date is supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Establish approved scope and baseline",
+      "source_id": "PLAN",
+      "quote": "customer onboarding release was due 2026-10-15; approved scope includes identity integration, migration, and staff training",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Assess delivery evidence against planned scope",
+      "source_id": "STATUS",
+      "quote": "identity integration passed staging on 2026-10-12; migration rehearsal completed for 70% of records; staff training attendance is not attached",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Record dependency and acceptance gaps",
+      "source_id": "DEPENDENCY",
+      "quote": "production credential approval remains pending with the customer security team; no signed acceptance or revised launch date is supplied",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "PLAN",
+      "quote": "approved scope includes identity integration, migration, and staff training",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "STATUS",
+      "quote": "identity integration passed staging on 2026-10-12",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "DEPENDENCY",
+      "quote": "production credential approval remains pending with the customer security team; no signed acceptance or revised launch date is supplied"
+    }
+  ]
+}

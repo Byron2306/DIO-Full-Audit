@@ -1,0 +1,56 @@
+{
+  "case_id": "READINESS-104",
+  "title": "Moya finance application",
+  "owner_authorized": true,
+  "sources": [
+    {
+      "source_id": "CHECKLIST",
+      "text": "Company registration document. Latest management accounts."
+    },
+    {
+      "source_id": "COMPANY",
+      "text": "Moya Clinic registration CK-104."
+    },
+    {
+      "source_id": "ACCOUNTS",
+      "text": "2026 Q3 ZAR: revenue 100000; cost of sales 60000; current assets 150000; current liabilities 100000."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Company registration document",
+      "source_id": "CHECKLIST",
+      "quote": "Company registration document.",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Latest management accounts",
+      "source_id": "CHECKLIST",
+      "quote": "Latest management accounts.",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "COMPANY",
+      "quote": "Moya Clinic registration CK-104.",
+      "supports": [
+        "R1"
+      ]
+    }
+  ],
+  "financials": {
+    "period": "2026 Q3",
+    "currency": "ZAR",
+    "source_id": "ACCOUNTS",
+    "quote": "2026 Q3 ZAR: revenue 100000; cost of sales 60000; current assets 150000; current liabilities 100000.",
+    "revenue": "100000",
+    "cost_of_sales": "60000",
+    "current_assets": "150000",
+    "current_liabilities": "100000"
+  },
+  "synthetic_acceptance_not_customer_evidence": true
+}

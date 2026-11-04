@@ -20,8 +20,16 @@ if str(ROOT) not in sys.path:
 from products.sonoris_black_metal_governed import (
     compile_black_metal_governed_plan,
 )
+
+from products.sonoris_black_metal_continuity import (
+    apply_black_metal_continuity,
+)
 from products.sonoris_physical_compiler import (
     compile_physical_performance,
+)
+
+from products.sonoris_black_metal_render_intent import (
+    compile_black_metal_render_intent,
 )
 
 
@@ -87,10 +95,22 @@ def main() -> int:
         )
     )
 
+    governed = (
+        apply_black_metal_continuity(
+            governed
+        )
+    )
+
     physical = (
         compile_physical_performance(
             governed,
             seed=args.seed,
+        )
+    )
+
+    render_intent = (
+        compile_black_metal_render_intent(
+            governed
         )
     )
 
@@ -116,6 +136,11 @@ def main() -> int:
         / "SONORIS_PHYSICAL_PERFORMANCE_PLAN.json"
     )
 
+    render_intent_path = (
+        out
+        / "SONORIS_BLACK_METAL_RENDER_INTENT.json"
+    )
+
     governed_path.write_text(
         json.dumps(
             governed,
@@ -127,6 +152,14 @@ def main() -> int:
     physical_path.write_text(
         json.dumps(
             physical,
+            indent=2,
+        )
+        + "\n"
+    )
+
+    render_intent_path.write_text(
+        json.dumps(
+            render_intent,
             indent=2,
         )
         + "\n"

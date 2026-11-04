@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-DONORPROOF-001",
+  "title": "Restricted grant expenditure evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "AGREEMENT",
+      "text": "Grant agreement GA-41 restricts funds to rural clinic equipment and requires quarterly expenditure reporting."
+    },
+    {
+      "source_id": "REPORT",
+      "text": "Quarterly report: ZAR 145000 recorded for clinic equipment in Q3 2026; ledger export supplied by grantee."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Grant officer note: three invoice images referenced by the ledger are absent from the supplied folder."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "DONOR-R1",
+      "source_id": "AGREEMENT",
+      "quote": "restricts funds to rural clinic equipment and requires quarterly expenditure reporting",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "DONOR-R2",
+      "source_id": "REPORT",
+      "quote": "ZAR 145000 recorded for clinic equipment in Q3 2026",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "DONOR-R3",
+      "source_id": "EXCEPTION",
+      "quote": "three invoice images referenced by the ledger are absent from the supplied folder",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "DONOR-E1",
+      "source_id": "AGREEMENT",
+      "quote": "restricts funds to rural clinic equipment and requires quarterly expenditure reporting",
+      "supports": [
+        "DONOR-R1"
+      ]
+    },
+    {
+      "evidence_id": "DONOR-E2",
+      "source_id": "REPORT",
+      "quote": "ZAR 145000 recorded for clinic equipment in Q3 2026",
+      "supports": [
+        "DONOR-R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "DONOR-R3",
+      "source_id": "EXCEPTION",
+      "quote": "three invoice images referenced by the ledger are absent from the supplied folder"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-CONTROLDRIFT-001",
+  "title": "Control change drift review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "INCIDENT",
+      "text": "Change record CR-44: production policy v4 was changed to v5 on 2026-10-20; owner approval is recorded."
+    },
+    {
+      "source_id": "LOG",
+      "text": "Evaluation summary: the latest regression suite predates v5 and does not include the new escalation path."
+    },
+    {
+      "source_id": "RESPONSE",
+      "text": "Deployment log: v5 is active in staging; production promotion status and rollback evidence are not supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Describe control change",
+      "source_id": "INCIDENT",
+      "quote": "production policy v4 was changed to v5 on 2026-10-20; owner approval is recorded.",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Identify monitoring and evaluation drift",
+      "source_id": "LOG",
+      "quote": "the latest regression suite predates v5 and does not include the new escalation path.",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Identify deployment evidence gaps",
+      "source_id": "RESPONSE",
+      "quote": "production promotion status and rollback evidence are not supplied.",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "INCIDENT",
+      "quote": "Change record CR-44",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "LOG",
+      "quote": "latest regression suite predates v5",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "RESPONSE",
+      "quote": "production promotion status and rollback evidence are not supplied."
+    }
+  ]
+}

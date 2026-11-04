@@ -68,6 +68,8 @@ def _render_correspondence_customer_artifact(result: dict[str, Any]) -> str:
     source = render_dir / str(html_row["path"])
     target = customer_dir / "PROFESSIONAL_CORRESPONDENCE_REVIEW.html"
     shutil.copyfile(source, target)
+    from products.pictora_visual_studio import attach_html_visual
+    correspondence_visual = attach_html_visual(target, product="professional_correspondence", context="correspondence review")
     (render_dir / "FORMAT_CORE_RECEIPT.json").unlink(missing_ok=True)
 
     route = {
@@ -110,6 +112,7 @@ def _render_correspondence_customer_artifact(result: dict[str, Any]) -> str:
         "outlook": {
             "state": "DRAFT_ONLY",
             "external_send": "REFUSE",
+            "pictora_visual": correspondence_visual,
         },
         "human_gate": "NEEDS_YOU",
         "authority_created": False,
@@ -209,6 +212,8 @@ table{{width:100%;border-collapse:collapse;font:14px/1.4 system-ui,sans-serif;ma
 <h3>Authority boundary</h3><p>Sophia may audit sources, references and claim lineage. She does not invent evidence, replace the author's final wording, certify factual truth, or publish the article.</p>
 </aside></div></main></body></html>"""
     target.write_text(page, encoding="utf-8")
+    from products.pictora_visual_studio import attach_html_visual
+    attach_html_visual(target, product="article_publication", context=str(contract.get("headline") or "article publication"))
     _write_json(
         customer_dir / "SOPHIA_PUBLICATION_GOVERNANCE.json",
         {

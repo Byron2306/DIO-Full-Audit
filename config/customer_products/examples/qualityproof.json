@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-QUALITYPROOF-001",
+  "title": "Quality management corrective action review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "QMS",
+      "text": "Quality procedure QP-7 requires a corrective action owner and closure evidence for every major finding."
+    },
+    {
+      "source_id": "CAPA",
+      "text": "CAPA-204: packaging label mismatch; owner assigned 2026-09-12; effectiveness check planned for 2026-10-15."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Quality reviewer note 2026-10-20: effectiveness check record for CAPA-204 was not found in the supplied folder."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "QUALITY-R1",
+      "source_id": "QMS",
+      "quote": "Quality procedure QP-7 requires a corrective action owner and closure evidence for every major finding.",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "QUALITY-R2",
+      "source_id": "CAPA",
+      "quote": "CAPA-204: packaging label mismatch; owner assigned 2026-09-12; effectiveness check planned for 2026-10-15.",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "QUALITY-R3",
+      "source_id": "EXCEPTION",
+      "quote": "effectiveness check record for CAPA-204 was not found",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "QUALITY-E1",
+      "source_id": "QMS",
+      "quote": "Quality procedure QP-7 requires a corrective action owner and closure evidence for every major finding.",
+      "supports": [
+        "QUALITY-R1"
+      ]
+    },
+    {
+      "evidence_id": "QUALITY-E2",
+      "source_id": "CAPA",
+      "quote": "CAPA-204: packaging label mismatch; owner assigned 2026-09-12; effectiveness check planned for 2026-10-15.",
+      "supports": [
+        "QUALITY-R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "QUALITY-R3",
+      "source_id": "EXCEPTION",
+      "quote": "effectiveness check record for CAPA-204 was not found"
+    }
+  ]
+}

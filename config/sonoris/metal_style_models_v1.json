@@ -322,6 +322,14 @@
       "lowpass_hz": 5200,
       "highpass_hz": 60,
       "room": 0.04
+    },
+    "clean_chime": {
+      "drive": 0.24,
+      "tone": 0.68,
+      "pregain": 1,
+      "lowpass_hz": 7600,
+      "highpass_hz": 95,
+      "room": 0.16
     }
   },
   "composition_model": {

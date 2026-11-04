@@ -16,8 +16,11 @@ MAX_ATTACHMENTS = 12
 MAX_BYTES = 10 * 1024 * 1024
 MAX_ARCHIVE_MEMBERS = 100
 MAX_ARCHIVE_TEXT_BYTES = 512 * 1024
-ALLOWED = {".txt", ".md", ".csv", ".json", ".pdf", ".docx", ".xlsx", ".png", ".jpg", ".jpeg", ".zip"}
-TEXT_TYPES = {".txt", ".md", ".csv", ".json"}
+ALLOWED = {".txt", ".md", ".csv", ".json", ".eml", ".html", ".pdf", ".docx", ".xlsx", ".png", ".jpg", ".jpeg", ".zip"}
+# EML and HTML attachments are retained and exposed only as untrusted source
+# text. No mail links, embedded files, scripts, or browser actions are followed
+# or executed.
+TEXT_TYPES = {".txt", ".md", ".csv", ".json", ".eml", ".html"}
 MAGIC = {".pdf": b"%PDF", ".png": b"\x89PNG\r\n\x1a\n", ".jpg": b"\xff\xd8\xff", ".jpeg": b"\xff\xd8\xff"}
 
 

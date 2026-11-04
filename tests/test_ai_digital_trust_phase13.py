@@ -9,6 +9,7 @@ import pytest
 
 from products.ai_trust.core import build_trust_envelope
 from products.ai_trust.runner import PRODUCTS, run_ai_trust
+from products.ai_trust.seraph_telemetry import EVENT_GENESIS, AUDIT_GENESIS
 from products.ai_trust_gauntlet import ACCEPTANCE_TOKEN, run_gauntlet
 from products.compiler import compile_manifest
 
@@ -75,6 +76,75 @@ def test_ai_trust_dossier_is_human_readable_and_hash_bound(tmp_path: Path) -> No
                             "untrusted_content_register", "tool_decisions", "human_review", "provenance_manifest"}
     for artifact in result["proof_manifest"]["artifacts"]:
         assert hashlib.sha256((output / artifact["filename"]).read_bytes()).hexdigest() == artifact["sha256"]
+    seraph = json.loads((output / "SERAPH_CHALLENGE_RECEIPT.json").read_text())
+    assert seraph["verdict"] == "INSUFFICIENT_EVIDENCE"
+    assert seraph["coverage_state"] == "partial"
+    assert seraph["execution_authorized"] is False
+    assert result["proof_manifest"]["seraph_challenge_sha256"] == seraph["receipt_sha256"]
+    assert result["receipt"]["seraph_challenge_sha256"] == seraph["receipt_sha256"]
+
+
+@pytest.mark.parametrize("slug,verdict,expected_finding", [
+    ("aitrustproof", "INSUFFICIENT_EVIDENCE", "AI-SOURCE-OBSERVATION-GAP"),
+    ("agentauthority", "HOSTILE", "AI-UNTRUSTED-INSTRUCTIONS"),
+    ("modelchangeproof", "CONTESTED", "AI-DRIFT"),
+])
+def test_seraph_challenges_each_ai_proof_without_granting_authority(
+    tmp_path: Path, slug: str, verdict: str, expected_finding: str,
+) -> None:
+    product_id = next(pid for pid, definition in PRODUCTS.items() if definition["slug"] == slug)
+    result = run_ai_trust(product_id, _fixture(slug), output_dir=tmp_path / slug,
+                          operator_id="human.seraph_test", now=NOW)
+    seraph = result["seraph_challenge"]
+    assert seraph["verdict"] == verdict
+    assert expected_finding in {row["finding_id"] for row in seraph["findings"]}
+    assert seraph["target_id"] == result["envelope"]["envelope_fingerprint"]
+    assert seraph["external_action_executed"] is False
+    assert seraph["execution_authorized"] is False
+
+
+def test_customer_required_seraph_telemetry_is_case_bound_and_tamper_evident(tmp_path: Path) -> None:
+    payload = _fixture("aitrustproof")
+    case_id = payload["case_id"]
+    event = {
+        "event_id": "evt-customer-1", "event_type": "model_access", "timestamp": NOW,
+        "data": {"case_id": case_id, "result": "denied"}, "prev_hash": EVENT_GENESIS,
+    }
+    event["event_hash"] = hashlib.sha256(json.dumps(event, sort_keys=True).encode()).hexdigest()
+    audit = {
+        "record_id": "aud-customer-1", "timestamp": NOW, "principal": "operator:customer",
+        "action": "review", "targets": ["ai-system"], "prev_hash": AUDIT_GENESIS,
+        "case_id": case_id, "result": "denied",
+    }
+    audit_basis = {key: audit[key] for key in ("record_id", "timestamp", "principal", "action", "targets", "prev_hash")}
+    audit["record_hash"] = hashlib.sha256(json.dumps(audit_basis, sort_keys=True).encode()).hexdigest()
+    payload["seraph_telemetry"] = {
+        "required": True, "event_chain": [event], "audit_chain": [audit],
+        "event_head": event["event_hash"], "audit_head": audit["record_hash"],
+    }
+    valid = run_ai_trust("dio_aitrustproof", payload, output_dir=tmp_path / "valid",
+                         operator_id="human.telemetry_test", now=NOW)["seraph_challenge"]
+    assert valid["evidence_context"]["seraph_telemetry"]["state"] == "HASH_CHAIN_VERIFIED"
+    assert valid["evidence_context"]["seraph_telemetry"]["signature_state"] == "UNVERIFIED"
+    assert "audit.result" in valid["evidence_context"]["seraph_telemetry"]["unhashed_fields"]
+    assert valid["coverage_state"] == "partial"
+
+    tampered = copy.deepcopy(payload)
+    tampered["seraph_telemetry"]["event_chain"][0]["data"]["result"] = "allowed"
+    contested = run_ai_trust("dio_aitrustproof", tampered, output_dir=tmp_path / "tampered",
+                             operator_id="human.telemetry_test", now=NOW)["seraph_challenge"]
+    assert contested["evidence_context"]["seraph_telemetry"]["state"] == "INVALID_CHAIN"
+    assert contested["verdict"] == "CONTESTED"
+
+    missing = copy.deepcopy(payload)
+    missing["seraph_telemetry"]["event_chain"] = []
+    missing["seraph_telemetry"]["audit_chain"] = []
+    missing["seraph_telemetry"]["event_head"] = EVENT_GENESIS
+    missing["seraph_telemetry"]["audit_head"] = AUDIT_GENESIS
+    missing_result = run_ai_trust("dio_aitrustproof", missing, output_dir=tmp_path / "missing",
+                                  operator_id="human.telemetry_test", now=NOW)["seraph_challenge"]
+    assert missing_result["evidence_context"]["seraph_telemetry"]["state"] == "MISSING"
+    assert missing_result["verdict"] == "CONTESTED"
 
 
 def test_cross_incarnation_source_type_and_missing_operator_refuse(tmp_path: Path) -> None:

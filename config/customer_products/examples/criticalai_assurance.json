@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-CRITICALAI-ASSURANCE-001",
+  "title": "Critical AI system assurance review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "SYSTEM",
+      "text": "System register: a claims triage model ranks incoming claims for adjuster review; a human adjuster makes all payment decisions."
+    },
+    {
+      "source_id": "EVAL",
+      "text": "Evaluation note: the current validation sample excludes two recently added languages and does not report subgroup error rates."
+    },
+    {
+      "source_id": "GOVERNANCE",
+      "text": "Governance record: model owner and escalation contacts are listed; independent challenge evidence and a tested rollback record were not supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Describe intended use and human decision boundary",
+      "source_id": "SYSTEM",
+      "quote": "ranks incoming claims for adjuster review; a human adjuster makes all payment decisions",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Assess evaluation coverage and known gaps",
+      "source_id": "EVAL",
+      "quote": "excludes two recently added languages and does not report subgroup error rates",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Identify governance and resilience evidence gaps",
+      "source_id": "GOVERNANCE",
+      "quote": "independent challenge evidence and a tested rollback record were not supplied",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "SYSTEM",
+      "quote": "a human adjuster makes all payment decisions",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "EVAL",
+      "quote": "current validation sample excludes two recently added languages",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "GOVERNANCE",
+      "quote": "independent challenge evidence and a tested rollback record were not supplied"
+    }
+  ]
+}

@@ -439,30 +439,67 @@ def _review_pack(
 
 
 def _html_pack(pack: dict[str, Any], *, title: str) -> bytes:
-    rows = "".join(
-        "<tr>"
-        f"<td>{html.escape(str(row['requirement_key']))}</td>"
-        f"<td>{html.escape(str(row['review_state']))}</td>"
-        f"<td>{html.escape(str(row['statement']))}</td>"
-        f"<td>{len(row['evidence_ids'])}</td>"
-        f"<td>{len(row['open_challenge_ids'])}</td>"
-        "</tr>"
-        for row in pack["requirement_evidence_matrix"]
-    )
-    page = (
-        "<!doctype html><meta charset='utf-8'>"
-        f"<title>{html.escape(title)}</title>"
-        f"<h1>{html.escape(title)}</h1>"
-        "<p><strong>HUMAN REVIEW REQUIRED. EXTERNAL RELEASE REFUSED.</strong></p>"
-        "<table border='1' cellspacing='0' cellpadding='6'>"
-        "<tr><th>Requirement</th><th>State</th><th>Statement</th>"
-        "<th>Evidence</th><th>Open issues</th></tr>"
-        f"{rows}</table>"
-        "<h2>Open questions</h2>"
-        f"<pre>{html.escape(json.dumps(pack['open_question_list'], indent=2, sort_keys=True))}</pre>"
-        "<p>This controlled review pack creates no domain decision, score, approval, "
-        "contracting action, authority, external effect, or release authority.</p>"
-    )
+    def esc(value: Any) -> str:
+        return html.escape(str(value), quote=True)
+
+    issues_by_key: dict[str, list[dict[str, Any]]] = {}
+    for issue in pack.get("issue_register") or []:
+        issues_by_key.setdefault(str(issue.get("requirement_key") or ""), []).append(issue)
+    rows = []
+    for position, row in enumerate(pack["requirement_evidence_matrix"]):
+        provenance = row.get("source_provenance") or []
+        source_html = "".join(
+            "<li><strong>" + esc(binding.get("source_ref") or "Source locator not supplied") + "</strong>"+
+            ("<br>Source bytes [" + str(binding.get("source_byte_start")) + ", " +
+             str(binding.get("source_byte_end_exclusive")) + ")" if binding.get("source_byte_start") is not None else "")+
+            "<br>File SHA-256: <code>" + esc(binding.get("source_file_sha256") or "Not supplied") +
+            "</code><br>Row SHA-256: <code>" + esc(binding.get("source_row_sha256") or "Not supplied") +
+            "</code><br>Trust: " + esc(binding.get("trust_state") or "Not declared") +
+            " · freshness: " + esc(binding.get("freshness_state") or "Unknown")+
+            ("<br>Attachment: " + esc((binding.get("source_attachment") or {}).get("source_ref"))+
+             " · attachment hash: " + esc((binding.get("source_attachment") or {}).get("source_file_sha256"))+
+             " · validation: " + esc((binding.get("source_attachment") or {}).get("content_validation"))
+             if binding.get("source_attachment") else "") + "</li>"
+            for binding in provenance
+        ) or "<li>No source locator supplied.</li>"
+        challenges = "".join(
+            "<li><strong>" + esc(issue.get("challenge_id")) + " · " + esc(issue.get("severity")) +
+            "</strong>: " + esc(issue.get("hypothesis")) + "</li>"
+            for issue in issues_by_key.get(str(row["requirement_key"]), [])
+        ) or "<li>No open challenge recorded.</li>"
+        rows.append(
+            "<tr data-index='" + str(position) + "'><th scope='row'>" + esc(row["requirement_key"]) +
+            "<small>" + esc(row["requirement_id"]) + "</small></th><td><strong class='state'>" +
+            esc(row["review_state"]) + "</strong><small>" + str(len(row.get("evidence_ids") or [])) +
+            " evidence · " + str(len(row.get("open_challenge_ids") or [])) + " open issues</small></td><td>"+
+            esc(row["statement"]) + "<details><summary>Source provenance</summary><ul>" + source_html +
+            "</ul></details><details><summary>Open questions</summary><ul>" + challenges +
+            "</ul></details></td><td><label>Reviewer disposition<select data-field='reviewer_disposition'>"+
+            "<option value=''>Pending review</option><option>VERIFIED_NO_CHANGE</option>"+
+            "<option>NEEDS_EVIDENCE</option><option>CHALLENGE</option><option>HOLD</option></select></label>"+
+            "<label>Reviewer<input data-field='reviewer_name' autocomplete='name'></label>"+
+            "<label>Rationale<textarea data-field='rationale' rows='2'></textarea></label>"+
+            "<label>Follow-up evidence requested<textarea data-field='follow_up' rows='2'></textarea></label></td></tr>"
+        )
+    rows_json = json.dumps(pack["requirement_evidence_matrix"], ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    issues_json = json.dumps(pack.get("issue_register") or [], ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    page = f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>{esc(title)}</title><style>
+:root{{--ink:#1a2b2d;--muted:#556864;--line:#ccd7d2;--paper:#f3f5f2;--green:#194b46;--gold:#bd8740}}
+*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}}main{{max-width:1500px;margin:auto;padding:clamp(1rem,4vw,3rem)}}h1{{font-size:clamp(2rem,4vw,3.1rem);line-height:1.1;max-width:1000px}}h2{{font-size:1.35rem}}.eyebrow{{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}}.notice{{border-left:5px solid var(--gold);background:#fff8e9;padding:1rem 1.2rem}}.stats{{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.2rem 0}}.stats span{{background:white;border:1px solid var(--line);padding:.65rem .9rem;border-radius:.3rem}}.toolbar,.actions{{display:flex;gap:.8rem;align-items:end;flex-wrap:wrap;margin:1rem 0}}label{{display:block;font-size:.9rem;font-weight:600;margin:.4rem 0}}input,select,textarea,button{{font:inherit}}input[type=search],select,textarea{{display:block;width:100%;padding:.55rem;border:1px solid #81958f;border-radius:.25rem;background:white;color:var(--ink)}}input[type=search]{{min-width:min(24rem,80vw)}}button{{background:var(--green);color:white;border:0;border-radius:.3rem;padding:.7rem 1rem;font-weight:700;cursor:pointer}}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{{outline:3px solid var(--gold);outline-offset:3px}}.scroll{{overflow:auto;background:white;border:1px solid var(--line);border-radius:.35rem}}table{{border-collapse:collapse;width:100%;min-width:1100px}}caption{{text-align:left;font-weight:700;padding:1rem}}th,td{{padding:.8rem;vertical-align:top;border-bottom:1px solid var(--line);text-align:left}}thead th{{background:var(--green);color:white;position:sticky;top:0}}tbody th{{min-width:8rem}}tbody td:nth-child(3){{min-width:25rem}}td small{{display:block;color:var(--muted);overflow-wrap:anywhere}}td code{{overflow-wrap:anywhere}}details{{margin:.6rem 0}}summary{{cursor:pointer;font-weight:650}}#status{{min-height:1.5em;color:var(--muted)}}footer{{margin-top:2rem;color:var(--muted);max-width:1050px}}.skip{{position:absolute;left:-10000px}}.skip:focus{{left:1rem;top:1rem;background:white;padding:.8rem;z-index:2}}[hidden]{{display:none!important}}@media print{{body{{background:white}}main{{padding:0}}.toolbar,.actions,label{{display:none!important}}table{{min-width:0;font-size:9pt}}td,th{{padding:4pt}}}}
+</style></head><body><a class='skip' href='#requirements'>Skip to requirements</a><main><p class='eyebrow'>Controlled evidence review · {esc(pack.get('profile_id'))}</p>
+<h1>{esc(title)}</h1><p class='notice'><strong>Human review required. External release refused.</strong> These states organize supplied evidence and open questions; they are not a compliance, certification, legal, or other domain decision. Reviewer fields below are notes only and do not change the evidence pack.</p>
+<div class='stats'><span><strong>{len(pack['requirement_evidence_matrix'])}</strong> requirements</span><span><strong>{len(pack.get('issue_register') or [])}</strong> open questions</span><span>Evidence review: <strong>NEEDS YOU</strong></span><span>Final domain decision: <strong>NEEDS YOU</strong></span></div>
+<p>Filter the register, inspect each source locator and hash, and record reviewer disposition, rationale, or follow-up evidence. Download the worksheet to retain the review; nothing is uploaded or submitted.</p>
+<section class='toolbar' aria-label='Review tools'><label for='filter'>Find a requirement<input id='filter' type='search' placeholder='Search key, statement, state, challenge or source'></label><span id='count' aria-live='polite'></span></section>
+<div class='scroll' id='requirements' tabindex='0' role='region' aria-label='Scrollable evidence review register'><table><caption>Requirement and evidence review register</caption><thead><tr><th scope='col'>Requirement</th><th scope='col'>Review state</th><th scope='col'>Statement, provenance and open questions</th><th scope='col'>Reviewer worksheet fields</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+<div class='actions'><button id='download' type='button'>Download review worksheet CSV</button><span id='status' role='status' aria-live='polite'></span></div>
+<footer>This controlled review pack creates no domain decision, score, approval, contracting action, authority, external effect, or release authority. Source provenance establishes the recorded locator and hash; it does not verify source truth, completeness, authenticity, applicability, or sufficiency. Independent review remains necessary.</footer>
+<script type='application/json' id='matrix-data'>{rows_json}</script><script type='application/json' id='issue-data'>{issues_json}</script><script>
+const matrix=JSON.parse(document.querySelector('#matrix-data').textContent);const issues=JSON.parse(document.querySelector('#issue-data').textContent);const rows=[...document.querySelectorAll('tbody tr')];
+document.querySelector('#count').textContent=rows.length+' requirements shown';document.querySelector('#filter').addEventListener('input',event=>{{const term=event.target.value.trim().toLowerCase();let shown=0;for(const row of rows){{row.hidden=Boolean(term)&&!row.textContent.toLowerCase().includes(term);if(!row.hidden)shown++}}document.querySelector('#count').textContent=shown+' of '+rows.length+' requirements shown'}});
+const q=value=>'"'+String(value??'').replaceAll('"','""')+'"';document.querySelector('#download').addEventListener('click',()=>{{const headers=['requirement_key','requirement_id','review_state','statement','evidence_ids','open_challenge_ids','source_refs','source_hashes','trust_states','reviewer_disposition','reviewer_name','rationale','follow_up'];const lines=[headers.map(q).join(',')];for(const row of rows){{const item=matrix[Number(row.dataset.index)];const source=item.source_provenance||[];const related=issues.filter(issue=>issue.requirement_key===item.requirement_key);const value=field=>row.querySelector('[data-field="'+field+'"]')?.value||'';const data={{requirement_key:item.requirement_key,requirement_id:item.requirement_id,review_state:item.review_state,statement:item.statement,evidence_ids:(item.evidence_ids||[]).join(';'),open_challenge_ids:(item.open_challenge_ids||[]).join(';'),source_refs:source.map(x=>x.source_ref).join(';'),source_hashes:source.map(x=>x.source_file_sha256+' / '+x.source_row_sha256).join(';'),trust_states:source.map(x=>x.trust_state+' / '+x.freshness_state).join(';'),reviewer_disposition:value('reviewer_disposition'),reviewer_name:value('reviewer_name'),rationale:value('rationale'),follow_up:value('follow_up')}};lines.push(headers.map(key=>q(data[key])).join(','))}}const blob=new Blob(['\\ufeff'+lines.join('\\r\\n')],{{type:'text/csv;charset=utf-8'}});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='EVIDENCE_REVIEW_WORKSHEET.csv';a.click();URL.revokeObjectURL(url);document.querySelector('#status').textContent='Review worksheet downloaded. No evidence state or release decision was changed.'}});
+</script></main></body></html>"""
     return page.encode("utf-8")
 
 
@@ -496,6 +533,23 @@ def run_controlled_evidence_review(
         operator_id=operator_id,
     )
     pack = _review_pack(case, profile=profile, materialization=materialization)
+    for row in pack["requirement_evidence_matrix"]:
+        target_key = row["requirement_key"]
+        row["source_provenance"] = [
+            {
+                "source_ref": item.get("source_ref"),
+                "source_file_sha256": item.get("source_file_sha256") or item.get("sha256"),
+                "source_row_sha256": item.get("source_row_sha256"),
+                "source_statement_sha256": item.get("source_statement_sha256"),
+                "source_byte_start": item.get("source_byte_start"),
+                "source_byte_end_exclusive": item.get("source_byte_end_exclusive"),
+                "source_attachment": item.get("source_attachment"),
+                "trust_state": item.get("trust_state", "not_declared"),
+                "freshness_state": item.get("freshness_state", "unknown"),
+            }
+            for item in evidence_inputs
+            if target_key in (item.get("target_requirement_keys") or [])
+        ]
     validate_case(case)
 
     output_dir = output_dir.resolve()

@@ -27,6 +27,8 @@ def test_agentauthority_proof_detects_injection_and_refuses_tool_actions(tmp_pat
     assert proof["processor_invoked"] is True
     assert proof["controlled_processor_execution"] is True
     assert proof["execution_proof_state"] == "CONTROLLED_ROUTE_PROVED"
+    assert proof["seraph_verdict"] == "HOSTILE"
+    assert proof["seraph_challenge_sha256"] == result["processor_result"]["seraph_challenge"]["receipt_sha256"]
     assert proof["human_review_gate"] == "NEEDS_YOU"
     assert proof["external_release_gate"] == "REFUSE"
     assert proof["authority_created"] is False

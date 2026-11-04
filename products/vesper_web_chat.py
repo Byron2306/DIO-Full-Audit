@@ -135,11 +135,12 @@ def _process_web_turn(session: dict[str, Any], payload: dict[str, Any], *,
 
     hint = str(payload.get("incarnation_hint") or session.get("incarnation_hint") or "").strip() or None
     # A repeated initial site hint must not pin every subsequent customer turn.
-    if previous_id and hint == session.get("incarnation_hint") and payload.get("product_context_changed") is not True:
+    if (previous_id and len(session.get("messages") or []) > 1 and hint == session.get("incarnation_hint")
+            and payload.get("product_context_changed") is not True):
         hint = None
     if hint:
-        if hint not in set(canonical_incarnations()):
-            raise VesperWebChatError(f"unknown canonical incarnation hint: {hint}")
+        if hint not in set(supported_customer_products()):
+            raise VesperWebChatError(f"unknown routed customer product hint: {hint}")
         session["incarnation_hint"] = hint
     message_text = str(payload.get("message") or "").strip()
     intake_context = payload.get("intake_context") or {}
@@ -185,11 +186,16 @@ def _process_web_turn(session: dict[str, Any], payload: dict[str, Any], *,
     product = str(((commercial or {}).get("product") or {}).get("name") or "").strip() or None
     if commercial is None and case:
         product = str(case.get("product_id") or "").strip() or None
-    resolved = bool(product and product in set(canonical_incarnations())
-                    and (commercial is None or commercial.get("state") == "RESOLVED"))
+    site_product = str(session.get("incarnation_hint") or "").strip()
+    first_site_intake = session.get("surface") == "product_site" and len(session.get("messages") or []) <= 2
+    site_context_resolved = first_site_intake and site_product in set(supported_customer_products())
+    if site_context_resolved:
+        product = site_product
+    resolved = bool(site_context_resolved or (product and product in set(supported_customer_products())
+                    and (commercial is None or commercial.get("state") == "RESOLVED")))
     route = {"state": "RESOLVED" if resolved else "NEEDS_YOU",
              "incarnation": product if resolved else None,
-             "basis": "canonical_presence_journey",
+             "basis": "exact_product_site_context" if site_context_resolved else "canonical_presence_journey",
              "candidates": [{"incarnation": name, "score": None}
                             for name in (commercial or {}).get("candidates", [])],
              "authority_created": False}
@@ -208,6 +214,23 @@ def _session_path(state_root: Path, conversation_id: str) -> Path:
     return state_root.resolve() / _safe_conversation_id(conversation_id) / "SESSION.json"
 
 
+def _normalize_contact(value: dict[str, Any] | None) -> dict[str, str]:
+    contact = dict(value or {})
+    if set(contact) - {"name", "email", "organisation"}:
+        raise VesperWebChatValidationError("contact may contain only name, email and organisation")
+    normalized = {}
+    for key, limit in (("name", 160), ("email", 254), ("organisation", 240)):
+        raw = contact.get(key, "")
+        if raw is None:
+            raw = ""
+        if not isinstance(raw, str) or len(raw) > limit:
+            raise VesperWebChatValidationError(f"contact {key} is invalid")
+        normalized[key] = raw.strip()
+    if normalized["email"] and not re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", normalized["email"]):
+        raise VesperWebChatValidationError("contact email is invalid")
+    return normalized
+
+
 def _tokens(value: Any) -> set[str]:
     return {
         token
@@ -218,6 +241,17 @@ def _tokens(value: Any) -> set[str]:
 
 def canonical_incarnations() -> list[str]:
     return sorted(str(row.get("Incarnation") or "") for row in load_portfolio()["incarnations"] if row.get("Incarnation"))
+
+
+@lru_cache(maxsize=1)
+def supported_customer_products() -> list[str]:
+    """Return all routed customer products without changing the frozen 53 census."""
+    routes_path = ROOT / "config" / "professional_evidence_portfolio" / "v1" / "routes.json"
+    routes = json.loads(routes_path.read_text(encoding="utf-8")).get("routes") or {}
+    names = sorted(str(name).strip() for name in routes if str(name).strip())
+    if len(names) != 68:
+        raise VesperWebChatError(f"expected 68 supported customer product routes, found {len(names)}")
+    return names
 
 
 @lru_cache(maxsize=1)
@@ -247,11 +281,18 @@ def _route_surfaces() -> list[dict[str, Any]]:
                 "family": incarnation.get("Product Family"),
             }
         )
+    from products.professional_evidence_corpus import SUPPLEMENTAL_CASES
+    known = {row["incarnation"] for row in rows}
+    for name, case in SUPPLEMENTAL_CASES.items():
+        if name in known:
+            continue
+        semantic_text = " ".join([name, str(case.get("request") or ""), str(case.get("context") or ""), *[str(value) for value in case.get("facts") or []]])
+        rows.append({"incarnation": name, "name_tokens": _tokens(name), "semantic_tokens": _tokens(semantic_text), "suite": "DIO Customer Products", "family": "Supplemental routed product"})
     return rows
 
 
 def resolve_incarnation(message: str, *, incarnation_hint: str | None = None) -> dict[str, Any]:
-    names = set(canonical_incarnations())
+    names = set(supported_customer_products())
     hint = str(incarnation_hint or "").strip()
     if hint:
         if hint not in names:
@@ -335,14 +376,15 @@ def create_session(
     payload = dict(payload or {})
     now = now or utc_now()
     hint = str(payload.get("incarnation_hint") or "").strip() or None
-    if hint and hint not in set(canonical_incarnations()):
-        raise VesperWebChatError(f"unknown canonical incarnation hint: {hint}")
+    if hint and hint not in set(supported_customer_products()):
+        raise VesperWebChatError(f"unknown routed customer product hint: {hint}")
     if conversation_id is None:
         conversation_id = "VWC-" + secrets.token_hex(8).upper()
     conversation_id = _safe_conversation_id(conversation_id)
     path = _session_path(state_root, conversation_id)
     if path.exists():
         raise VesperWebChatError("Vesper web-chat conversation already exists")
+    contact = _normalize_contact({key: payload.get(key, "") for key in ("name", "email", "organisation")})
     surface = str(payload.get("surface") or ("product_site" if hint else "dio_web")).strip() or "dio_web"
     greeting = (
         f"You are speaking with Vesper, DIO Presence Core, in the {hint} workflow. "
@@ -362,9 +404,7 @@ def create_session(
         "created_at": now,
         "updated_at": now,
         "contact": {
-            "name": str(payload.get("name") or "").strip(),
-            "email": str(payload.get("email") or "").strip(),
-            "organisation": str(payload.get("organisation") or "").strip(),
+            **contact,
         },
         "messages": [{"message_id": "MSG-0001", "role": "vesper", "text": greeting, "created_at": now, "attachment_ids": []}],
         "attachments": [],
@@ -416,11 +456,15 @@ def post_message(
         raise VesperWebChatValidationError("send a message or attach at least one source file")
     if len(text) > MAX_MESSAGE_CHARS:
         raise VesperWebChatValidationError(f"message exceeds {MAX_MESSAGE_CHARS} characters")
+    if "contact_update" in payload:
+        if not isinstance(payload.get("contact_update"), dict):
+            raise VesperWebChatValidationError("contact update must be an object")
+        payload["contact_update"] = _normalize_contact(payload["contact_update"])
     if len(attachments) > MAX_ATTACHMENTS:
         raise VesperWebChatValidationError(f"a single chat message may contain at most {MAX_ATTACHMENTS} attachments")
     hint = str(payload.get("incarnation_hint") or "").strip()
-    if hint and hint not in set(canonical_incarnations()):
-        raise VesperWebChatValidationError(f"unknown canonical incarnation hint: {hint}")
+    if hint and hint not in set(supported_customer_products()):
+        raise VesperWebChatValidationError(f"unknown routed customer product hint: {hint}")
     event = event or "WEB-" + secrets.token_hex(16).upper()
     key = f"web:{_safe_conversation_id(conversation_id)}:{event}"
     body = _canonical(payload)
@@ -511,8 +555,10 @@ def _post_message(
             "attachment_ids": attachment_ids,
         }
     )
-    if isinstance(payload.get("contact_update"), dict):
-        session["contact"] = dict(payload["contact_update"])
+    if "contact_update" in payload:
+        if not isinstance(payload.get("contact_update"), dict):
+            raise VesperWebChatValidationError("contact update must be an object")
+        session["contact"] = _normalize_contact(payload["contact_update"])
     quarantine_root = ((quarantine_output_root / "state") if quarantine_output_root is not None
                        else _presence_root(state_root).parent) / "vesper" / "quarantine"
     presence, route = _process_web_turn(session, payload, state_root=state_root,
@@ -593,6 +639,205 @@ def _post_message(
     receipt["receipt_fingerprint"] = _fingerprint(receipt)
     _write_json(_session_path(state_root, conversation_id).parent / f"MESSAGE_RECEIPT_{message_number:04d}.json", receipt)
     return {"session": _public_session(session), "assistant_message": answer, "receipt": receipt}
+
+
+def customer_journey(conversation_id: str, *, state_root: Path = DEFAULT_STATE_ROOT) -> dict[str, Any]:
+    """Return only the canonical lifecycle projection for this chat's bound case."""
+    from presence_core.customer_cases import load_case
+    from presence_core.vesper_journey_runtime import build_vesper_journey_view
+
+    session = load_session(conversation_id, state_root=state_root)
+    case_id = str(session.get("canonical_case_id") or "").strip()
+    if not case_id:
+        return {"state": "NOT_STARTED", "case_id": None, "view": None,
+                "authority_created": False, "external_effects": False}
+    case = load_case(_presence_root(state_root), case_id)
+    if case is None:
+        raise VesperWebChatError("canonical customer case needs reconciliation")
+    return {"state": "ACTIVE", "case_id": case_id,
+            "view": build_vesper_journey_view(case),
+            "authority_created": False, "external_effects": False}
+
+
+def _perform_customer_journey_action_locked(
+    conversation_id: str,
+    *,
+    action: str,
+    action_ref: str,
+    payload: dict[str, Any] | None = None,
+    state_root: Path = DEFAULT_STATE_ROOT,
+) -> dict[str, Any]:
+    """Apply a customer-authorized typed journey step; never send, charge, or release."""
+    from presence_core.intake_scope_quote import (
+        assess_scope, open_intake, prepare_quote, record_intake_inputs,
+    )
+    from presence_core.vesper_journey_runtime import execute_vesper_action
+
+    session = load_session(conversation_id, state_root=state_root)
+    case_id = str(session.get("canonical_case_id") or "").strip()
+    if not case_id:
+        raise VesperWebChatValidationError("send a request and resolve its product before opening a commercial intake")
+    state = _presence_root(state_root)
+    request = dict(payload or {})
+    action = str(action or "").strip().upper()
+    action_ref = str(action_ref or "").strip().upper()
+    if not re.fullmatch(r"JACT-[A-F0-9]{24}", action_ref):
+        raise VesperWebChatValidationError("current journey action reference is required")
+    if action not in {"OPEN_INTAKE", "RECORD_INTAKE_INPUTS", "ASSESS_SCOPE", "PREPARE_QUOTE", "REQUEST_OPERATOR"}:
+        raise VesperWebChatValidationError("this customer action is not available through web chat")
+    if action == "RECORD_INTAKE_INPUTS":
+        if set(request) != {"inputs"} or not isinstance(request.get("inputs"), dict):
+            raise VesperWebChatValidationError("submit only the typed order intake fields")
+        inputs = request["inputs"]
+        if set(inputs) - {"requested_outcome", "buyer_class", "scope_quantity"}:
+            raise VesperWebChatValidationError("web intake accepts only the required typed order fields")
+        if len(str(inputs.get("requested_outcome") or "")) > 4000:
+            raise VesperWebChatValidationError("requested outcome exceeds 4000 characters")
+        if len(str(inputs.get("buyer_class") or "")) > 120:
+            raise VesperWebChatValidationError("buyer class is invalid")
+        if len(str(inputs.get("scope_quantity") or "")) > 12:
+            raise VesperWebChatValidationError("scope quantity is too large")
+    elif request:
+        raise VesperWebChatValidationError("this journey action does not accept additional fields")
+
+    from presence_core.customer_cases import load_case
+    from presence_core.vesper_journey_runtime import build_vesper_journey_view
+    existing_case = load_case(state, case_id)
+    if existing_case is None:
+        raise VesperWebChatError("canonical customer case needs reconciliation")
+    repeated = next((event for event in existing_case.get("journey_events") or []
+                    if event.get("event_type") == "VESPER_ACTION_EXECUTED"
+                    and (event.get("payload") or {}).get("action_ref") == action_ref
+                    and (event.get("payload") or {}).get("action") == action
+                    and (event.get("payload") or {}).get("payload_sha256") == _fingerprint(request)), None)
+    if repeated:
+        fresh = load_session(conversation_id, state_root=state_root)
+        view = build_vesper_journey_view(existing_case)
+        return {"execution": {"case_id": case_id, "action": action, "decision": {"decision": "ALLOW", "reason": "idempotent_action_replay"},
+                               "after": view, "journey_event_id": repeated.get("event_id"), "authority_created": False},
+                "journey": {"state": "ACTIVE", "case_id": case_id, "view": view,
+                            "authority_created": False, "external_effects": False},
+                "assistant_message": next((row.get("text") for row in reversed(fresh.get("messages") or [])
+                                            if row.get("role") == "vesper" and row.get("journey_action_ref") == action_ref
+                                            and row.get("journey_payload_sha256") == _fingerprint(request)),
+                                           "That order step is already recorded. Here is the current order status."),
+                "session": _public_session(fresh), "authority_created": False, "external_effects": False}
+
+    def _open(*, state_root: Path, case: dict[str, Any], payload: dict[str, Any]):
+        return open_intake(ROOT, state_root, case_id)
+
+    def _assess(*, state_root: Path, case: dict[str, Any], payload: dict[str, Any]):
+        return assess_scope(ROOT, state_root, case_id)
+
+    def _quote(*, state_root: Path, case: dict[str, Any], payload: dict[str, Any]):
+        return prepare_quote(ROOT, state_root, case_id)
+
+    def _operator_followup(*, state_root: Path, case: dict[str, Any], payload: dict[str, Any]):
+        from presence_core.customer_cases import update_case
+        from presence_core.journey_core import transition_case
+        from presence_core.state import create_needs_you
+        current = load_case(state_root, case_id)
+        if current is None:
+            raise ValueError("customer case not found")
+        if str(current.get("stage") or "") != "NEEDS_YOU":
+            current = transition_case(state_root, case_id, "NEEDS_YOU", evidence_ref="vesper:customer_requested_operator_followup")
+        quote = (((current.get("commercial") or {}).get("quote_result") or {}).get("quote") or {})
+        conversation_ids = list(current.get("conversation_ids") or [])
+        needs = create_needs_you(
+            state_root, reason="customer_order_followup",
+            conversation_id=str(conversation_ids[-1] if conversation_ids else case_id),
+            product=str(current.get("product_id") or "") or None,
+            summary=(f"Customer requested an operator follow-up for case {case_id}; "
+                     f"quote {quote.get('quote_id') or 'not yet prepared'}. Review invoice, payment, and email next steps; do not send without approval."),
+        )
+        ids = list(current.get("needs_you_ids") or [])
+        ids.append(needs["needs_you_id"])
+        return update_case(state_root, current, patch={
+            "needs_you_ids": ids,
+            "commercial": {"operator_followup_needs_you_id": needs["needs_you_id"]},
+        }, evidence_ref=f"needs_you:{needs['needs_you_id']}")
+
+    def _record(*, state_root: Path, case: dict[str, Any], payload: dict[str, Any]):
+        inputs = payload.get("inputs")
+        if not isinstance(inputs, dict):
+            raise ValueError("typed intake inputs are required")
+        return record_intake_inputs(ROOT, state_root, case_id, inputs,
+                                    evidence_ref=f"vesper_web_chat:{conversation_id}")
+
+    handlers = {
+        "OPEN_INTAKE": _open,
+        "RECORD_INTAKE_INPUTS": _record,
+        "ASSESS_SCOPE": _assess,
+        "PREPARE_QUOTE": _quote,
+        "REQUEST_OPERATOR": _operator_followup,
+    }
+    execution = execute_vesper_action(
+        state, case_id, action=action, action_ref=action_ref,
+        actor_class="customer", handlers=handlers, payload=request,
+    )
+    fresh = load_session(conversation_id, state_root=state_root)
+    fresh["canonical_case_stage"] = execution["after"]["stage"]
+    if fresh.get("handoff"):
+        fresh["handoff"]["canonical_case_stage"] = execution["after"]["stage"]
+    fresh["updated_at"] = utc_now()
+    facts = execution["after"].get("facts") or {}
+    intake = facts.get("intake") or {}
+    if action == "OPEN_INTAKE":
+        answer = "I’ve opened the structured order intake. Please tell me the outcome you need, choose your buyer type, and enter the number of units in scope."
+    elif action == "RECORD_INTAKE_INPUTS":
+        missing = intake.get("missing_input_ids") or []
+        answer = ("I’ve saved those order details. I still need: " + ", ".join(missing) + "." if missing
+                  else "I’ve saved the required order details. The next step is to review the scope before preparing a quote.")
+    elif action == "ASSESS_SCOPE":
+        answer = ("The scope is sufficient. You can ask me to prepare a governed quote." if (facts.get("scope") or {}).get("state") == "SUFFICIENT"
+                  else "The scope is incomplete. Please provide the remaining required fields shown in your order panel.")
+    elif action == "REQUEST_OPERATOR":
+        if execution["before"]["stage"] == "QUOTE_READY":
+            answer = "I’ve placed your request in the operator follow-up queue for invoice and payment next steps. Nothing has been sent or charged; a person must review and approve any external action."
+        else:
+            answer = "I’ve placed your scope question in the operator review queue. No quote, invoice, payment link, or email has been issued."
+    else:
+        quote = facts.get("quote") or {}
+        if quote.get("presentation_authority") and quote.get("amount") is not None:
+            answer = f"A bounded estimate is ready: {quote.get('currency') or 'ZAR'} {quote['amount']}. It is for presentation only; no invoice, payment link, or work order has been issued."
+        else:
+            answer = "Your scope is recorded, but pricing needs operator review. No customer quote, invoice, or payment link has been issued."
+    message_number = len(fresh.get("messages") or []) + 1
+    fresh.setdefault("messages", []).append({
+        "message_id": f"MSG-{message_number:04d}", "role": "vesper", "text": answer,
+        "created_at": fresh["updated_at"], "attachment_ids": [], "journey_action_ref": action_ref,
+        "journey_payload_sha256": _fingerprint(request),
+    })
+    fresh["session_fingerprint"] = _fingerprint({k: v for k, v in fresh.items() if k != "session_fingerprint"})
+    _write_json(_session_path(state_root, conversation_id), fresh)
+    receipt = {
+        "schema": MESSAGE_RECEIPT_SCHEMA, "conversation_id": conversation_id,
+        "message_id": f"MSG-{message_number:04d}", "canonical_conversation_id": fresh.get("canonical_conversation_id"),
+        "canonical_case_id": case_id, "canonical_case_stage": execution["after"]["stage"],
+        "source_message_id": f"journey_action:{action_ref}", "journey_action": action,
+        "human_gate": "NEEDS_YOU", "external_send": "REFUSE", "external_release": "REFUSE",
+        "authority_created": False, "external_effects": False,
+    }
+    receipt["receipt_fingerprint"] = _fingerprint(receipt)
+    _write_json(_session_path(state_root, conversation_id).parent / f"MESSAGE_RECEIPT_{message_number - 1:04d}.json", receipt)
+    return {"execution": execution, "journey": customer_journey(conversation_id, state_root=state_root),
+            "assistant_message": answer, "session": _public_session(fresh), "authority_created": False,
+            "external_effects": False}
+
+
+def perform_customer_journey_action(
+    conversation_id: str,
+    *,
+    action: str,
+    action_ref: str,
+    payload: dict[str, Any] | None = None,
+    state_root: Path = DEFAULT_STATE_ROOT,
+) -> dict[str, Any]:
+    with _session_lock(state_root, conversation_id):
+        return _perform_customer_journey_action_locked(
+            conversation_id, action=action, action_ref=action_ref,
+            payload=payload, state_root=state_root,
+        )
 
 
 def _source_files(packet: dict[str, Any]) -> list[Path]:
@@ -721,4 +966,5 @@ __all__ = [
     "load_session",
     "post_message",
     "resolve_incarnation",
+    "supported_customer_products",
 ]

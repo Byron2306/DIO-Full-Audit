@@ -134,6 +134,10 @@
     .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
     .intake .button.secondary { border-color: #fff; }
     .result { min-height: 24px; color: #d9e4e5; }
+    fieldset.preference { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 8px 16px; margin: 0; padding: 14px; border: 1px solid #7f9096; border-radius: 4px; }
+    fieldset.preference legend { padding: 0 6px; font-size: 14px; font-weight: 850; }
+    fieldset.preference label { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; font-weight: 600; }
+    fieldset.preference input { width: 18px; min-height: 18px; flex: 0 0 18px; margin: 2px 0 0; }
     footer { padding: 28px 0; background: #101a1f; color: #bdc8cc; font-size: 13px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
     :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
@@ -330,10 +334,18 @@
             <input name="institution" autocomplete="organization">
           </label>
           <label>Subject or module
-            <input name="subject" required>
+            <input name="subject" list="homsSubjectProfiles" required placeholder="Choose a CAPS subject profile">
+            <datalist id="homsSubjectProfiles">
+              <option value="Accounting"></option><option value="Afrikaans Language"></option>
+              <option value="Agricultural Sciences"></option><option value="Business Studies"></option>
+              <option value="Economics"></option><option value="English Language"></option>
+              <option value="Geography"></option><option value="History"></option>
+              <option value="Life Orientation"></option><option value="Life Sciences"></option>
+              <option value="Mathematics"></option><option value="Physical Sciences"></option>
+            </datalist>
           </label>
           <label>Grade or year level
-            <input name="grade" placeholder="For example: Grade 10 or first year">
+            <input name="grade" placeholder="For example: Grade 10 (school Grades 1–12)">
           </label>
           <label>Term
             <select name="term">
@@ -343,6 +355,22 @@
               <option value="3">Term 3</option>
               <option value="4">Term 4</option>
             </select>
+          </label>
+          <label>Assessment format
+            <select name="assessment_format">
+              <option value="formal_exam">Formal exam paper</option>
+              <option value="controlled_test">Controlled test</option>
+              <option value="source_based">Source-based assessment</option>
+              <option value="practical">Practical or investigation</option>
+              <option value="project">Project or portfolio</option>
+              <option value="oral_performance">Oral or performance task</option>
+            </select>
+          </label>
+          <label>Total marks
+            <input name="total_marks" type="number" min="5" max="500" value="100">
+          </label>
+          <label>Duration (hours)
+            <input name="duration_hours" type="number" min="1" max="12" value="2">
           </label>
           <label>Output language
             <select name="output_language">
@@ -359,9 +387,42 @@
           <label class="full">Topic, assignment or assessment scope
             <input name="topic" required placeholder="For example: Motion in One Dimension">
           </label>
+          <label>Second topic or strand · Exam Studio
+            <input name="topic_secondary" placeholder="A second scope area or source topic">
+          </label>
+          <label>Applied skill or task focus · Exam Studio
+            <input name="methodology_topic" placeholder="For example: interpret data and justify a conclusion">
+          </label>
+          <label class="full">Extended response or synthesis focus · Exam Studio
+            <input name="essay_topic" placeholder="A larger explanation, evaluation, design or synthesis task">
+          </label>
           <label class="full">What should the pilot produce?
             <textarea name="scope" required placeholder="Batch and rubric details, or subject, grade, term, topic, paper type and required learner assets"></textarea>
           </label>
+          <fieldset class="preference" aria-label="Assessment design preferences">
+            <legend>Thinking skills to emphasise · optional, within the grade profile</legend>
+            <label><input type="checkbox" name="bloom_targets" value="remember">Remember</label>
+            <label><input type="checkbox" name="bloom_targets" value="understand">Understand</label>
+            <label><input type="checkbox" name="bloom_targets" value="apply">Apply</label>
+            <label><input type="checkbox" name="bloom_targets" value="analyze">Analyse</label>
+            <label><input type="checkbox" name="bloom_targets" value="evaluate">Evaluate</label>
+            <label><input type="checkbox" name="bloom_targets" value="create">Create</label>
+          </fieldset>
+          <label class="full">Question forms to include · optional
+            <input name="question_types" placeholder="For example: graph interpretation, short calculation, case recommendation, structured essay">
+          </label>
+          <fieldset class="preference" aria-label="Preferred assessable sources and visuals">
+            <legend>Sources and visuals to consider · availability depends on subject and CAPS</legend>
+            <label><input type="checkbox" name="source_types" value="source_extract">Text or document excerpt</label>
+            <label><input type="checkbox" name="source_types" value="data_table">Data table or graph</label>
+            <label><input type="checkbox" name="source_types" value="diagram">Diagram or model</label>
+            <label><input type="checkbox" name="source_types" value="map_extract">Map</label>
+            <label><input type="checkbox" name="source_types" value="case_file">Case or scenario</label>
+            <label><input type="checkbox" name="source_types" value="investigation_sheet">Practical investigation</label>
+            <label><input type="checkbox" name="source_types" value="calculation_workspace">Calculation workspace</label>
+            <label><input type="checkbox" name="source_types" value="performance_observation">Performance rubric</label>
+          </fieldset>
+          <label class="full"><span><input id="learningStudioCompanion" name="include_learning_studio" type="checkbox" value="true" checked style="width:18px;min-height:18px;margin-right:8px"> Build a linked Learning Studio teaching companion from this assessment spine</span></label>
           <div class="form-actions">
             <button class="button" type="submit">Create pilot request</button>
             <a class="button secondary" id="outlookDraftLink" href="mailto:dio_workflows@outlook.com?subject=HOMS%20PILOT%20REQUEST">Open email draft</a>
@@ -382,6 +443,12 @@
     const outlookDraftLink = document.querySelector("#outlookDraftLink");
     const result = document.querySelector("#result");
     const tabs = [...document.querySelectorAll('[role="tab"][aria-controls]')];
+    const examPlanningFields = [form.elements.namedItem("grade"), form.elements.namedItem("topic_secondary"), form.elements.namedItem("methodology_topic"), form.elements.namedItem("essay_topic")];
+
+    function updateExamPlanningRequirements() {
+      const required = service.value === "exam_studio";
+      examPlanningFields.forEach((field) => { field.required = required; });
+    }
 
     function selectProofTab(tab) {
       tabs.forEach((item) => {
@@ -389,6 +456,16 @@
         item.setAttribute("aria-selected", String(selected));
         document.querySelector(`#${item.getAttribute("aria-controls")}`).hidden = !selected;
       });
+    }
+
+    function intakeFormData() {
+      const source = new FormData(form);
+      return {
+        ...Object.fromEntries(source.entries()),
+        bloom_targets: source.getAll("bloom_targets"),
+        source_types: source.getAll("source_types"),
+        include_learning_studio: document.querySelector("#learningStudioCompanion").checked,
+      };
     }
 
     function draftFrom(data = {}) {
@@ -401,19 +478,26 @@
         `Name: ${data.name || ""}`, `Email: ${data.email || ""}`, `Institution: ${data.institution || ""}`,
         `Subject / module: ${data.subject || ""}`, `Grade / year: ${data.grade || ""}`, `Term: ${data.term || ""}`,
         `Topic / assignment / assessment scope: ${data.topic || ""}`, `Deadline: ${data.deadline || ""}`,
+        `Second topic: ${data.topic_secondary || ""}`, `Applied task focus: ${data.methodology_topic || ""}`, `Extended response focus: ${data.essay_topic || ""}`,
         `Output language: ${data.output_language || "English"}`,
+        `Assessment format: ${data.assessment_format || "not specified"}`, `Total marks / duration: ${data.total_marks || ""} / ${data.duration_hours || ""} hours`,
+        `Bloom focus: ${(data.bloom_targets || []).join ? (data.bloom_targets || []).join(", ") : (data.bloom_targets || "not specified")}`,
+        `Question forms: ${data.question_types || "not specified"}`,
+        `Sources / visuals: ${(data.source_types || []).join ? (data.source_types || []).join(", ") : (data.source_types || "not specified")}`,
+        `Linked Learning Studio companion: ${data.include_learning_studio ? "yes" : "no"}`,
         `Scope: ${data.scope || ""}`, "", "I understand that an educator or subject expert must review and approve the outputs before use."
       ].join("\n");
       return `mailto:${contactEmail}?subject=${encodeURIComponent(label)}&body=${encodeURIComponent(body)}`;
     }
 
-    function updateDraft() { outlookDraftLink.href = draftFrom(Object.fromEntries(new FormData(form).entries())); }
+    function updateDraft() { outlookDraftLink.href = draftFrom(intakeFormData()); }
     form.addEventListener("input", updateDraft);
-    document.querySelectorAll("[data-offer]").forEach((link) => link.addEventListener("click", () => { service.value = link.dataset.offer; updateDraft(); }));
+    service.addEventListener("change", updateExamPlanningRequirements);
+    document.querySelectorAll("[data-offer]").forEach((link) => link.addEventListener("click", () => { service.value = link.dataset.offer; updateExamPlanningRequirements(); updateDraft(); }));
     tabs.forEach((tab) => tab.addEventListener("click", () => selectProofTab(tab)));
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
+      const data = intakeFormData();
       outlookDraftLink.href = draftFrom(data);
       const button = form.querySelector('button[type="submit"]');
       button.disabled = true;
@@ -428,8 +512,20 @@
             grade_or_year: data.grade || null,
             term: data.term || null,
             topic_or_assignment: data.topic,
+            topics: [data.topic, data.topic_secondary].filter(Boolean),
+            methodology_topic: data.methodology_topic || null,
+            essay_topic: data.essay_topic || null,
             deadline: data.deadline || null,
             deliverable_notes: data.scope,
+            assessment_format: data.assessment_format,
+            total_marks: Number(data.total_marks || 100),
+            duration_hours: Number(data.duration_hours || 2),
+            assessment_preferences: {
+              bloom_targets: data.bloom_targets,
+              question_types: String(data.question_types || "").split(",").map((item) => item.trim()).filter(Boolean),
+              source_types: data.source_types,
+              include_learning_studio: data.include_learning_studio,
+            },
             lingua: { source_language: "English", target_language: data.output_language || "English", proficient_review_required: data.output_language !== "English" },
           },
           consents: { educator_review_required: true, no_sensitive_files_submitted: true },
@@ -447,6 +543,7 @@
       service.value = requestedOffer;
       selectProofTab(document.querySelector("#learning-tab"));
     }
+    updateExamPlanningRequirements();
     updateDraft();
   </script>
 </body>

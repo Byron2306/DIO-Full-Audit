@@ -1,0 +1,79 @@
+{
+  "case_id": "SYNTHETIC-POLICYPROOF-20261102",
+  "title": "Policy evidence and approval review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "source_id": "SYNTHETIC-POLICYPROOF-20261102",
+  "source_ref": "synthetic://SYNTHETIC-POLICYPROOF-20261102",
+  "source_type": "policy",
+  "source_text": "# Synthetic policy requirements and change record\n\nClause 1: The approved retention policy remains version 4.1 until an amendment is approved.\nClause 2: Records category R-17 retains records for five years under approved version 4.1.\nClause 3: Any change to a retention duration requires documented legal review before approval.",
+  "obligations": [
+    {
+      "locator": "CLAUSE-1",
+      "statement": "Clause 1: The approved retention policy remains version 4.1 until an amendment is approved.",
+      "kind": "approval_prerequisite",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-2",
+      "statement": "Clause 2: Records category R-17 retains records for five years under approved version 4.1.",
+      "kind": "retention",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-3",
+      "statement": "Clause 3: Any change to a retention duration requires documented legal review before approval.",
+      "kind": "approval_prerequisite",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "R-01",
+      "source_ref": "synthetic://policyproof/draft/R-01",
+      "text": "Draft policy version 4.2 is dated 10 August 2026.",
+      "target_locators": [
+        "CLAUSE-1"
+      ],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-02",
+      "source_ref": "synthetic://policyproof/draft/R-02",
+      "text": "Draft policy version 4.2 changes R-17 retention from five to seven years.",
+      "target_locators": [
+        "CLAUSE-2"
+      ],
+      "relation": "contradicts"
+    },
+    {
+      "evidence_id": "R-03",
+      "source_ref": "synthetic://policyproof/legal-review/R-03",
+      "text": "Legal review was requested but no completion record was supplied.",
+      "target_locators": [
+        "CLAUSE-3"
+      ],
+      "relation": "contradicts"
+    },
+    {
+      "evidence_id": "R-04",
+      "source_ref": "synthetic://policyproof/approved-policy/R-04",
+      "text": "The applicant reports the current approved policy remains version 4.1.",
+      "target_locators": [
+        "CLAUSE-1"
+      ],
+      "relation": "supports"
+    }
+  ],
+  "operator_id": "synthetic-acceptance-operator",
+  "as_of": "2026-11-01T00:00:00+00:00"
+}

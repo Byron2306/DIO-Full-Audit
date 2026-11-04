@@ -20,6 +20,14 @@
       "public-facing cult terminology"
     ]
   },
+  "video_scene_assets": {
+    "scene_01": {"background_asset_id": "HOMS_ACADEMIC_DESK", "icon_asset_id": "DIO_ICON_WORKFLOW"},
+    "scene_02": {"background_asset_id": "HOMS_GOVERNANCE_WALL", "icon_asset_id": "DIO_ICON_GOVERNANCE"},
+    "scene_03": {"background_asset_id": "HOMS_COMMAND_HALL", "icon_asset_id": "DIO_ICON_EVIDENCE"},
+    "scene_04": {"background_asset_id": "HOMS_REACTOR_CHAMBER", "icon_asset_id": "DIO_ICON_GOVERNANCE"},
+    "scene_05": {"background_asset_id": "HOMS_ACADEMIC_DESK", "icon_asset_id": "DIO_ICON_EVIDENCE"},
+    "scene_06": {"background_asset_id": "HOMS_ENDCARD", "icon_asset_id": "DIO_ICON_GROWTH"}
+  },
   "voice": {
     "default_profile_id": "vera_pocket_public",
     "backend": "pocket_tts",

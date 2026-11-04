@@ -85,7 +85,7 @@ def build_challenge_receipt(request: dict[str, Any]) -> dict[str, Any]:
     else:
         verdict = "CLEAR"
 
-    created_at = _now()
+    created_at = str(request.get("created_at") or _now())
     basis = {
         "case_id": case_id,
         "target_type": target_type,
@@ -94,6 +94,8 @@ def build_challenge_receipt(request: dict[str, Any]) -> dict[str, Any]:
         "findings": normalized,
         "requested_action": request.get("requested_action"),
     }
+    if "evidence_context" in request:
+        basis["evidence_context"] = request["evidence_context"]
     challenge_id = "SERAPH-" + _stable_hash(basis)[:16].upper()
     receipt = {
         "schema": "dio.seraph.challenge_receipt.v1",
@@ -117,6 +119,8 @@ def build_challenge_receipt(request: dict[str, Any]) -> dict[str, Any]:
             "SOAR response, containment, release, spend, mutation or any other external execution."
         ),
     }
+    if "evidence_context" in request:
+        receipt["evidence_context"] = request["evidence_context"]
     receipt["receipt_sha256"] = _stable_hash(receipt)
     return receipt
 

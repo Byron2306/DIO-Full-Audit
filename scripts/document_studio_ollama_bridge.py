@@ -53,14 +53,43 @@ def _numbers(text: str) -> set[str]:
     return set(re.findall(r"\b\d+(?:\.\d+)?\b", text))
 
 
+_CONTENT_STOPWORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "been", "being", "but", "by",
+    "for", "from", "had", "has", "have", "he", "her", "his", "in", "into",
+    "is", "it", "its", "may", "must", "not", "of", "on", "or", "our", "per",
+    "shall", "she", "should", "the", "their", "them", "there", "these", "they",
+    "this", "those", "to", "was", "were", "will", "with", "would", "you", "your",
+}
+
+
+def _content_tokens(text: str) -> set[str]:
+    tokens: set[str] = set()
+    for raw in re.findall(r"[A-Za-z][A-Za-z'-]*", text.casefold()):
+        word = raw.strip("'-")
+        if not word or word in _CONTENT_STOPWORDS:
+            continue
+        # A small suffix fold handles grammatical inflection only; it does not
+        # attempt synonym detection or make an unsupported paraphrase look safe.
+        if len(word) > 5 and word.endswith("ies"):
+            word = word[:-3] + "y"
+        elif len(word) > 5 and word.endswith(("ing", "ed")):
+            word = word[:-3]
+        elif len(word) > 4 and word.endswith("s") and not word.endswith(("ss", "us", "is")):
+            word = word[:-1]
+        tokens.add(word)
+    return tokens
+
+
 def normalise_provider_result(prompt: str, result: dict[str, Any]) -> dict[str, Any]:
     """Conservatively repair weak local-model technical-edit output.
 
     The normaliser never invents replacement facts. Exact-ID edits are retained only
-    when they preserve all source numbers and protected tokens. Missing, duplicated,
-    misidentified, or fact-dropping edits are quarantined by replacing that paragraph
-    with the exact source text and emitting a high-severity QA flag. The downstream
-    Document Studio validator remains authoritative and unchanged.
+    when they preserve all source numbers and protected tokens and pass conservative
+    content-word coverage/addition thresholds. Missing, duplicated, misidentified,
+    fact-dropping, or content-expanding edits are quarantined by replacing that
+    paragraph with the exact source text and emitting a high-severity QA flag. The
+    lexical gate is a heuristic, not proof of semantic equivalence; human review
+    remains mandatory.
     """
 
     service = ""
@@ -102,6 +131,8 @@ def normalise_provider_result(prompt: str, result: dict[str, Any]) -> dict[str, 
         source_text = source["text"]
         candidate = by_id.get(paragraph_id)
         reasons: list[str] = []
+        coverage: float | None = None
+        introduced_ratio: float | None = None
 
         if candidate is None:
             reasons.append("missing_or_misidentified_edit")
@@ -117,6 +148,20 @@ def normalise_provider_result(prompt: str, result: dict[str, Any]) -> dict[str, 
             missing_tokens = [token for token in protected if token in source_text and token not in revised]
             if missing_tokens:
                 reasons.append("dropped_protected_tokens:" + ",".join(missing_tokens))
+            source_content = _content_tokens(source_text)
+            revised_content = _content_tokens(revised)
+            if source_content:
+                coverage = len(source_content & revised_content) / len(source_content)
+            else:
+                coverage = 1.0
+            if revised_content:
+                introduced_ratio = len(revised_content - source_content) / len(revised_content)
+            else:
+                introduced_ratio = 1.0
+            if coverage < 0.70:
+                reasons.append(f"source_content_coverage_below_0.70:{coverage:.3f}")
+            if introduced_ratio > 0.25:
+                reasons.append(f"new_content_ratio_above_0.25:{introduced_ratio:.3f}")
 
         if reasons:
             repaired.append({
@@ -131,13 +176,13 @@ def normalise_provider_result(prompt: str, result: dict[str, Any]) -> dict[str, 
                 "severity": "high",
                 "issue": "Ollama edit quarantined: " + "; ".join(reasons),
             })
-            normalised.append({"paragraph_id": paragraph_id, "action": "source_fallback", "reasons": reasons})
+            normalised.append({"paragraph_id": paragraph_id, "action": "source_fallback", "reasons": reasons, "source_content_coverage": coverage, "introduced_content_ratio": introduced_ratio})
         else:
             kept = dict(candidate)
             kept["paragraph_id"] = paragraph_id
             kept["revised"] = str(kept["revised"]).strip()
             repaired.append(kept)
-            normalised.append({"paragraph_id": paragraph_id, "action": "provider_edit_retained", "reasons": []})
+            normalised.append({"paragraph_id": paragraph_id, "action": "provider_edit_retained", "reasons": [], "source_content_coverage": coverage, "introduced_content_ratio": introduced_ratio})
 
     result = dict(result)
     result["edits"] = repaired
@@ -145,6 +190,12 @@ def normalise_provider_result(prompt: str, result: dict[str, Any]) -> dict[str, 
     result["ollama_normalization"] = {
         "schema": "dio.document_studio.ollama_normalization.v1",
         "mode": "conservative_fact_preserving",
+        "content_change_gate": {
+            "source_content_coverage_minimum": 0.70,
+            "introduced_content_ratio_maximum": 0.25,
+            "metric": "set overlap of lightly suffix-folded non-stopwords",
+            "interpretation_limit": "Heuristic only; passing does not prove semantic equivalence. Human review remains required.",
+        },
         "paragraphs": normalised,
         "authority_created": False,
         "release_authority": False,

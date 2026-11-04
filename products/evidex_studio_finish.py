@@ -101,7 +101,10 @@ def build_evidex_semantic_content(
             else:
                 extra.append(f"Source {record['record_id']} ({record['source_filename']}, SHA-256 {record['sha256']}): {record['text']}")
         for comparison in customer_review["quantity_comparisons"]:
-            extra.append(f"Claim {comparison['claim_id']}: declared {comparison['declared_value']}; record {comparison['candidate_record_id']} reports {comparison['reported_record_value']}; arithmetic difference {comparison['difference']}. {comparison['state']}. {comparison['comparability']}")
+            if comparison.get("difference") is None:
+                extra.append(f"Claim {comparison['claim_id']}: declared {comparison['declared_value']}; record {comparison['candidate_record_id']} reports {comparison['reported_record_value']}; no quantity difference calculated because period/population comparability is unestablished. {comparison['state']}. {comparison['comparability']}")
+            else:
+                extra.append(f"Claim {comparison['claim_id']}: declared {comparison['declared_value']}; record {comparison['candidate_record_id']} reports {comparison['reported_record_value']}; arithmetic difference {comparison['difference']}. {comparison['state']}. {comparison['comparability']}")
         extra.append("Questions and records to obtain")
         extra.extend(f"{action['record_id']}: {action['question']}" for action in customer_review["review_actions"])
         rows.extend({"paragraph_id": f"R{i:04d}", "text": text} for i, text in enumerate(extra, 1))

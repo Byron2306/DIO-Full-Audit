@@ -505,7 +505,7 @@ def prepare_quote(
             "NEEDS_YOU",
             evidence_ref=f"quote_result:{result['quote_result_sha256']}",
         )
-        update_case(
+        case = update_case(
             state_root,
             case,
             patch={
@@ -523,6 +523,31 @@ def prepare_quote(
                 }
             },
             evidence_ref=f"quote_result:{result['quote_result_sha256']}",
+        )
+        # NEEDS_YOU must be actionable in the operator queue, not only a stage
+        # label visible to the customer. The case remains the source of truth.
+        from .state import create_needs_you
+        conversation_ids = list(case.get("conversation_ids") or [])
+        needs = create_needs_you(
+            state_root,
+            reason="customer_quote_review",
+            conversation_id=str(conversation_ids[-1] if conversation_ids else case_id),
+            product=str(product.get("name") or "") or None,
+            summary=(
+                f"Review quote request {request['quote_request_id']} for "
+                f"{product.get('name')} · governed reference R{amount:,} · "
+                f"case {case_id}. Confirm or decline pricing before any invoice or checkout."
+            ),
+        )
+        needs_ids = list(case.get("needs_you_ids") or [])
+        if needs["needs_you_id"] not in needs_ids:
+            needs_ids.append(needs["needs_you_id"])
+        update_case(
+            state_root,
+            case,
+            patch={"needs_you_ids": needs_ids,
+                   "commercial": {"quote_review_needs_you_id": needs["needs_you_id"]}},
+            evidence_ref=f"needs_you:{needs['needs_you_id']}",
         )
         return result
 

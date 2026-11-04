@@ -1,0 +1,25 @@
+{
+  "case_id": "SYNTHETIC-LETTER-42",
+  "title": "Synthetic invoice INV-42 records request",
+  "recipient": "Moya Accounts",
+  "sender": "Nala",
+  "requested_action": "Please send the signed scope and timesheet for reconciliation.",
+  "sources": [
+    {
+      "source_id": "INVOICE",
+      "text": "Invoice INV-42 records ZAR 48000. The signed scope has not been supplied."
+    }
+  ],
+  "facts": [
+    {
+      "source_id": "INVOICE",
+      "quote": "Invoice INV-42 records ZAR 48000."
+    },
+    {
+      "source_id": "INVOICE",
+      "quote": "The signed scope has not been supplied."
+    }
+  ],
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true
+}

@@ -24,9 +24,15 @@ def main() -> int:
         )
     )
     parser.add_argument(
+        "--root",
+        type=Path,
+        default=ROOT,
+        help="DIO root containing the current canon surfaces and historical lineage anchor.",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "state" / "product_grade" / "canon_extensions",
+        default=None,
         help="Output root for native canon-extension ProductGrade receipts.",
     )
     parser.add_argument(
@@ -36,9 +42,11 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    output_root = args.output.expanduser().resolve()
+    product_root = args.root.expanduser().resolve()
+    output_root = (args.output.expanduser().resolve() if args.output else
+                   product_root / "state" / "product_grade" / "canon_extensions")
     receipt = run_native_product_grade_batch(
-        root=ROOT,
+        root=product_root,
         output_root=output_root,
     )
     print(json.dumps(receipt, indent=2, sort_keys=True))

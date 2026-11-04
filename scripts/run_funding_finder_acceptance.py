@@ -46,7 +46,10 @@ def sa_packet(applicant_name="Moya SkillLab", *, agri=False):
             "official_url_allowlist": [NYDA, TIA], "opportunities": [
                 {"opportunity_id": "NYDA-GRANT", "title": "NYDA Grant Programme — current window unconfirmed", "funder": "National Youth Development Agency", "official_url": NYDA,
                  "criteria": [{"criterion_id": "CITIZENSHIP", "field": "citizenship", "operator": "equals", "expected": "South African", "quote": "Are South African citizens"},
+                              {"criterion_id": "RESIDENCY", "field": "residency", "operator": "equals", "expected": "South African resident", "quote": "Are South African residents"},
                               {"criterion_id": "AGE-MIN", "field": "age", "operator": "minimum", "expected": 18, "quote": "Are youth from 18-35 years of age"},
+                              {"criterion_id": "AGE-MAX", "field": "age", "operator": "maximum", "expected": 35, "quote": "Are youth from 18-35 years of age"},
+                              {"criterion_id": "TURNOVER-MAX", "field": "annual_turnover", "operator": "maximum", "expected": 750000, "quote": "Businesses that have an annual turnover exceeding R750,000.00"},
                               {"criterion_id": "EXCLUDES-RD", "field": "request_type", "operator": "not_equals", "expected": "seed capital for research and development", "quote": "Require seed capital for research and development;"}],
                  "required_documents": [{"name": "Business Management Training", "quote": "Proof of attending Business Management Training course,"}]},
                 {"opportunity_id": "TIA-SEED", "title": "TIA Seed Fund — partner route and current call unconfirmed", "funder": "Technology Innovation Agency", "official_url": TIA,

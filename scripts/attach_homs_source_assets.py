@@ -13,7 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DEFAULT_BANK = ROOT / "deliverables" / "homs_core_source_bank" / "HOMS_CORE_SOURCE_BANK.json"
 CURATED_DEFAULT_BANK = ROOT / "deliverables" / "homs_core_source_bank_curated" / "HOMS_CORE_SOURCE_BANK_CURATED.json"
-DEFAULT_BANK = CURATED_DEFAULT_BANK if CURATED_DEFAULT_BANK.exists() else RAW_DEFAULT_BANK
+COMPOSED_DEFAULT_BANK = ROOT / "deliverables" / "homs_tight8_pictora_visual_source_bank_v1" / "HOMS_COMPOSED_SOURCE_BANK.json"
+DEFAULT_BANK = COMPOSED_DEFAULT_BANK if COMPOSED_DEFAULT_BANK.exists() else (CURATED_DEFAULT_BANK if CURATED_DEFAULT_BANK.exists() else RAW_DEFAULT_BANK)
 
 SUBJECT_ALIASES = {
     "afrikaans": "afrikaans_language",
@@ -44,6 +45,7 @@ VISUAL_KIND_TO_SOURCE_TYPES = {
     "image": ["photograph_or_image"],
     "investigation_sheet": ["data_table", "diagram_or_model"],
     "map": ["map_extract"],
+    "map_extract": ["map_extract"],
     "photograph": ["photograph_or_image"],
     "source_based": ["text_extract", "photograph_or_image", "cartoon"],
     "synoptic_weather_map": ["synoptic_weather_map"],
@@ -171,11 +173,12 @@ def requested_source_types(pack: dict[str, Any], subject_id: str, explicit_types
     return dedupe([item for item in requested if item != "image_rendered_or_scanned_pages"])
 
 
-def priority_key(asset: dict[str, Any], requested_types: list[str]) -> tuple[int, int, str, int]:
+def priority_key(asset: dict[str, Any], requested_types: list[str]) -> tuple[int, int, int, str, int]:
     source_type = str(asset.get("source_type") or "")
     requested_rank = requested_types.index(source_type) if source_type in requested_types else 999
     source_rank = SOURCE_PRIORITY.index(source_type) if source_type in SOURCE_PRIORITY else 999
-    return (requested_rank, source_rank, str(asset.get("paper") or ""), int(asset.get("page") or 0))
+    grade_scope_rank = 1 if asset.get("grade_neutral") else 0
+    return (requested_rank, source_rank, grade_scope_rank, str(asset.get("paper") or ""), int(asset.get("page") or 0))
 
 
 def select_assets(bank: dict[str, Any], subject_id: str, source_types: list[str], limit: int, allow_fallback: bool) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -221,11 +224,27 @@ def select_assets(bank: dict[str, Any], subject_id: str, source_types: list[str]
     return selected, rejected
 
 
+def grade_scope_bank(bank: dict[str, Any], subject_id: str, grade: int | None) -> dict[str, Any]:
+    """Exclude unscoped subject stimuli from grade-specific runs."""
+    if grade is None:
+        return bank
+    result=dict(bank)
+    result["assets"]=[
+        asset for asset in bank.get("assets") or []
+        if asset.get("subject_id") != subject_id
+        or (asset.get("grade") is not None and int(asset.get("grade")) == int(grade))
+        or asset.get("grade_neutral") is True
+    ]
+    return result
+
+
 def to_pack_source_asset(asset: dict[str, Any], index: int) -> dict[str, Any]:
-    title = str(asset.get("source_type") or "official source").replace("_", " ").title()
+    title = str(asset.get("title") or str(asset.get("source_type") or "source").replace("_", " ").title())
+    if asset.get("asset_status") == "official_page_exemplar":
+        title = f"Official-paper exemplar: {str(asset.get('source_type') or 'source').replace('_', ' ').title()}"
     return {
         "id": f"source_{index:02d}_{slug(asset.get('source_type'))}",
-        "title": f"Official-paper exemplar: {title}",
+        "title": title,
         "source_type": asset.get("source_type"),
         "source_types": asset.get("source_types"),
         "paper": asset.get("paper"),
@@ -239,6 +258,14 @@ def to_pack_source_asset(asset: dict[str, Any], index: int) -> dict[str, Any]:
         "asset_status": asset.get("asset_status"),
         "quality_flags": asset.get("quality_flags") or [],
         "source_quality_level": asset.get("source_quality_level"),
+        "grade": asset.get("grade"),
+        "grade_neutral": asset.get("grade_neutral", False),
+        "vector_svg": asset.get("vector_svg"),
+        "provenance": asset.get("provenance"),
+        "content_text": asset.get("content_text"),
+        "content_description": asset.get("content_description"),
+        "structured_data": asset.get("structured_data"),
+        "copyright_status": asset.get("copyright_status"),
         "release_gate": asset.get("release_gate"),
         "curation": asset.get("curation"),
         "embedding_policy": asset.get("embedding_policy"),
@@ -253,6 +280,8 @@ def attach_sources(job_dir: Path, bank_path: Path, explicit_subject: str | None,
     bank = load_json(bank_path)
     subject_id = canonical_subject(pack, explicit_subject)
     source_types = requested_source_types(pack, subject_id, explicit_types)
+    grade = pack.get("grade")
+    bank = grade_scope_bank(bank,subject_id,int(grade) if grade is not None else None)
     selected, rejected_assets = select_assets(bank, subject_id, source_types, limit, allow_fallback=explicit_types is None)
     source_assets = [to_pack_source_asset(asset, index) for index, asset in enumerate(selected, start=1)]
     selected_types = {str(asset.get("source_type") or "") for asset in selected}
@@ -265,6 +294,7 @@ def attach_sources(job_dir: Path, bank_path: Path, explicit_subject: str | None,
         "job_dir": str(job_dir),
         "bank": str(bank_path),
         "subject_id": subject_id,
+        "grade": grade,
         "requested_source_types": source_types,
         "attached_count": len(source_assets),
         "missing_requested_source_types": missing_requested,

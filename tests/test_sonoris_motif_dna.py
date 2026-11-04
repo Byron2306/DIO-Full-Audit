@@ -83,44 +83,31 @@ def load_events(
 def compositional_fingerprint(
     events: dict,
 ) -> tuple:
-    rows = events["harmony"]
+    """Fingerprint the composed musical structure, not performance velocity."""
 
-    if not rows:
-        return ()
+    roles = ("harmony", "lead", "bass", "drums", "keys", "folk")
+    result = []
 
-    first_beat = min(
-        row["beat"]
-        for row in rows
-    )
+    for role in roles:
+        rows = events.get(role, [])
 
-    opening = [
-        row
-        for row in rows
-        if row["beat"] == first_beat
-    ]
+        if not isinstance(rows, list):
+            raise AssertionError(f"INVALID_EVENT_ROLE: {role}")
 
-    root = min(
-        row["pitch"]
-        for row in opening
-    )
+        musical_events = tuple(sorted(
+            (
+                round(float(row["beat"]), 4),
+                round(float(row["duration"]), 4),
+                int(row["pitch"]),
+                str(row.get("articulation", "")),
+            )
+            for row in rows
+        ))
 
-    return tuple(
-        (
-            round(
-                float(row["beat"]),
-                4,
-            ),
-            int(row["pitch"]) - root,
-            str(
-                row.get(
-                    "articulation",
-                    "",
-                )
-            ),
-        )
-        for row in rows
-        if float(row["beat"]) < 16.0
-    )
+        result.append((role, musical_events))
+
+    return tuple(result)
+
 
 
 def signature(

@@ -1,0 +1,19 @@
+[Unit]
+Description=DIO Pictora image studio
+ConditionPathIsMountPoint=/data
+After=network-online.target
+Wants=dio-comfyui-local.service
+After=dio-comfyui-local.service
+
+[Service]
+Type=simple
+WorkingDirectory=/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit
+ExecStart=/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/.venv/bin/python -u /data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/scripts/serve_pictora_image_editor.py --host 127.0.0.1 --port 42153
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONNOUSERSITE=1
+UMask=0077
+
+[Install]
+WantedBy=default.target

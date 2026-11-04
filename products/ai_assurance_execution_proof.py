@@ -116,6 +116,15 @@ def _verify_component(component_dir: Path, result: dict[str, Any]) -> tuple[dict
         raise ProductClassExecutionProofError("DIO AI Assurance trust envelope identity drifted")
     if envelope.get("human_gate") != "NEEDS_YOU" or envelope.get("external_release") != "REFUSE":
         raise ProductClassExecutionProofError("DIO AI Assurance component envelope boundary drifted")
+    seraph = result.get("seraph_challenge") or {}
+    if (seraph.get("schema") != "dio.seraph.challenge_receipt.v1"
+            or seraph.get("target_id") != envelope.get("envelope_fingerprint")
+            or seraph.get("coverage_state") != "partial"
+            or seraph.get("verdict") == "CLEAR"
+            or seraph.get("execution_authorized") is not False
+            or manifest.get("seraph_challenge_sha256") != seraph.get("receipt_sha256")
+            or receipt.get("seraph_challenge_sha256") != seraph.get("receipt_sha256")):
+        raise ProductClassExecutionProofError("DIO AI Assurance Seraph challenge binding is missing or unsafe")
 
     artifacts: list[dict[str, Any]] = []
     for row in manifest.get("artifacts") or []:
@@ -300,6 +309,9 @@ def run_ai_assurance_execution_proof(
         "component_product_id": COMPONENT_PRODUCT_ID,
         "component_executor_id": component_receipt.get("executor_id"),
         "component_execution_proved": True,
+        "seraph_challenge_sha256": component_receipt.get("seraph_challenge_sha256"),
+        "seraph_verdict": component_receipt.get("seraph_verdict"),
+        "seraph_coverage_state": component_receipt.get("seraph_coverage_state"),
         "identity_equivalence_rejected": True,
         "composition_review_processor": "controlled_evidence_review_v1",
         "processor_receipt_schema": review_receipt.get("schema"),

@@ -11,6 +11,7 @@ from xml.sax.saxutils import escape as xml_escape
 
 from products.compiler import compile_manifest
 from products.regulatory.core import fingerprint, build_regulatory_context
+from products.regulatory.seraph_review import challenge_ai_regulatory_context
 
 ROOT = Path(__file__).resolve().parents[2]
 PROVIDER_ID = "regulated_markets_proof_pack_v1"
@@ -134,6 +135,12 @@ def run_regulatory_product(product_id: str, payload: dict[str, Any], *, output_d
         raise RuntimeError("regulated executor or authority boundary drift")
     envelope = build_regulatory_context(product_id, payload, now=now)
     dossier = _dossier(envelope)
+    seraph = challenge_ai_regulatory_context(envelope, payload, now=now) if product_id == "dio_airegreadiness" else None
+    if seraph is not None:
+        dossier["provenance_manifest"]["seraph_challenge"] = {
+            "receipt_sha256": seraph["receipt_sha256"], "coverage_state": seraph["coverage_state"],
+            "verdict": seraph["verdict"],
+        }
     required_sections = {x for row in compiled["output_plan"]["outputs"] for x in (row.get("required_sections") or [])}
     missing = sorted(required_sections.difference(dossier))
     if missing: raise RuntimeError(f"regulatory dossier missing required sections: {missing}")
@@ -144,17 +151,25 @@ def run_regulatory_product(product_id: str, payload: dict[str, Any], *, output_d
         "DOCX": ("REGULATORY_READINESS_DOSSIER.docx", _docx(envelope,definition["title"])),
         "PDF": ("REGULATORY_READINESS_DOSSIER.pdf", _pdf(envelope,definition["title"])),
     }
+    if seraph is not None:
+        rendered["SERAPH_CHALLENGE"] = ("SERAPH_CHALLENGE_RECEIPT.json", json.dumps(seraph,indent=2,sort_keys=True).encode()+b"\n")
     artifacts=[]
     for kind,(name,body) in rendered.items():
         (output_dir/name).write_bytes(body); artifacts.append({"artifact_type":kind,"filename":name,"sha256":_sha(body)})
     proof={"schema":"dio.regulatory_proof_manifest.v1","provider_id":PROVIDER_ID,"product_id":product_id,
            "envelope_fingerprint":envelope["envelope_fingerprint"],"artifacts":artifacts,"human_gate":"NEEDS_YOU",
            "external_release":False,"authority_created":False,"external_effects":False}
+    if seraph is not None:
+        proof.update({"seraph_challenge_sha256": seraph["receipt_sha256"], "seraph_verdict": seraph["verdict"],
+                      "seraph_coverage_state": seraph["coverage_state"]})
     proof["proof_fingerprint"]=fingerprint(proof)
     (output_dir/"PROOF_MANIFEST.json").write_text(json.dumps(proof,indent=2,sort_keys=True)+"\n")
     receipt={"schema":"dio.regulatory_execution_receipt.v1","product_id":product_id,"executor_id":EXECUTOR_ID,
              "operator_id":operator_id,"evaluated_at":now,"envelope_fingerprint":envelope["envelope_fingerprint"],
              "proof_fingerprint":proof["proof_fingerprint"],"states":_states(envelope),"human_gate":"NEEDS_YOU",
              "external_release_gate":"REFUSE","authority_created":False,"external_effects":False}
+    if seraph is not None:
+        receipt.update({"seraph_challenge_sha256": seraph["receipt_sha256"], "seraph_verdict": seraph["verdict"],
+                        "seraph_coverage_state": seraph["coverage_state"]})
     (output_dir/"REGULATORY_RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
-    return {"envelope":envelope,"proof_manifest":proof,"receipt":receipt,"output_dir":str(output_dir)}
+    return {"envelope":envelope,"seraph_challenge":seraph,"proof_manifest":proof,"receipt":receipt,"output_dir":str(output_dir)}

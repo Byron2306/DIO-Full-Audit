@@ -1,0 +1,40 @@
+{
+  "title": "Harbour clinic access decision",
+  "audience": "Operations committee",
+  "objective": "Choose whether to extend the mobile clinic pilot.",
+  "domain": "healthcare",
+  "sources": [
+    {
+      "source_id": "OPS",
+      "title": "Pilot service log",
+      "citation": "Clinic service log, 2026-09",
+      "text": "The pilot completed 240 appointments in September.\nWaiting time fell from 18 days to 11 days.\nThe log does not establish a causal effect on clinical outcomes.",
+      "metrics": [
+        {
+          "metric": "Appointments",
+          "value": 240,
+          "unit": "appointments",
+          "period": "September",
+          "quote": "The pilot completed 240 appointments in September."
+        }
+      ]
+    },
+    {
+      "source_id": "FIN",
+      "title": "Finance review",
+      "citation": "Finance review, 2026-09",
+      "text": "Operating costs were R180000 in September.\nThe next quarter funding decision remains open."
+    }
+  ],
+  "recommendations": [
+    {
+      "text": "Extend the pilot for one quarter with weekly capacity monitoring.",
+      "claim_ids": [
+        "OPS-P1",
+        "FIN-P2"
+      ]
+    }
+  ],
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true
+}

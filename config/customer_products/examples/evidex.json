@@ -1,0 +1,25 @@
+{
+  "case_id": "SYNTHETIC-EVIDEX-1",
+  "title": "Synthetic community workshop evidence reconciliation",
+  "organisation": "Synthetic community programme",
+  "sources": [
+    {
+      "source_id": "CLAIM",
+      "text": "Claim C1 says 14 community workshops were delivered."
+    },
+    {
+      "source_id": "ATTENDANCE",
+      "text": "Attendance sheets support 12 workshops."
+    },
+    {
+      "source_id": "EMAIL",
+      "text": "Two additional workshops are mentioned only in an email summary."
+    },
+    {
+      "source_id": "PHOTO",
+      "text": "Three photographs lack dates or event identifiers."
+    }
+  ],
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true
+}

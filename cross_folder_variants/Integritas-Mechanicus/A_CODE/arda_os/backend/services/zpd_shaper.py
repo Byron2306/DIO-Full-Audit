@@ -20,6 +20,12 @@ except ImportError:
             for k, v in kwargs.items(): setattr(self, k, v)
         def model_dump(self, **kw): return {k: v for k, v in self.__dict__.items() if not k.startswith("_")}
 
+    def Field(default=None, default_factory=None, **kw):
+        return default_factory() if default_factory else default
+
+    class ConfigDict(dict):
+        """Pydantic-v2 config placeholder for the stdlib fallback runtime."""
+
 try:
     from backend.services.coronation_schemas import (
         ThinkingMap, BloomLevel, BarrettDepth, CalibrationDomain

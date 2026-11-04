@@ -32,6 +32,7 @@ _ACTION_ACTORS: dict[str, tuple[str, ...]] = {
     "QUALIFY": ("system", "operator"),
     "OPEN_INTAKE": ("customer", "operator"),
     "RECEIVE_FILES": ("customer", "system", "operator"),
+    "RECORD_INTAKE_INPUTS": ("customer", "operator"),
     "ASSESS_SCOPE": ("customer", "system", "operator"),
     "RECOMMEND_PRICE": ("system", "operator"),
     "PREPARE_QUOTE": ("customer", "system", "operator"),
@@ -59,6 +60,11 @@ def _canonical_hash(value: dict[str, Any]) -> str:
         ensure_ascii=True,
     ).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()
+
+
+def _payload_hash(value: dict[str, Any] | None) -> str:
+    raw = json.dumps(value or {}, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    return "sha256:" + hashlib.sha256(raw).hexdigest()
 
 
 def _required(value: Any, label: str) -> str:
@@ -94,6 +100,10 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
             "missing_input_ids": list(intake.get("missing_input_ids") or []),
             "invalid_input_ids": list(intake.get("invalid_input_ids") or []),
             "scope_sufficient": bool(intake.get("scope_sufficient")),
+            "product_name": intake.get("product_name"),
+            "required_inputs": deepcopy(intake.get("required_inputs") or []),
+            "optional_inputs": deepcopy(intake.get("optional_inputs") or []),
+            "provided_inputs": deepcopy(intake.get("provided_inputs") or {}),
         },
         "scope": {
             "state": scope.get("state"),
@@ -105,6 +115,15 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
             "currency": quote.get("currency") or commercial.get("currency"),
             "presentation_authority": bool(quote.get("presentation_authority")),
             "quote_state": commercial.get("quote_state"),
+            "decision": quote_result.get("decision"),
+            "reason": quote_result.get("reason"),
+        },
+        "order": {
+            "invoice_id": commercial.get("invoice_id"),
+            "invoice_state": commercial.get("invoice_state"),
+            "payment_state": commercial.get("payment_state"),
+            "checkout_available": bool(commercial.get("checkout_url")),
+            "operator_review_required": bool(commercial.get("operator_review_required")),
         },
         "settlement": {
             "settlement_class": settlement.get("settlement_class"),
@@ -128,6 +147,14 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
             "delivery_receipt_sha256": receipt.get("delivery_receipt_sha256"),
             "channel": receipt.get("channel"),
             "sent": bool(receipt.get("sent")),
+            "email_state": receipt.get("email_state"),
+            "return_pack_state": receipt.get("return_pack_state"),
+        },
+        "communication": {
+            "outlook_draft_count": len((case.get("outlook") or {}).get("draft_ids") or []),
+            "outlook_sent_receipt_count": len((case.get("outlook") or {}).get("send_receipt_ids") or []),
+            "email_address_present": bool(str(case.get("contact_email") or "").strip()),
+            "email_send_authorized": False,
         },
     }
 
@@ -347,6 +374,7 @@ def execute_vesper_action(
             "before_stage": before_view["stage"],
             "after_stage": str(after_case.get("stage") or ""),
             "action_ref": action_ref,
+            "payload_sha256": _payload_hash(payload),
         },
     )
     canonical_after = load_case(state_root, str(case_id))

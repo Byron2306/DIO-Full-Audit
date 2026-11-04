@@ -1,0 +1,27 @@
+{
+  "case_id": "SYNTHETIC-CAMPAIGN-LAB-001",
+  "owner_authorized": true,
+  "brand_rights_confirmed": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "source_text": "Brand owner: Moya Community Clinic\nProduct name: Mobile Care Pilot\nShort name: Mobile Care\nOffer: community mobile clinic appointments\nPromise: Provide scheduled primary-care appointments at five community sites.\nProof: The September service log records 240 completed appointments.\nCall to action: Request the next-quarter schedule.\nAudience: Moya Clinic operations committee\nAudience pain: Monthly site reports are split across five clinic spreadsheets.\nAudience outcome: One monthly view of scheduled and completed appointments.",
+  "source_image_path": "workshop-source.png",
+  "proof_asset_path": "campaign-lab-proof.txt",
+  "product": {
+    "id": "MOYA_MOBILE_CARE",
+    "name": "Mobile Care Pilot",
+    "short_name": "Mobile Care",
+    "offer": "community mobile clinic appointments",
+    "promise": "Provide scheduled primary-care appointments at five community sites.",
+    "proof": "The September service log records 240 completed appointments.",
+    "cta": "Request the next-quarter schedule.",
+    "brand_owner": "Moya Community Clinic",
+    "landing_page": "",
+    "accent": "#c9a227"
+  },
+  "audience": {
+    "id": "MOYA_OPERATIONS",
+    "name": "Moya Clinic operations committee",
+    "pain": "Monthly site reports are split across five clinic spreadsheets.",
+    "outcome": "One monthly view of scheduled and completed appointments."
+  }
+}

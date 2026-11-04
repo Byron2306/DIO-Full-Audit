@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-DILIGENCEROOM-001",
+  "title": "Acquisition financial and operating diligence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "FINANCIAL",
+      "text": "Seller schedule: FY2025 revenue stated as ZAR 18.4 million; audited financial statements are not attached."
+    },
+    {
+      "source_id": "OPERATIONS",
+      "text": "Operations memo: 4 service sites reported active as of 2026-09-30; site-level utilization data was not supplied."
+    },
+    {
+      "source_id": "ISSUE",
+      "text": "Diligence note: reported revenue has not been reconciled to signed accounts or bank statements."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "DILIGENCE-R1",
+      "source_id": "FINANCIAL",
+      "quote": "FY2025 revenue stated as ZAR 18.4 million",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "DILIGENCE-R2",
+      "source_id": "OPERATIONS",
+      "quote": "4 service sites reported active as of 2026-09-30",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "DILIGENCE-R3",
+      "source_id": "ISSUE",
+      "quote": "reported revenue has not been reconciled to signed accounts or bank statements",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "DILIGENCE-E1",
+      "source_id": "FINANCIAL",
+      "quote": "FY2025 revenue stated as ZAR 18.4 million",
+      "supports": [
+        "DILIGENCE-R1"
+      ]
+    },
+    {
+      "evidence_id": "DILIGENCE-E2",
+      "source_id": "OPERATIONS",
+      "quote": "4 service sites reported active as of 2026-09-30",
+      "supports": [
+        "DILIGENCE-R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "DILIGENCE-R3",
+      "source_id": "ISSUE",
+      "quote": "reported revenue has not been reconciled to signed accounts or bank statements"
+    }
+  ]
+}

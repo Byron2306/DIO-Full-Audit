@@ -1,0 +1,20 @@
+{
+  "1": {"class_type": "LoadImage", "inputs": {"image": "vesper_vise_geometry_source_20261028.png"}},
+  "2": {"class_type": "LoadImage", "inputs": {"image": "vesper_krea2_mbp_crop_20261028.png"}},
+  "3": {"class_type": "LoadImage", "inputs": {"image": "vera_canonical_lips_mask.png"}},
+  "4": {"class_type": "ImageToMask", "inputs": {"image": ["3", 0], "channel": "red"}},
+  "5": {"class_type": "GrowMask", "inputs": {"mask": ["4", 0], "expand": 4, "tapered_corners": true}},
+  "6": {"class_type": "FeatherMask", "inputs": {"mask": ["5", 0], "left": 3, "top": 3, "right": 3, "bottom": 3}},
+  "7": {"class_type": "CropMask", "inputs": {"mask": ["6", 0], "x": 85, "y": 275, "width": 512, "height": 512}},
+  "8": {"class_type": "ImageCrop", "inputs": {"image": ["1", 0], "width": 512, "height": 512, "x": 85, "y": 275}},
+  "9": {
+    "class_type": "ImageCompositeMasked",
+    "inputs": {"destination": ["8", 0], "source": ["2", 0], "x": 0, "y": 0, "resize_source": false, "mask": ["7", 0]}
+  },
+  "10": {
+    "class_type": "ImageCompositeMasked",
+    "inputs": {"destination": ["1", 0], "source": ["9", 0], "x": 85, "y": 275, "resize_source": false, "mask": ["7", 0]}
+  },
+  "11": {"class_type": "JoinImageWithAlpha", "inputs": {"image": ["10", 0], "alpha": ["1", 1]}},
+  "12": {"class_type": "SaveImage", "inputs": {"images": ["11", 0], "filename_prefix": "vesper_visemes/VERA_MBP_composited_tight_alpha"}}
+}

@@ -1,0 +1,23 @@
+{
+  "case_id": "SYNTHETIC-INCIDENTROOM-001",
+  "title": "Claims assistant data exposure incident review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {"source_id": "INCIDENT", "text": "Incident report IR-2026-041: On 2026-10-20 the claims assistant included a claimant email address in a draft summary visible to an unauthorised internal test group."},
+    {"source_id": "LOG", "text": "Gateway log excerpt: 2026-10-20T14:10Z policy=claims-summary-v4 action=draft-summary status=completed. Recipient scope and downstream access review are not recorded in this excerpt."},
+    {"source_id": "RESPONSE", "text": "Response note: the test group was notified and the draft was removed from the shared workspace. No independent access audit or data-subject impact assessment is attached."}
+  ],
+  "requirements": [
+    {"requirement_id": "R1", "label": "Describe incident and affected information", "source_id": "INCIDENT", "quote": "included a claimant email address in a draft summary visible to an unauthorised internal test group", "mandatory": true},
+    {"requirement_id": "R2", "label": "Establish event and policy context", "source_id": "LOG", "quote": "2026-10-20T14:10Z policy=claims-summary-v4 action=draft-summary status=completed", "mandatory": true},
+    {"requirement_id": "R3", "label": "Record immediate response and evidence gaps", "source_id": "RESPONSE", "quote": "No independent access audit or data-subject impact assessment is attached", "mandatory": true}
+  ],
+  "evidence": [
+    {"evidence_id": "E1", "source_id": "INCIDENT", "quote": "Incident report IR-2026-041", "supports": ["R1"]},
+    {"evidence_id": "E2", "source_id": "LOG", "quote": "2026-10-20T14:10Z policy=claims-summary-v4 action=draft-summary status=completed", "supports": ["R2"]}
+  ],
+  "issues": [
+    {"requirement_id": "R3", "source_id": "RESPONSE", "quote": "No independent access audit or data-subject impact assessment is attached"}
+  ]
+}

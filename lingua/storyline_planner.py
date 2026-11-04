@@ -154,7 +154,13 @@ def _vertical_short_realisation(
     """
     role = str(row.get("role") or "")
     outcome_role = VERTICAL_OUTCOME_ROLE.get(archetype)
-    focus = "outcome" if role == outcome_role else SEMANTIC_FOCUS_BY_ROLE.get(role, role or "context")
+    focus = (
+        "promise"
+        if archetype == "education_practitioner" and role == "transformation"
+        else "outcome"
+        if role == outcome_role
+        else SEMANTIC_FOCUS_BY_ROLE.get(role, role or "context")
+    )
 
     name = _clean(product.get("short_name") or product.get("name") or "DIO")
     audience_name = _clean(audience.get("name") or "the intended audience")

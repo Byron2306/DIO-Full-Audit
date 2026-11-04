@@ -14,6 +14,7 @@
       "attribution": "media/music_catalog/MUSICLFLES_WARM_SUNSET_ATTRIBUTION.md",
       "rights_receipt": "media/music_catalog/MUSICLFLES_WARM_SUNSET_RIGHTS_RECEIPT.json",
       "metadata": "warm sunset education supportive hopeful community documentary professional calm",
+      "music_traits": {"moods": ["warm", "calm"], "arcs": ["hopeful", "reflective"], "energy": 2, "voice_space": "high"},
       "rights": {
         "commercial_use": true,
         "adaptation_allowed": true,
@@ -22,6 +23,52 @@
       },
       "attribution_sha256": "b8c35c3a0e3ff86788d234d95cdf6a4f5339b6a43101e47682e5adbfa37d4cc6",
       "rights_receipt_sha256": "e623763b9ef2cf7b39609599eb12068b64a60ea98aaabd91dfb44d26f04e8e32"
+    },
+    {
+      "id": "musiclfiles_soft_corporate_cc_by_4",
+      "title": "Soft Corporate by MusicLFiles",
+      "artist": "MusicLFiles",
+      "licence_name": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Soft_Corporate_by_MusicLFiles.ogg",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Soft_Corporate_by_MusicLFiles.ogg",
+      "path": "media/music_catalog/musiclfiles_soft_corporate.ogg",
+      "sha256": "a6b34c5428412b88d1065843255956ac44cb965ae48f2d4cf49bb78bd524e668",
+      "attribution": "media/music_catalog/MUSICLFILES_SOFT_CORPORATE_CC_BY_4_ATTRIBUTION.md",
+      "rights_receipt": "media/music_catalog/MUSICLFILES_SOFT_CORPORATE_CC_BY_4_RIGHTS_RECEIPT.json",
+      "metadata": "soft corporate uplifting acoustic piano guitars light positive education learning community warm human",
+      "music_traits": {"moods": ["warm", "confident", "calm"], "arcs": ["hopeful", "restrained"], "energy": 1, "voice_space": "high"},
+      "rights": {
+        "commercial_use": true,
+        "adaptation_allowed": true,
+        "attribution_required": true,
+        "human_music_review_required": true
+      },
+      "attribution_sha256": "ff15752adfa6c5e0d2166ba4f46cd347e67d7f629bf2f8807c3533edc5cd42cf",
+      "rights_receipt_sha256": "5264b77926d1fa180b4451971b893f74c60050bc1a6aebd23483e112efd0534c"
+    },
+    {
+      "id": "rafael_krux_epic_trailer_cc_by_4",
+      "title": "Epic Trailer by Rafael Krux",
+      "artist": "Rafael Krux",
+      "licence_name": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Epic_Trailer_by_Rafael_Krux.ogg",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Epic_Trailer_by_Rafael_Krux.ogg",
+      "path": "media/music_catalog/rafael_krux_epic_trailer.ogg",
+      "sha256": "d3a1c891ba92dce833ded51f9f679955c99cf74d7c91a97bc94237da0223337e",
+      "attribution": "media/music_catalog/RAFAEL_KRUX_EPIC_TRAILER_CC_BY_4_ATTRIBUTION.md",
+      "rights_receipt": "media/music_catalog/RAFAEL_KRUX_EPIC_TRAILER_CC_BY_4_RIGHTS_RECEIPT.json",
+      "metadata": "epic cinematic orchestral dramatic trailer impact trust governance security evidence premium black gold bold launch reveal",
+      "music_traits": {"moods": ["serious", "confident"], "arcs": ["tense", "hopeful"], "energy": 3, "voice_space": "low"},
+      "rights": {
+        "commercial_use": true,
+        "adaptation_allowed": true,
+        "attribution_required": true,
+        "human_music_review_required": true
+      },
+      "attribution_sha256": "2004239b02d5a73d8f836a608c577c8ae6afbafe6e0abfb9210c9812120e25d0",
+      "rights_receipt_sha256": "c47ebe6f0c421f784c63c25fe03edd11f83a23a457d605bb30588295772b530e"
     }
   ]
 }

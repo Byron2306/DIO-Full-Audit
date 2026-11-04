@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sonoris Studio · DIO</title><link rel="stylesheet" href="/studio.css"></head><body>
+<main class="shell">
+<header class="top"><div><div class="eyebrow">DIO // CREATIVE // SONORIS</div><h1>Shape the <em>sound.</em></h1><p>Compose from genre grammar, swap instrument modules, inspect the event plan, and render a local sampled-stem preview.</p></div><nav><a href="http://127.0.0.1:8767/production">Production Studio</a><a href="http://127.0.0.1:42153/">Pictora Studio</a></nav></header>
+<details class="atlas-exploration" id="atlasDomains"><summary><span>ATLAS exploration candidates</span><strong id="atlasSummary">Loading Sonoris domain map…</strong></summary><p class="hint">Analogical work-domain hypotheses only. These domain links do not certify Sonoris capability, market demand, sample rights, or release authority.</p><div id="atlasCounts" class="atlas-counts"></div><ul id="atlasDomainList" class="atlas-domain-list"></ul></details>
+<div class="metrics"><div><span>Genres</span><strong id="genreCount">—</strong></div><div><span>Compiled seeds</span><strong id="seedCount">—</strong></div><div><span>Local modules</span><strong id="moduleCount">—</strong></div><div><span>Audio engine</span><strong id="engineName">—</strong></div></div>
+<div class="layout"><section class="panel controls"><div class="panelhead"><div><span class="eyebrow">01 / COMPOSITION</span><h2>Build a candidate</h2></div><span class="pill">HUMAN REVIEW</span></div>
+<form id="composeForm"><section class="recipe-box" aria-labelledby="recipeTitle"><div class="recipe-heading"><div><h3 id="recipeTitle">Saved session recipes</h3><p class="hint">Save this complete genre, instrument, and mix setup on this machine. Recipes survive service restarts; audio and source files are not copied. Add original genre starters when you want them; existing recipes are kept.</p></div><span id="recipeState" class="recipe-state" aria-live="polite">Loading recipes…</span></div><div class="grid two recipe-controls"><label>Recipe name<input id="recipeName" maxlength="64" placeholder="e.g. Doom · slow fuzz trio"></label><label>Saved recipes<select id="recipeSelect"><option value="">No saved recipes</option></select></label></div><div class="actions recipe-actions"><button id="restoreStarters" type="button" class="recipe-starters">Add genre starter sessions</button><button id="saveRecipe" type="button">Save current setup</button><button id="loadRecipe" type="button" disabled>Load setup</button><button id="deleteRecipe" type="button" disabled>Delete</button></div></section><div class="grid two"><label>Genre<select id="genre" required></select></label><label>Song type<select id="songType"></select></label></div>
+<label>Title<input id="title" placeholder="Optional title"></label><label>Mood / intent<input id="mood" placeholder="e.g. urgent, shadowed, cinematic"></label>
+<div class="grid three"><label>Tempo · BPM<input id="tempo" type="number" min="30" max="300" placeholder="Genre default"></label><label>Meter<select id="meter"></select></label><label>Bars<input id="bars" type="number" min="1" max="512" placeholder="Genre default"></label></div>
+<p class="hint" id="genreHint"></p><p class="hint" id="styleNote"></p><div class="grid two"><label>Tonal center<select id="key"></select></label><label>Mode<select id="mode"><option value="minor">Minor</option><option value="major">Major</option></select></label></div>
+<div class="grid three"><label id="tuningField">Guitar tuning<select id="tuning"></select></label><label id="toneField">Amp / tone profile<select id="tone"></select></label><label id="driveField">Amp drive · 0–1<input id="drive" type="number" min="0" max="1" step="0.01" value="0.6"></label></div>
+<div class="grid two"><label id="attackField">Pick attack · ×<input id="attack" type="number" min="0.25" max="1.5" step="0.05" value="1"></label><label>Drum velocity · ×<input id="drumIntensity" type="number" min="0.25" max="1.5" step="0.05" value="1"></label></div><p class="hint" id="guitarControlHint">Guitar tuning, amp tone, drive, and pick attack apply when a guitar module is active in Harmony or Lead.</p>
+<div class="grid three"><label>Seed<input id="seed" type="number" min="0" max="2147483647" value="2306"></label><label>Master gain · dB<input id="gain" type="number" min="-18" max="12" step="0.5" value="0"></label><label>Instrument pack preset<select id="preset"><option value="genre">Genre default</option><option value="gm">GM starter</option><option value="heavy">Heavy SFZ</option><option value="clean">Clean band</option><option value="electronic">Electronic</option><option value="jazz">Jazz quartet</option></select></label></div>
+<h3>Instrument modules</h3><p class="hint">Change one node at a time. Metal defaults use sampled guitars, bass and drums; folk and keys are independent stems.</p><div class="grid two" id="modules"></div><h3>Mix levels</h3><p class="hint">Balance the actual stems before loudness processing.</p><div class="grid three" id="mixLevels"></div>
+<details id="blackMetalLab" class="bm-lab" hidden>
+
+
+
+  <summary><span>Black Metal Lab</span><small>Atmosphere and support-layer controls</small></summary>
+  <div class="grid two" id="bmProductionControls">
+    <label>
+      Guitar production
+      <select id="bmProduction">
+        <option
+          value="TERMINAL_DISEASE_V1"
+          selected
+        >
+          Terminal Disease V1
+        </option>
+
+        <option value="STANDARD">
+          Standard black-metal amp
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Proven configuration
+      <button
+        id="bmFuneralDiseasePreset"
+        type="button"
+      >
+        Load Funeral Disease
+      </button>
+    </label>
+  </div>
+  <p class="hint">Shape the atmospheric layer without displacing the guitar-led riff. These controls are saved with session recipes and recorded in each compiled candidate.</p>
+  <div class="grid two">
+    <label>Black metal study preset<select id="bmPreset"><option value="">Custom setup</option><option value="404">Winter Without Graves · 404</option><option value="1993">Thrones Beneath Snow · 1993</option><option value="8888">The Moon Refuses Us · 8888</option></select></label>
+    <label>Atmospheric layer<select id="bmKeysKind"><option value="NONE">Off</option><option value="COLD_DRONE">Cold drone</option><option value="CHOIR_SHADOW">Choir shadow</option><option value="SUBLIMINAL_PAD">Subliminal pad</option><option value="LAMENT_KEYS">Lament keys</option></select></label>
+    <label>Movement<select id="bmKeysMotion"><option value="STATIC">Static</option><option value="SLOW_CHAIN">Slow melancholic chain</option><option value="PEDAL_SHADOW">Pedal shadow</option><option value="SECTION_ROOTS">Section roots</option></select></label>
+    <label>Register<select id="bmKeysRegister"><option value="LOW">Low</option><option value="MID" selected>Mid</option><option value="HIGH">High</option></select></label>
+    <label>Density<select id="bmKeysDensity"><option value="SPARSE">Sparse</option><option value="BREATHING">Breathing</option><option value="CONTINUOUS">Continuous</option></select></label>
+    <label>Lament arp notes<select id="bmKeysArpNotes"><option value="1">1 · sustained voice</option><option value="2">2 notes</option><option value="3">3 notes</option><option value="4" selected>4 notes</option><option value="5">5 notes</option><option value="6">6 notes</option><option value="8">8 notes</option></select></label>
+    <label>Lament contour<select id="bmKeysArpShape"><option value="ABYSSAL_DESCENT" selected>Abyssal descent</option><option value="GRAVE_CRAWL">Grave crawl</option><option value="TENSION_RISE">Tension rise</option></select></label>
+    <label>Lament arp rate<select id="bmKeysArpRate"><option value="2">Slow · 2 beats</option><option value="1" selected>Measured · 1 beat</option><option value="0.5">Flowing · 1/2 beat</option><option value="0.25">Fast · 1/4 beat</option><option value="0.125">Feverish · 1/8 beat</option></select></label>
+    <label>Layer level · dB<input id="bmKeysLevel" type="range" min="-30" max="-6" value="-18" step="1"><output id="bmKeysLevelValue">−18 dB</output></label>
+  </div>
+  <p id="bmKeysStatus" class="bm-status" role="status" aria-live="polite"></p>
+</details>
+<div class="actions"><button id="compileButton" type="submit" class="primary">Compile song</button><button type="button" id="resetButton">Reset controls</button></div></form><p id="status" role="status"></p></section>
+<section class="right"><section class="panel result"><div class="panelhead"><div><span class="eyebrow">02 / OUTPUT</span><h2>Listening bench</h2></div></div><div id="empty">Choose a genre and compile, or select one of the seeded candidates below.</div><div id="current" hidden><div class="trackhead"><div><span class="eyebrow" id="currentGenre"></span><h3 id="currentTitle"></h3><p id="currentMeta"></p></div><span class="pill" id="audioState"></span></div><audio id="player" controls hidden></audio><div class="actions"><button id="renderButton" class="primary">Render audio</button><a id="midiLink" download>MIDI</a><a id="planLink" target="_blank">Composition plan</a><a id="auditLink" target="_blank">Section performance</a><a id="receiptLink" target="_blank">Proof receipt</a><button id="mediaHandoffButton" type="button" disabled>Prepare media review handoff</button><a id="mediaHandoffReceipt" target="_blank" rel="noopener" hidden>Handoff receipt</a></div><p class="hint" id="mediaHandoffNote" hidden aria-live="polite"></p><p class="hint" id="renderNote">Audio uses local instrument samples with Guitarix amp processing on guitar parts. Treat it as a composition preview; refine timbre, attack, gain, and phrasing before release.</p></div></section>
+<section class="panel library"><div class="panelhead"><div><span class="eyebrow">03 / REPERTOIRE</span><h2>Compiled seed library</h2></div><input id="filter" placeholder="Filter genre or title"></div><div id="library" class="songlist"></div></section>
+<section class="panel library"><div class="panelhead"><div><span class="eyebrow">04 / SESSION</span><h2>New compositions</h2></div></div><div id="jobs" class="songlist"></div></section></section></div>
+<footer>Sonoris studio · local composition and preview · output receipts retain seed, modules, event counts and hashes · external release requires human review.</footer>
+</main><script src="/studio.js"></script></body></html>

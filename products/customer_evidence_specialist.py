@@ -1,4 +1,4 @@
-"""Source-bound specialist worksheets for eight evidence-preparation offers.
+"""Source-bound specialist worksheets for ten evidence-preparation offers.
 
 These are reviewer work queues, not automated audit, legal, donor, impact,
 assurance, procurement or programme conclusions.
@@ -11,6 +11,11 @@ from typing import Any, Callable, Mapping
 
 # Distinct buyer-task wording and review questions; none convey a verdict.
 WORKSHEETS: dict[str, tuple[str, tuple[str, str, str, str], str]] = {
+    'HOMS Moderate': (
+        'Assessment moderation exception register',
+        ('Moderation criterion', 'Exact review requirement', 'Supplied paper / memo evidence or issue', 'Moderator action'),
+        'Compare the paper, memo and blueprint; document each mismatch and its proposed correction. Authorised educators retain the moderation decision.',
+    ),
     'AuditProof': (
         'Control-testing exception register',
         ('Control', 'Exact control criterion', 'Source-reported exception / record', 'Auditor next action'),
@@ -50,6 +55,11 @@ WORKSHEETS: dict[str, tuple[str, tuple[str, str, str, str], str]] = {
         'Programme milestone delivery register',
         ('Programme milestone', 'Exact delivery requirement', 'Delivery record / variance', 'Programme reviewer action'),
         'Reconcile milestone evidence and dates',
+    ),
+    'ModelProof': (
+        'Model evaluation and change review queue',
+        ('Review area', 'Exact source requirement', 'Supplied evidence / source-reported gap', 'Model reviewer action'),
+        'Check evaluation population and language coverage, subgroup error analysis, post-change regression evidence, rollback readiness and independent approval against the supplied records.',
     ),
 }
 

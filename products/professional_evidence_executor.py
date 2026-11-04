@@ -294,6 +294,34 @@ def _route_execute(packet: dict[str, Any], execution_dir: Path, *, incarnation: 
         return _run_campaign_lab(packet, execution_dir)
     if route_name == "vesper_raw_intake":
         return _run_vesper(packet, execution_dir)
+    # Supplemental catalog products sit outside the frozen 53-row historical
+    # crosswalk, but each has a governed route and customer-shaped case. Route
+    # them through the same Vesper-prepared executor instead of treating them
+    # as catalog-only aliases.
+    supplemental = {
+        "site_studio_raw_composition": ("_run_site_studio", {}),
+        "professional_correspondence_studio_raw": ("_run_correspondence_studio", {}),
+        "article_publication_studio_raw": ("_run_article_publication_studio", {}),
+        "fundingfinder_raw_shortlist": ("_run_fundingfinder", {"now": now}),
+        "launch_studio_raw_package": ("_run_launch_studio", {}),
+        "finance_readiness_studio_raw": ("_run_finance_readiness_studio", {}),
+        "contract_desk_raw_review": ("_run_contract_desk", {"now": now}),
+        "finance_readiness_raw_package": ("_run_finance_readiness", {}),
+        "report_pitch_studio_raw_package": ("_run_report_pitch_studio", {}),
+        "investorproof_raw_package": ("_run_investorproof", {}),
+        "professional_correspondence_raw_package": ("_run_professional_correspondence", {}),
+        "corporate_readiness_raw_package": ("_run_corporate_readiness", {}),
+        "entrepreneurproof_raw_package": ("_run_entrepreneurproof", {}),
+        "popia_readiness_raw_package": ("_run_popia_readiness", {}),
+    }
+    if route_name in supplemental:
+        import products.professional_evidence_execution as routes
+
+        function_name, kwargs = supplemental[route_name]
+        result = getattr(routes, function_name)(packet, execution_dir, **kwargs)
+        if incarnation == "Article Publication":
+            result["product_id"] = "article_publication"
+        return result
     raise NotImplementedError(f"No professional customer executor is registered for {incarnation}: {route_name}")
 
 

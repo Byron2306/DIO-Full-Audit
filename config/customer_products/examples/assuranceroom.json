@@ -1,0 +1,23 @@
+{
+  "case_id": "SYNTHETIC-ASSURANCE-001",
+  "title": "Claims operations control assurance review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {"source_id": "CONTROL", "text": "Control AC-14: Claims exports require team-lead approval before release. Owner: Claims Operations. Review frequency: quarterly."},
+    {"source_id": "REGISTER", "text": "Control register entry AC-14 status=implemented. Last owner attestation: 2026-09-30. Evidence reference: approval ticket samples."},
+    {"source_id": "EXCEPTION", "text": "Exception note dated 2026-10-22: one sampled export approval ticket could not be located. Scope and cause have not been independently confirmed."}
+  ],
+  "requirements": [
+    {"requirement_id": "AC-14-DESIGN", "source_id": "CONTROL", "quote": "Claims exports require team-lead approval before release. Owner: Claims Operations. Review frequency: quarterly.", "mandatory": true},
+    {"requirement_id": "AC-14-STATUS", "source_id": "REGISTER", "quote": "Control register entry AC-14 status=implemented. Last owner attestation: 2026-09-30.", "mandatory": true},
+    {"requirement_id": "AC-14-EXCEPTION", "source_id": "EXCEPTION", "quote": "one sampled export approval ticket could not be located", "mandatory": true}
+  ],
+  "evidence": [
+    {"evidence_id": "EV-1", "source_id": "CONTROL", "quote": "Claims exports require team-lead approval before release.", "supports": ["AC-14-DESIGN"]},
+    {"evidence_id": "EV-2", "source_id": "REGISTER", "quote": "Control register entry AC-14 status=implemented.", "supports": ["AC-14-STATUS"]}
+  ],
+  "issues": [
+    {"requirement_id": "AC-14-EXCEPTION", "source_id": "EXCEPTION", "quote": "one sampled export approval ticket could not be located"}
+  ]
+}

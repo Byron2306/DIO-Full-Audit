@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-AUDITPROOF-001",
+  "title": "Access review evidence pack",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "POLICY",
+      "text": "Access Review Standard AR-2: application owners review privileged access every quarter and record exceptions."
+    },
+    {
+      "source_id": "SAMPLE",
+      "text": "Q3 review worksheet: 42 privileged accounts were listed; 39 were marked reviewed by the application owner on 2026-09-28."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Reviewer note 2026-10-03: three account rows have no recorded reviewer outcome. No closure evidence is attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "AR2-PERIOD",
+      "source_id": "POLICY",
+      "quote": "application owners review privileged access every quarter",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "AR2-RESULT",
+      "source_id": "SAMPLE",
+      "quote": "39 were marked reviewed by the application owner on 2026-09-28",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "AR2-EXCEPTION",
+      "source_id": "EXCEPTION",
+      "quote": "three account rows have no recorded reviewer outcome",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "POLICY",
+      "quote": "application owners review privileged access every quarter",
+      "supports": [
+        "AR2-PERIOD"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "SAMPLE",
+      "quote": "39 were marked reviewed by the application owner on 2026-09-28",
+      "supports": [
+        "AR2-RESULT"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "AR2-EXCEPTION",
+      "source_id": "EXCEPTION",
+      "quote": "three account rows have no recorded reviewer outcome"
+    }
+  ]
+}

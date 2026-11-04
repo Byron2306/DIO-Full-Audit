@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dioworkflows.co.za/schemas/vesper_journey_action.schema.json",
+  "title": "Vesper customer journey action",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["conversation_id", "action", "action_ref", "payload"],
+  "properties": {
+    "conversation_id": {"type": "string", "pattern": "^VWC-[A-Z0-9][A-Z0-9-]{7,63}$"},
+    "action": {"enum": ["OPEN_INTAKE", "RECORD_INTAKE_INPUTS", "ASSESS_SCOPE", "PREPARE_QUOTE", "REQUEST_OPERATOR"]},
+    "action_ref": {"type": "string", "pattern": "^JACT-[A-F0-9]{24}$"},
+    "payload": {
+      "oneOf": [
+        {"type": "object", "maxProperties": 0},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["inputs"],
+          "properties": {
+            "inputs": {
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "requested_outcome": {"type": "string", "minLength": 1, "maxLength": 4000},
+                "buyer_class": {"type": "string", "minLength": 1, "maxLength": 120},
+                "scope_quantity": {"type": ["integer", "string"], "minimum": 1, "maxLength": 12}
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

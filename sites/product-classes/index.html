@@ -70,6 +70,7 @@
     <a href="#available">Available now</a>
     <a href="#near">Next to launch</a>
     <a href="#estate">Product universe</a>
+    <a href="../customer-products/">Customer product review (68)</a>
     <a href="https://byron2306.github.io/DIO-Workflows/">Main DIO site</a>
   </nav>
 </header>
@@ -138,7 +139,8 @@ function proofLink(ref) {
 }
 function card(row, mode) {
   const badge = mode === "ready" ? "ready" : mode === "near" ? "near" : "held";
-  const label = mode === "ready" ? "Available controlled pilot" : mode === "near" ? "Proof run required" : row.status.replaceAll("_", " ");
+  const statusLabels = {PROOF_RUN_REQUIRED:"Proof run required",ARTIFACT_GATE_PENDING:"Artifact gate pending",COMPOSITION_PROOF_REQUIRED:"Composition proof required",EXTERNAL_AUTHORITY_REVIEW_REQUIRED:"External authority review required",CANDIDATE:"Candidate"};
+  const label = mode === "ready" ? "Available controlled pilot" : (statusLabels[row.status] || row.status.replaceAll("_", " "));
   const artifacts = (row.customer_artifacts || row.required_artifacts || []).map(x => `<li>${x}</li>`).join("");
   const note = row.launch_note ? `<p><strong>Launch note:</strong> ${row.launch_note}</p>` : "";
   return `<article class="card" id="${row.id}">

@@ -4,6 +4,8 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -50,11 +52,18 @@ def apply_golden_identity(source: Image.Image, *, brand_owner: str = 'customer',
 
 def approved_music(spec: dict[str, Any] | None = None, *, root: Path = ROOT) -> dict[str, Any]:
     """Resolve a pinned local track and check rights against its actual receipt."""
+    if spec and spec.get("mode") == "sonoris_review_candidate":
+        return sonoris_review_music(spec, root=root)
     catalog = json.loads((root / 'config/media/music_catalog.json').read_text())
     candidates = catalog.get('tracks') or []
     if spec is not None:
-        requested = Path(str(spec.get('path') or '')).expanduser().resolve()
-        candidates = [row for row in candidates if (root / row['path']).resolve() == requested]
+        requested_id = str(spec.get('track_id') or '').strip()
+        requested_path = str(spec.get('path') or '').strip()
+        if requested_id:
+            candidates = [row for row in candidates if str(row.get('id') or '') == requested_id]
+        elif requested_path:
+            requested = Path(requested_path).expanduser().resolve()
+            candidates = [row for row in candidates if (root / row['path']).resolve() == requested]
     if not candidates:
         raise ValueError('Select a canonical music catalog track with verified rights')
     track = candidates[0]
@@ -77,13 +86,122 @@ def approved_music(spec: dict[str, Any] | None = None, *, root: Path = ROOT) -> 
         if digest(paths[key]) != track.get(key + '_sha256'):
             raise ValueError('Canonical music rights/attribution evidence hash mismatch')
     if spec:
-        for key in ('attribution', 'rights_receipt'):
-            if Path(str(spec.get(key) or '')).expanduser().resolve() != paths[key]:
-                raise ValueError('Canonical music rights/attribution path mismatch')
+        for key in ('path', 'attribution', 'rights_receipt'):
+            if key in spec and Path(str(spec[key] or '')).expanduser().resolve() != paths[key]:
+                raise ValueError('Canonical music path mismatch: ' + key)
     volume = float((spec or {}).get('volume') or .10)
     if not math.isfinite(volume) or not .01 <= volume <= .15:
         raise ValueError('Canonical music volume must keep Vera narration intelligible')
     return {**(spec or {}), 'mode': 'rights_recorded', **{key: str(path) for key, path in paths.items()}, 'track_id': track['id'], 'sha256': actual, 'title': track['title'], 'artist': track['artist'], 'licence': track['licence_name'], 'licence_url': track['licence_url'], 'attribution_sha256': digest(paths['attribution']), 'rights_receipt_sha256': digest(paths['rights_receipt']), 'volume': volume, 'selection_basis': 'canonical_byte_verified_local_catalog', 'human_music_review_required': True}
+
+
+def sonoris_review_music(spec: dict[str, Any], *, root: Path = ROOT) -> dict[str, Any]:
+    """Resolve one rendered Sonoris track as a held media-review candidate.
+
+    This path intentionally does not confer a license or release authority. It
+    exists so the campaign renderers can audition a Sonoris score in context.
+    """
+    lane = str(spec.get("lane") or "jobs")
+    job_id = str(spec.get("job_id") or "")
+    if lane not in {"jobs", "seeds"} or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", job_id):
+        raise ValueError("Sonoris review music requires a valid rendered job ID and lane.")
+    root = root.resolve()
+    media_root = root / "media" / "sonoris" / ("studio_jobs" if lane == "jobs" else "genre_seed_library_v2")
+    job_dir = (media_root / job_id).resolve()
+    if not job_dir.is_relative_to(media_root.resolve()):
+        raise ValueError("Sonoris review job path escaped its local media store.")
+    receipt_path = job_dir / "SONORIS_STUDIO_RECEIPT.json"
+    if not receipt_path.is_file():
+        raise ValueError("Sonoris review job has no local composition receipt.")
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    if receipt.get("job_id") != job_id or receipt.get("audio_state") != "RENDERED":
+        raise ValueError("Sonoris review candidate must be a rendered job with a matching receipt.")
+    audio_meta = receipt.get("audio") or {}
+    audio_name = str(audio_meta.get("mp3") or "")
+    if Path(audio_name).name != audio_name or not audio_name.lower().endswith(".mp3"):
+        raise ValueError("Sonoris review receipt does not name a safe MP3 output.")
+    audio_path = (job_dir / audio_name).resolve()
+    if not audio_path.is_relative_to(job_dir) or not audio_path.is_file():
+        raise ValueError("Sonoris review audio is missing from its job directory.")
+    actual = digest(audio_path)
+    if actual != audio_meta.get("mp3_sha256"):
+        raise ValueError("Sonoris review audio hash does not match its composition receipt.")
+    if receipt.get("release_authorized") is not False or receipt.get("commercial_rights_verified") is not False:
+        raise ValueError("Sonoris review receipt does not preserve its release and rights hold.")
+    volume = float(spec.get("volume") or .10)
+    if not math.isfinite(volume) or not .01 <= volume <= .15:
+        raise ValueError("Sonoris review music volume must be between 0.01 and 0.15.")
+
+    handoff_dir = root / "deliverables" / "sonoris_studio" / "media_handoffs" / f"{lane}-{job_id}"
+    handoff_dir.mkdir(parents=True, exist_ok=True)
+    rights_path = handoff_dir / "SONORIS_MEDIA_REVIEW_RECEIPT.json"
+    attribution_path = handoff_dir / "SONORIS_MEDIA_ATTRIBUTION.md"
+    handoff = {
+        "schema": "dio.sonoris.media_review_handoff.v1",
+        "state": "LOCAL_MEDIA_REVIEW_ONLY",
+        "source_job_id": job_id,
+        "source_lane": lane,
+        "source_receipt": str(receipt_path),
+        "source_receipt_sha256": digest(receipt_path),
+        "audio_path": str(audio_path),
+        "audio_sha256": actual,
+        "title": str(receipt.get("title") or job_id),
+        "genre": receipt.get("genre"),
+        "song_type": receipt.get("song_type"),
+        "rights": {"commercial_use": False, "verified": False, "statement": "Source instrument/model licensing has not been cleared for this composition."},
+        "human_sonic_review_required": True,
+        "human_rights_review_required": True,
+        "release_authorized": False,
+        "publication_authorized": False,
+        "authority_created": False,
+    }
+    if rights_path.is_file():
+        existing = json.loads(rights_path.read_text(encoding="utf-8"))
+        if existing.get("audio_sha256") != actual or existing.get("source_receipt_sha256") != handoff["source_receipt_sha256"]:
+            raise ValueError("Existing Sonoris media handoff no longer matches the source render.")
+    else:
+        rights_path.write_text(json.dumps(handoff, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    attribution = (
+        f"# Sonoris composition candidate: {handoff['title']}\n\n"
+        f"- Source job: `{job_id}` ({lane})\n- Genre: `{receipt.get('genre')}` / `{receipt.get('song_type')}`\n"
+        f"- Audio SHA-256: `{actual}`\n- Source receipt: `{receipt_path}`\n\n"
+        "This is an original local Sonoris review candidate. Instrument and model licensing has not been verified. "
+        "For internal media preview and human review only; commercial use, publication, and release are not authorized.\n"
+    )
+    if attribution_path.is_file() and attribution_path.read_text(encoding="utf-8") != attribution:
+        raise ValueError("Existing Sonoris attribution note differs from the current source render.")
+    if not attribution_path.exists():
+        attribution_path.write_text(attribution, encoding="utf-8")
+    return {
+        **spec,
+        "mode": "sonoris_review_candidate",
+        "path": str(audio_path),
+        "attribution": str(attribution_path),
+        "rights_receipt": str(rights_path),
+        "track_id": f"sonoris_{lane}_{job_id}",
+        "sha256": actual,
+        "title": handoff["title"],
+        "artist": "DIO Sonoris",
+        "licence": "Internal review only · rights unverified",
+        "volume": volume,
+        "selection_basis": "explicit_operator_selected_sonoris_review_candidate",
+        "commercial_use": False,
+        "commercial_rights_verified": False,
+        "human_music_review_required": True,
+        "release_authorized": False,
+        "publication_authorized": False,
+        "sonoris_handoff": handoff,
+    }
+
+
+def directed_music(*, family: str, pacing: str, volume: float, context: str) -> dict[str, Any]:
+    """Use Sonoris editorial direction for standalone narrated video pipelines."""
+    from scripts.lingua_music_projection import select_projection_music
+    return select_projection_music(
+        {'pacing': pacing, 'voice': {'required': True},
+         'music': {'family': family, 'keywords': [], 'volume': volume}},
+        {'name': context}, {'name': context}, context,
+    )
 
 
 def verify_voice_receipt(receipt: dict[str, Any], audio: Path) -> None:

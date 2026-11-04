@@ -1,0 +1,109 @@
+{
+  "case_id": "SYNTHETIC-FINANCE-READINESS-001",
+  "title": "SME lender financial document readiness review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "CHECKLIST",
+      "text": "Finance intake checklist: latest management accounts, twelve-month bank statements, tax status evidence, aged receivables, and current debt schedule."
+    },
+    {
+      "source_id": "ACCOUNTS",
+      "text": "2026 Q3 unaudited ZAR management accounts: revenue 850000; cost of sales 510000; current assets 1200000; current liabilities 800000."
+    },
+    {
+      "source_id": "BANK",
+      "text": "Applicant statement: business account statements for July through September 2026 are attached; October statement is pending."
+    },
+    {
+      "source_id": "TAX",
+      "text": "Applicant declaration: tax account is in good standing; current SARS status pin or official compliance evidence is not attached."
+    },
+    {
+      "source_id": "GAPS",
+      "text": "No aged receivables report, current debt schedule, October bank statement, or accountant-signed annual statements were supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Latest management accounts",
+      "source_id": "CHECKLIST",
+      "quote": "latest management accounts",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Bank statements for required period",
+      "source_id": "CHECKLIST",
+      "quote": "twelve-month bank statements",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Tax status evidence",
+      "source_id": "CHECKLIST",
+      "quote": "tax status evidence",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R4",
+      "label": "Receivables and debt schedules",
+      "source_id": "CHECKLIST",
+      "quote": "aged receivables, and current debt schedule",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "ACCOUNTS",
+      "quote": "2026 Q3 unaudited ZAR management accounts",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "BANK",
+      "quote": "business account statements for July through September 2026 are attached",
+      "supports": [
+        "R2"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The requirement requests twelve-month bank statements. The supplied statement describes July through September 2026 (three months); a separate source statement says October is pending. The packet does not map evidence for the remaining requested period. Confirm the required period and any further acceptable records with the responsible requirement owner.",
+      "coverage_basis_ids": [
+        "R2",
+        "ISSUE-001"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R2",
+      "source_id": "BANK",
+      "quote": "October statement is pending."
+    },
+    {
+      "requirement_id": "R3",
+      "source_id": "TAX",
+      "quote": "current SARS status pin or official compliance evidence is not attached."
+    },
+    {
+      "requirement_id": "R4",
+      "source_id": "GAPS",
+      "quote": "No aged receivables report, current debt schedule, October bank statement, or accountant-signed annual statements were supplied."
+    }
+  ],
+  "financials": {
+    "period": "2026 Q3",
+    "currency": "ZAR",
+    "source_id": "ACCOUNTS",
+    "quote": "2026 Q3 unaudited ZAR management accounts: revenue 850000; cost of sales 510000; current assets 1200000; current liabilities 800000.",
+    "revenue": "850000",
+    "cost_of_sales": "510000",
+    "current_assets": "1200000",
+    "current_liabilities": "800000"
+  }
+}

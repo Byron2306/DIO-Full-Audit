@@ -23,6 +23,13 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from build_caps_assessment_ontology import build_profiles, canonical_subject  # noqa: E402
+from attach_homs_source_assets import (  # noqa: E402
+    DEFAULT_BANK as DEFAULT_HOMS_SOURCE_BANK,
+    grade_scope_bank,
+    requested_source_types,
+    select_assets,
+    to_pack_source_asset,
+)
 from apply_homs_design_law import (  # noqa: E402
     DEFAULT_ASSESSMENT_DESIGN,
     DEFAULT_DESIGN_LAW,
@@ -32,6 +39,10 @@ from apply_homs_design_law import (  # noqa: E402
     render_docx,
 )
 from resolve_caps_source import PHASE_BY_GRADE, extract_text, load_manifest, resolve as resolve_caps  # noqa: E402
+from products.homs_curriculum_spine import (  # noqa: E402
+    build_curriculum_spine,
+    learning_map_markdown,
+)
 
 DEFAULT_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
 DEFAULT_HYMARK_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
@@ -129,6 +140,7 @@ def default_request_for_subject(subject_profile: dict[str, Any], grade_profile: 
 
 
 def apply_subject_term_focus(request: dict[str, Any]) -> None:
+    scope_explicit = bool(request.pop("_scope_explicit", False))
     subject_id = subject_id_from_request(request)
     term = str(request.get("term") or "auto")
     term_maps = {
@@ -139,9 +151,10 @@ def apply_subject_term_focus(request: dict[str, Any]) -> None:
     if not term_map or term not in term_map:
         return
     focus = term_map[term]
-    request["topics"] = [focus["focus"], focus["secondary"]]
-    request["methodology_topic"] = focus["methodology"]
-    request["essay_topic"] = ""
+    if not scope_explicit:
+        request["topics"] = [focus["focus"], focus["secondary"]]
+        request["methodology_topic"] = focus["methodology"]
+        request["essay_topic"] = ""
     request["assessment_scope"] = {
         "term": term,
         "language_variant": (
@@ -257,6 +270,37 @@ def load_subject_profile(profile_name: str, profile_path: Path | None = None) ->
         raise ValueError(f"Subject profile {path} is missing: {', '.join(missing)}")
     profile["_profile_path"] = str(path)
     return profile
+
+
+def resolve_subject_profile_name(subject_name: str) -> str:
+    wanted = re.sub(r"[^a-z0-9]+", "_", str(subject_name or "").casefold()).strip("_")
+    if not wanted:
+        raise ValueError("HOMS intake must name a subject before Exam Studio can run")
+    matches = []
+    for path in sorted(DEFAULT_SUBJECT_PROFILE_DIR.glob("*.json")):
+        try:
+            profile = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        aliases = [path.stem, str(profile.get("subject_id") or ""), str(profile.get("display_name") or "")]
+        normalized = [re.sub(r"[^a-z0-9]+", "_", value.casefold()).strip("_") for value in aliases]
+        if wanted in normalized:
+            return path.stem
+        if any(wanted in value or value in wanted for value in normalized if len(value) >= 6):
+            matches.append(path.stem)
+    if len(matches) == 1:
+        return matches[0]
+    raise ValueError(f"No unambiguous subject profile matches the HOMS intake subject: {subject_name}")
+
+
+def grade_from_intake(value: Any) -> int:
+    label = str(value or "").strip()
+    if not re.fullmatch(r"(?i)(?:grade\s*)?(?:1[0-2]|[1-9])", label):
+        raise ValueError("Exam Studio requires a school grade from 1–12; year-level programmes need an explicit reviewed mapping")
+    match = re.search(r"\b(1[0-2]|[1-9])\b", label)
+    if not match:
+        raise ValueError("Exam Studio supports Grades 1–12 through the current ladder; map university/year-level assessments to a reviewed profile first")
+    return int(match.group(1))
 
 
 def title_from_id(value: str) -> str:
@@ -942,6 +986,12 @@ def build_visual_blueprint(request: dict[str, Any]) -> dict[str, Any]:
     family = str(ontology.get("assessment_family") or design.get("assessment_family") or "structured_test_or_task")
     matrix = caps.get("assessment_matrix_row") or {}
     source_contract = source_type_contract(str(subject.get("display_name") or ""), family, theme_blob, matrix)
+    requested_sources = list((request.get("assessment_preferences") or {}).get("source_types") or [])
+    unsupported_sources = [item for item in requested_sources if item not in (source_contract.get("source_types") or [])]
+    source_contract["requested_source_types"] = requested_sources
+    source_contract["unsupported_requested_source_types"] = unsupported_sources
+    accepted_sources = [item for item in requested_sources if item not in unsupported_sources]
+    source_contract["source_types"] = list(dict.fromkeys([*(source_contract.get("source_types") or []), *accepted_sources]))
     visuals = visual_kind_rules(str(subject.get("display_name") or ""), family, theme_blob, source_contract)
     focus_items = [
         *[str(item) for item in request.get("topics") or []],
@@ -977,9 +1027,79 @@ def build_visual_blueprint(request: dict[str, Any]) -> dict[str, Any]:
             "No learner-facing question may refer to a missing visual.",
             "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
             "Visuals must match subject, phase, term/content focus, and assessment family.",
+            "If an educator preference conflicts with CAPS or the subject profile, record the conflict and keep the source expert-review gated.",
         ],
+        "unsupported_educator_source_preferences": unsupported_sources,
     }
     return blueprint
+
+
+def prepare_grade_visual_sources(request: dict[str, Any], bank_path: Path = DEFAULT_HOMS_SOURCE_BANK) -> list[dict[str, Any]]:
+    """Select grade-safe bank stimuli before model authoring and later rendering."""
+    if not bank_path.is_file():
+        return []
+    subject=request.get("subject_profile") or {}
+    subject_id=str(subject.get("subject_id") or subject.get("id") or "")
+    grade=int((request.get("grade_profile") or {}).get("grade") or request.get("grade") or 0)
+    if not subject_id or not grade:
+        return []
+    bank=json.loads(bank_path.read_text(encoding="utf-8"))
+    bank=grade_scope_bank(bank,subject_id,grade)
+    source_types=requested_source_types({"grade":grade,"visual_blueprint":request.get("visual_blueprint") or {}},subject_id,None)
+    selected,_rejected=select_assets(bank,subject_id,source_types,limit=6,allow_fallback=True)
+    prepared=[]
+    for index,asset in enumerate(selected,start=1):
+        row=to_pack_source_asset(asset,index)
+        row["reference_label"]=f"Source {index}"
+        row["prompt_evidence"]={
+            "label":row["reference_label"],"title":row.get("title"),"source_type":row.get("source_type"),
+            "grade":row.get("grade"),"grade_neutral":row.get("grade_neutral"),"snippet":row.get("snippet"),
+            "content_text":row.get("content_text"),"content_description":row.get("content_description"),
+            "structured_data":row.get("structured_data"),"use_limit":("Illustrative image only; do not infer facts, labels, measurements, date or provenance not explicitly stated." if asset.get("grade_neutral") else "Use only the displayed text, stated description, or exact structured values; do not invent data."),
+        }
+        prepared.append(row)
+    request["visual_source_bank_path"]=str(bank_path)
+    request["visual_source_assets"]=prepared
+    request["visual_source_context"]=[row["prompt_evidence"] for row in prepared]
+    return prepared
+
+
+def visual_source_prompt_block(request: dict[str, Any]) -> str:
+    sources=request.get("visual_source_context") or []
+    return json.dumps(sources,indent=2,ensure_ascii=False)[:9000] if sources else "No grade-scoped visual source assets were selected."
+
+
+def link_pack_questions_to_visual_sources(pack: dict[str, Any]) -> None:
+    """Add explicit source labels when model wording relies on an attached asset."""
+    assets=pack.get("source_assets") or []
+    if not assets:
+        return
+    refs=[(str(a.get("reference_label") or f"Source {i}"),a) for i,a in enumerate(assets,start=1)]
+    for section in pack.get("sections") or []:
+      for question in section.get("questions") or []:
+        qtext=str(question.get("question") or "")
+        low=qtext.casefold()
+        if any(word in low for word in ("map", "spatial")):
+            wanted={"map_extract","topographic_map_and_orthophoto","synoptic_weather_map"}
+        elif any(word in low for word in ("graph", "data table", "table", "trend", "function")):
+            wanted={"graph_or_chart","data_table"}
+        elif any(word in low for word in ("diagram", "model", "label")):
+            wanted={"diagram_or_model"}
+        elif any(word in low for word in ("text", "passage", "tone", "quote", "source")):
+            wanted={"text_extract","photograph_or_image","cartoon"}
+        else:
+            continue
+        matched=[(label,a) for label,a in refs if a.get("source_type") in wanted]
+        if not matched:
+            continue
+        current=question.get("source_reference") or []
+        if isinstance(current,str): current=[current]
+        labels=list(dict.fromkeys([str(x) for x in current]+[label for label,_ in matched[:2]]))
+        question["source_reference"]=labels
+        missing=[label for label in labels if label.casefold() not in qtext.casefold()]
+        if missing:
+            prompt="Refer to "+(" and ".join(missing))+"."
+            question["question"]=qtext.rstrip()+" ("+prompt+")"
 
 
 def resolve_caps_context(
@@ -1178,10 +1298,30 @@ def normalized_request(
     request = default_request_for_subject(subject_profile, grade_profile)
     if path:
         user_request = json.loads(path.read_text(encoding="utf-8"))
-        request.update(user_request)
-    if term and str(term).strip():
+        intake = user_request.get("request") if isinstance(user_request, dict) else None
+        if isinstance(intake, dict):
+            request.update(intake)
+            request["_scope_explicit"] = bool(intake.get("topics") or intake.get("topic_or_assignment"))
+            request["subject"] = str(intake.get("subject_module") or subject_profile.get("display_name") or "")
+            request["topics"] = list(intake.get("topics") or [
+                value for value in (intake.get("topic_or_assignment"), intake.get("topic_secondary")) if value
+            ])
+            request["methodology_topic"] = str(intake.get("methodology_topic") or "")
+            request["essay_topic"] = str(intake.get("essay_topic") or "")
+            request["term"] = str(intake.get("term") or request.get("term") or "auto")
+            request["total_marks"] = int(intake.get("total_marks") or request.get("total_marks") or 100)
+            request["duration_hours"] = int(intake.get("duration_hours") or request.get("duration_hours") or 2)
+            request["assessment_format"] = str(intake.get("assessment_format") or "")
+            request["preferred_language"] = str(intake.get("output_language") or "English")
+            request["additional_instructions"] = str(intake.get("deliverable_notes") or "")
+            prefs = intake.get("assessment_preferences") or {}
+            request["assessment_preferences"] = dict(prefs) if isinstance(prefs, dict) else {}
+        else:
+            request.update(user_request)
+            request["_scope_explicit"] = bool(user_request.get("topics"))
+    if term and str(term).strip().lower() != "auto" and str(term).strip():
         request["term"] = str(term).strip()
-    else:
+    elif not request.get("term"):
         request["term"] = str(request.get("term") or "auto")
     request["grade"] = int(grade_profile["grade"])
     request["subject_profile"] = {
@@ -1211,6 +1351,37 @@ def normalized_request(
         f"Human review checks: {review_checks}. "
         f"Do not use blocked modes: {blocked_modes}."
     )
+    preferences = request.get("assessment_preferences") or {}
+    if not isinstance(preferences, dict):
+        raise ValueError("assessment_preferences must be an object")
+    def preference_list(key: str, *, split: bool = False, limit: int = 24) -> list[str]:
+        raw = preferences.get(key) or []
+        values = [part.strip() for part in raw.split(",")] if split and isinstance(raw, str) else (raw if isinstance(raw, list) else [raw])
+        return list(dict.fromkeys(str(item).strip() for item in values if str(item).strip()))[:limit]
+    requested_bloom = [item.lower().replace("analyse", "analyze") for item in preference_list("bloom_targets")]
+    preferences["question_types"] = preference_list("question_types", split=True, limit=8)
+    preferences["source_types"] = preference_list("source_types")
+    preferences["include_learning_studio"] = preferences.get("include_learning_studio") is not False
+    allowed_bloom = set(grade_profile.get("bloom_targets") or [])
+    unsupported_bloom = [item for item in requested_bloom if item not in allowed_bloom]
+    if unsupported_bloom:
+        raise ValueError(
+            "Requested Bloom targets exceed this grade profile: " + ", ".join(unsupported_bloom)
+        )
+    preferences["bloom_targets"] = requested_bloom or list(grade_profile.get("bloom_targets") or [])
+    request["assessment_preferences"] = preferences
+    if preferences.get("question_types"):
+        profile_instruction += (
+            " Educator-requested question forms: " + "; ".join(preferences["question_types"][:8])
+            + ". Use these only where the subject profile, grade and CAPS allow them; diversify by demand rather than repeating one form."
+        )
+    if preferences.get("bloom_targets"):
+        profile_instruction += (
+            " Educator Bloom focus: " + ", ".join(preferences["bloom_targets"])
+            + ". Keep the CAPS assessment-design distribution and ensure marks reflect cognitive demand."
+        )
+    if request.get("assessment_format"):
+        profile_instruction += f" Educator-selected assessment format: {request['assessment_format']}. Keep it only if the subject, grade and CAPS design support that format; record any conflict for expert review."
     if caps_context:
         profile_instruction += " " + request["caps_generation_note"]
     if request.get("visual_blueprint"):
@@ -1297,35 +1468,12 @@ def model_json(hymark: Any, system: str, prompt: str, max_tokens: int = 2500, te
         raise
 
 
-def fallback_caps_source(topic: str, index: int, request: dict[str, Any]) -> dict[str, Any]:
-    subject = request.get("subject_profile") or {}
-    grade = request.get("grade_profile") or {}
-    caps = request.get("caps_context") or {}
-    selected = caps.get("selected") or {}
-    excerpt = str(caps.get("extracted_excerpt") or "").strip()
-    return {
-        "label": f"Source {chr(65 + index)}",
-        "type": "CAPS-aligned fallback stimulus",
-        "title": f"{subject.get('display_name', 'Subject')} stimulus: {topic[:80]}",
-        "author": "HOMS Exam Studio fallback generator",
-        "date": utc_now()[:10],
-        "publication": selected.get("title") or "Official DBE CAPS source",
-        "content": (
-            f"Controlled fallback stimulus for Grade {grade.get('grade')} {subject.get('display_name')} on {topic}. "
-            f"Use this as a review placeholder grounded in the selected CAPS document. "
-            f"CAPS excerpt: {excerpt[:900] if excerpt else 'No extracted excerpt available.'}"
-        ),
-        "context": (
-            "Generated because the provider did not return usable source JSON. "
-            "Educator review must replace or approve this stimulus before classroom use."
-        ),
-    }
-
-
 def ensure_sources_available(sources: list[dict[str, Any]], topic: str, request: dict[str, Any]) -> list[dict[str, Any]]:
-    if sources:
-        return sources
-    return [fallback_caps_source(topic, 0, request), fallback_caps_source(topic, 1, request)]
+    if not sources:
+        subject = (request.get("subject_profile") or {}).get("display_name") or "subject"
+        grade = (request.get("grade_profile") or {}).get("grade") or request.get("grade") or "unspecified grade"
+        raise RuntimeError(f"No valid source material was generated for {subject}, Grade {grade}, topic: {topic}. The assessment is blocked; no placeholder source was substituted.")
+    return sources
 
 
 async def generate_caps_sources(hymark: Any, topic: str, question_number: int, opportunity: int, request: dict[str, Any]) -> dict[str, Any]:
@@ -1550,7 +1698,7 @@ def shell_guidance(shell: str) -> str:
 
 def assessment_language_for_request(request: dict[str, Any]) -> str:
     subject = request.get("subject_profile") or {}
-    explicit = subject.get("language_of_assessment") or subject.get("output_language")
+    explicit = subject.get("language_of_assessment") or subject.get("output_language") or request.get("preferred_language")
     subject_id = str(subject.get("subject_id") or "").lower()
     display = str(subject.get("display_name") or "").lower()
     if explicit:
@@ -1622,13 +1770,19 @@ CAPS assessment design:
 Visual requirements blueprint:
 {json.dumps(visual_blueprint, indent=2, ensure_ascii=True)[:3200]}
 
+Grade-scoped visual source bank. These assets are embedded as Source N in the learner paper:
+{visual_source_prompt_block(request)}
+
 CAPS excerpt:
 {str(caps.get('extracted_excerpt') or '')[:1800]}
 
 Hard rules:
 - {language_contract_text(request)}
+- Bloom contract: each question must include a canonical lowercase bloom_level from {', '.join((request.get('assessment_preferences') or {}).get('bloom_targets') or grade.get('bloom_targets') or [])}. Tag the cognitive demand actually needed to earn the marks; the mark-weighted Bloom distribution must reflect the requested grade/profile.
+- Question-family contract: each question must include question_family from the subject profile's canonical question families. Do not invent a family label.
 - Reconcile marks exactly: total_marks must equal the sum of all question marks and the sum of all rubric marks.
 - Build questions around the visual requirements blueprint. Required visuals are not decoration; each must be used as stimulus, learner workspace, marking evidence, or moderation evidence.
+- When a question uses a bank asset, cite its exact `Source N` label and use only its supplied text/values. Treat Pictora images as visual-literacy stimuli only; do not infer unprovided facts from generated imagery.
 - If the visual blueprint requires a map/graph/table/diagram/source, the section stimulus must describe concrete data/features that the formatter can render and learners can answer from.
 - Do not include self-corrections, apologies, uncertainty language, "demo purposes", "adjust if", or internal pipeline terms in learner/educator text.
 - Do not invent official CAPS quotations. Use CAPS as design authority, not as quoted source text unless supplied verbatim.
@@ -1654,7 +1808,7 @@ Return strict JSON:
       "instructions": "...",
       "stimulus": "...",
       "questions": [
-        {{"number": "1.1", "question": "...", "marks": 0, "memo": ["..."]}}
+        {{"number": "1.1", "question": "...", "marks": 0, "bloom_level": "apply", "question_family": "apply_theory_to_case", "source_reference": "Case A", "visual_reference": "data_table_1", "memo": ["..."]}}
       ]
     }}
   ],
@@ -1947,6 +2101,9 @@ Evidence policy:
 CAPS authority excerpt:
 {str(caps.get('extracted_excerpt') or '')[:2200]}
 
+Grade-scoped visual source bank. Use its exact text/data where appropriate; generated illustrations are not factual evidence:
+{visual_source_prompt_block(request)}
+
 Rules:
 - {language_contract_text(request)}
 - CAPS content and term focus are the authority.
@@ -1957,6 +2114,7 @@ Rules:
 - {label_guidance}
 - Every card must contain assessable details that later questions can cite.
 - Label cards clearly, e.g. Text A, Visual Text B, Scenario A, Source A.
+- Keep bank source labels (Source N) distinct from generated evidence-card labels. Do not alter bank source text or values.
 {afrikaans_source_contract}
 {english_source_contract}
 
@@ -2032,6 +2190,9 @@ Total marks target: {request.get('total_marks')}
 Evidence construction policy:
 {json.dumps(evidence_profile, indent=2, ensure_ascii=False)[:4200]}
 
+Grade-scoped visual source bank. These exact labelled assets will also be embedded with the learner paper:
+{visual_source_prompt_block(request)}
+
 LOCKED EVIDENCE CARDS. These are the only source/stimulus facts you may assess:
 {json.dumps(cards, indent=2, ensure_ascii=False)[:6500]}
 
@@ -2040,8 +2201,10 @@ CAPS assessment design:
 
 Hard rules:
 - {language_contract_text(request)}
+- Every question includes canonical lowercase bloom_level from {', '.join((request.get('assessment_preferences') or {}).get('bloom_targets') or grade.get('bloom_targets') or [])}, and question_family from the subject profile. Tag actual demand; do not use one level for every item.
 - Reconcile question marks exactly to total_marks. A rubric is independent and is required only for an extended writing/performance task.
 - Put the locked evidence cards in the returned JSON as evidence_cards.
+- When using an embedded bank item, cite its exact `Source N` label; do not invent data, source wording or image details.
 - Every evidence-dependent question must explicitly reference a card label such as Text A, Visual Text B, Scenario A or Source A.
 - Do not add new evidence facts that are not in the locked evidence cards.
 - Do not include pipeline, route, smoke-test, product-QA, apology, uncertainty or demo language.
@@ -2068,7 +2231,7 @@ Return strict JSON:
       "instructions": "...",
       "stimulus": "Refer to Text A / Scenario A / Visual Text B as appropriate.",
       "questions": [
-        {{"number": "1.1", "question": "...", "marks": 0, "memo": ["..."]}}
+        {{"number": "1.1", "question": "...", "marks": 0, "bloom_level": "analyze", "question_family": "interpret_graph", "source_reference": "Data Table A", "visual_reference": "data_table_1", "memo": ["..."]}}
       ]
     }}
   ],
@@ -2619,253 +2782,12 @@ def model_english_evidence_pack(
     }
 
 
-def fallback_evidence_first_pack(
-    request: dict[str, Any],
-    opportunity: int,
-    cards: list[dict[str, Any]],
-    evidence_profile: dict[str, Any],
-    error: str = "",
-) -> dict[str, Any]:
-    subject = request.get("subject_profile") or {}
-    grade = request.get("grade_profile") or {}
-    caps = request.get("caps_context") or {}
-    ontology = caps.get("assessment_ontology_profile") or {}
-    shell = render_shell_from_request(request)
-    language = assessment_language_for_request(request)
-    subject_name = subject.get("display_name", "Subject")
-    total = int(request.get("total_marks") or 50)
-    labels = evidence_labels(cards)
-    primary = labels[0] if labels else ("Teks A" if language.lower() == "afrikaans" else "Text A")
-    secondary = labels[1] if len(labels) > 1 else primary
-    third = labels[2] if len(labels) > 2 else secondary
-    first = max(10, total // 2)
-    second = max(8, total // 4)
-    third_marks = total - first - second
-    if third_marks < 1:
-        third_marks = max(1, total - first)
-        second = total - first - third_marks
-
-    if language.lower() == "afrikaans":
-        sections = [
-            {
-                "title": "Afdeling A: Begrip En Bewysgebruik",
-                "mode": shell,
-                "instructions": f"Lees {primary} en {secondary} noukeurig en beantwoord die vrae in Afrikaans.",
-                "stimulus": f"Gebruik slegs die besonderhede in {primary} en {secondary} as bewys.",
-                "questions": [
-                    {"number": "1.1", "question": f"Identifiseer die hoofgedagte van {primary} en motiveer dit met EEN bewys uit die teks.", "marks": first, "memo": [f"Ken punte toe vir 'n geldige hoofgedagte en relevante bewys uit {primary}."]},
-                    {"number": "1.2", "question": f"Verduidelik hoe taal, toon of visuele besonderhede in {secondary} die boodskap versterk.", "marks": second, "memo": [f"Ken punte toe vir akkurate verwysing na {secondary} en duidelike verduideliking."]},
-                    {"number": "1.3", "question": f"Skryf 'n kort, gestruktureerde respons wat {primary} en {third} verbind.", "marks": third_marks, "memo": [f"Ken punte toe vir samehangende respons en korrekte gebruik van {primary} en {third}."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": "Begrip en bewysgebruik", "marks": first, "descriptor": "Gebruik toepaslike bewyse uit die gegewe teks of stimulus."},
-            {"criterion": "Taal- en visuele interpretasie", "marks": second, "descriptor": "Verduidelik toon, register, beeld of taalkeuse akkuraat."},
-            {"criterion": "Gestruktureerde respons", "marks": third_marks, "descriptor": "Skryf duidelik, samehangend en taakgerig."},
-        ]
-        checklist = [
-            "Bevestig CAPS-onderwerpomvang en graadvlak.",
-            "Bevestig dat die teks- of visuele stimulus geskik is.",
-            "Bevestig dat alle vrae na die bewysetikette verwys.",
-            "Keur memorandum en punteverdeling goed voor gebruik.",
-        ]
-    else:
-        scenario_word = "Scenario" if "life_orientation" in subject_id_from_request(request) else "Text"
-        sections = [
-            {
-                "title": "Section A: Evidence-Based Response",
-                "mode": shell,
-                "instructions": f"Read {primary} and {secondary} carefully before answering.",
-                "stimulus": f"Use only the details in {primary}, {secondary} and {third} as evidence.",
-                "questions": [
-                    {"number": "1.1", "question": f"Identify the main issue, idea or message in {primary} and support your answer with one detail from the evidence.", "marks": first, "memo": [f"Credit a valid point supported by evidence from {primary}."]},
-                    {"number": "1.2", "question": f"Explain how a detail in {secondary} affects the meaning, decision or viewpoint.", "marks": second, "memo": [f"Credit accurate interpretation of {secondary} and a clear explanation."]},
-                    {"number": "1.3", "question": f"Write a structured response that uses {primary} and {third} to justify a conclusion or recommendation.", "marks": third_marks, "memo": [f"Credit a coherent response that uses evidence from {primary} and {third}."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": f"{scenario_word} comprehension and evidence use", "marks": first, "descriptor": "Uses supplied evidence accurately."},
-            {"criterion": "Interpretation and explanation", "marks": second, "descriptor": "Explains meaning, consequence or viewpoint clearly."},
-            {"criterion": "Structured response", "marks": third_marks, "descriptor": "Uses evidence to support a coherent conclusion or recommendation."},
-        ]
-        checklist = [
-            "Confirm CAPS topic scope and grade level.",
-            "Confirm the evidence/stimulus cards are suitable and school-safe.",
-            "Confirm every evidence-dependent question cites a supplied label.",
-            "Approve memo and mark allocation before classroom use.",
-        ]
-
-    return {
-        "assessment_title": f"Grade {grade.get('grade', request.get('grade', ''))} {subject_name}: Evidence-First CAPS Assessment",
-        "subject": subject_name,
-        "grade": grade.get("grade", request.get("grade", "")),
-        "phase": caps.get("phase") or grade.get("phase"),
-        "canonical_profile_id": ontology.get("profile_id"),
-        "blueprint": ontology.get("assessment_family") or "evidence_first_assessment",
-        "render_shell": shell,
-        "language_of_assessment": language,
-        "visual_blueprint": request.get("visual_blueprint") or {},
-        "duration": f"{request.get('duration_hours', 2)} hours",
-        "total_marks": total,
-        "evidence_cards": cards,
-        "evidence_policy": evidence_profile.get("evidence_policy"),
-        "sections": sections,
-        "rubric": rubric,
-        "teacher_review_checklist": checklist,
-        "fallback_reason": error,
-        "generation_backend": "hymark_evidence_first_deterministic_fallback",
-    }
+def fallback_evidence_first_pack(*args: Any, **kwargs: Any) -> dict[str, Any]:
+    raise RuntimeError("Generic evidence-first assessment fallback is disabled; generate a validated subject-specific pack or block the run.")
 
 
 def fallback_shell_pack(request: dict[str, Any], opportunity: int, error: str = "") -> dict[str, Any]:
-    subject = request.get("subject_profile") or {}
-    grade = request.get("grade_profile") or {}
-    caps = request.get("caps_context") or {}
-    ontology = caps.get("assessment_ontology_profile") or {}
-    design = assessment_design_from_request(request)
-    shell = render_shell_from_request(request)
-    subject_name = subject.get("display_name", "Subject")
-    grade_value = grade.get("grade", request.get("grade", ""))
-    opp_note = "First Opportunity" if opportunity == 1 else "Second Opportunity"
-    blueprint = ontology.get("assessment_family") or design.get("assessment_family") or "structured_test_or_task"
-    language = assessment_language_for_request(request)
-
-    if language.lower() == "afrikaans":
-        total = int(request.get("total_marks") or 50)
-        first = max(10, total // 2)
-        second = total - first
-        sections = [
-            {
-                "title": "Leesbegrip En Taalstrukture",
-                "mode": shell,
-                "instructions": "Beantwoord al die vrae in Afrikaans. Gebruik bewyse uit die verskafde teks of visuele bron waar dit vereis word.",
-                "stimulus": "CAPS-belynde Afrikaanse lees- of visuele stimulus wat deur die opvoeder verskaf word.",
-                "questions": [
-                    {"number": "1.1", "question": "Identifiseer die hoofgedagte van die stimulus en motiveer jou antwoord met EEN teksbewys.", "marks": first, "memo": ["Ken punte toe vir 'n geldige hoofgedagte en gepaste teksbewys."]},
-                    {"number": "1.2", "question": "Voltooi die toegepaste taal- of skryftaak met gepaste register, struktuur en taalgebruik.", "marks": second, "memo": ["Ken punte toe vir akkurate taalgebruik, gepaste register en duidelike struktuur."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": "Teksbegrip en bewysgebruik", "marks": first, "descriptor": "Antwoorde toon akkurate begrip en gebruik relevante teksbewyse."},
-            {"criterion": "Taalgebruik en toepassing", "marks": second, "descriptor": "Taal, register, spelling, leestekens en struktuur pas by die taak."},
-        ]
-    elif shell == "performance_task_sheet":
-        total = 50
-        sections = [
-            {
-                "title": "Performance Assessment Task",
-                "mode": "performance_task_sheet",
-                "instructions": "Prepare and perform the required sequence under educator supervision. The educator records observable performance evidence against the rubric.",
-                "stimulus": "Use classroom-taught technique, movement vocabulary, composition principles, and safe dance practice.",
-                "questions": [
-                    {"number": "1.1", "question": "Perform the prepared practical sequence according to the task brief and safety conditions.", "marks": 30, "memo": ["Assess observable technique, control, accuracy, spatial use, and performance readiness."]},
-                    {"number": "1.2", "question": "Present a short oral or written reflection on movement choices, style, and improvement.", "marks": 20, "memo": ["Credit correct terminology, relevant reflection, and links to the studied dance context."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": "Technique and safe body use", "marks": 15, "descriptor": "Accurate, controlled, safe execution of required movement vocabulary."},
-            {"criterion": "Composition, space, dynamics and musicality", "marks": 15, "descriptor": "Clear movement structure with effective use of space, timing, dynamics and transitions."},
-            {"criterion": "Performance quality and expression", "marks": 10, "descriptor": "Committed, focused performance with appropriate expressive intent."},
-            {"criterion": "Reflection and dance terminology", "marks": 10, "descriptor": "Clear reflection using relevant subject vocabulary and evidence from the performed work."},
-        ]
-    elif shell == "project_task_sheet":
-        total = 50
-        sections = [
-            {
-                "title": "Practical Project Task",
-                "mode": "project_task_sheet",
-                "instructions": "Complete the design, build, testing and reflection evidence required by the task. Keep all design notes and test results available for marking.",
-                "stimulus": "Use the supplied classroom problem, available materials, and subject-specific constraints.",
-                "questions": [
-                    {"number": "1.1", "question": "Define the problem and list the design constraints.", "marks": 10, "memo": ["Credit a clear problem statement, realistic constraints, and subject vocabulary."]},
-                    {"number": "1.2", "question": "Produce the planned solution, diagram, artefact or procedure required by the task.", "marks": 20, "memo": ["Assess feasibility, correctness, execution quality, and alignment with the brief."]},
-                    {"number": "1.3", "question": "Test the solution and record evidence of what worked and what did not.", "marks": 10, "memo": ["Credit honest test evidence and relevant observations."]},
-                    {"number": "1.4", "question": "Explain one improvement using evidence from the test.", "marks": 10, "memo": ["Credit justified improvement linked to evidence."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": "Problem and constraints", "marks": 10, "descriptor": "Clear problem definition and realistic constraints."},
-            {"criterion": "Practical execution", "marks": 20, "descriptor": "Accurate, feasible, complete solution or artefact."},
-            {"criterion": "Testing evidence", "marks": 10, "descriptor": "Relevant observations and test records."},
-            {"criterion": "Reflection and improvement", "marks": 10, "descriptor": "Evidence-based improvement using subject vocabulary."},
-        ]
-    elif shell == "activity_sheet":
-        total = 20
-        sections = [
-            {
-                "title": "Teacher-Led Learner Activity",
-                "mode": "activity_sheet",
-                "instructions": "The educator reads prompts aloud, observes learner actions, and records evidence. Learners use concrete materials or simple drawings.",
-                "stimulus": "Use classroom manipulatives, picture prompts, number lines, matching cards, or teacher-provided examples.",
-                "questions": [
-                    {"number": "1.1", "question": "Complete the concrete activity as instructed by the educator.", "marks": 8, "memo": ["Credit accurate observable actions and correct use of materials."]},
-                    {"number": "1.2", "question": "Explain or show your thinking using words, numbers, drawings, or actions.", "marks": 6, "memo": ["Credit grade-appropriate reasoning and communication."]},
-                    {"number": "1.3", "question": "Complete the short recorded response.", "marks": 6, "memo": ["Credit correct answer and visible working where appropriate."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": "Observable skill", "marks": 8, "descriptor": "Learner demonstrates the required skill using concrete materials or actions."},
-            {"criterion": "Reasoning communication", "marks": 6, "descriptor": "Learner explains or shows thinking at grade level."},
-            {"criterion": "Recorded response", "marks": 6, "descriptor": "Learner records a correct or partially correct response."},
-        ]
-    else:
-        total = int(request.get("total_marks") or 50)
-        first = max(10, total // 2)
-        second = total - first
-        sections = [
-            {
-                "title": "Structured Assessment Task",
-                "mode": shell,
-                "instructions": "Answer all questions. Use the provided stimulus and show working or reasoning where required.",
-                "stimulus": "CAPS-aligned controlled classroom stimulus supplied by the educator.",
-                "questions": [
-                    {"number": "1.1", "question": f"Answer the first {subject_name} structured task using the stimulus.", "marks": first, "memo": ["Credit accurate subject knowledge and evidence-based reasoning."]},
-                    {"number": "1.2", "question": f"Complete the applied {subject_name} task with justified reasoning.", "marks": second, "memo": ["Credit application, explanation, and grade-appropriate communication."]},
-                ],
-            }
-        ]
-        rubric = [
-            {"criterion": "Subject knowledge", "marks": first, "descriptor": "Accurate CAPS-aligned knowledge."},
-            {"criterion": "Application and reasoning", "marks": second, "descriptor": "Clear application and justified response."},
-        ]
-
-    return {
-        "assessment_title": f"Grade {grade_value} {subject_name}: {opp_note} CAPS-Aligned Assessment",
-        "subject": subject_name,
-        "grade": grade_value,
-        "phase": caps.get("phase") or grade.get("phase"),
-        "canonical_profile_id": ontology.get("profile_id"),
-        "blueprint": blueprint,
-        "render_shell": shell,
-        "language_of_assessment": language,
-        "visual_blueprint": request.get("visual_blueprint") or {},
-        "duration": f"{request.get('duration_hours', 2)} hours",
-        "total_marks": total,
-        "sections": sections,
-        "rubric": rubric,
-        "teacher_review_checklist": (
-            [
-                "Bevestig CAPS-onderwerpomvang en fasegeskiktheid.",
-                "Bevestig dat alle punte korrek optel voor gebruik.",
-                "Bevestig dat die assesseringsvorm by die vak en fase pas.",
-                "Keur leerdergerigte bewoording en memorandum goed voor klasgebruik.",
-            ]
-            if language.lower() == "afrikaans"
-            else [
-                "Confirm CAPS topic scope and phase appropriateness.",
-                "Confirm all marks reconcile before use.",
-                "Confirm the assessment form matches the subject and phase.",
-                "Approve learner-facing wording and memo before classroom use.",
-            ]
-        ),
-        "generation_backend": "deterministic_shell_fallback",
-    }
+    raise RuntimeError("Generic assessment fallback is disabled; generate a subject-specific pack or block the run.")
 
 
 def sum_question_marks(pack: dict[str, Any]) -> int:
@@ -2874,6 +2796,31 @@ def sum_question_marks(pack: dict[str, Any]) -> int:
 
 def sum_rubric_marks(pack: dict[str, Any]) -> int:
     return sum(int(item.get("marks") or 0) for item in pack.get("rubric") or [])
+
+
+BLOOM_CANONICAL = ("remember", "understand", "apply", "analyze", "evaluate", "create")
+BLOOM_NUMERIC = {1: "remember", 2: "understand", 3: "apply", 4: "analyze", 5: "evaluate", 6: "create"}
+
+
+def canonical_bloom_level(value: Any) -> str:
+    if isinstance(value, int) and not isinstance(value, bool):
+        return BLOOM_NUMERIC.get(value, "")
+    label = str(value or "").strip().casefold().replace("analyse", "analyze")
+    return label if label in BLOOM_CANONICAL else ""
+
+
+def bloom_mark_distribution(pack: dict[str, Any]) -> dict[str, Any]:
+    marks: dict[str, int] = {}
+    total = 0
+    for section in pack.get("sections") or []:
+        for question in section.get("questions") or []:
+            level = canonical_bloom_level(question.get("bloom_level") or question.get("cognitive_level"))
+            if not level:
+                continue
+            value = int(question.get("marks") or 0)
+            marks[level] = marks.get(level, 0) + value
+            total += value
+    return {level: {"marks": value, "percent": round(value * 100 / total, 1) if total else 0.0} for level, value in marks.items()}
 
 
 def normalize_assessment_pack(pack: dict[str, Any], request: dict[str, Any], opportunity: int) -> dict[str, Any]:
@@ -2892,11 +2839,22 @@ def normalize_assessment_pack(pack: dict[str, Any], request: dict[str, Any], opp
     normalized["render_shell"] = normalized.get("render_shell") or shell
     normalized["language_of_assessment"] = normalized.get("language_of_assessment") or assessment_language_for_request(request)
     normalized["visual_blueprint"] = normalized.get("visual_blueprint") or request.get("visual_blueprint") or {}
+    visual_sources=request.get("visual_source_assets") or []
+    if visual_sources:
+        normalized["source_assets"]=visual_sources
+        normalized["source_embedding"]={
+            "schema":"knowedge.homs_source_embedding.v1","source_bank":request.get("visual_source_bank_path"),
+            "grade":grade.get("grade"),"subject_id":subject.get("subject_id"),"asset_count":len(visual_sources),
+            "policy":"Grade-scoped original visuals and source text are embedded in the learner pack; educator review is required.",
+            "generated_visual_policy":"suppress_generated_visuals_when_source_assets_present","educator_approval_required":True,
+        }
+        link_pack_questions_to_visual_sources(normalized)
     normalized.setdefault("duration", f"{request.get('duration_hours', 2)} hours")
     normalized["sections"] = list(normalized.get("sections") or [])
     normalized["rubric"] = list(normalized.get("rubric") or [])
     normalized["teacher_review_checklist"] = list(normalized.get("teacher_review_checklist") or [])
     normalized["opportunity"] = opportunity
+    normalized["bloom_mark_distribution"] = bloom_mark_distribution(normalized)
     return normalized
 
 
@@ -3077,6 +3035,42 @@ def validate_assessment_pack(pack: dict[str, Any], request: dict[str, Any]) -> l
         errors.append(f"rubric marks sum to {rubric_total}, expected {total}")
     if not pack.get("sections"):
         errors.append("sections are missing")
+    grade = request.get("grade_profile") or {}
+    subject = request.get("subject_profile") or {}
+    allowed_bloom = set(grade.get("bloom_targets") or [])
+    focus_bloom = set((request.get("assessment_preferences") or {}).get("bloom_targets") or [])
+    family_labels = {str(item).strip().casefold() for item in subject.get("question_families") or []}
+    found_bloom: set[str] = set()
+    for section in pack.get("sections") or []:
+        for question in section.get("questions") or []:
+            number = str(question.get("number") or "unnumbered")
+            memo = question.get("memo") or question.get("marking_points") or []
+            if isinstance(memo, str):
+                memo_points = [line.strip() for line in memo.splitlines() if line.strip()]
+            elif isinstance(memo, dict):
+                memo_points = [str(value).strip() for value in memo.values() if str(value).strip()]
+            elif isinstance(memo, list):
+                memo_points = [str(value).strip() for value in memo if str(value).strip()]
+            else:
+                memo_points = []
+            if not memo_points:
+                errors.append(f"question {number} is missing specific memo/marking points")
+            bloom = canonical_bloom_level(question.get("bloom_level") or question.get("cognitive_level"))
+            if not bloom:
+                errors.append(f"question {number} is missing a canonical Bloom level")
+            elif bloom not in allowed_bloom:
+                errors.append(f"question {number} Bloom level {bloom} exceeds the grade profile")
+            else:
+                found_bloom.add(bloom)
+            family = str(question.get("question_family") or "").strip().casefold()
+            if not family:
+                errors.append(f"question {number} is missing its subject question family")
+            elif family_labels and family not in family_labels:
+                errors.append(f"question {number} uses unsupported subject question family {family}")
+    missing_bloom = sorted(focus_bloom - found_bloom)
+    if missing_bloom:
+        errors.append("requested Bloom focus not represented in question marks: " + ", ".join(missing_bloom))
+    pack["bloom_mark_distribution"] = bloom_mark_distribution(pack)
     if not memorandum_language_paper and not pack.get("rubric"):
         errors.append("rubric is missing")
     learner_facing = {
@@ -3368,22 +3362,59 @@ async def build_caps_shell_opportunity(
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     opportunity_dir = job_dir / opp_suffix
     opportunity_dir.mkdir(parents=True, exist_ok=True)
-    status = "generated"
-    fallback_reason = ""
+    pack: dict[str, Any] | None = None
+    errors: list[str] = []
     try:
         raw_pack = model_shell_pack(hymark, request, opp)
+        (opportunity_dir / "HOMS_PROVIDER_PACK_ATTEMPT_1.json").write_text(
+            json.dumps(raw_pack, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
         pack = normalize_assessment_pack(raw_pack, request, opp)
         errors = validate_assessment_pack(pack, request)
         if errors:
-            status = "fallback_after_validation"
-            fallback_reason = "; ".join(errors)
-            pack = fallback_shell_pack(request, opp, fallback_reason)
+            repair_prompt = f"""Repair this invalid HOMS assessment pack. Preserve its subject, grade, curriculum scope, chosen assessment form and source content. Do not replace it with a generic template.
+
+Required grade Bloom levels: {json.dumps((request.get('assessment_preferences') or {}).get('bloom_targets') or (request.get('grade_profile') or {}).get('bloom_targets') or [])}
+Allowed subject question families: {json.dumps((request.get('subject_profile') or {}).get('question_families') or [])}
+Validation errors: {json.dumps(errors)}
+Original pack:
+{json.dumps(pack, ensure_ascii=False)[:14000]}
+
+Return the complete corrected JSON pack only. Every question must have bloom_level and a canonical question_family. Reconcile question, rubric and total marks exactly. Keep teacher memo content out of learner-facing instructions."""
+            repaired = model_json(
+                hymark,
+                "You repair HOMS assessment structures without replacing subject-specific work with a generic fallback. Return JSON only.",
+                repair_prompt,
+                max_tokens=5200,
+                temperature=0.2,
+            )
+            (opportunity_dir / "HOMS_PROVIDER_PACK_ATTEMPT_2.json").write_text(
+                json.dumps(repaired, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
+            pack = normalize_assessment_pack(repaired, request, opp)
             errors = validate_assessment_pack(pack, request)
     except Exception as exc:
-        status = "fallback_after_generation_error"
-        fallback_reason = str(exc)
-        pack = fallback_shell_pack(request, opp, fallback_reason)
-        errors = validate_assessment_pack(pack, request)
+        errors = [f"generation_or_repair_error:{type(exc).__name__}:{exc}"]
+    if pack is None or errors:
+        blocked = {
+            "schema": "dio.homs.assessment_generation_blocked.v1",
+            "status": "blocked_invalid_or_unavailable_generation",
+            "subject": (request.get("subject_profile") or {}).get("display_name"),
+            "grade": (request.get("grade_profile") or {}).get("grade"),
+            "term": request.get("term"),
+            "opportunity": opp,
+            "errors": errors or ["provider returned no assessment pack"],
+            "generic_fallback_used": False,
+            "authority_created": False,
+            "classroom_release": "blocked_pending_validated_subject_pack_and_educator_approval",
+        }
+        (opportunity_dir / "HOMS_ASSESSMENT_GENERATION_BLOCKED.json").write_text(
+            json.dumps(blocked, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+        raise RuntimeError("HOMS Exam Studio stopped: subject-specific pack failed validation; see HOMS_ASSESSMENT_GENERATION_BLOCKED.json")
+
+    status = "generated_after_repair" if (opportunity_dir / "HOMS_PROVIDER_PACK_ATTEMPT_2.json").exists() else "generated"
+    assert pack is not None
 
     pack["validation_errors"] = errors
     (opportunity_dir / "assessment_pack.json").write_text(json.dumps(pack, indent=2), encoding="utf-8")
@@ -3694,6 +3725,7 @@ def run_builder(
     request["visual_blueprint"] = build_visual_blueprint(request)
     if should_use_evidence_first_route(request):
         apply_evidence_route_overrides(request)
+    prepare_grade_visual_sources(request)
     visual_titles = [
         f"{item.get('title')} ({item.get('role')})"
         for item in request["visual_blueprint"].get("required_visuals", [])
@@ -3727,7 +3759,11 @@ def run_builder(
     (job_dir / "HOMS_VISUAL_BLUEPRINT.json").write_text(json.dumps(request["visual_blueprint"], indent=2), encoding="utf-8")
 
     use_evidence_first = bool(request.get("caps_context")) and should_use_evidence_first_route(request)
-    use_caps_shell = bool(request.get("caps_context")) and subject_id_from_request(request) != "history" and not use_evidence_first
+    # Keep the subject-aware contract even when a run is deliberately made
+    # without a resolved CAPS source. The receipt will then expose that gap.
+    # Keep History on the same CAPS/source-rendering path so its grade-scoped
+    # visual and text sources reach the learner paper and source manifest.
+    use_caps_shell = not use_evidence_first
     opportunity_numbers = [1] if opportunities == "first" else ([2] if opportunities == "second" else [1, 2])
     if use_evidence_first:
         exam_set = {
@@ -3751,6 +3787,34 @@ def run_builder(
     if "first_opportunity" not in exam_set:
         exam_set["first_opportunity"] = exam_set.pop("second_opportunity")
     (job_dir / "exam_set.json").write_text(json.dumps(exam_set, indent=2), encoding="utf-8")
+    curriculum_spine = build_curriculum_spine(
+        request=request, exam_set=exam_set, job_id=job_id, job_dir=job_dir, root=ROOT
+    )
+    (job_dir / "HOMS_CURRICULUM_SPINE.json").write_text(
+        json.dumps(curriculum_spine, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    (job_dir / "HOMS_LEARNING_STUDIO_HANDOFF.md").write_text(
+        learning_map_markdown(curriculum_spine), encoding="utf-8"
+    )
+    learning_studio_result = None
+    learning_studio_error = ""
+    if (request.get("assessment_preferences") or {}).get("include_learning_studio") is True:
+        try:
+            from scripts.build_homs_learning_studio_from_spine import build as build_learning_studio_from_spine
+
+            learning_studio_result = build_learning_studio_from_spine(
+                job_dir / "HOMS_CURRICULUM_SPINE.json",
+                job_dir / "learning_studio",
+            )
+            (job_dir / "HOMS_LEARNING_STUDIO_BUILD_RECEIPT.json").write_text(
+                json.dumps(learning_studio_result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
+        except Exception as exc:
+            learning_studio_error = f"{type(exc).__name__}: {exc}"
+            (job_dir / "HOMS_LEARNING_STUDIO_BLOCKED.json").write_text(
+                json.dumps({"schema": "dio.homs.learning_studio.blocked.v1", "status": "blocked", "error": learning_studio_error, "provider_calls": 0, "authority_created": False}, indent=2) + "\n",
+                encoding="utf-8",
+            )
     summary_path = write_summary(job_dir, request, exam_set, provider)
 
     zip_path = job_dir / "HYMARK_EXAM_BUILDER_PACK.zip"
@@ -3810,6 +3874,9 @@ def run_builder(
             "job_dir": str(job_dir),
             "request": str(job_dir / "exam_builder_request.json"),
             "visual_blueprint": str(job_dir / "HOMS_VISUAL_BLUEPRINT.json"),
+            "curriculum_spine": str(job_dir / "HOMS_CURRICULUM_SPINE.json"),
+            "learning_studio_handoff": str(job_dir / "HOMS_LEARNING_STUDIO_HANDOFF.md"),
+            "learning_studio_bundle": learning_studio_result.get("bundle") if learning_studio_result else None,
             "exam_set": str(job_dir / "exam_set.json"),
             "summary": str(summary_path),
             "review_zip": str(zip_path),
@@ -3821,6 +3888,16 @@ def run_builder(
             "first_formatted_review_zip": exam_set["first_opportunity"].get("formatted_review_zip"),
             "second_formatted_review_pack": exam_set["second_opportunity"].get("formatted_review_docx") if "second_opportunity" in exam_set else None,
             "second_formatted_review_zip": exam_set["second_opportunity"].get("formatted_review_zip") if "second_opportunity" in exam_set else None,
+        },
+        "product_handoffs": {
+            "homs_assess": {"status": "ready_for_review", "inputs": curriculum_spine.get("handoffs", {}).get("homs_assess", {})},
+            "learning_studio": {
+                "requested": bool((request.get("assessment_preferences") or {}).get("include_learning_studio")),
+                "status": "educator_review_required" if learning_studio_result else ("blocked" if learning_studio_error else "not_requested"),
+                "bundle": learning_studio_result.get("bundle") if learning_studio_result else None,
+                "error": learning_studio_error or None,
+                "provider_calls": 0 if learning_studio_result else None,
+            },
         },
     }
     (job_dir / "HYMARK_EXAM_BUILDER_RECEIPT.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
@@ -3854,6 +3931,17 @@ def main() -> int:
     parser.add_argument("--locked-afrikaans-section-a", default="", help="Reuse a reviewed Afrikaans Section A JSON response.")
     parser.add_argument("--locked-afrikaans-section-b", default="", help="Reuse a reviewed Afrikaans Section B JSON response.")
     args = parser.parse_args()
+
+    if args.request:
+        intake_payload = json.loads(Path(args.request).expanduser().read_text(encoding="utf-8"))
+        intake = intake_payload.get("request") if isinstance(intake_payload, dict) else None
+        intake_offer = str(intake_payload.get("offer") or "").strip().lower() if isinstance(intake_payload, dict) else ""
+        if intake_offer and intake_offer != "exam_studio":
+            raise ValueError(f"HOMS offer {intake_offer!r} is not an Exam Studio request and must be routed to its own workflow")
+        if isinstance(intake, dict) and intake.get("subject_module"):
+            args.subject_profile = resolve_subject_profile_name(str(intake["subject_module"]))
+            args.grade = grade_from_intake(intake.get("grade_or_year"))
+            args.preferred_language = str(intake.get("output_language") or args.preferred_language)
 
     receipt = run_builder(
         Path(args.request).expanduser().resolve() if args.request else None,

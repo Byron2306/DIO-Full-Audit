@@ -490,6 +490,17 @@ def validate_result(request: dict[str, Any], paragraphs: list[dict[str, str]], r
     return {
         "passed": not errors,
         "errors": errors,
+        # Paragraph/schema failures and protected-content loss prevent us from
+        # constructing a deliverable. Language and terminology diagnostics
+        # remain visible review flags in a held draft; they are not grounds to
+        # discard the reviewer package or imply that the translation passed.
+        "blocking_errors": [
+            error for error in errors
+            if error.startswith("edit paragraph IDs do not match")
+            or error.startswith("translation paragraph IDs do not match")
+            or " dropped numbers:" in error
+            or " dropped protected token " in error
+        ],
         "paragraph_count": len(ids),
         "edit_rows": len(edits),
         "translation_rows": len(translations),
@@ -722,12 +733,12 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
             applied_overrides.append({"paragraph_id": paragraph_id, "model_draft": model_draft, "reviewed_text": row["translated"]})
     validation = validate_result(request, paragraphs, result)
     beast_learning_receipt = learn_beast_patterns(request, result, validation)
-    if not validation["passed"]:
+    if validation["blocking_errors"]:
         failure_dir = out_root / (job_id + "_FAILED")
         write_json(failure_dir / "PROVIDER_OUTPUT.json", result)
         write_json(failure_dir / "CONTROLLED_SOURCE.json", authority_source if service != "technical_edit" else paragraphs)
         write_json(failure_dir / "VALIDATION.json", validation)
-        raise ValueError("Provider output failed release validation: " + "; ".join(validation["errors"]))
+        raise ValueError("Provider output failed structural/content integrity validation: " + "; ".join(validation["blocking_errors"]))
 
     job_dir = (out_root / job_id).resolve()
     if job_dir.exists():
@@ -837,6 +848,17 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
                 "target_term": row.get("target") or row.get("target_term"),
                 "abbreviation": row.get("abbreviation", ""), "note": row.get("note", ""),
             })
+    technical_edit_review = None
+    technical_edit_review_validation = None
+    if service in {"technical_edit", "edit_and_translate"}:
+        from products.document_studio_edit_review import build_technical_edit_review, validate_technical_edit_review
+        technical_edit_review_path = job_dir / "TECHNICAL_EDIT_REVIEW_TEMPLATE.csv"
+        technical_edit_review = build_technical_edit_review(job_dir / "CHANGE_LEDGER.csv", technical_edit_review_path)
+        technical_edit_review_validation = validate_technical_edit_review(
+            technical_edit_review_path, job_dir / "CHANGE_LEDGER.csv"
+        )
+        write_json(job_dir / "TECHNICAL_EDIT_REVIEW_VALIDATION.json", technical_edit_review_validation)
+
     qa = {
         "schema": "dio.document_studio.qa.v1",
         "job_id": job_id,
@@ -846,6 +868,14 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         "release_readiness": "blocked_pending_human_approval",
         "automated_validation": validation,
         "provider_flags": result.get("qa_flags") or [],
+        "technical_edit_review": ({
+            "template_path": "TECHNICAL_EDIT_REVIEW_TEMPLATE.csv",
+            "template_sha256": technical_edit_review["sha256"],
+            "paragraph_count": technical_edit_review["paragraph_count"],
+            "validation_state": technical_edit_review_validation["state"],
+            "client_approval_pending": True,
+            "release_authorized": False,
+        } if technical_edit_review else None),
         "translation_review_overrides": {
             "reviewer": request.get("translation_override_reviewer"),
             "applied_count": len(applied_overrides),
@@ -906,7 +936,8 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
     (job_dir / "HUMAN_APPROVAL.md").write_text(
         "# Human Approval Gate\n\n"
         "- [ ] Verify every number, threshold, identifier, warning, and responsibility.\n"
-        "- [ ] Accept or reject each redline change.\n"
+        "- [ ] Accept or reject each redline change in `TECHNICAL_EDIT_REVIEW_TEMPLATE.csv`; keep blank fields unresolved.\n"
+        "- [ ] Review the source-bound status in `TECHNICAL_EDIT_REVIEW_VALIDATION.json`.\n"
         "- [ ] Confirm terminology against the organisation's approved glossary.\n"
         "- [ ] Have a proficient target-language reviewer inspect the complete translation.\n"
         "- [ ] Confirm layout and accessibility after final formatting.\n"
@@ -947,18 +978,23 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
             "domain": request.get("document_domain"),
             "reviewer": "",
             "reviewer_role": "",
+            "reviewer_language_proficiency": "",
+            "reviewer_qualification_reference": "",
             "approved_at": "",
             "units": [
                 {
                     "unit_id": row["unit_id"],
                     "source_hash": row["source_hash"],
+                    "target_hash": next(item["target_hash"] for item in semantic_object["translations"][request["target_language"]]["units"] if item["unit_id"] == row["unit_id"]),
+                    "source_text": row["source_text"],
                     "target_text": next(item["target_text"] for item in semantic_object["translations"][request["target_language"]]["units"] if item["unit_id"] == row["unit_id"]),
                     "approved": False,
                 }
                 for row in semantic_object["source"]["units"]
             ],
             "terms": [],
-            "authority_note": "A proficient target-language reviewer must correct the text, approve every unit, and identify their role before BEAST crystallization.",
+            "release_authorized": False,
+            "authority_note": "A proficient target-language reviewer must verify every segment and record their language proficiency before BEAST crystallization. This template does not release or publish the translation.",
         }
         write_json(job_dir / "LINGUA_APPROVAL_TEMPLATE.json", approval_template)
 
@@ -974,6 +1010,8 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
             "remote_processing_approved": bool(request.get("remote_processing_approved")), "owner_authorized": True,
             "remote_inference_used": False, "local_translation_backend": request.get("lingua_translation_backend", "ollama"),
             "local_validation_passed": validation["passed"],
+            "language_review_flags_present": bool(validation["errors"]),
+            "language_review_flags": validation["errors"],
             "source_language": request["source_language"],
             "source_language_status": request["source_language_profile"]["status"],
             "target_language": request.get("target_language"),

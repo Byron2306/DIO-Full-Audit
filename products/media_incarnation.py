@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import textwrap
 import wave
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -92,11 +93,49 @@ def _gradient(size:tuple[int,int])->Image.Image:
     return image
 
 
-def _render_card(path:Path,size:tuple[int,int],*,eyebrow:str,headline:str,body:str,cta:str,index:str|None=None)->None:
+@lru_cache(maxsize=1)
+def _verified_house_assets()->dict[str,Any]:
+    from products.canonical_marketing_media import verified_golden_pack
+    verification=verified_golden_pack(root=ROOT)
+    manifest_path=Path(verification["manifest"])
+    manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+    return {"manifest":manifest,"base":manifest_path.parent,"verification":verification}
+
+
+def _house_scene(size:tuple[int,int],background_asset_id:str|None,icon_asset_id:str|None)->tuple[Image.Image,dict[str,Any]]:
+    if not background_asset_id and not icon_asset_id:
+        return _gradient(size),{"source":"deterministic_gilded_gradient"}
+    assets=_verified_house_assets();manifest=assets["manifest"]
+    by_id={row["asset_id"]:row for row in manifest["assets"]}
+    evidence={"source_pack_id":manifest["pack_id"],"manifest_sha256":assets["verification"]["manifest_sha256"]}
+    if background_asset_id:
+        row=by_id.get(background_asset_id)
+        if not row or row.get("kind")!="background":
+            raise MediaIncarnationError(f"unverified scene background asset: {background_asset_id}")
+        with Image.open(assets["base"]/row["path"]) as source:
+            image=source.convert("RGB").resize(size,Image.Resampling.LANCZOS)
+        evidence["background"]={"asset_id":background_asset_id,"sha256":row["sha256"]}
+    else:
+        image=_gradient(size)
+    if icon_asset_id:
+        row=by_id.get(icon_asset_id)
+        if not row or row.get("kind")!="icon":
+            raise MediaIncarnationError(f"unverified scene icon asset: {icon_asset_id}")
+        with Image.open(assets["base"]/row["path"]) as source:
+            icon=source.convert("RGBA")
+        side=max(48,round(min(size)*.20));icon.thumbnail((side,side),Image.Resampling.LANCZOS)
+        image=image.convert("RGBA");image.alpha_composite(icon,(size[0]-side-round(size[0]*.08),round(size[1]*.30)))
+        evidence["icon"]={"asset_id":icon_asset_id,"sha256":row["sha256"]}
+        return image.convert("RGB"),evidence
+    return image,evidence
+
+
+def _render_card(path:Path,size:tuple[int,int],*,eyebrow:str,headline:str,body:str,cta:str,index:str|None=None,background_asset_id:str|None=None,icon_asset_id:str|None=None)->dict[str,Any]:
     """DIO-owned promotional card only. Educational semantic graphics are unaffected."""
     # Retain the product background and compose the verified generic DIO eye.
     from products.canonical_marketing_media import apply_golden_identity
-    branded, _ = apply_golden_identity(_gradient(size), brand_owner="dio")
+    scene,asset_evidence=_house_scene(size,background_asset_id,icon_asset_id)
+    branded, identity_evidence = apply_golden_identity(scene, brand_owner="dio")
     image=branded.convert("RGBA")
     w,h=size
     veil=Image.new("RGBA",size,(3,5,9,150))
@@ -114,17 +153,19 @@ def _render_card(path:Path,size:tuple[int,int],*,eyebrow:str,headline:str,body:s
         bbox=draw.textbbox((0,0),index,font=font_small)
         draw.text((w-margin-(bbox[2]-bbox[0]),int(h*.12)),index,font=font_small,fill=gold)
     y=int(h*.25)
-    for line in _wrap(draw,headline,font_head,int(w*.75))[:4]:
+    for line in _wrap(draw,headline,font_head,int(w*(.60 if icon_asset_id else .75)))[:4]:
         draw.text((x,y),line,font=font_head,fill=cream)
         y+=int(font_head.size*1.13)
     y+=int(h*.025)
-    for line in _wrap(draw,body,font_body,int(w*.73))[:5]:
+    for line in _wrap(draw,body,font_body,int(w*(.59 if icon_asset_id else .73)))[:5]:
         draw.text((x,y),line,font=font_body,fill=cream)
         y+=int(font_body.size*1.28)
     # A CTA is an invitation, never a verified-status gold badge.
     draw.text((x,int(h*.86)),cta.upper(),font=font_small,fill=cream)
     path.parent.mkdir(parents=True,exist_ok=True)
     image.convert("RGB").save(path,optimize=False,compress_level=9)
+    return {"path":str(path),"background_asset_id":background_asset_id,"icon_asset_id":icon_asset_id,
+      "verified_asset_evidence":asset_evidence,"brand_identity_evidence":identity_evidence,"sha256":_sha(path)}
 
 
 
@@ -167,8 +208,11 @@ def _probe(path:Path,ffprobe:str)->dict[str,Any]:
 def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any])->dict[str,Any]:
     media=output_dir/"media";ads=media/"ads";carousel=media/"carousel";youtube=media/"youtube";scenes=youtube/"scenes"
     for directory in (ads,carousel,youtube,scenes):directory.mkdir(parents=True,exist_ok=True)
-    _render_card(ads/"LINKEDIN_1200x628.png",(1200,628),eyebrow="DIO // Incident readiness",headline="Your plan can be complete on paper and incomplete in evidence.",body="Map coverage, currency and human authority before relying on the plan.",cta="Prepare a controlled review")
-    _render_card(ads/"SQUARE_1080x1080.png",(1080,1080),eyebrow="Incident ReadinessProof",headline="Know what the plan can prove.",body="See supported, stale, missing and human-dependent states separately.",cta="Review the evidence")
+    profile=json.loads((ROOT/"config/media/dio_gilded_house_style.json").read_text(encoding="utf-8"))
+    scene_assets=profile.get("video_scene_assets") or {}
+    visual_asset_uses=[]
+    visual_asset_uses.append(_render_card(ads/"LINKEDIN_1200x628.png",(1200,628),eyebrow="DIO // Incident readiness",headline="Your plan can be complete on paper and incomplete in evidence.",body="Map coverage, currency and human authority before relying on the plan.",cta="Prepare a controlled review",background_asset_id="HOMS_GOVERNANCE_WALL",icon_asset_id="DIO_ICON_EVIDENCE"))
+    visual_asset_uses.append(_render_card(ads/"SQUARE_1080x1080.png",(1080,1080),eyebrow="Incident ReadinessProof",headline="Know what the plan can prove.",body="See supported, stale, missing and human-dependent states separately.",cta="Review the evidence",background_asset_id="HOMS_ACADEMIC_DESK",icon_asset_id="DIO_ICON_WORKFLOW"))
     slide_copy=[
       ("The plan exists.","But existence is not evidence currency."),
       ("Are the roles current?","Tie each response role to a named current owner."),
@@ -177,10 +221,12 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
       ("Know before the incident does.","Prepare a controlled evidence review.")
     ]
     for i,(headline,body) in enumerate(slide_copy,1):
-        _render_card(carousel/f"SLIDE_{i:02}.png",(1080,1080),eyebrow="Five-minute evidence check",headline=headline,body=body,cta="DIO IncidentReadinessProof",index=f"{i:02} / 05")
-    _render_card(youtube/"THUMBNAIL.png",(1280,720),eyebrow="Incident readiness",headline="CAN YOUR PLAN PROVE IT?",body="Coverage. Currency. Authority.",cta="DIO",index="EVIDENCE UNDER PRESSURE")
+        key=f"scene_{i:02}"
+        visual_asset_uses.append(_render_card(carousel/f"SLIDE_{i:02}.png",(1080,1080),eyebrow="Five-minute evidence check",headline=headline,body=body,cta="DIO IncidentReadinessProof",index=f"{i:02} / 05",**scene_assets.get(key,{})))
+    visual_asset_uses.append(_render_card(youtube/"THUMBNAIL.png",(1280,720),eyebrow="Incident readiness",headline="CAN YOUR PLAN PROVE IT?",body="Coverage. Currency. Authority.",cta="DIO",index="EVIDENCE UNDER PRESSURE",**scene_assets.get("scene_06",{})))
     for row in script:
-        _render_card(scenes/f"SCENE_{row['id']:02}.png",(1920,1080),eyebrow="DIO // Incident Readiness",headline=row["title"],body=row["visual"],cta="Human authority preserved",index=f"{row['id']:02} / {len(script):02}")
+        scene_key=f"scene_{row['id']:02}"
+        visual_asset_uses.append(_render_card(scenes/f"SCENE_{row['id']:02}.png",(1920,1080),eyebrow="DIO // Incident Readiness",headline=row["title"],body=row["visual"],cta="Human authority preserved",index=f"{row['id']:02} / {len(script):02}",**scene_assets.get(scene_key,{})))
     narration_text=" ".join(row["narration"] for row in script)
     narration_txt=youtube/"NARRATION.txt";narration_txt.write_text(narration_text+"\n",encoding="utf-8")
     narration=youtube/"NARRATION.wav"
@@ -240,18 +286,22 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
     for row,seconds in zip(script,durations):
         parts.extend([f"file 'scenes/SCENE_{row['id']:02}.png'",f"duration {seconds:.6f}"])
     parts.append(f"file 'scenes/SCENE_{script[-1]['id']:02}.png'");concat.write_text("\n".join(parts)+"\n",encoding="utf-8")
-    from products.canonical_marketing_media import approved_music
-    music=approved_music()
+    from products.canonical_marketing_media import directed_music
+    # Incident-readiness explainers use a cinematic cue; learning content keeps
+    # its warmer HOMS cue, while lighter launch campaigns use the soft cue.
+    music=directed_music(family="restrained_investigative", pacing="deliberate", volume=0.07,
+                         context="incident readiness explainer")
     shutil.copy2(music["attribution"], youtube/"MUSIC_ATTRIBUTION.md")
     _write_json(youtube/"MUSIC_RIGHTS_RECEIPT.json",music)
     video=youtube/"FINAL_VIDEO.mp4"
     _run([tools["ffmpeg"],"-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(concat),"-i",str(narration),"-stream_loop","-1","-i",music["path"],
-      "-filter_complex","[1:a]volume=1.0[voice];[2:a]volume=0.10[music];[voice][music]amix=inputs=2:duration=first:normalize=0[a]","-map","0:v:0","-map","[a]",
+      "-filter_complex",f"[1:a]volume=1.0[voice];[2:a]volume={music['volume']}[music];[voice][music]amix=inputs=2:duration=first:normalize=0[a]","-map","0:v:0","-map","[a]",
       "-vf","fps=30,format=yuv420p","-c:v","libx264","-preset","medium","-crf","20","-c:a","aac","-b:a","128k","-shortest",
       "-map_metadata","-1","-movflags","+faststart","-fflags","+bitexact","-flags:v","+bitexact","-flags:a","+bitexact",str(video)])
     probe=_probe(video,tools["ffprobe"])
     return {"duration_seconds":round(duration,3),"probe":probe,"video":str(video.relative_to(output_dir)),
-      "ad_count":2,"carousel_count":5,"scene_count":len(script),"narration_backend":tools["narration_backend"],"voice":"vera","visual_profile":"dio_gilded_house_v1","alignment_method":"per_scene_audio_duration_not_word_alignment"}
+      "ad_count":2,"carousel_count":5,"scene_count":len(script),"visual_asset_uses":visual_asset_uses,"music":music,
+      "narration_backend":tools["narration_backend"],"voice":"vera","visual_profile":"dio_gilded_house_v1","alignment_method":"per_scene_audio_duration_not_word_alignment"}
 
 
 def _sophia_review(script:list[dict[str,Any]])->dict[str,Any]:
@@ -299,7 +349,10 @@ def build_media_incarnation(*,output_dir:Path,root:Path=ROOT,now:str=NOW)->dict[
       "nichefoundry_native_engine_invoked":False,"ad_asset_rendering":"PASS","carousel_rendering":"PASS",
       "thumbnail_rendering":"PASS","youtube_script_completeness":"PASS","narration_rendering":"PASS","caption_alignment":"PASS",
       "video_rendering":"PASS","sophia_media_review":"PASS","evidex_asset_provenance":"PASS","deterministic_media_toolchain":"NOT_CLAIMED_FOR_SAMPLED_VERA_AUDIO",
-      "video_duration_seconds":media["duration_seconds"],"voice_profile":"vera_pocket_public","visual_profile":"dio_gilded_house_v1","network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE",
+      "video_duration_seconds":media["duration_seconds"],"voice_profile":"vera_pocket_public","visual_profile":"dio_gilded_house_v1",
+      "visual_asset_uses":media["visual_asset_uses"],
+      "music":{"track_id":media["music"].get("track_id"),"title":media["music"].get("title"),"sha256":media["music"].get("sha256"),"licence":media["music"].get("licence"),"attribution_sha256":media["music"].get("attribution_sha256"),"rights_receipt_sha256":media["music"].get("rights_receipt_sha256"),"sonoris_direction":media["music"].get("sonoris_direction"),"sonoris_selection":media["music"].get("sonoris_selection")},
+      "network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE",
       "external_send":"REFUSE","human_gate":"NEEDS_YOU","proof_fingerprint":proof["proof_fingerprint"]}
     receipt["media_fingerprint"]=_fingerprint(receipt);_write_json(output_dir/"MEDIA_INCARNATION_RECEIPT.json",receipt)
     verify_media_proof(output_dir,proof)

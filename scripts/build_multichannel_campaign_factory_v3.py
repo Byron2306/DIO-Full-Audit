@@ -144,19 +144,91 @@ def draw_poster(
     draw.text((margin, margin), product["short_name"].upper(), font=_font(FONT_BOLD, max(24, round(width * 0.027))), fill=accent)
     draw.text((margin, margin + max(42, round(width * 0.038))), audience["name"], font=_font(FONT_REGULAR, max(22, round(width * 0.022))), fill="#f8fafc")
     headline = message or audience["outcome"]
-    for size_px in range(max(52, round(width * 0.072)), 32, -2):
-        headline_font = _font(FONT_BOLD, size_px)
-        lines = _wrap(draw, headline, headline_font, width - margin * 2)
-        if len(lines) <= (4 if height > width else 3):
-            break
-    y = round(height * (0.35 if energetic else 0.44))
-    for line in lines:
-        draw.text((margin, y), line, font=headline_font, fill="#ffffff", stroke_width=1, stroke_fill="#07111d")
-        y += round(headline_font.size * 1.08)
+    max_lines = 4 if height > width else 3
+    audience_y = margin + max(42, round(width * 0.038))
+    audience_font = _font(FONT_REGULAR, max(22, round(width * 0.022)))
+    audience_box = draw.textbbox((margin, audience_y), audience["name"], font=audience_font)
+    headline_min_y = audience_box[3] + max(18, round(height * 0.035))
     footer_text = footer or product["cta"]
     footer_font = _font(FONT_BOLD, max(22, round(width * 0.025)))
+    footer_top = height - margin - footer_font.size - 26
+    text_gap = max(18, round(height * 0.035))
+    preferred_y = round(height * (0.44 if height >= width else 0.28))
+    for size_px in range(max(52, round(width * 0.072)), 31, -2):
+        headline_font = _font(FONT_BOLD, size_px)
+        lines = _wrap(draw, headline, headline_font, width - margin * 2)
+        if len(lines) > max_lines:
+            continue
+        line_height = round(headline_font.size * 1.08)
+        line_bottom = max(draw.textbbox((0, 0), line, font=headline_font, stroke_width=1)[3] for line in lines)
+        block_height = line_height * (len(lines) - 1) + line_bottom
+        latest_y = footer_top - text_gap - block_height
+        headline_y = min(preferred_y, latest_y)
+        if headline_y >= headline_min_y:
+            break
+    else:
+        raise ValueError("Poster headline cannot fit between the audience label and CTA")
+    workflow_demo = (footer or "").strip().casefold() == "workflow demo"
+    y = round(height * (0.27 if height <= width else 0.32)) if workflow_demo else headline_y
+    for line in lines:
+        draw.text((margin, y), line, font=headline_font, fill="#ffffff", stroke_width=1, stroke_fill="#07111d")
+        y += line_height
+
+    if workflow_demo:
+        # A workflow-demonstration frame must show a workflow. Use a restrained
+        # four-step evidence-to-review diagram instead of leaving the source
+        # brand image to carry the entire visual meaning.
+        scale = width / 1280
+        gap = max(10, round(18 * scale))
+        available = width - margin * 2
+        card_width = (available - gap * 3) // 4
+        card_height = max(86, round(116 * scale))
+        card_top = round(height * (0.59 if height > width else 0.60))
+        labels = ("Source brief", "Channel copy", "Visual + voice", "Review pack")
+        number_font = _font(FONT_BOLD, max(17, round(24 * scale)))
+        label_font = _font(FONT_BOLD, max(15, round(19 * scale)))
+        center_y = card_top + card_height // 2
+        for index, label in enumerate(labels):
+            left = margin + index * (card_width + gap)
+            right = left + card_width
+            draw.rounded_rectangle(
+                (left, card_top, right, card_top + card_height),
+                radius=max(8, round(13 * scale)),
+                fill=(13, 18, 25, 238),
+                outline=accent,
+                width=max(2, round(3 * scale)),
+            )
+            badge_radius = max(14, round(18 * scale))
+            badge_center = (left + badge_radius + round(12 * scale), center_y)
+            draw.ellipse(
+                (badge_center[0] - badge_radius, badge_center[1] - badge_radius,
+                 badge_center[0] + badge_radius, badge_center[1] + badge_radius),
+                fill=accent,
+            )
+            draw.text((badge_center[0], badge_center[1]), str(index + 1), font=number_font,
+                      fill="#171717", anchor="mm")
+            text_left = left + badge_radius * 2 + round(19 * scale)
+            text_width = right - text_left - round(9 * scale)
+            label_lines = _wrap(draw, label, label_font, max(50, text_width))
+            label_y = center_y - round(len(label_lines) * label_font.size * 0.55)
+            for label_line in label_lines:
+                draw.text((text_left, label_y), label_line, font=label_font, fill="#f8fafc")
+                label_y += round(label_font.size * 1.12)
+            if index < len(labels) - 1:
+                arrow_left = right + round(2 * scale)
+                arrow_right = left + card_width + gap - round(2 * scale)
+                draw.line((arrow_left, center_y, arrow_right, center_y), fill=accent, width=max(2, round(3 * scale)))
+                tip = arrow_right
+                draw.polygon([(tip, center_y), (tip - round(10 * scale), center_y - round(7 * scale)),
+                              (tip - round(10 * scale), center_y + round(7 * scale))], fill=accent)
+        caption = "Source hashes stay attached from brief to finished asset"
+        caption_font = _font(FONT_REGULAR, max(14, round(17 * scale)))
+        caption_width = draw.textbbox((0, 0), caption, font=caption_font)[2]
+        draw.text(((width - caption_width) // 2, card_top + card_height + round(10 * scale)),
+                  caption, font=caption_font, fill="#f8fafc")
+
     box_right = min(width - margin, margin + draw.textbbox((0, 0), footer_text, font=footer_font)[2] + 42)
-    rule_y = min(height - margin - footer_font.size - 26, y + 24)
+    rule_y = footer_top
     draw.rounded_rectangle((margin, rule_y, box_right, rule_y + footer_font.size + 26), radius=4, fill=accent)
     draw.text((margin + 20, rule_y + 10), footer_text, font=footer_font, fill="#07111d")
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -315,7 +387,7 @@ _select_music = select_projection_music
 
 
 def build_family(product: dict[str, Any], audience: dict[str, Any], channels: dict[str, Any], output_root: Path, render_reels: bool) -> dict[str, Any]:
-    product = {**product, "brand_owner": "dio"}
+    product = {**product, "brand_owner": product.get("brand_owner") or "dio"}
     family_id = f"{product['id']}--{audience['id']}"
     directory = output_root / slug(product["id"]) / slug(audience["id"])
     assets = directory / "assets"

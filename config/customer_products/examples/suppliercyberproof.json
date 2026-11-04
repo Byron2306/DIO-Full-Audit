@@ -1,0 +1,73 @@
+{
+  "case_id": "SYNTHETIC-SUPPLIERCYBERPROOF-001",
+  "title": "Supplier cybersecurity evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "SCOPE",
+      "text": "Supplier inventory: Northstar Data Services hosts the customer analytics environment and processes pseudonymised usage records; assessment period is 2026-01-01 through 2026-09-30."
+    },
+    {
+      "source_id": "CONTROLS",
+      "text": "Supplier response: MFA is enforced for privileged access and annual penetration testing is reported; current test report, remediation closure evidence, and named subprocessor inventory were not attached."
+    },
+    {
+      "source_id": "INCIDENTS",
+      "text": "Incident declaration: supplier reports no material incidents during the period; independent incident register reconciliation and tested customer notification evidence are not supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Establish supplier service and data scope",
+      "source_id": "SCOPE",
+      "quote": "hosts the customer analytics environment and processes pseudonymised usage records; assessment period is 2026-01-01 through 2026-09-30",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Review security control evidence and remediation",
+      "source_id": "CONTROLS",
+      "quote": "MFA is enforced for privileged access and annual penetration testing is reported; current test report, remediation closure evidence, and named subprocessor inventory were not attached",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Check incident declarations and notification capability",
+      "source_id": "INCIDENTS",
+      "quote": "supplier reports no material incidents during the period; independent incident register reconciliation and tested customer notification evidence are not supplied",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "SCOPE",
+      "quote": "processes pseudonymised usage records",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "CONTROLS",
+      "quote": "MFA is enforced for privileged access",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R2",
+      "source_id": "CONTROLS",
+      "quote": "current test report, remediation closure evidence, and named subprocessor inventory were not attached"
+    },
+    {
+      "requirement_id": "R3",
+      "source_id": "INCIDENTS",
+      "quote": "independent incident register reconciliation and tested customer notification evidence are not supplied"
+    }
+  ]
+}

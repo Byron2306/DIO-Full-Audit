@@ -34,6 +34,8 @@ def test_changeproof_executes_only_inside_operator_approved_bounded_scope(tmp_pa
     assert proof["atlas_product_class"] == "changeproof"
     assert proof["adapter_family"] == "ai_trust_changeproof_scope_equivalence"
     assert proof["execution_proof_state"] == "CONTROLLED_ROUTE_PROVED"
+    assert proof["seraph_verdict"] == "CONTESTED"
+    assert proof["seraph_challenge_sha256"] == result["processor_result"]["seraph_challenge"]["receipt_sha256"]
     assert proof["controlled_processor_execution"] is True
     assert proof["human_review_gate"] == "NEEDS_YOU"
     assert proof["external_release_gate"] == "REFUSE"

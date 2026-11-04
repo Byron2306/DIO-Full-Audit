@@ -1,0 +1,571 @@
+{
+  "schema": "dio.atlas.creative_organ_exploration.v1",
+  "method": "explicit_candidate_crosswalk_over_existing_atlas_domain_ids",
+  "source_hashes": {
+    "atlas_domains_sha256": "2baba283ba8e4c6095e521f9e31fb78405b0228d6c989dfaf81c5f5c5e035b9f",
+    "creative_organs_sha256": "76eeb8dc2ff939542ba6ae7cf9fbfd4492c0e9264204e34be95d9e857aae62a0"
+  },
+  "atlas_domain_nodes_total": 217,
+  "candidate_domain_counts": {
+    "sonoris": 18,
+    "pictora": 22,
+    "shared": 17,
+    "unique_union": 23
+  },
+  "execution_grade_signature_count_for_these_organs": 0,
+  "commercial_validation": "UNPROVED",
+  "release_authorized": false,
+  "domains": [
+    {
+      "domain_id": "D1308",
+      "domain_name": "Communication and media studies",
+      "domain_family": "SOCIAL",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "build source-bound communication and media-study examples",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1405",
+      "domain_name": "Visual arts and design",
+      "domain_family": "HUMANITIES",
+      "organs": [
+        "pictora"
+      ],
+      "domain_task_hypothesis": "explore visual-art concepts with provenance and artist review",
+      "work_hypothesis": {
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1406",
+      "domain_name": "Performing arts music theatre and dance",
+      "domain_family": "HUMANITIES",
+      "organs": [
+        "sonoris"
+      ],
+      "domain_task_hypothesis": "explore music composition and performance arrangements",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1408",
+      "domain_name": "Museums galleries and cultural heritage",
+      "domain_family": "HUMANITIES",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare reviewed soundscape and visual interpretation concepts",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1504",
+      "domain_name": "Marketing and growth",
+      "domain_family": "ORGANISATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prototype sound and imagery for a held marketing experiment",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1515",
+      "domain_name": "Corporate communications",
+      "domain_family": "ORGANISATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare reviewed internal communication sound and visuals",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1709",
+      "domain_name": "Document transformation and publication",
+      "domain_family": "CROSSCUTTING",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "attach reviewed creative assets to a controlled publication artifact",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1710",
+      "domain_name": "Market discovery and offer experimentation",
+      "domain_family": "CROSSCUTTING",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "test candidate creative treatments in an offer experiment without claiming demand",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D1715",
+      "domain_name": "Accessibility and inclusive publication",
+      "domain_family": "CROSSCUTTING",
+      "organs": [
+        "pictora"
+      ],
+      "domain_task_hypothesis": "explore inclusive visual treatments with separate accessibility review",
+      "work_hypothesis": {
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D403",
+      "domain_name": "E-commerce and marketplaces",
+      "domain_family": "COMMERCE",
+      "organs": [
+        "pictora"
+      ],
+      "domain_task_hypothesis": "produce reviewed product or storefront visual concepts",
+      "work_hypothesis": {
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D501",
+      "domain_name": "Publishing",
+      "domain_family": "INFORMATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare audio and visual assets for a source-bound publication",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D502",
+      "domain_name": "News journalism and media",
+      "domain_family": "INFORMATION",
+      "organs": [
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare reviewed visual explainers for a sourced media story",
+      "work_hypothesis": {
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D503",
+      "domain_name": "Film audio and broadcasting",
+      "domain_family": "INFORMATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "compose soundtrack cues and visual assets for a film, audio or broadcast brief",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D707",
+      "domain_name": "Advertising and marketing services",
+      "domain_family": "PROFESSIONAL",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "produce governed ad sound and imagery from approved claims",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D708",
+      "domain_name": "Public relations and communications",
+      "domain_family": "PROFESSIONAL",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare campaign sound and visual communication assets",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D710",
+      "domain_name": "Training and professional development services",
+      "domain_family": "PROFESSIONAL",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare audio and visual training supports",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D716",
+      "domain_name": "Design services and industrial design",
+      "domain_family": "PROFESSIONAL",
+      "organs": [
+        "pictora"
+      ],
+      "domain_task_hypothesis": "produce visual design concepts with source and model provenance",
+      "work_hypothesis": {
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D901",
+      "domain_name": "Early childhood education",
+      "domain_family": "EDUCATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "explore age-appropriate learning sound and visuals under educator review",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D902",
+      "domain_name": "Primary and secondary education",
+      "domain_family": "EDUCATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare curriculum-aligned learning sound and visuals under educator review",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D903",
+      "domain_name": "Technical vocational and apprenticeship education",
+      "domain_family": "EDUCATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare vocational demonstration sound and visuals under instructor review",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D904",
+      "domain_name": "Higher education",
+      "domain_family": "EDUCATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare higher-education explainer sound and visuals under subject review",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D905",
+      "domain_name": "Corporate and professional learning",
+      "domain_family": "EDUCATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare corporate-learning media under trainer review",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    },
+    {
+      "domain_id": "D906",
+      "domain_name": "Curriculum design and instructional design",
+      "domain_family": "EDUCATION",
+      "organs": [
+        "sonoris",
+        "pictora"
+      ],
+      "domain_task_hypothesis": "prepare instructional media aligned to a reviewed lesson design",
+      "work_hypothesis": {
+        "sonoris": "compose, arrange or select a source-bound musical/audio asset for a governed artifact",
+        "pictora": "create or refine a source-bound visual asset for a governed artifact"
+      },
+      "required_gaps": [
+        "customer brief and revision proof",
+        "genre-specific sonic review",
+        "instrument/sample rights",
+        "model and source-image rights",
+        "visual and factual review"
+      ],
+      "relation_state": "ANALOGICAL_CANDIDATE",
+      "execution_corroborated_for_these_organs": false,
+      "market_corroborated_for_these_organs": false,
+      "authority_created": false
+    }
+  ]
+}

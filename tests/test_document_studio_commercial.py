@@ -86,6 +86,13 @@ def test_controlled_document_studio_job_runs_through_approval_and_delivery(tmp_p
         return fake_review_pack(request, output_root)
 
     monkeypatch.setattr(document_manager, "run_document_studio", fake_run_document_studio)
+    monkeypatch.setattr(
+        document_manager,
+        "create_intent",
+        lambda *args, **kwargs: {
+            "mail_intent_id": "MAIL-TEST-DOCUMENT-STUDIO"
+        },
+    )
     job_root = tmp_path / "jobs"
     event_log = tmp_path / "events.jsonl"
     output_root = tmp_path / "deliverables"

@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-VENDORPROOF-001",
+  "title": "Vendor privacy and resilience evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "DPA",
+      "text": "Supplier standard: vendors processing customer data must have an executed data-processing addendum and annual security review."
+    },
+    {
+      "source_id": "REGISTER",
+      "text": "Vendor V-88 register entry: security review recorded 2026-08-01; DPA state marked pending signature."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Procurement note 2026-10-18: executed addendum was not included in the evidence packet."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "VENDOR-R1",
+      "source_id": "DPA",
+      "quote": "vendors processing customer data must have an executed data-processing addendum",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "VENDOR-R2",
+      "source_id": "REGISTER",
+      "quote": "security review recorded 2026-08-01; DPA state marked pending signature",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "VENDOR-R3",
+      "source_id": "EXCEPTION",
+      "quote": "executed addendum was not included in the evidence packet",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "VENDOR-E1",
+      "source_id": "DPA",
+      "quote": "vendors processing customer data must have an executed data-processing addendum",
+      "supports": [
+        "VENDOR-R1"
+      ]
+    },
+    {
+      "evidence_id": "VENDOR-E2",
+      "source_id": "REGISTER",
+      "quote": "security review recorded 2026-08-01; DPA state marked pending signature",
+      "supports": [
+        "VENDOR-R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "VENDOR-R3",
+      "source_id": "EXCEPTION",
+      "quote": "executed addendum was not included in the evidence packet"
+    }
+  ]
+}

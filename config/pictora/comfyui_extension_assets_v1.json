@@ -1,0 +1,50 @@
+{
+  "schema": "dio.pictora.comfyui_extension_assets.v1",
+  "assets": [
+    {
+      "id": "sdxl_openpose_controlnet_xinsir_v1",
+      "role": "pose_control",
+      "base_family": "sdxl",
+      "upstream_repository": "xinsir/controlnet-openpose-sdxl-1.0",
+      "upstream_revision": "23f966cd5cfdd3f7729c903e243d87152162d2b7",
+      "upstream_file": "diffusion_pytorch_model.safetensors",
+      "local_model_path": "controlnet/xinsir-openpose-sdxl-1.0.safetensors",
+      "download_url": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0/resolve/23f966cd5cfdd3f7729c903e243d87152162d2b7/diffusion_pytorch_model.safetensors",
+      "license": "Apache-2.0",
+      "bytes": 2502139104,
+      "sha256": "b8524e557a7df60d081f5d4a0eb109967d107df217943bf88c2d99b9ebcc06c5"
+    },
+    {
+      "id": "sdxl_ipadapter_plus_vit_h_v1",
+      "role": "composition_reference",
+      "base_family": "sdxl",
+      "upstream_repository": "h94/IP-Adapter",
+      "upstream_revision": "018e402774aeeddd60609b4ecdb7e298259dc729",
+      "upstream_file": "sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors",
+      "local_model_path": "ipadapter/ip-adapter-plus_sdxl_vit-h.safetensors",
+      "download_url": "https://huggingface.co/h94/IP-Adapter/resolve/018e402774aeeddd60609b4ecdb7e298259dc729/sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors",
+      "license": "Apache-2.0",
+      "bytes": 847517512,
+      "sha256": "3f5062b8400c94b7159665b21ba5c62acdcd7682262743d7f2aefedef00e6581"
+    },
+    {
+      "id": "sdxl_ipadapter_plus_face_vit_h_v1",
+      "role": "face_appearance_reference",
+      "base_family": "sdxl",
+      "identity_lock": false,
+      "upstream_repository": "h94/IP-Adapter",
+      "upstream_revision": "018e402774aeeddd60609b4ecdb7e298259dc729",
+      "upstream_file": "sdxl_models/ip-adapter-plus-face_sdxl_vit-h.safetensors",
+      "local_model_path": "ipadapter/ip-adapter-plus-face_sdxl_vit-h.safetensors",
+      "download_url": "https://huggingface.co/h94/IP-Adapter/resolve/018e402774aeeddd60609b4ecdb7e298259dc729/sdxl_models/ip-adapter-plus-face_sdxl_vit-h.safetensors",
+      "license": "Apache-2.0",
+      "bytes": 847517512,
+      "sha256": "677ad8860204f7d0bfba12d29e6c31ded9beefdf3e4bbd102518357d31a292c1"
+    }
+  ],
+  "execution": {
+    "processing": "local ComfyUI only",
+    "review_required": true,
+    "release_authorized": false
+  }
+}

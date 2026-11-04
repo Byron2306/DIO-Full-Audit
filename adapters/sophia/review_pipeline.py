@@ -93,6 +93,8 @@ def parse_reference_entries(reference_text: str) -> list[str]:
         line = re.sub(r"\s+", " ", raw_line).strip()
         if not line:
             continue
+        if re.match(r"^(?:note|source note|controlled customer source list)\s*:", line, flags=re.I):
+            continue
         starts_entry = bool(re.match(r"^(?:\[?\d+[.\]]?\s+)?[A-Z][A-Za-z'\u2019-]+(?:,|\s+&|\s+et al\.)", line))
         has_year = bool(re.search(r"\((?:19|20)\d{2}[a-z]?\)", line))
         if current and starts_entry and has_year:
@@ -182,6 +184,11 @@ def audit_references(body_text: str, reference_text: str, citation_check: Any) -
         + len(duplicate_dois)
         + sum(len(row["issues"]) + int(row["style_check"]["fail_count"]) for row in reference_rows)
     )
+    audit_status = (
+        "no_reference_material"
+        if not entries and not in_text
+        else "needs_revision" if actionable else "clean_first_pass"
+    )
     return {
         "schema": "dio.sophia_reference_audit.v1",
         "citation_style": "APA 7 diagnostic",
@@ -192,7 +199,12 @@ def audit_references(body_text: str, reference_text: str, citation_check: Any) -
         "duplicate_entries": duplicate_entries,
         "duplicate_dois": duplicate_dois,
         "actionable_issue_count": actionable,
-        "status": "needs_revision" if actionable else "clean_first_pass",
+        "status": audit_status,
+        "interpretation": (
+            "No in-text citations or reference entries were supplied; this audit has no reference material to evaluate."
+            if audit_status == "no_reference_material"
+            else "Technical citation and reference checks only; this is not a scholarly quality or integrity finding."
+        ),
         "limits": [
             "This is a deterministic technical audit, not a complete style-editor judgment.",
             "DOI and bibliographic metadata remain verification leads until checked against the publisher or scholarly index.",

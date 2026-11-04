@@ -24,7 +24,12 @@ def main() -> int:
         parser.error('--product, --packet and --out are required unless --catalog is used')
     try:
         packet = json.loads(args.packet.read_text(encoding='utf-8'))
-        for container, key in [(packet, 'document_path'), (packet.get('brand') or {}, 'asset_path')]:
+        for container, key in [
+            (packet, 'document_path'),
+            (packet, 'source_image_path'),
+            (packet, 'proof_asset_path'),
+            (packet.get('brand') or {}, 'asset_path'),
+        ]:
             if container.get(key) and not Path(container[key]).is_absolute():
                 container[key] = str((args.packet.resolve().parent / container[key]).resolve())
         result = run_customer_product(args.product, packet, args.out, render_pdf=not args.no_pdf)

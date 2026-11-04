@@ -8,6 +8,8 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from products.sonoris_music_direction import direction_for_video, score_track
+
 ROOT = Path(__file__).resolve().parents[1]
 FOUNDRY = Path(os.environ.get("NICHEFOUNDRY_ROOT", "/home/byron/Downloads/NicheFoundry_Phase11"))
 
@@ -270,8 +272,54 @@ def select_projection_music(surface_plan: dict[str, Any], product: dict[str, Any
     """Select verified, pinned local music for canonical production marketing."""
     from products.canonical_marketing_media import approved_music
     plan = dict(surface_plan["music"])
+    direction = direction_for_video(surface_plan)
     explicit = str(os.environ.get("DIO_CAMPAIGN_MUSIC") or "").strip()
-    selected = approved_music(root=ROOT)
-    if explicit and Path(explicit).expanduser().resolve() != Path(selected["path"]):
-        raise ValueError("DIO_CAMPAIGN_MUSIC must select canonical music with verified rights")
-    return {**plan, **selected}
+    if explicit:
+        selected = approved_music({"path": explicit, "volume": plan.get("volume", .10)}, root=ROOT)
+        return {**plan, **selected, "selection_basis": "operator_selected_byte_verified_local_catalog", "sonoris_direction": direction, "sonoris_selection": {"operator_override": True}}
+
+    review_job = str(os.environ.get("DIO_SONORIS_REVIEW_JOB") or "").strip()
+    if review_job:
+        from products.canonical_marketing_media import sonoris_review_music
+        selected = sonoris_review_music({
+            "mode": "sonoris_review_candidate",
+            "job_id": review_job,
+            "lane": os.environ.get("DIO_SONORIS_REVIEW_LANE", "jobs"),
+            "volume": plan.get("volume", .10),
+        }, root=ROOT)
+        return {**plan, **selected, "sonoris_direction": direction,
+                "sonoris_selection": {"candidate_id": selected["track_id"], "rights_state": "UNVERIFIED_REVIEW_ONLY"}}
+
+    catalog = json.loads((ROOT / "config" / "media" / "music_catalog.json").read_text(encoding="utf-8"))
+    candidates = []
+    for track in catalog.get("tracks") or []:
+        try:
+            verified = approved_music({"track_id": str(track.get("id") or ""), "volume": plan.get("volume", .10)}, root=ROOT)
+        except (OSError, ValueError, KeyError, json.JSONDecodeError):
+            continue
+        query = " ".join(str(value or "") for value in (
+            plan.get("family"), " ".join(plan.get("keywords") or []),
+            product.get("name"), product.get("family"), audience.get("name"),
+            audience.get("pain"), audience.get("outcome"), family_id,
+        ))
+        overlap = len(_tokens(query) & _tokens(track.get("metadata")))
+        assessment = score_track(direction, track)
+        candidates.append((assessment["score"], overlap, str(track.get("id") or ""), verified, assessment))
+    if not candidates:
+        raise MusicSourceUnavailable("No locally pinned, byte-verified commercial music candidates are available.")
+    best_score = max((row[0], row[1]) for row in candidates)
+    best = sorted((row for row in candidates if (row[0], row[1]) == best_score), key=lambda row: row[2])
+    # A stable campaign fingerprint rotates tied moods without making reruns drift.
+    seed = "|".join(str(value or "") for value in (family_id, product.get("name"), audience.get("name")))
+    index = int(hashlib.sha256(seed.encode("utf-8")).hexdigest()[:8], 16) % len(best)
+    selected = best[index][3]
+    return {
+        **plan,
+        **selected,
+        "selection_basis": "canonical_byte_verified_local_catalog",
+        "selection_method": "sonoris_editorial_fit",
+        "semantic_match_score": best_score[1],
+        "catalog_candidate_count": len(candidates),
+        "sonoris_direction": direction,
+        "sonoris_selection": best[index][4],
+    }

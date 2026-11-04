@@ -45,7 +45,7 @@ def cover(name,scope,boundary):
 
 
 def launch_pdf(path):
-    model=json.loads((EVIDENCE/'launch-reviewed/baseline/package_manifest.json').read_text())
+    model=json.loads((EVIDENCE/'launch-reviewed_v2/baseline/package_manifest.json').read_text())
     c=canvas.Canvas(str(path),pagesize=A4);w,h=A4
     for asset,copy in zip(model['creative_assets'],model['channel_copy']):
         c.setFillColor(HexColor('#14181e'));c.setFont('Helvetica-Bold',20);c.drawString(44,h-62,copy['channel'].replace('_',' ').title())
@@ -65,7 +65,7 @@ def main():
     root=site/'products/examples';root.mkdir(parents=True,exist_ok=True)
     brand=site/'assets/qualified-pilots';brand.mkdir(parents=True,exist_ok=True);shutil.copyfile(GOLDEN,brand/'dio-golden-eye.png')
     customer=EVIDENCE/'customer-pathways-delivery'
-    report=EVIDENCE/'report-pitch/reviewed-final/baseline'
+    report=EVIDENCE/'report-pitch/reviewed-final-v4/baseline'
     launch_source=EVIDENCE/'launch-reviewed/LAUNCH_PUBLIC_SOURCE.pdf';launch_pdf(launch_source)
     rows=[
       ('report-pitch-studio','Report & Pitch Studio','report_pitch',first(report/'report'),'A source-linked decision brief, transparent calculations and an editable presentation.','Editorial interpretation, recommendations and publication require review.'),

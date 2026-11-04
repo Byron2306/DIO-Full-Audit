@@ -1,0 +1,153 @@
+{
+  "case_id": "SYNTHETIC-POPIA-READINESS-001",
+  "title": "Customer support privacy evidence readiness review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "REGISTER",
+      "text": "Processing register excerpt: support team uses name, email address and ticket history to resolve service requests; system owner is Customer Operations."
+    },
+    {
+      "source_id": "NOTICE",
+      "text": "Privacy notice draft: data is used to respond to service enquiries and is retained for 24 months after ticket closure."
+    },
+    {
+      "source_id": "VENDOR",
+      "text": "Supplier list: Helpdesk Cloud Ltd hosts ticket records; a current operator agreement and subprocessor schedule were not attached."
+    },
+    {
+      "source_id": "RIGHTS",
+      "text": "Operations note: staff can search tickets by email; no documented request verification, response deadline or deletion evidence was supplied."
+    },
+    {
+      "source_id": "INCIDENT",
+      "text": "Incident procedure draft: privacy concerns are escalated to the service manager; breach assessment criteria, regulator notification workflow and test record were not supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Record processing purpose, data and owner",
+      "source_id": "REGISTER",
+      "quote": "uses name, email address and ticket history to resolve service requests; system owner is Customer Operations",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Review transparency and retention statement",
+      "source_id": "NOTICE",
+      "quote": "data is used to respond to service enquiries and is retained for 24 months after ticket closure",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Review operator and subprocessor evidence",
+      "source_id": "VENDOR",
+      "quote": "a current operator agreement and subprocessor schedule were not attached",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R4",
+      "label": "Review data subject request controls",
+      "source_id": "RIGHTS",
+      "quote": "no documented request verification, response deadline or deletion evidence was supplied",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R5",
+      "label": "Review incident and breach handling evidence",
+      "source_id": "INCIDENT",
+      "quote": "breach assessment criteria, regulator notification workflow and test record were not supplied",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "REGISTER",
+      "quote": "uses name, email address and ticket history to resolve service requests; system owner is Customer Operations",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "NOTICE",
+      "quote": "data is used to respond to service enquiries and is retained for 24 months after ticket closure",
+      "supports": [
+        "R2"
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source_id": "VENDOR",
+      "quote": "Helpdesk Cloud Ltd hosts ticket records",
+      "supports": [
+        "R3"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The supplier list says Helpdesk Cloud Ltd hosts ticket records, but it also states that the current operator agreement and subprocessor schedule were not attached. The hosting statement alone does not provide those records; request them from the owner for review.",
+      "coverage_basis_ids": [
+        "R3",
+        "ISSUE-001"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "VENDOR",
+      "quote": "a current operator agreement and subprocessor schedule were not attached."
+    },
+    {
+      "requirement_id": "R4",
+      "source_id": "RIGHTS",
+      "quote": "no documented request verification, response deadline or deletion evidence was supplied."
+    },
+    {
+      "requirement_id": "R5",
+      "source_id": "INCIDENT",
+      "quote": "breach assessment criteria, regulator notification workflow and test record were not supplied."
+    }
+  ],
+  "processing_activities": [
+    {
+      "activity_id": "ACT-SUPPORT-01",
+      "fields": {
+        "activity_name": {
+          "source_id": "REGISTER",
+          "quote": "support team uses name, email address and ticket history to resolve service requests"
+        },
+        "purpose": {
+          "source_id": "REGISTER",
+          "quote": "to resolve service requests"
+        },
+        "personal_information_categories": {
+          "source_id": "REGISTER",
+          "quote": "name, email address and ticket history"
+        },
+        "collection_sources": {
+          "source_id": "REGISTER",
+          "quote": "support team uses name, email address and ticket history"
+        },
+        "responsible_party_or_owner": {
+          "source_id": "REGISTER",
+          "quote": "system owner is Customer Operations"
+        },
+        "operators_and_recipients": {
+          "source_id": "VENDOR",
+          "quote": "Helpdesk Cloud Ltd hosts ticket records; a current operator agreement and subprocessor schedule were not attached"
+        },
+        "retention_and_disposal": {
+          "source_id": "NOTICE",
+          "quote": "is retained for 24 months after ticket closure"
+        },
+        "data_subject_request_process": {
+          "source_id": "RIGHTS",
+          "quote": "no documented request verification, response deadline or deletion evidence was supplied"
+        }
+      }
+    }
+  ]
+}

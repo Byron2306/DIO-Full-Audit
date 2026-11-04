@@ -81,6 +81,22 @@ def test_ai_reg_readiness_retains_phase13_binding_and_never_claims_approval()->N
     assert envelope["external_release"]=="REFUSE"
 
 
+def test_ai_reg_readiness_seraph_receipt_and_required_telemetry_gap(tmp_path:Path)->None:
+    payload=_fixture("airegreadiness")
+    payload["case_id"]="customer-ai-reg-1"
+    payload["seraph_telemetry"]={"required":True,"event_chain":[],"audit_chain":[],
+                                 "event_head":"","audit_head":""}
+    result=run_regulatory_product("dio_airegreadiness",payload,output_dir=tmp_path,
+                                  operator_id="human.ai_reg_seraph_test",now=NOW)
+    seraph=result["seraph_challenge"]
+    assert seraph["verdict"]=="CONTESTED"
+    assert seraph["evidence_context"]["seraph_telemetry"]["state"]=="MISSING"
+    assert seraph["execution_authorized"] is False
+    assert result["proof_manifest"]["seraph_challenge_sha256"]==seraph["receipt_sha256"]
+    assert result["receipt"]["seraph_challenge_sha256"]==seraph["receipt_sha256"]
+    assert (tmp_path/"SERAPH_CHALLENGE_RECEIPT.json").is_file()
+
+
 def test_professional_dossier_is_hash_bound_and_human_readable(tmp_path:Path)->None:
     result=run_regulatory_product("dio_privacyproof",_fixture("privacyproof"),output_dir=tmp_path,operator_id="human.phase14_test",now=NOW)
     assert (tmp_path/"REGULATORY_READINESS_DOSSIER.pdf").read_bytes().startswith(b"%PDF")

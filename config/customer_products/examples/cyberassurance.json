@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-CYBERASSURANCE-001",
+  "title": "Cybersecurity control assurance review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "SCOPE",
+      "text": "Assessment scope: customer portal, identity provider, and production cloud environment; evidence period ends 2026-09-30."
+    },
+    {
+      "source_id": "CONTROL",
+      "text": "Control register: phishing-resistant MFA is enabled for administrators; service-account inventory was last reviewed 2026-03-01."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Security review note: one production service account has no named owner; endpoint recovery exercise evidence and cloud restore test records were not supplied."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Define systems and evidence period",
+      "source_id": "SCOPE",
+      "quote": "customer portal, identity provider, and production cloud environment; evidence period ends 2026-09-30",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Review identity control evidence and freshness",
+      "source_id": "CONTROL",
+      "quote": "phishing-resistant MFA is enabled for administrators; service-account inventory was last reviewed 2026-03-01",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Record unresolved ownership and resilience evidence gaps",
+      "source_id": "EXCEPTION",
+      "quote": "one production service account has no named owner; endpoint recovery exercise evidence and cloud restore test records were not supplied",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "SCOPE",
+      "quote": "evidence period ends 2026-09-30",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "CONTROL",
+      "quote": "phishing-resistant MFA is enabled for administrators",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "EXCEPTION",
+      "quote": "one production service account has no named owner; endpoint recovery exercise evidence and cloud restore test records were not supplied"
+    }
+  ]
+}

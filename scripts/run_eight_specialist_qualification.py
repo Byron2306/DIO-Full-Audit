@@ -81,6 +81,68 @@ def build_synthetic_packet(product_name: str, scenario: str) -> dict[str, Any]:
     if product_name not in _SOURCES or scenario not in SCENARIOS:
         raise ValueError('unknown specialist product or qualification scenario')
     criterion, observed, challenged = _SOURCES[product_name]
+    specialized: dict[str, dict[str, Any]] = {
+        'AuditProof': {
+            'criterion': 'Privileged access must be reviewed every quarter.',
+            'records': [('REVIEW-SAMPLE', 'Q3 2026 privileged access review: 12 privileged accounts were listed; 9 were marked reviewed on 2026-10-02.')],
+            'issue': ('REVIEW-EXCEPTION', '3 account rows have no recorded reviewer outcome.'),
+        },
+        'QualityProof': {
+            'records': [('CAPA-ACTION', 'CAPA-2026-017 owner assigned on 2026-10-02; effectiveness check planned for 2026-10-30.'),
+                        ('CAPA-CLOSURE', 'CAPA-2026-017 effectiveness check record was not found as of 2026-10-31.')],
+        },
+        'VendorProof': {
+            'criterion': 'Supplier requires an executed DPA (data-processing addendum) and annual security review.',
+            'records': [('SUPPLIER-DOCUMENTS', 'Supplier packet reports a DPA (data-processing addendum) dated 2026-10-02 and an annual security review completed 2026-10-02.')],
+        },
+        'DonorProof': {
+            'criterion': 'Donor condition DN-17 requires source vouchers for expenditure assertions.',
+            'records': [('GRANT-AGREEMENT', 'The restricted-use agreement restricts funds to workforce training and requires source vouchers.'),
+                        ('EXPENDITURE-REPORT', 'Q3 2026 reported expenditure: ZAR 125,000.')],
+            'issue': ('INVOICE-GAP', '2 invoice images are not included.'),
+        },
+        'ImpactProof': {
+            'criterion': 'Sustained employment is defined as paid work maintained for at least six months.',
+            'records': [('OUTCOME-DEFINITION', 'Sustained employment is defined as paid work maintained for at least six months.'),
+                        ('COHORT-REPORT', '18 participants reported placed in paid work during 2026 Q3.')],
+            'issue': ('FOLLOWUP-GAP', 'No six-month follow-up records were included.'),
+        },
+        'ProgrammeProof': {
+            'criterion': 'Programme criterion PR-17 requires signed attendance evidence for reported delivery.',
+            'records': [('MONTHLY-PLAN', 'The monthly plan targets monthly 4 training sessions in 3 community sites.'),
+                        ('DELIVERY-LOG', '4 sessions recorded across 3 sites in September 2026; attendance sheets were supplied for 3 sessions.')],
+            'issue': ('ATTENDANCE-GAP', '1 sessions have no attached attendance sheet.'),
+        },
+    }
+    if product_name in specialized:
+        detail = specialized[product_name]
+        criterion = str(detail.get('criterion') or criterion)
+        source_rows = [{'source_id': 'CRITERION', 'text': criterion}]
+        source_rows.extend({'source_id': source_id, 'text': text} for source_id, text in detail['records'])
+        if 'issue' in detail:
+            issue_id, issue_quote = detail['issue']
+            source_rows.append({'source_id': issue_id, 'text': issue_quote})
+        issue_rows = ([{'source_id': issue_id, 'quote': issue_quote, 'requirement_id': 'R17'}]
+                      if 'issue' in detail else [])
+        if scenario == 'adversarial':
+            source_rows.append({'source_id': 'ADVERSARIAL', 'text': challenged})
+            issue_rows.append({'source_id': 'ADVERSARIAL', 'quote': challenged, 'requirement_id': 'R17'})
+        normal_record = detail['records'][-1]
+        evidence = ([] if scenario == 'messy' else [
+            {'source_id': 'ADVERSARIAL' if scenario == 'adversarial' else normal_record[0],
+             'quote': challenged if scenario == 'adversarial' else normal_record[1], 'supports': ['R17']}
+        ])
+        return {
+            'owner_authorized': True,
+            'case_id': f'QUAL-{product_name.upper()}-{scenario.upper()}',
+            'title': f'{product_name} {scenario} controlled qualification',
+            'review_at': '2026-10-27T18:00:00+02:00',
+            'sources': source_rows,
+            'requirements': [{'requirement_id': 'R17', 'source_id': 'CRITERION', 'quote': criterion,
+                              **({'label': 'CERTIFIED FULL COMPLIANCE'} if scenario == 'adversarial' else {})}],
+            'evidence': evidence,
+            'issues': issue_rows,
+        }
     source_record = challenged if scenario == 'adversarial' else (
         'The source custodian reports no record was supplied for the stated criterion.'
         if scenario == 'messy' else observed
@@ -124,7 +186,9 @@ def _verify_journey(out: Path, product_name: str, scenario: str, result: dict[st
         raise ValueError('synthetic self-reported evidence became professionally supported')
     if scenario == 'adversarial' and row['review_state'] != 'CONTESTED':
         raise ValueError('source-reported challenge did not reach native contested review')
-    if (scenario == 'adversarial') != bool(row['source_reported_issues']):
+    baseline_issue_products = {'AuditProof', 'DonorProof', 'ImpactProof', 'ProgrammeProof'}
+    expected_issue = scenario == 'adversarial' or product_name in baseline_issue_products
+    if expected_issue != bool(row['source_reported_issues']):
         raise ValueError('source-reported challenge crossed scenario boundary')
     html = next((out / 'customer_delivery').glob('*.html')).read_text(encoding='utf-8')
     if row['requirement_quote'] not in html or 'CERTIFIED FULL COMPLIANCE' in html:

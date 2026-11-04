@@ -128,6 +128,14 @@ def run_changeproof_execution_proof(
         raise ProductClassExecutionProofError("ChangeProof envelope human/release boundary drifted")
     if envelope.get("authority_created") is not False or envelope.get("external_effects") is not False:
         raise ProductClassExecutionProofError("ChangeProof envelope illegally created authority/effects")
+    seraph = result.get("seraph_challenge") or {}
+    if (seraph.get("schema") != "dio.seraph.challenge_receipt.v1"
+            or seraph.get("target_id") != envelope.get("envelope_fingerprint")
+            or seraph.get("verdict") != "CONTESTED"
+            or seraph.get("execution_authorized") is not False
+            or manifest.get("seraph_challenge_sha256") != seraph.get("receipt_sha256")
+            or receipt.get("seraph_challenge_sha256") != seraph.get("receipt_sha256")):
+        raise ProductClassExecutionProofError("ChangeProof Seraph challenge binding is missing or unsafe")
 
     drift_fields = {str(row.get("field")) for row in envelope.get("drift_events") or []}
     if not {"model_fingerprint", "prompt_fingerprint"}.issubset(drift_fields):
@@ -177,6 +185,9 @@ def run_changeproof_execution_proof(
         "controlled_processor_execution": True,
         "execution_proof_state": "CONTROLLED_ROUTE_PROVED",
         "processor_receipt_schema": receipt.get("schema"),
+        "seraph_challenge_sha256": seraph.get("receipt_sha256"),
+        "seraph_verdict": seraph.get("verdict"),
+        "seraph_coverage_state": seraph.get("coverage_state"),
         "processor_receipt_internal_state": "COMPLETE",
         "human_review_gate": receipt.get("human_gate"),
         "external_release_gate": receipt.get("external_release_gate"),

@@ -21,8 +21,8 @@ HEALTH_PATH = '/api/vesper/health'
 # One 2 MiB binary attachment expands to about 2.8 MiB in Base64.
 PUBLIC_MAX_REQUEST_BYTES = 4 * 1024 * 1024
 METHOD_PATHS = {
-    'GET': {'/api/vesper/web/session', '/api/vesper/web/replies'},
-    'POST': {'/api/vesper/web/session', '/api/vesper/web/message', '/api/vesper/web/voice'},
+    'GET': {'/api/vesper/web/session', '/api/vesper/web/replies', '/api/vesper/web/journey'},
+    'POST': {'/api/vesper/web/session', '/api/vesper/web/message', '/api/vesper/web/voice', '/api/vesper/web/journey'},
 }
 
 

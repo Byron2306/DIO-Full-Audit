@@ -1,0 +1,165 @@
+{
+  "schema": "dio.pictora.checkpoint_terms_manifest.v1",
+  "policy": "Unverified or unlisted checkpoint terms are not cleared for commercial use or release.",
+  "checkpoints": [
+    {
+      "filename": "DreamShaper_8_INPAINTING.inpainting.safetensors",
+      "upstream_source": "https://civitai.com/models/4384/dreamshaper?modelVersionId=131004",
+      "license": "Civitai model-permission flags; Civitai version API returns no full license identifier, while the official Hugging Face model card labels the license as other",
+      "terms_state": "IDENTIFIED_RESTRICTED",
+      "commercial_use": "NOT_CLEARED",
+      "source_version": "DreamShaper 8-inpainting · Civitai model 4384, version 131004",
+      "source_file_bytes": 2132703862,
+      "source_file_sha256": "ac84e05d5039d7a8aea3ced335ac7c56da6d3c6816465651f928b137c3a7b24a",
+      "source_metadata": {
+        "provider": "Civitai public API",
+        "model_id": 4384,
+        "model_version_id": 131004,
+        "creator": "Lykon",
+        "base_model": "SD 1.5",
+        "commercial_use_flags": [
+          "Image",
+          "RentCivit",
+          "Rent"
+        ],
+        "allow_no_credit": true,
+        "allow_derivatives": true,
+        "allow_different_license": true,
+        "version_api_license_field": null
+      },
+      "usage_constraints": [
+        "Installed file SHA-256 matches the exact Civitai version file hash.",
+        "The Civitai version API returns commercial-use flags but no full license identifier; the official Hugging Face model card labels the license only as other.",
+        "Paid Pictora inference remains uncleared pending review of the complete creator grant and applicable platform/service terms."
+      ]
+    },
+    {
+      "filename": "epicrealism_naturalSinRC1VAE.safetensors",
+      "upstream_source": "https://civitai.com/models/25694?modelVersionId=143906",
+      "license": "Civitai model-permission flags; version API returns no full license identifier",
+      "terms_state": "IDENTIFIED_RESTRICTED",
+      "commercial_use": "NOT_CLEARED",
+      "source_version": "epiCRealism Natural Sin RC1 VAE · Civitai model 25694, version 143906",
+      "source_file_bytes": 2132625612,
+      "source_file_sha256": "84d76a0328ee5a1a2a1d466ba7478ab59183e3fea385441528aa4c5d567fd43e",
+      "source_metadata": {
+        "provider": "Civitai public API",
+        "model_id": 25694,
+        "model_version_id": 143906,
+        "creator": "epinikion",
+        "base_model": "SD 1.5",
+        "commercial_use_flags": [
+          "Image",
+          "RentCivit",
+          "Rent"
+        ],
+        "allow_no_credit": false,
+        "allow_derivatives": true,
+        "allow_different_license": true,
+        "version_api_license_field": null
+      },
+      "usage_constraints": [
+        "Installed file SHA-256 matches the exact Civitai version file hash.",
+        "Creator credit is required by the Civitai model flags.",
+        "Paid Pictora inference remains uncleared pending review of complete model terms and attribution handling."
+      ]
+    },
+    {
+      "filename": "meinamix_meinaV11.safetensors",
+      "upstream_source": "https://civitai.com/models/7240/meinamix?modelVersionId=119057",
+      "license": "Civitai model-permission flags; version API returns no full license identifier",
+      "terms_state": "IDENTIFIED_RESTRICTED",
+      "commercial_use": "NOT_CLEARED",
+      "source_version": "MeinaMix Meina V11 · Civitai model 7240, version 119057",
+      "source_file_bytes": 2132651818,
+      "source_file_sha256": "54ef3e3610eee7f0f6c9f9b82eee26aa404598512d800494d1db344e3bc560b1",
+      "source_metadata": {
+        "provider": "Civitai public API",
+        "model_id": 7240,
+        "model_version_id": 119057,
+        "creator": "Meina",
+        "base_model": "SD 1.5",
+        "commercial_use_flags": [
+          "Image",
+          "RentCivit"
+        ],
+        "allow_no_credit": false,
+        "allow_derivatives": true,
+        "allow_different_license": true,
+        "version_api_license_field": null
+      },
+      "usage_constraints": [
+        "Installed file SHA-256 matches the exact Civitai version file hash.",
+        "Creator credit is required by the Civitai model flags.",
+        "The public commercial-use flags do not include Rent; paid Pictora inference therefore remains uncleared."
+      ]
+    },
+    {
+      "filename": "nudeFashionV1Krea2_v10_full_bf16.safetensors",
+      "upstream_source": "https://www.krea.ai/krea-2-licensing",
+      "license": "Krea 2 Community License Agreement v1 for the base model; merged LoRA terms unidentified",
+      "terms_state": "IDENTIFIED_RESTRICTED",
+      "commercial_use": "NOT_CLEARED",
+      "source_version": "Local safetensors metadata identifies a Krea 2 Turbo base and nsfwfashion-photo-v2.safetensors LoRA merge; the LoRA origin/version is not identified",
+      "observed_local_file_bytes": 12820331804,
+      "observed_local_file_sha256": "a9e2a105cd4e4db58cf7d913c68e34d148cf08562242ce19a93ab8c3d085fc6e",
+      "source_metadata": {
+        "observed_from": "local safetensors __metadata__.prompt",
+        "base_checkpoint": "krea2_turbo_fp8.safetensors",
+        "adapter_file": "nsfwfashion-photo-v2.safetensors",
+        "adapter_strength": 1.0,
+        "merge_output": "diffusion_models/krea2_turbo_fp8_nsfwfashion_v2_1",
+        "exact_adapter_author_and_version": "UNIDENTIFIED"
+      },
+      "usage_constraints": [
+        "Krea 2 Community License allows commercial use only when organization-wide trailing-twelve-month revenue is below USD 1,000,000; revenue qualification is not verified.",
+        "The local fine-tune adapter license and exact source version are unidentified.",
+        "The Krea agreement requires content filters; the Pictora deployment has not been qualified against that requirement.",
+        "This local SHA-256 pins the installed fine-tuned file only; it is not an upstream source hash."
+      ]
+    },
+    {
+      "filename": "ponyDiffusionV6XL_v6StartWithThisOne.safetensors",
+      "upstream_source": "https://civitai.com/models/257749?modelVersionId=290640",
+      "source_version": "Pony Diffusion V6 XL · V6 (start with this one) · Civitai version 290640",
+      "license": "Modified Fair AI Public License 1.0-SD (Pony V6 author additions)",
+      "terms_state": "IDENTIFIED_RESTRICTED",
+      "commercial_use": "NOT_CLEARED",
+      "source_file_bytes": 6938041050,
+      "source_file_sha256": "67ab2fd8ec439a89b3fedb15cc65f54336af163c7eb5e4f2acc98f090a29b0b3",
+      "usage_constraints": [
+        "The model author prohibits inference through websites or applications that allow monetization without an additional agreement.",
+        "The model author requests contact for commercial use; commercial inference permission is explicitly given to Civitai and Hugging Face only."
+      ],
+      "workflow_guidance": {
+        "clip_skip": 2,
+        "positive_prompt_prefix": "score_9, score_8_up, score_7_up, score_6_up, score_5_up, score_4_up",
+        "sampler": "euler_ancestral",
+        "steps": 25,
+        "width": 1024,
+        "height": 1024,
+        "source": "https://huggingface.co/LyliaEngine/Pony_Diffusion_V6_XL"
+      }
+    },
+    {
+      "filename": "v1-5-pruned-emaonly.safetensors",
+      "upstream_source": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/blob/main/v1-5-pruned-emaonly.safetensors",
+      "license": "CreativeML OpenRAIL-M",
+      "terms_state": "IDENTIFIED_RESTRICTED",
+      "commercial_use": "NOT_CLEARED",
+      "source_version": "Stable Diffusion v1.5 · v1-5-pruned-emaonly.safetensors",
+      "source_file_bytes": 4265146304,
+      "source_file_sha256": "6ce0161689b3853acaa03779ec93eafe75a02f4ced659bee03f50797806fa2fa",
+      "source_metadata": {
+        "provider": "Hugging Face",
+        "repository": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "main",
+        "base_model": "Stable Diffusion v1.5"
+      },
+      "usage_constraints": [
+        "Installed file SHA-256 matches the published Hugging Face file hash.",
+        "CreativeML OpenRAIL-M use restrictions apply; Pictora has not completed a product-specific legal and safety review."
+      ]
+    }
+  ]
+}

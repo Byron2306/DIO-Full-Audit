@@ -17,18 +17,15 @@ from products.canon_extension_product_grade import (
 from products.canon_extension_summary import persist_verified_summary
 from products.product_grade_gauntlet import run_product_grade_gauntlet
 
-CANONICAL_SUMMARY_PATH = (
-    ROOT
-    / "state"
-    / "product_grade"
-    / "canon_extensions"
-    / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json"
-)
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run truth-bound ProductGrade verification across all 15 DIO canon extensions."
+    )
+    parser.add_argument(
+        "--root",
+        type=Path,
+        default=ROOT,
+        help="DIO root containing canon surfaces, Studio inputs, and lineage evidence.",
     )
     parser.add_argument(
         "--output",
@@ -46,22 +43,26 @@ def main() -> int:
         help="Return non-zero unless all 15 canon extensions reach full PRODUCT_GRADE_VERIFIED.",
     )
     args = parser.parse_args()
+    product_root = args.root.expanduser().resolve()
     output_dir = Path(args.output).resolve()
     studio_receipt = run_product_grade_gauntlet(
         output_dir=output_dir / "studio_product_grade",
-        root=ROOT,
+        root=product_root,
     )
     receipt = run_canon_extension_product_grade_gauntlet(
         output_dir=output_dir,
-        root=ROOT,
+        root=product_root,
         studio_product_grade_receipt=studio_receipt,
     )
-    summary_persisted = persist_verified_summary(receipt, CANONICAL_SUMMARY_PATH)
+    canonical_summary_path = (
+        product_root / "state" / "product_grade" / "canon_extensions" / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json"
+    )
+    summary_persisted = persist_verified_summary(receipt, canonical_summary_path)
     print(json.dumps(receipt, indent=2, sort_keys=True))
     print(receipt["proof_acceptance_token"])
     print(receipt["acceptance_token"])
     if summary_persisted:
-        print(f"DIO_CANON_EXTENSION_CONTROL_DECK_SUMMARY_WRITTEN:{CANONICAL_SUMMARY_PATH}")
+        print(f"DIO_CANON_EXTENSION_CONTROL_DECK_SUMMARY_WRITTEN:{canonical_summary_path}")
     if args.require_proof and receipt["proof_acceptance_token"] != PROOF_VERIFIED_TOKEN:
         return 2
     if args.require_all and receipt["acceptance_token"] != VERIFIED_TOKEN:

@@ -1,0 +1,106 @@
+{
+  "case_id": "SYNTHETIC-TENDERPROOF-20261102",
+  "title": "Tender submission readiness evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "source_id": "SYNTHETIC-TENDERPROOF-20261102",
+  "source_ref": "synthetic://SYNTHETIC-TENDERPROOF-20261102",
+  "source_type": "tender",
+  "source_text": "# Synthetic tender conditions and applicant record\n\nTender requirements:\nClause 1: Tender submissions must be received by 11:00 SAST on 28 August 2026.\nClause 2: A valid tax-status PIN is mandatory.\nClause 3: Three signed project references are mandatory.\nClause 4: Pricing schedule Form C must be signed by an authorised director.\nClause 5: A compulsory briefing attendance certificate must be included.",
+  "obligations": [
+    {
+      "locator": "CLAUSE-1",
+      "statement": "Clause 1: Tender submissions must be received by 11:00 SAST on 28 August 2026.",
+      "kind": "deliverable",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-2",
+      "statement": "Clause 2: A valid tax-status PIN is mandatory.",
+      "kind": "deliverable",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-3",
+      "statement": "Clause 3: Three signed project references are mandatory.",
+      "kind": "deliverable",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-4",
+      "statement": "Clause 4: Pricing schedule Form C must be signed by an authorised director.",
+      "kind": "approval_prerequisite",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-5",
+      "statement": "Clause 5: A compulsory briefing attendance certificate must be included.",
+      "kind": "deliverable",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "R-01",
+      "source_ref": "synthetic://tenderproof/tender-notice/R-01",
+      "text": "The tender notice lists a closing time of 11:00 SAST on 28 August 2026.",
+      "target_locators": [
+        "CLAUSE-1"
+      ],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-02",
+      "source_ref": "synthetic://tenderproof/tax/R-02",
+      "text": "A tax-status PIN is included, but validity has not been verified.",
+      "target_locators": [
+        "CLAUSE-2"
+      ],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-03",
+      "source_ref": "synthetic://tenderproof/references/R-03",
+      "text": "Two signed project reference letters are supplied; a third is not included.",
+      "target_locators": [
+        "CLAUSE-3"
+      ],
+      "relation": "contradicts"
+    },
+    {
+      "evidence_id": "R-04",
+      "source_ref": "synthetic://tenderproof/pricing/R-04",
+      "text": "Pricing schedule Form C is unsigned in the supplied packet.",
+      "target_locators": [
+        "CLAUSE-4"
+      ],
+      "relation": "contradicts"
+    },
+    {
+      "evidence_id": "R-05",
+      "source_ref": "synthetic://tenderproof/briefing/R-05",
+      "text": "A compulsory briefing attendance certificate is included.",
+      "target_locators": [
+        "CLAUSE-5"
+      ],
+      "relation": "supports"
+    }
+  ],
+  "operator_id": "synthetic-acceptance-operator",
+  "as_of": "2026-11-01T00:00:00+00:00"
+}

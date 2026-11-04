@@ -30,6 +30,8 @@ def test_regops_proof_executes_controlled_readiness_with_bounded_ai_component(tm
     assert proof["execution_proof_state"] == "CONTROLLED_ROUTE_PROVED"
     assert proof["processor_receipt_internal_state"] == "COMPLETE"
     assert proof["ai_regulatory_component_state"] == "CONTROLLED_CONTEXT_EVALUATED"
+    assert proof["seraph_challenge_sha256"] == result["processor_result"]["ai_regulatory_component"]["seraph_challenge"]["receipt_sha256"]
+    assert proof["seraph_coverage_state"] == "partial"
     assert proof["human_review_gate"] == "NEEDS_YOU"
     assert proof["external_release_gate"] == "REFUSE"
     assert proof["authority_created"] is False

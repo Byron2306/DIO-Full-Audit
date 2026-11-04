@@ -1,0 +1,86 @@
+{
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "operator_id": "synthetic-change-reviewer",
+  "change_assessment": {
+    "source_type": "ai_model_change",
+    "case_id": "SYNTHETIC-CHANGEPROOF-001",
+    "system": {
+      "system_id": "claims-summary-service",
+      "intended_use": "claims_summary",
+      "model": {
+        "provider": "declared-provider",
+        "model_id": "claims-summary-model",
+        "version": "2.0.0",
+        "fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "prompt": {
+        "fingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "policy": {
+        "fingerprint": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "connector": {
+        "fingerprint": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "environment": {
+        "fingerprint": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "data_policy": {
+        "retention": "owner-declared 30 day retention",
+        "disclosure": "human review required",
+        "sensitive_data": "claimant data minimised"
+      }
+    },
+    "baseline": {
+      "model_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "prompt_fingerprint": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "policy_fingerprint": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "connector_fingerprint": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "environment_fingerprint": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    "sources": [
+      {
+        "source_ref": "customer-file://baseline/model-card.txt",
+        "sha256": "e5159d0fdb2c7e6790c9b168d63180e122e40aac50e39e306fd49e45875e94f8"
+      },
+      {
+        "source_ref": "customer-file://change/release-note.txt",
+        "sha256": "369084907e59687ef6846ec118d1b6ba29171531dc52f8548f651a0a1d09c287"
+      },
+      {
+        "source_ref": "customer-file://evaluation/old-evaluation.txt",
+        "sha256": "1791b5cd4deaba9652d19be0a9b9231c721131effd21f75cbf3807d0a4632035"
+      }
+    ],
+    "attachments": [
+      {
+        "name": "release-note.txt",
+        "sha256": "369084907e59687ef6846ec118d1b6ba29171531dc52f8548f651a0a1d09c287",
+        "text": "Release note: deployed claims-summary-model version 2.0.0 on 2026-10-22; candidate ranking prompt and retrieval connector changed."
+      }
+    ],
+    "evaluations": [
+      {
+        "evaluation_id": "E-17",
+        "purpose": "claims_summary",
+        "model_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "result": "PASS",
+        "evaluated_at": "2026-08-14T00:00:00+00:00",
+        "expires_at": "2026-12-31T00:00:00+00:00"
+      }
+    ],
+    "requested_actions": [],
+    "allowed_capabilities": [],
+    "human_authority": {
+      "state": "NEEDS_YOU"
+    },
+    "customer_declarations": [
+      {
+        "source_locator": "release-note.txt",
+        "statement": "Version 2.0.0 changed candidate ranking prompt and retrieval connector; evaluation E-17 predates the deployment.",
+        "trust_state": "captured_untrusted"
+      }
+    ]
+  }
+}

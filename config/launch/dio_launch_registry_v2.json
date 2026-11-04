@@ -1,7 +1,7 @@
 {
   "schema": "dio.launch_registry.v2",
   "version": "2.0.1",
-  "as_of": "2026-08-20",
+  "as_of": "2026-10-31",
   "purpose": "Launch only DIO products with current execution proof and a customer-visible terminal artifact while preserving human release authority.",
   "laws": {
     "receipt_alone_is_not_product": true,
@@ -31,7 +31,16 @@
       "proof_class": "golden controlled document execution",
       "proof_ref": "docs/DOCUMENT_STUDIO_GOLDEN_PROOF.md",
       "public_surface": "sites/document-studio/index.html",
-      "customer_artifacts": ["clean edited DOCX", "visible redline DOCX", "translated clean copy", "bilingual review copy", "rendered PDF", "accessible HTML", "change and QA evidence", "review ZIP"],
+      "customer_artifacts": [
+        "clean edited DOCX",
+        "visible redline DOCX",
+        "translated clean copy",
+        "bilingual review copy",
+        "rendered PDF",
+        "accessible HTML",
+        "change and QA evidence",
+        "review ZIP"
+      ],
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
       "human_gate": "NEEDS_YOU",
@@ -45,7 +54,12 @@
       "proof_class": "professional evidence full-pipeline selective execution",
       "proof_ref": "docs/SOPHIA_TUTOR_PROFESSIONAL_PIPELINE_PROOF_2026-08-20.md",
       "public_surface": "sites/sophia/index.html",
-      "customer_artifacts": ["grounded dialogic tutoring response", "governed authorship-pressure response", "Mandos and constitutional decision evidence", "tutoring support pack"],
+      "customer_artifacts": [
+        "grounded dialogic tutoring response",
+        "governed authorship-pressure response",
+        "Mandos and constitutional decision evidence",
+        "tutoring support pack"
+      ],
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
       "human_gate": "NEEDS_YOU",
@@ -59,8 +73,15 @@
       "proof_class": "native multi-organ capability closure",
       "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/site_studio.json",
-      "customer_artifacts": ["positioning and site structure", "responsive HTML site package", "governed copy", "evidence and claim proof", "intake structure", "human-held deployment receipt"],
-      "artifact_entrypoint": "native_base/composition/marketfront/index.html",
+      "customer_artifacts": [
+        "positioning and site structure",
+        "responsive HTML site package",
+        "governed copy",
+        "evidence and claim proof",
+        "intake structure",
+        "human-held deployment receipt"
+      ],
+      "artifact_entrypoint": "deliverables/pictora_image_editor/live_wiring_evidence/site_studio_run/base/native_base/composition/marketfront/index.html",
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
       "human_gate": "NEEDS_YOU",
@@ -75,8 +96,13 @@
       "proof_class": "native multi-organ capability closure",
       "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/professional_correspondence_studio.json",
-      "customer_artifacts": ["response brief", "reviewable correspondence draft", "semantic custody evidence", "release preparation receipt"],
-      "artifact_entrypoint": "native_base/composition/correspondence/RESPONSE_BRIEF.html",
+      "customer_artifacts": [
+        "response brief",
+        "reviewable correspondence draft",
+        "semantic custody evidence",
+        "release preparation receipt"
+      ],
+      "artifact_entrypoint": "acceptance_runs/68-product-integration-20261027/studios-integrated/professional_correspondence_studio/run-b/native_base/composition/correspondence/RESPONSE_BRIEF.html",
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
       "human_gate": "NEEDS_YOU",
@@ -84,6 +110,47 @@
     }
   ],
   "near_launch": [
+    {
+      "id": "pictora_image_editor",
+      "name": "DIO Pictora Image Editor",
+      "family": "creative_studio",
+      "status": "ARTIFACT_GATE_PENDING",
+      "proof_class": "local ComfyUI generation, inpainting, pose, and identity-reference execution with hash-bound receipts",
+      "proof_ref": "docs/PICTORA_IMAGE_EDITOR_PRODUCT.md",
+      "public_surface": "sites/pictora-image-editor/index.html",
+      "customer_artifacts": [
+        "local image renders and edits",
+        "source-preserving studio job receipts",
+        "ComfyUI workflow and model provenance when used"
+      ],
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true,
+      "human_gate": "NEEDS_YOU",
+      "external_release": "REFUSE",
+      "proof_observed_at": "2026-10-31",
+      "launch_note": "Local pilot only. Live generation, inpainting, pose, and identity-reference renders now have receipts. Review candidate quality before promotion; commercial model terms remain uncleared. Upscaling and background removal depend on installed ComfyUI assets."
+    },
+    {
+      "id": "sonoris_studio",
+      "name": "DIO Sonoris Studio",
+      "family": "creative_studio",
+      "status": "ARTIFACT_GATE_PENDING",
+      "proof_class": "23-genre composition catalog with compiled MIDI, rendered sampled audio, section audits, and persistent session controls",
+      "proof_ref": "docs/sonoris_metal_studio_v2.md",
+      "public_surface": "sites/sonoris-studio/index.html",
+      "customer_artifacts": [
+        "editable composition setup",
+        "composition plan and MIDI",
+        "rendered WAV/MP3 stems",
+        "section performance audit and provenance receipt"
+      ],
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true,
+      "human_gate": "NEEDS_YOU",
+      "external_release": "REFUSE",
+      "proof_observed_at": "2026-10-31",
+      "launch_note": "The current library contains 82 audio-rendered candidates across 23 genre profiles. Expert listening review and instrument-rights review are still required before promotion; the dashboard keeps external release human-held."
+    },
     {
       "id": "finance_readiness_studio",
       "name": "DIO Finance Readiness Studio / EntrepreneurProof",
@@ -93,8 +160,15 @@
       "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/finance_readiness_studio.json",
       "native_closure_fingerprint": "sha256:fd7d951054e761b538be8b75fea298cf9553eb5d9dade1afa234762dadf1f55d",
-      "artifact_entrypoint": "native_base/composition/finance/READINESS_REPORT.html",
-      "required_artifacts": ["openable readiness report", "requirement-to-evidence gap map", "assumption boundary", "human decision boundary"]
+      "artifact_entrypoint": "acceptance_runs/68-product-integration-20261027/studios-integrated/finance_readiness_studio/run-b/native_base/composition/finance/READINESS_REPORT.html",
+      "required_artifacts": [
+        "openable readiness report",
+        "requirement-to-evidence gap map",
+        "assumption boundary",
+        "human decision boundary"
+      ],
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true
     },
     {
       "id": "article_publication_studio",
@@ -105,27 +179,68 @@
       "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/article_publication_studio.json",
       "native_closure_fingerprint": "sha256:37ddd015ed17ba4c8f99266736f7eed896fb9c886327ced2327dd0540a2cf105",
-      "artifact_entrypoint": "native_base/composition/publication/ARTICLE_DRAFT.html",
-      "required_artifacts": ["openable article draft", "editorial proof", "source lineage", "human publication gate"]
+      "artifact_entrypoint": "acceptance_runs/68-product-integration-20261027/studios-integrated/article_publication_studio/run-b/native_base/composition/publication/ARTICLE_DRAFT.html",
+      "required_artifacts": [
+        "openable article draft",
+        "editorial proof",
+        "source lineage",
+        "human publication gate"
+      ],
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true
     }
   ],
   "commercial_compositions_held": [
-    {"id": "dio_launch_studio", "name": "DIO Launch Studio", "family": "design_studio", "status": "COMPOSITION_PROOF_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
-    {"id": "dio_report_pitch_studio", "name": "DIO Report & Pitch Studio", "family": "design_studio", "status": "COMPOSITION_PROOF_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
-    {"id": "dio_popia_readiness", "name": "DIO POPIA Readiness", "family": "legal_operations", "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
-    {"id": "dio_corporate_readiness", "name": "DIO Corporate Readiness", "family": "legal_operations", "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
-    {"id": "dio_contract_desk", "name": "DIO Contract Desk", "family": "legal_operations", "status": "COMPOSITION_PROOF_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"}
+    {
+      "id": "dio_launch_studio",
+      "name": "DIO Launch Studio",
+      "family": "design_studio",
+      "status": "COMPOSITION_PROOF_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_report_pitch_studio",
+      "name": "DIO Report & Pitch Studio",
+      "family": "design_studio",
+      "status": "COMPOSITION_PROOF_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_popia_readiness",
+      "name": "DIO POPIA Readiness",
+      "family": "legal_operations",
+      "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_corporate_readiness",
+      "name": "DIO Corporate Readiness",
+      "family": "legal_operations",
+      "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_contract_desk",
+      "name": "DIO Contract Desk",
+      "family": "legal_operations",
+      "status": "COMPOSITION_PROOF_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    }
   ],
   "canonical_portfolio": {
     "registered_product_class_count": 53,
     "route_registry": "config/professional_evidence_portfolio/v1/routes.json",
     "launch_rule": "Each canonical product class is promoted independently after a fresh professional-evidence pass plus customer-visible artifact verification. The count 53 is not a launch claim.",
     "default_status_until_artifact_revalidation": "ARTIFACT_GATE_PENDING",
-    "already_promoted_to_launch_ready": ["Sophia Tutor", "Document Studio Edit", "Document Studio Localize"]
+    "already_promoted_to_launch_ready": [
+      "Sophia Tutor",
+      "Document Studio Edit",
+      "Document Studio Localize"
+    ]
   },
   "truth": {
     "available_product_count": 4,
-    "near_launch_count": 2,
+    "near_launch_count": 4,
     "market_validation_claimed": false,
     "commercial_validation_claimed": false,
     "autonomous_external_release": false

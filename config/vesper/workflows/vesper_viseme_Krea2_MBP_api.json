@@ -1,0 +1,38 @@
+{
+  "1": {"class_type": "LoadImage", "inputs": {"image": "vesper_vise_geometry_source_20261028.png"}},
+  "2": {"class_type": "ImageCrop", "inputs": {"image": ["1", 0], "width": 512, "height": 512, "x": 85, "y": 275}},
+  "3": {"class_type": "UNETLoader", "inputs": {"unet_name": "krea2_turbo_fp8_scaled.safetensors", "weight_dtype": "default"}},
+  "4": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen3vl_4b_fp8_scaled.safetensors", "type": "krea2", "device": "default"}},
+  "5": {"class_type": "VAELoader", "inputs": {"vae_name": "qwen_image_vae.safetensors"}},
+  "6": {"class_type": "Krea2OstrisEditModelPatch", "inputs": {"model": ["3", 0], "kv_cache": false}},
+  "7": {
+    "class_type": "TextEncodeKrea2OstrisEdit",
+    "inputs": {
+      "clip": ["4", 0],
+      "prompt": "Edit the woman in the reference image with very high fidelity. Preserve her exact identity, face shape, nose, eyes, skin, makeup, hairstyle, expression, lighting, gold-black background and framing. Change only her lips to a naturally closed M/B/P speech pose, lips gently touching, no teeth visible, natural lip color and texture, no added object. Keep the result photorealistic and otherwise identical to the reference.",
+      "vae": ["5", 0],
+      "image1": ["2", 0]
+    }
+  },
+  "8": {"class_type": "TextEncodeKrea2OstrisEdit", "inputs": {"clip": ["4", 0], "prompt": ""}},
+  "9": {"class_type": "FluxKontextMultiReferenceLatentMethod", "inputs": {"conditioning": ["7", 0], "reference_latents_method": "index_timestep_zero"}},
+  "10": {"class_type": "FluxKontextMultiReferenceLatentMethod", "inputs": {"conditioning": ["8", 0], "reference_latents_method": "index_timestep_zero"}},
+  "11": {"class_type": "EmptySD3LatentImage", "inputs": {"width": 512, "height": 512, "batch_size": 1}},
+  "12": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["6", 0],
+      "seed": 18281032,
+      "steps": 8,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "positive": ["9", 0],
+      "negative": ["10", 0],
+      "latent_image": ["11", 0],
+      "denoise": 1.0
+    }
+  },
+  "13": {"class_type": "VAEDecode", "inputs": {"samples": ["12", 0], "vae": ["5", 0]}},
+  "14": {"class_type": "SaveImage", "inputs": {"images": ["13", 0], "filename_prefix": "vesper_visemes/KREA2_MBP_edit"}}
+}

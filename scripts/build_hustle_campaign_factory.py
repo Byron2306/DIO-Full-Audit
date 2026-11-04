@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -281,13 +282,17 @@ def reel_script(strategy: dict[str, Any], product: dict[str, Any]) -> list[dict[
 
 def _render_hustle_reel(request_path: Path) -> tuple[str, str]:
     from scripts.build_campaign_media_v3 import synthesize_pocket_story, _render_projected_format
-    from products.canonical_marketing_media import approved_music
+    from products.canonical_marketing_media import directed_music
     request = json.loads(request_path.read_text(encoding="utf-8"))
     output = Path(request["outputs"]["vertical_reel"])
     try:
         beats = request["script_brief"]["beats"]
         scenes = [{"scene_id": row["beat"], "narration": row["message"]} for row in beats]
-        music = approved_music()
+        music = directed_music(family="clean_modern", pacing="brisk", volume=0.075,
+                               context="short offer ad")
+        output.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(music["attribution"], output.parent / "MUSIC_ATTRIBUTION.md")
+        shutil.copy2(music["rights_receipt"], output.parent / "MUSIC_RIGHTS_RECEIPT.json")
         voice = synthesize_pocket_story(scenes, output.parent / "narration", {"required": True, "provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "remote_tts_allowed": False})
         result = _render_projected_format(scene_images=[Path(p) for p in request["scene_images"]], narration=voice["scenes"], music=Path(music["path"]), music_volume=music["volume"], output=output, width=1080, height=1920, brand_owner="dio")
         base.write_json(output.parent / "NICHEFOUNDRY_REEL_RECEIPT.json", {"request_hash": request["request_hash"], "output": result, "voice": voice, "music": music, "publication": "held", "spend": "disabled"})

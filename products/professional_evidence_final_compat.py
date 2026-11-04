@@ -5,6 +5,7 @@ import html
 import json
 import os
 import re
+import sqlite3
 import subprocess
 import urllib.error
 import urllib.request
@@ -13,6 +14,7 @@ from typing import Any, Callable
 
 from portfolio_runtime import ROOT
 from products.professional_evidence_projection import (
+    evidence_register_record_bindings,
     exception_text,
     sha256,
     slug,
@@ -353,6 +355,31 @@ def _run_vamp_current(
     from products.vamp_customer_projection import review_window
     from products.professional_evidence_projection import evidence_rows
     window = review_window(evidence_rows(packet))
+    cpd_attachment_date_review = None
+    promotion_attachment_reconciliation = None
+    if incarnation == "CPDProof":
+        from products.cpdproof_attachment_date_review import build_cpd_attachment_date_review
+        cpd_attachment_date_review = build_cpd_attachment_date_review(
+            packet, window, execution_dir / "CPDPROOF_ATTACHMENT_DATE_REVIEW.json"
+        )
+    elif incarnation == "PromotionProof":
+        from products.promotionproof_attachment_reconciliation import build_promotionproof_attachment_reconciliation
+        promotion_attachment_reconciliation = build_promotionproof_attachment_reconciliation(
+            packet, window, execution_dir / "PROMOTIONPROOF_ATTACHMENT_RECONCILIATION.json"
+        )
+    period_rows = [row for row in evidence_register_record_bindings(packet)
+                   if row.get("customer_statement") == window.get("source_quote")]
+    if len(period_rows) != 1:
+        raise RuntimeError("VAMP review period must bind to exactly one evidence-register record")
+    period_binding = period_rows[0]
+    register_path = packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"
+    register_bytes = register_path.read_bytes()
+    period_start = int(period_binding["source_byte_start"])
+    period_end = int(period_binding["source_byte_end_exclusive"])
+    if (hashlib.sha256(register_bytes).hexdigest() != period_binding["source_file_sha256"]
+            or hashlib.sha256(register_bytes[period_start:period_end]).hexdigest() != period_binding["source_row_sha256"]
+            or hashlib.sha256(str(period_binding["customer_statement"]).encode("utf-8")).hexdigest() != period_binding["source_statement_sha256"]):
+        raise RuntimeError("VAMP review period source binding failed exact evidence-register byte validation")
     profile = ROOT / "config" / "vamp_profiles" / "university_generic_v1.json"
     request = {
         "schema": "dio.vamp_snapshot_request.v1",
@@ -365,13 +392,12 @@ def _run_vamp_current(
             "year": window["year"],
         },
         "review": {"months": window["months"]},
-        "privacy_mode": "professional_customer_controlled",
+        "privacy_mode": "private_internal",
         "consents": {
             "evidence_owner_authorized": True,
             "performance_data_processing_approved": True,
             "human_review_terms_accepted": True,
         },
-        "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
     request_path = execution_dir.parent / "PROJECTION" / "VAMP_SNAPSHOT_REQUEST.json"
     write_json(request_path, request)
@@ -385,6 +411,53 @@ def _run_vamp_current(
     snapshot_receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     if snapshot_receipt.get("status") != "ready_for_human_review":
         raise RuntimeError(f"VAMP did not reach ready_for_human_review: {snapshot_receipt.get('status')}")
+    snapshot_path = Path(output) / "VAMP_SNAPSHOT.json"
+    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    requested_months = list(request["review"]["months"])
+    if requested_months != window["months"]:
+        raise RuntimeError("VAMP snapshot request window differs from the customer-declared review period")
+    database_path = Path(request["source"]["database_path"]).resolve()
+    with sqlite3.connect(f"file:{database_path}?mode=ro", uri=True) as connection:
+        task_ids = {row[0] for row in connection.execute(
+            "SELECT task_id FROM tasks WHERE window_start<=? AND window_end>=?",
+            (window["end"], window["start"]))}
+        placeholders = ",".join("?" for _ in requested_months)
+        evidence_count = connection.execute(
+            f"SELECT COUNT(*) FROM evidence WHERE staff_id=? AND year=? AND month_bucket IN ({placeholders})",
+            (request["source"]["staff_id"], request["source"]["year"], *requested_months)).fetchone()[0]
+    snapshot_task_ids = {str(row.get("objective_id") or "") for row in snapshot.get("objectives") or []}
+    snapshot_evidence_count = int((snapshot.get("metrics") or {}).get("evidence_records") or 0)
+    if task_ids != snapshot_task_ids:
+        raise RuntimeError("VAMP snapshot objective IDs differ from source database objectives in the requested window")
+    if evidence_count != snapshot_evidence_count:
+        raise RuntimeError("VAMP snapshot evidence count differs from source database rows in the requested window")
+    customer_binding = {
+        "schema": "dio.vamp.customer_snapshot_binding.v1",
+        "packet_fingerprint": packet["packet_fingerprint"],
+        "source_register_sha256": sha256(packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"),
+        "declared_review_window": window,
+        "review_window_source_binding": {
+            "record_id": period_binding["record_id"], "source_ref": period_binding["source_ref"],
+            "source_file_sha256": period_binding["source_file_sha256"],
+            "source_row_sha256": period_binding["source_row_sha256"],
+            "source_statement_sha256": period_binding["source_statement_sha256"],
+            "source_byte_start": period_start, "source_byte_end_exclusive": period_end,
+            "exact_register_bytes_verified": True,
+        },
+        "snapshot_request_sha256": sha256(request_path),
+        "source_database_sha256": sha256(database_path),
+        "snapshot_sha256": sha256(snapshot_path),
+        "source_objective_ids": sorted(task_ids),
+        "snapshot_objective_ids": sorted(snapshot_task_ids),
+        "source_evidence_rows_in_window": evidence_count,
+        "snapshot_evidence_rows": snapshot_evidence_count,
+        "snapshot_window_matches_customer_scope": True,
+        "source_rows_match_snapshot": True,
+        "rating_generated": False,
+        "human_review_required": True,
+    }
+    binding_path = execution_dir / "VAMP_CUSTOMER_SNAPSHOT_BINDING.json"
+    write_json(binding_path, customer_binding)
 
     profile_id = {"PromotionProof": "promotionproof", "CPDProof": "cpdproof"}.get(incarnation)
     profile_result = None
@@ -401,12 +474,44 @@ def _run_vamp_current(
     combined = {
         "schema": "dio.professional_evidence.vamp_pipeline_receipt.v2",
         "snapshot_receipt": snapshot_receipt,
+        "customer_snapshot_binding": customer_binding,
         "profile_receipt": (profile_result or {}).get("receipt"),
+        "cpd_attachment_date_review": ({
+            "artifacts": cpd_attachment_date_review["artifacts"],
+            "date_candidate_count": cpd_attachment_date_review["date_candidate_count"],
+            "outside_window_candidate_count": cpd_attachment_date_review["outside_window_candidate_count"],
+            "content_validation": cpd_attachment_date_review["content_validation"],
+            "human_professional_review_required": cpd_attachment_date_review["human_professional_review_required"],
+        } if cpd_attachment_date_review else None),
+        "promotion_attachment_reconciliation": ({
+            "artifacts": promotion_attachment_reconciliation["artifacts"],
+            "cv_publication_count_candidate": promotion_attachment_reconciliation["count_reconciliation_candidate"]["cv_publication_count"],
+            "export_count_candidate": promotion_attachment_reconciliation["count_reconciliation_candidate"]["register_export_count"],
+            "attachment_count_candidate": promotion_attachment_reconciliation["count_reconciliation_candidate"]["attachment_count"],
+            "cv_to_export_difference_candidate": promotion_attachment_reconciliation["count_reconciliation_candidate"]["cv_to_export_difference"],
+            "multi_year_coverage_established": promotion_attachment_reconciliation["period_coverage_candidate"]["multi_year_coverage_established"],
+            "human_review_required": promotion_attachment_reconciliation["human_review_required"],
+        } if promotion_attachment_reconciliation else None),
         "human_review_gate": "NEEDS_YOU",
         "external_release_gate": "REFUSE",
         "authority_created": False,
         "external_effects": False,
         "market_validation_claimed": False,
+    }
+    from products.vamp_review_surface import build_vamp_review_surface
+    review_surface = build_vamp_review_surface(
+        execution_dir.parent / "PROJECTION" / "VAMP_DOMAIN_PROJECTION.json",
+        snapshot_path,
+        binding_path,
+        register_path,
+        execution_dir / "vamp_evidence_review",
+    )
+    combined["evidence_relevance_review"] = {
+        "receipt_path": "vamp_evidence_review/VAMP_EVIDENCE_REVIEW_SURFACE_RECEIPT.json",
+        "receipt_sha256": review_surface["receipt_sha256"],
+        "candidate_count": review_surface["candidate_count"],
+        "review_state": review_surface["review_state"],
+        "accepted_evidence_count": review_surface["accepted_evidence_count"],
     }
     write_json(execution_dir / "PROFESSIONAL_VAMP_PIPELINE_RECEIPT.json", combined)
     return {

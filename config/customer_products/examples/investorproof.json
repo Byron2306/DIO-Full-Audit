@@ -1,0 +1,119 @@
+{
+  "case_id": "SYNTHETIC-INVESTORPROOF-001",
+  "title": "Seed fundraising evidence readiness review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "CHECKLIST",
+      "text": "Investor request list: company registration, current cap table, latest management accounts, product traction summary, and use-of-funds schedule."
+    },
+    {
+      "source_id": "COMPANY",
+      "text": "Company register extract: Kwezi Analytics (Pty) Ltd, registration 2024/118204/07; directors listed as A. Dlamini and R. Mokoena."
+    },
+    {
+      "source_id": "CAPTABLE",
+      "text": "Founder spreadsheet: founders hold 82%; employee pool 8%; angel notes 10%. No signed shareholder register or conversion schedule supplied."
+    },
+    {
+      "source_id": "ACCOUNTS",
+      "text": "2026 Q3 unaudited ZAR management summary: revenue 480000; cost of sales 190000; current assets 720000; current liabilities 410000."
+    },
+    {
+      "source_id": "GAPS",
+      "text": "No audited statements, customer concentration analysis, signed cap table, or source-backed monthly recurring revenue bridge is attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Company identity and registration",
+      "source_id": "CHECKLIST",
+      "quote": "company registration",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Ownership and capitalization evidence",
+      "source_id": "CHECKLIST",
+      "quote": "current cap table",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Financial evidence and period",
+      "source_id": "CHECKLIST",
+      "quote": "latest management accounts",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R4",
+      "label": "Traction and use-of-funds support",
+      "source_id": "CHECKLIST",
+      "quote": "product traction summary, and use-of-funds schedule",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R5",
+      "label": "Investor diligence evidence gaps",
+      "source_id": "GAPS",
+      "quote": "No audited statements, customer concentration analysis, signed cap table, or source-backed monthly recurring revenue bridge is attached",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "COMPANY",
+      "quote": "Kwezi Analytics (Pty) Ltd, registration 2024/118204/07",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "CAPTABLE",
+      "quote": "founders hold 82%; employee pool 8%; angel notes 10%.",
+      "supports": [
+        "R2"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The founder spreadsheet reports ownership percentages, but the packet separately says no signed shareholder register or conversion schedule was supplied. Confirm whether this unverified spreadsheet meets the current-cap-table requirement or provide the missing supporting records.",
+      "coverage_basis_ids": [
+        "R2",
+        "ISSUE-001"
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source_id": "ACCOUNTS",
+      "quote": "2026 Q3 unaudited ZAR management summary",
+      "supports": [
+        "R3"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R2",
+      "source_id": "CAPTABLE",
+      "quote": "No signed shareholder register or conversion schedule supplied."
+    },
+    {
+      "requirement_id": "R4",
+      "source_id": "GAPS",
+      "quote": "No audited statements, customer concentration analysis, signed cap table, or source-backed monthly recurring revenue bridge is attached."
+    }
+  ],
+  "financials": {
+    "period": "2026 Q3",
+    "currency": "ZAR",
+    "source_id": "ACCOUNTS",
+    "quote": "2026 Q3 unaudited ZAR management summary: revenue 480000; cost of sales 190000; current assets 720000; current liabilities 410000.",
+    "revenue": "480000",
+    "cost_of_sales": "190000",
+    "current_assets": "720000",
+    "current_liabilities": "410000"
+  }
+}

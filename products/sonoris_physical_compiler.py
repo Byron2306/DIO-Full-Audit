@@ -539,8 +539,264 @@ BM_HARMONIC_SPANS = {
 }
 
 
+
+# ============================================================
+# SONG-SPECIFIC BLACK-METAL HARMONIC DIALECT
+#
+# Family names define BEHAVIOR, not literal notes.
+#
+# FROZEN_FIELD still means:
+#   frantic tremolo + glacial harmony
+#
+# KNIFE still means:
+#   faster hostile harmonic motion
+#
+# But each song seed receives its own interval vocabulary.
+# ============================================================
+
+BM_CANONICAL_LEGACY_SEED = 661028
+
+
+def _bm_song_harmonic_dialect(
+    seed: int,
+) -> dict:
+    """
+    Generate one coherent harmonic dialect for the whole song.
+
+    The mapping is shared by every riff family in that song, so
+    sections sound related without literally sharing Where-the-Pines
+    pitches.
+
+    Seed 661028 preserves the canonical breakthrough vocabulary.
+    """
+
+    if seed == BM_CANONICAL_LEGACY_SEED:
+        return {
+            "schema": (
+                "dio.sonoris."
+                "black_metal_harmonic_dialect.v1"
+            ),
+            "seed": seed,
+            "legacy": True,
+
+            "offset_map": {
+                0: 0,
+                1: 1,
+                3: 3,
+                6: 6,
+                8: 8,
+            },
+
+            "shape_map": {
+                "PEDAL_M2": "PEDAL_M2",
+                "PEDAL_M3": "PEDAL_M3",
+                "PEDAL_M3_SHARP":
+                    "PEDAL_M3_SHARP",
+                "PEDAL_TT": "PEDAL_TT",
+                "PEDAL_P5": "PEDAL_P5",
+                "PEDAL_M6": "PEDAL_M6",
+                "POWER": "POWER",
+                "POWER_OCTAVE":
+                    "POWER_OCTAVE",
+            },
+        }
+
+    rng = random.Random(
+        _seed(
+            seed,
+            "bm-song-harmonic-dialect-v1",
+        )
+    )
+
+    # --------------------------------------------
+    # ROOT-MOTION DIALECT
+    #
+    # Same functional jobs, different intervals.
+    # --------------------------------------------
+
+    chromatic = rng.choice(
+        (1, 2)
+    )
+
+    sorrow = rng.choice(
+        (3, 5, 8, 10)
+    )
+
+    hostile = rng.choice(
+        (1, 6, 10)
+    )
+
+    wide = rng.choice(
+        (5, 8, 10)
+    )
+
+    # Keep important jobs from collapsing onto one pitch.
+    if hostile == sorrow:
+        hostile = (
+            6
+            if sorrow != 6
+            else 1
+        )
+
+    if wide in {
+        sorrow,
+        hostile,
+    }:
+        for candidate in (
+            8,
+            10,
+            5,
+            3,
+        ):
+            if candidate not in {
+                sorrow,
+                hostile,
+            }:
+                wide = candidate
+                break
+
+    offset_map = {
+        0: 0,
+        1: chromatic,
+        3: sorrow,
+        6: hostile,
+        8: wide,
+    }
+
+    # --------------------------------------------
+    # PEDAL-VOICE DIALECT
+    #
+    # Each canonical emotional function receives
+    # a related but seed-specific upper voice.
+    # --------------------------------------------
+
+    narrow = rng.choice(
+        (
+            "PEDAL_M2",
+            "PEDAL_M3_SHARP",
+        )
+    )
+
+    mournful = rng.choice(
+        (
+            "PEDAL_M3",
+            "PEDAL_M6",
+        )
+    )
+
+    poisoned = rng.choice(
+        (
+            "PEDAL_M3_SHARP",
+            "PEDAL_TT",
+            "PEDAL_M2",
+        )
+    )
+
+    abyss = rng.choice(
+        (
+            "PEDAL_TT",
+            "PEDAL_M3_SHARP",
+            "PEDAL_M6",
+        )
+    )
+
+    open_shape = rng.choice(
+        (
+            "PEDAL_P5",
+            "PEDAL_M6",
+            "PEDAL_M3",
+        )
+    )
+
+    wide_shape = rng.choice(
+        (
+            "PEDAL_M6",
+            "PEDAL_P5",
+            "PEDAL_TT",
+        )
+    )
+
+    shape_map = {
+        "PEDAL_M2": narrow,
+        "PEDAL_M3": mournful,
+        "PEDAL_M3_SHARP": poisoned,
+        "PEDAL_TT": abyss,
+        "PEDAL_P5": open_shape,
+        "PEDAL_M6": wide_shape,
+
+        # Physical chord class stays stable.
+        "POWER": "POWER",
+        "POWER_OCTAVE": "POWER_OCTAVE",
+    }
+
+    return {
+        "schema": (
+            "dio.sonoris."
+            "black_metal_harmonic_dialect.v1"
+        ),
+        "seed": seed,
+        "legacy": False,
+        "offset_map": offset_map,
+        "shape_map": shape_map,
+    }
+
+
+def _bm_harmonic_spans_for_seed(
+    family: str,
+    seed: int,
+) -> tuple[tuple[int, int, str], ...]:
+    """
+    Convert canonical family morphology into this SONG's dialect.
+
+    Bar durations stay untouched.
+
+    Therefore:
+        harmonic pacing survives
+        riff-family behavior survives
+        exact pitch vocabulary changes
+    """
+
+    canonical = BM_HARMONIC_SPANS[
+        family
+    ]
+
+    dialect = _bm_song_harmonic_dialect(
+        seed
+    )
+
+    offset_map = dialect[
+        "offset_map"
+    ]
+
+    shape_map = dialect[
+        "shape_map"
+    ]
+
+    return tuple(
+        (
+            bars,
+            offset_map.get(
+                anchor_offset,
+                anchor_offset,
+            ),
+            shape_map.get(
+                shape_type,
+                shape_type,
+            ),
+        )
+        for (
+            bars,
+            anchor_offset,
+            shape_type,
+        )
+        in canonical
+    )
+
+
 def _bm_expand_harmonic_spans(
     family: str,
+    *,
+    seed: int = BM_CANONICAL_LEGACY_SEED,
 ) -> tuple[tuple[int, int, str, int], ...]:
     """
     Expand span definitions into one entry per local bar.
@@ -550,7 +806,10 @@ def _bm_expand_harmonic_spans(
 
     This lets all instruments see the SAME macro-harmonic clock.
     """
-    spans = BM_HARMONIC_SPANS[family]
+    spans = _bm_harmonic_spans_for_seed(
+        family,
+        seed,
+    )
 
     expanded = []
 
@@ -575,6 +834,8 @@ def _bm_expand_harmonic_spans(
 def _bm_harmonic_state(
     family: str,
     local_bar: int,
+    *,
+    seed: int = BM_CANONICAL_LEGACY_SEED,
 ) -> tuple[int, int, str, int, bool]:
     """
     Return harmonic state for one bar.
@@ -582,7 +843,10 @@ def _bm_harmonic_state(
     If a caller provides more bars than the canonical family length,
     cycle the complete harmonic trajectory rather than inventing notes.
     """
-    expanded = _bm_expand_harmonic_spans(family)
+    expanded = _bm_expand_harmonic_spans(
+        family,
+        seed=seed,
+    )
 
     if not expanded:
         raise ValueError(
@@ -777,6 +1041,12 @@ def _guitar_section(
     start_bar = int(section["start_bar"])
     bars = int(section["bars"])
 
+    harmonic_dialect = (
+        _bm_song_harmonic_dialect(
+            seed
+        )
+    )
+
     # --------------------------------------------------------
     # Structural voids remain exceptional.
     # --------------------------------------------------------
@@ -799,10 +1069,22 @@ def _guitar_section(
 
             # First half: D + Ab
             # Second half: D + Eb
-            shape_type = (
+            canonical_shape = (
                 "PEDAL_TT"
-                if local_bar < max(1, bars // 2)
+                if local_bar < max(
+                    1,
+                    bars // 2,
+                )
                 else "PEDAL_M2"
+            )
+
+            shape_type = (
+                harmonic_dialect[
+                    "shape_map"
+                ].get(
+                    canonical_shape,
+                    canonical_shape,
+                )
             )
 
             voices = _bm_shape(
@@ -865,9 +1147,21 @@ def _guitar_section(
                 pitch=tonal_root,
                 pitches=_bm_shape(
                     tonal_root,
-                    "PEDAL_M2",
+                    harmonic_dialect[
+                        "shape_map"
+                    ].get(
+                        "PEDAL_M2",
+                        "PEDAL_M2",
+                    ),
                 ),
-                shape_type="PEDAL_M2",
+                shape_type=(
+                    harmonic_dialect[
+                        "shape_map"
+                    ].get(
+                        "PEDAL_M2",
+                        "PEDAL_M2",
+                    )
+                ),
                 velocity=58,
                 gesture="RELEASE",
                 articulation="SUSTAIN_DOWN",
@@ -900,6 +1194,7 @@ def _guitar_section(
         ) = _bm_harmonic_state(
             family,
             local_bar,
+            seed=seed,
         )
 
         anchor = tonal_root + anchor_offset
@@ -1598,3 +1893,201 @@ def compile_physical_performance(
     payload["sha256"] = hashlib.sha256(canonical).hexdigest()
 
     return payload
+
+
+# ============================================================
+# BLACK METAL CONTINUITY REALIZATION V1
+#
+# Initial audible law:
+#
+#   GUITAR_SUSTAIN
+#
+# Everything else remains untouched until this behavior has
+# survived listening review.
+# ============================================================
+
+_compile_physical_performance_pre_continuity = (
+    compile_physical_performance
+)
+
+
+def _apply_black_metal_guitar_continuity(
+    physical,
+    governed,
+):
+    import copy
+
+    result = copy.deepcopy(physical)
+
+    continuity = governed.get(
+        "black_metal_continuity"
+    )
+
+    if not continuity:
+        return result
+
+    guitar = (
+        result.get("roles", {})
+        .get("rhythm_guitar", [])
+    )
+
+    if not guitar:
+        return result
+
+    TPQ_LOCAL = 480
+    BAR_TICKS_LOCAL = (
+        TPQ_LOCAL * 4
+    )
+
+    # Discover the duration field from the real physical schema.
+    sample = guitar[0]
+
+    duration_field = None
+
+    for candidate in (
+        "duration_ticks",
+        "duration",
+        "length_ticks",
+        "length",
+    ):
+        if candidate in sample:
+            duration_field = candidate
+            break
+
+    if duration_field is None:
+        raise RuntimeError(
+            "BM_CONTINUITY_UNKNOWN_GUITAR_DURATION_FIELD:"
+            + ",".join(
+                sorted(sample.keys())
+            )
+        )
+
+    realized = []
+
+    for boundary in continuity.get(
+        "boundaries",
+        []
+    ):
+        if (
+            boundary.get("tail_type")
+            != "GUITAR_SUSTAIN"
+        ):
+            continue
+
+        boundary_tick = (
+            int(boundary["at_bar"])
+            * BAR_TICKS_LOCAL
+        )
+
+        carry_ticks = int(
+            float(
+                boundary.get(
+                    "carry_beats",
+                    0.0,
+                )
+            )
+            * TPQ_LOCAL
+        )
+
+        if carry_ticks <= 0:
+            continue
+
+        candidates = [
+            event
+            for event in guitar
+            if int(
+                event.get(
+                    "tick",
+                    -1,
+                )
+            ) < boundary_tick
+        ]
+
+        if not candidates:
+            continue
+
+        latest_tick = max(
+            int(event["tick"])
+            for event in candidates
+        )
+
+        # Extend every note belonging to the final physical
+        # attack/chord, not merely one pitch of the voicing.
+        final_attack = [
+            event
+            for event in candidates
+            if int(event["tick"])
+            == latest_tick
+        ]
+
+        for event in final_attack:
+            original = int(
+                event[duration_field]
+            )
+
+            minimum_needed = (
+                boundary_tick
+                + carry_ticks
+                - int(event["tick"])
+            )
+
+            event[duration_field] = max(
+                original,
+                minimum_needed,
+            )
+
+            event[
+                "continuity_tail"
+            ] = "GUITAR_SUSTAIN"
+
+            event[
+                "continuity_boundary_bar"
+            ] = int(
+                boundary["at_bar"]
+            )
+
+        realized.append({
+            "at_bar":
+                int(boundary["at_bar"]),
+            "tail_type":
+                "GUITAR_SUSTAIN",
+            "carry_beats":
+                float(
+                    boundary["carry_beats"]
+                ),
+            "attack_tick":
+                latest_tick,
+            "notes_extended":
+                len(final_attack),
+        })
+
+    result[
+        "black_metal_continuity_realization"
+    ] = {
+        "schema":
+            "dio.sonoris.black_metal_continuity_realization.v1",
+        "guitar_sustain":
+            realized,
+    }
+
+    return result
+
+
+def compile_physical_performance(
+    governed_plan,
+    *,
+    seed,
+):
+    physical = (
+        _compile_physical_performance_pre_continuity(
+            governed_plan,
+            seed=seed,
+        )
+    )
+
+    return (
+        _apply_black_metal_guitar_continuity(
+            physical,
+            governed_plan,
+        )
+    )

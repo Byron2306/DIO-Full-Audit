@@ -28,7 +28,14 @@ def review_window(rows: list[dict]) -> dict:
 
 
 def is_objective(text: str) -> bool:
-    return bool(re.search(r'\b(?:objective|criterion|requires?|annual requirement)\b',text,re.I)) and not bool(re.search(r'\b(?:ignore .*boundary|untrusted embedded note)\b',text,re.I))
+    # A mention of a criterion or requirement is not itself an objective.
+    # Require an objective declaration, an annual requirement, or a criterion
+    # that actually states a requirement; otherwise gap statements such as
+    # "a leadership criterion is claimed but has no evidence" become fake KPAs.
+    declared = bool(re.search(r'\bobjective\b|\bannual requirement\s*:|\bKPA\s*\d+\s+requires?\b', text, re.I))
+    criterion_requirement = bool(re.search(r'\bcriterion\s+[A-Za-z0-9.-]+\s+requires?\b', text, re.I))
+    generic_requirement = bool(re.search(r'\b(?:objective|annual requirement)\b.*\brequires?\b', text, re.I))
+    return (declared or criterion_requirement or generic_requirement) and not bool(re.search(r'\b(?:ignore .*boundary|untrusted embedded note)\b',text,re.I))
 
 
 def objective_minimum(text: str) -> tuple[int, str]:

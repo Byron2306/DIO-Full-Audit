@@ -1,0 +1,17 @@
+[Unit]
+Description=DIO local ComfyUI renderer for Pictora Studio
+ConditionPathIsMountPoint=/data
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/data/byron/lilith-local/runtime/ComfyUI
+ExecStart=/data/byron/lilith-local/runtime/ComfyUI/venv/bin/python -u /data/byron/lilith-local/runtime/ComfyUI/main.py --listen 127.0.0.1 --port 8188
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONNOUSERSITE=1
+UMask=0077
+
+[Install]
+WantedBy=default.target

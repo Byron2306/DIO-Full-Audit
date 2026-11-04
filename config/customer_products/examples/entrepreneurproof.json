@@ -1,0 +1,133 @@
+{
+  "case_id": "SYNTHETIC-ENTREPRENEURPROOF-001",
+  "title": "Founder opportunity evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "BRIEF",
+      "text": "Founder note: Amani Cycle Repair plans a mobile bicycle repair service in Cape Town, initially serving commuter hubs and university residences."
+    },
+    {
+      "source_id": "DISCOVERY",
+      "text": "Interview summary: 12 informal conversations were reported; four people said they had paid for bicycle repairs in the past year. No recordings, survey method, or signed pilot commitments were supplied."
+    },
+    {
+      "source_id": "MODEL",
+      "text": "Draft price sheet: call-out fee ZAR 120 plus parts; founder estimates average parts cost ZAR 180 and 45 minutes per repair. No invoices, competitor price checks, or time logs are attached."
+    },
+    {
+      "source_id": "CAPACITY",
+      "text": "Founder states one mechanic and one borrowed van are available on weekends; no vehicle agreement, insurance record, or service-area capacity plan was supplied."
+    },
+    {
+      "source_id": "GAPS",
+      "text": "No registered entity documents, dated customer evidence, pilot bookings, verified cost ledger, or operating permission for the proposed service locations were attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Define founder proposition and target segment",
+      "source_id": "BRIEF",
+      "quote": "mobile bicycle repair service in Cape Town, initially serving commuter hubs and university residences",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Review customer discovery evidence",
+      "source_id": "DISCOVERY",
+      "quote": "12 informal conversations were reported; four people said they had paid for bicycle repairs in the past year",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Review pricing and cost assumptions",
+      "source_id": "MODEL",
+      "quote": "call-out fee ZAR 120 plus parts; founder estimates average parts cost ZAR 180 and 45 minutes per repair",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R4",
+      "label": "Review operating capacity and permissions",
+      "source_id": "CAPACITY",
+      "quote": "one mechanic and one borrowed van are available on weekends",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R5",
+      "label": "Identify missing validation records",
+      "source_id": "GAPS",
+      "quote": "No registered entity documents, dated customer evidence, pilot bookings, verified cost ledger, or operating permission for the proposed service locations were attached",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "BRIEF",
+      "quote": "Amani Cycle Repair plans a mobile bicycle repair service in Cape Town, initially serving commuter hubs and university residences",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "DISCOVERY",
+      "quote": "12 informal conversations were reported; four people said they had paid for bicycle repairs in the past year",
+      "supports": [
+        "R2"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The interview summary reports 12 informal conversations and four reported prior repair purchases, but the source also says recordings, a survey method, and signed pilot commitments were not supplied. Treat the counts as unverified reports and request dated supporting records before relying on them.",
+      "coverage_basis_ids": [
+        "R2",
+        "ISSUE-001"
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source_id": "MODEL",
+      "quote": "call-out fee ZAR 120 plus parts; founder estimates average parts cost ZAR 180 and 45 minutes per repair",
+      "supports": [
+        "R3"
+      ]
+    },
+    {
+      "evidence_id": "E4",
+      "source_id": "CAPACITY",
+      "quote": "one mechanic and one borrowed van are available on weekends",
+      "supports": [
+        "R4"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The founder reports one mechanic and a borrowed van available on weekends. The same source says no vehicle agreement, insurance record, or service-area capacity plan was supplied. Confirm those permissions and operating limits before treating capacity as supported.",
+      "coverage_basis_ids": [
+        "R4",
+        "ISSUE-003"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R2",
+      "source_id": "DISCOVERY",
+      "quote": "No recordings, survey method, or signed pilot commitments were supplied."
+    },
+    {
+      "requirement_id": "R3",
+      "source_id": "MODEL",
+      "quote": "No invoices, competitor price checks, or time logs are attached."
+    },
+    {
+      "requirement_id": "R4",
+      "source_id": "CAPACITY",
+      "quote": "no vehicle agreement, insurance record, or service-area capacity plan was supplied."
+    },
+    {
+      "requirement_id": "R5",
+      "source_id": "GAPS",
+      "quote": "No registered entity documents, dated customer evidence, pilot bookings, verified cost ledger, or operating permission for the proposed service locations were attached."
+    }
+  ]
+}

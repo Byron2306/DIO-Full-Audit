@@ -65,6 +65,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         market_url = f"http://127.0.0.1:{self.server.market_port}"
         page = page.replace("http://127.0.0.1:8770", market_url)
         injection = '<script src="/dashboard/production_semantic.js"></script>'
+        page = page.replace("</body>", '<script src="/dashboard/production_media_retry.js"></script></body>', 1)
         if injection not in page:
             page = page.replace("</body>", injection + "</body>", 1)
         self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
@@ -146,6 +147,14 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
     def do_GET(self) -> None:
         split = urlsplit(self.path)
         route = split.path
+        if route == "/api/business/production/marketing-media-recovery":
+            from scripts.operator_media_recovery import inspect_run
+            try:
+                run_id = str((parse_qs(split.query).get("run_id") or [""])[0]).strip()
+                self.send_json(inspect_run(run_id))
+            except (OSError, RuntimeError, ValueError) as exc:
+                self.send_json({"error": "marketing_media_recovery_blocked", "message": str(exc)}, HTTPStatus.BAD_REQUEST)
+            return
         if route in {"/dashboard/production.html", "/production"}:
             self._serve_production_page()
             return
@@ -193,6 +202,24 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
 
     def do_POST(self) -> None:
         route = urlsplit(self.path).path
+        if route == "/api/business/production/marketing-media-recovery":
+            from scripts.operator_media_recovery import reconcile_run, launch_retry
+            try:
+                payload = _read_json_body(self, 65536)
+                if payload.get("confirmed") is not True:
+                    raise ValueError("Explicit operator confirmation required")
+                action = str(payload.get("action") or "")
+                run_id = str(payload.get("run_id") or "")
+                if action == "retry":
+                    result = launch_retry(run_id)
+                elif action == "reconcile":
+                    result = reconcile_run(run_id)
+                else:
+                    raise ValueError("Unknown media recovery action")
+                self.send_json({"status": "accepted", "result": result})
+            except (OSError, RuntimeError, ValueError) as exc:
+                self.send_json({"error": "marketing_media_recovery_blocked", "message": str(exc)}, HTTPStatus.BAD_REQUEST)
+            return
         if route not in {
             "/api/business/portfolio/import",
             "/api/business/production/marketing",

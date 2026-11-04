@@ -13,6 +13,7 @@ import json
 import re
 import shutil
 import zipfile
+from html.parser import HTMLParser
 from datetime import date, timedelta
 from functools import lru_cache
 from pathlib import Path
@@ -45,6 +46,118 @@ def _digest(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+class _VisibleText(HTMLParser):
+    """Collect rendered text and CTA destinations from generated landing HTML."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self.links: list[str] = []
+
+    def handle_data(self, data: str) -> None:
+        if data.strip():
+            self.parts.append(data.strip())
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        if tag == "a":
+            href = dict(attrs).get("href")
+            if href:
+                self.links.append(href)
+
+
+def _write_source_binding_receipt(out: Path, model: Mapping[str, Any], copy_rows: list[dict[str, Any]],
+                                 creative_assets: list[dict[str, Any]], schedule: list[dict[str, Any]]) -> dict[str, Any]:
+    """Re-read rendered outputs and bind every published expression to its source quote."""
+    anchors = model["anchors"]
+    source_by_id = {row["source_id"]: row for row in model["sources"]}
+    checks: list[dict[str, Any]] = []
+
+    def check(label: str, text: str, anchor_key: str) -> None:
+        anchor = anchors.get(anchor_key)
+        source = source_by_id.get(anchor.get("source_id")) if anchor else None
+        passed = bool(anchor and source and text == anchor["text"] and
+                      source["sha256"] == anchor["source_sha256"] and
+                      source["text"][anchor["start"]:anchor["end"]] == anchor["quote"] and
+                      text in anchor["quote"])
+        checks.append({"surface": label, "source_field": anchor_key, "source_id": anchor.get("source_id") if anchor else None,
+                       "source_sha256": source.get("sha256") if source else None,
+                       "source_quote_sha256": hashlib.sha256(anchor["quote"].encode("utf-8")).hexdigest() if anchor else None,
+                       "rendered_text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(), "passed": passed})
+
+    # Read the serialized copy instead of trusting the in-memory generator values.
+    serialized_copy = json.loads((out / "channel_copy.json").read_text(encoding="utf-8"))["channels"]
+    if len(serialized_copy) != len(copy_rows):
+        raise ValueError("Rendered channel-copy count changed after serialization")
+    for row in serialized_copy:
+        values = row["copy"]
+        for key, value in values.items():
+            if key == "cta":
+                check(f"channel:{row['channel']}:cta", value, "offer.cta")
+            elif key in {"headlines", "descriptions"}:
+                for index, text in enumerate(value):
+                    candidates = [f"offer.name", "offer.headline", "offer.cta", "audience.outcome", "offer.promise", "audience.pain"]
+                    source_field = next((candidate for candidate in candidates if anchors.get(candidate, {}).get("text") == text), None)
+                    if source_field:
+                        check(f"channel:{row['channel']}:{key}:{index}", text, source_field)
+                    else:
+                        checks.append({"surface": f"channel:{row['channel']}:{key}:{index}", "passed": False, "reason": "no exact source anchor"})
+            else:
+                # Body and headline are composed only from intact expressions.
+                # Bind each sentence independently to one source field.
+                for index, sentence in enumerate(re.split(r"(?<=[.!?])\s+", value)):
+                    normalized = sentence.strip()
+                    source_field = next((candidate for candidate, anchor in anchors.items() if anchor["text"] == normalized), None)
+                    if source_field:
+                        check(f"channel:{row['channel']}:{key}:{index}", normalized, source_field)
+                    else:
+                        checks.append({"surface": f"channel:{row['channel']}:{key}:{index}", "passed": False, "reason": "no exact source anchor"})
+
+    for index, asset in enumerate(creative_assets):
+        actual = out / asset["path"]
+        digest_ok = actual.is_file() and hashlib.sha256(actual.read_bytes()).hexdigest() == asset["sha256"]
+        dimensions_ok = False
+        if actual.is_file():
+            with Image.open(actual) as image:
+                dimensions_ok = list(image.size) == asset["dimensions"]
+        message_field = next((field for field in ("offer.promise", "audience.outcome", "audience.pain", "offer.headline")
+                              if anchors.get(field, {}).get("text") == asset["message"]), None)
+        cta_ok = asset["cta"] == anchors["offer.poster_cta"]["text"]
+        if message_field:
+            check(f"poster:{index}:message", asset["message"], message_field)
+        checks.append({"surface": f"poster:{index}:image", "passed": digest_ok and dimensions_ok,
+                       "artifact_sha256": asset["sha256"], "dimensions": asset["dimensions"]})
+        check(f"poster:{index}:cta", asset["cta"], "offer.poster_cta")
+        if not cta_ok:
+            checks.append({"surface": f"poster:{index}:cta_consistency", "passed": False})
+
+    parser = _VisibleText()
+    parser.feed((out / "landing.html").read_text(encoding="utf-8"))
+    visible_text = " ".join(parser.parts)
+    for field in ("offer.short_name", "offer.headline", "offer.promise", "offer.cta", "audience.name", "audience.pain", "audience.outcome"):
+        value = anchors[field]["text"]
+        checks.append({"surface": f"landing:{field}", "source_field": field,
+                       "source_sha256": anchors[field]["source_sha256"],
+                       "rendered_text_sha256": hashlib.sha256(value.encode("utf-8")).hexdigest(),
+                       "passed": value in visible_text})
+    expected_url = model["offer"].get("cta_url")
+    checks.append({"surface": "landing:cta_destination", "passed": (expected_url in parser.links) if expected_url else True,
+                   "destination_present": bool(expected_url), "destination_sha256": hashlib.sha256(expected_url.encode()).hexdigest() if expected_url else None})
+
+    schedule_file = json.loads((out / "launch_schedule.json").read_text(encoding="utf-8"))
+    schedule_ok = schedule_file.get("automatic_posting") is False and schedule_file.get("schedule") == schedule
+    checks.append({"surface": "schedule:serialization_and_no_auto_post", "passed": schedule_ok,
+                   "entry_count": len(schedule_file.get("schedule", [])), "automatic_posting": schedule_file.get("automatic_posting")})
+    failed = [row for row in checks if not row.get("passed")]
+    receipt = {"schema": "dio.customer_launch_source_binding_receipt.v1", "status": "PASS" if not failed else "FAIL",
+               "source_count": len(source_by_id), "source_hashes": {key: value["sha256"] for key, value in source_by_id.items()},
+               "check_count": len(checks), "passed_count": len(checks) - len(failed), "failed_count": len(failed),
+               "checks": checks, "release_authorized": False, "publication_performed": False}
+    _json(out / "review/SOURCE_BINDING_RECEIPT.json", receipt)
+    if failed:
+        raise ValueError("Rendered launch package failed source-binding verification: " + "; ".join(row["surface"] for row in failed))
+    return receipt
+
+
 @lru_cache(maxsize=1)
 def _native_factory():
     # A private module namespace loads the actual source definitions even if the
@@ -74,7 +187,7 @@ def _prepare(packet: Mapping[str, Any]) -> dict[str, Any]:
         digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
         if row.get("sha256") and str(row["sha256"]).removeprefix("sha256:") != digest:
             raise ValueError("Supplied source hash does not match source text")
-        sources[sid] = {"source_id": sid, "text": text, "sha256": digest}
+        sources[sid] = {"source_id": sid, "text": text, "sha256": digest, "source_ref": row.get("source_ref")}
         if _INSTRUCTION.search(text):
             flags.append({"code": "source_instruction_present", "source_id": sid, "detail": "Instruction-like source content is retained only in review evidence and cannot act as a creative instruction."})
     if not sources:
@@ -98,7 +211,7 @@ def _prepare(packet: Mapping[str, Any]) -> dict[str, Any]:
         if any(not re.search(r"\b" + re.escape(term) + r"\b", text, re.I) for term in qualifiers):
             raise ValueError(f"{field} drops a source qualification; retain the qualified expression")
         start = source["text"].find(quote)
-        anchors[field] = {"text": text, "source_id": source["source_id"], "quote": quote, "source_sha256": source["sha256"], "start": start, "end": start + len(quote)}
+        anchors[field] = {"text": text, "source_id": source["source_id"], "source_ref": source.get("source_ref"), "quote": quote, "source_sha256": source["sha256"], "start": start, "end": start + len(quote)}
         return text
 
     offer_raw, audience_raw = packet.get("offer") or {}, packet.get("audience") or {}
@@ -110,6 +223,9 @@ def _prepare(packet: Mapping[str, Any]) -> dict[str, Any]:
     offer.setdefault("offer", offer["name"])
     offer.setdefault("headline", offer["promise"])
     offer.setdefault("poster_cta", offer["cta"])
+    for field, fallback in (("short_name", "name"), ("offer", "name"),
+                            ("headline", "promise"), ("poster_cta", "cta")):
+        anchors.setdefault(f"offer.{field}", anchors[f"offer.{fallback}"])
     audience = {key: anchor(audience_raw.get(key), f"audience.{key}") for key in ("name", "pain", "outcome")}
     accepted, held = [], []
     for index, row in enumerate(packet.get("approved_claims") or [], 1):
@@ -158,8 +274,12 @@ def _prepare(packet: Mapping[str, Any]) -> dict[str, Any]:
             flags.append({"code": "approval_owner_missing", "role": owner, "detail": f"Customer must name the {owner} owner before release."})
     return {"title": str(packet.get("title") or offer["name"] + " launch kit"), "sources": list(sources.values()), "anchors": anchors,
             "offer": offer, "audience": audience, "accepted_claims": accepted, "held_claims": held,
-            "brand": {"path": str(brand_path), "sha256": digest, "accent": accent, "rights_claim": brand.get("rights"), "rights_verified": False},
-            "channels": {c: configured[c] for c in channel_ids}, "planned_start": start, "approval_owners": owners, "review_flags": flags}
+            "brand": {"path": str(brand_path), "sha256": digest, "accent": accent,
+                      "rights_claim": brand.get("rights"), "rights_verified": False,
+                      "asset_source_ref": brand.get("source_ref"),
+                      "owner_attestation": brand.get("owner_attestation")},
+            "channels": {c: configured[c] for c in channel_ids}, "planned_start": start, "approval_owners": owners, "review_flags": flags,
+            "packet_binding": packet.get("packet_binding") or {}}
 
 
 def _choose(expressions: list[str], limit: int) -> str | None:
@@ -231,9 +351,10 @@ def _landing(model, hero_path):
 
 def _media_preview(poster: Path, output: Path, narration_text: str) -> dict[str, Any]:
     from scripts.build_campaign_media_v3 import synthesize_pocket_story, _render_projected_format
-    from products.canonical_marketing_media import approved_music
+    from products.canonical_marketing_media import directed_music
     output.parent.mkdir(parents=True, exist_ok=True)
-    music = approved_music()
+    music = directed_music(family="warm_documentary", pacing="steady", volume=0.07,
+                           context="customer offer preview")
     narration = synthesize_pocket_story(
         [{"scene_id": "customer_offer", "narration": narration_text}], output.parent / "narration",
         {"required": True, "provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "remote_tts_allowed": False})
@@ -307,10 +428,11 @@ def build_customer_launch_package(packet: Mapping[str, Any], output_dir: str | P
     with (out / "launch_schedule.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=["sequence", "planned_date", "day_offset", "channel", "creative", "status"])
         writer.writeheader();writer.writerows({k: row[k] for k in writer.fieldnames} for row in schedule)
+    source_binding_receipt = _write_source_binding_receipt(out, model, copy_rows, creative_assets, schedule)
     _json(out / "review/LINGUA_SEMANTIC_LAW.json", law)
     _json(out / "review/LINGUA_PROJECTION_PLAN.json", projection)
     _json(out / "review/LINGUA_STORY_PLANS.json", {"plans": stories, "public_copy": False, "narration_rendered": False})
-    _json(out / "review/source_semantic_manifest.json", {"sources": model["sources"], "anchors": model["anchors"], "brand": model["brand"], "semantic_law_hash": law["semantic_law_hash"], "projection_hash": projection["projection_hash"],
+    _json(out / "review/source_semantic_manifest.json", {"sources": model["sources"], "anchors": model["anchors"], "packet_binding": model["packet_binding"], "brand": model["brand"], "semantic_law_hash": law["semantic_law_hash"], "projection_hash": projection["projection_hash"],
                                                         "native_factory_source": str(FACTORY_SOURCE), "native_factory_sha256": _sha(FACTORY_SOURCE), "native_poster_namespace": native.__name__})
     _json(out / "review/reviewer_checklist.json", {"review_flags": model["review_flags"], "held_claims": model["held_claims"], "accepted_claims": model["accepted_claims"], "approval_owners": model["approval_owners"],
                                                  "checks": ["Confirm source meaning and customer-approved claims", "Confirm image rights, crop and legibility", "Confirm channel-specific copy and destination", "Approve dates and assign channel owners", "Authorise any publication separately"], "approval_status": "pending"})
@@ -321,9 +443,16 @@ def build_customer_launch_package(packet: Mapping[str, Any], output_dir: str | P
         media.update({"video_generated": True, "audio_generated": True, "voice_provider_called": True, "video": preview})
     result = {"schema": "dio.customer_launch_package.v1", "status": "review_candidate", "output_dir": str(out), "title": model["title"],
               "semantic_law_hash": law["semantic_law_hash"], "projection_hash": projection["projection_hash"], "creative_assets": creative_assets, "channel_copy": copy_rows, "schedule": schedule,
+              "brand_asset_binding": {"source_ref": model["brand"].get("asset_source_ref"),
+                                      "sha256": model["brand"]["sha256"],
+                                      "rights_verified": False,
+                                      "owner_attestation": model["brand"].get("owner_attestation")},
               "held_claims": model["held_claims"], "review_flags": model["review_flags"], "deliverables": {"landing_html": "landing.html", "channel_copy": "channel_copy.json", "launch_schedule": "launch_schedule.json", "source_semantic_manifest": "review/source_semantic_manifest.json"},
               "media": media, "output_formats": ["png", "jpg", "html", "css", "json", "csv"] + (["mp4_vera_narrated_customer_video"] if media["video_generated"] else []),
-              "qa": {"projection_errors": projection_errors, "native_copy_limits_passed": all(row["limits_passed"] for row in copy_rows), "visual_review": "pending", "marketing_governance_boilerplate": False},
+              "source_binding_receipt": {"path": "review/SOURCE_BINDING_RECEIPT.json", "status": source_binding_receipt["status"],
+                                         "check_count": source_binding_receipt["check_count"], "passed_count": source_binding_receipt["passed_count"]},
+              "qa": {"projection_errors": projection_errors, "native_copy_limits_passed": all(row["limits_passed"] for row in copy_rows),
+                     "source_binding_passed": source_binding_receipt["status"] == "PASS", "visual_review": "pending", "marketing_governance_boilerplate": False},
               "release": {"published": False, "scheduled_in_external_service": False, "spend_enabled": False, "canon_promoted": False, "customer_rights_verified": False}}
     result["artifacts"] = [{"path": str(p.relative_to(out)), "bytes": p.stat().st_size, "sha256": _sha(p)} for p in sorted(out.rglob("*")) if p.is_file()]
     _json(out / "package_manifest.json", result)

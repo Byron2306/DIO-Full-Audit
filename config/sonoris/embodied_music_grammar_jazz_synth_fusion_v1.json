@@ -1,0 +1,57 @@
+{
+  "schema": "dio.sonoris.embodied_music_grammar.v1",
+  "id": "jazz-synth-fusion-experimental-v1",
+  "label": "Jazz synth fusion",
+  "design_principle": "Plan musical behavior and relationships first; realize them as notes, rhythm, articulation, instruments, and production second.",
+  "structural_laws": {
+    "allows_trance_repetition": true,
+    "requires_conventional_verse_chorus": false,
+    "requires_distinct_motif_identities": true,
+    "permits_through_composition": true,
+    "section_contrast_dimensions": ["density", "register", "ensemble_activity", "harmonic_tension", "groove_feel"],
+    "transition_must_change_or_reframe": ["pulse", "harmony", "register", "texture", "motif"],
+    "ensemble_roles_are_capabilities_not_fixed_instruments": true
+  },
+  "gesture_vocabulary": {
+    "GLIDE": {"function": "introduce a motif through long tones and widening register", "energy": "low_to_medium"},
+    "LOCK": {"function": "make bass, drums, and comping interlock around a repeatable pocket", "energy": "medium"},
+    "FRACTURE": {"function": "interrupt the pocket with displaced accents, rests, and asymmetrical phrase lengths", "energy": "medium_to_high"},
+    "LIFT": {"function": "increase register, harmonic brightness, and ensemble density toward a clear arrival", "energy": "rising"},
+    "ORBIT": {"function": "circle a motif with controlled variation while the groove stays grounded", "energy": "medium"},
+    "RELEASE": {"function": "reduce activity and resolve tension through space, sustain, or cadence", "energy": "falling"},
+    "HANDOFF": {"function": "transfer foreground identity between instruments while preserving a recognizable motif", "energy": "variable"}
+  },
+  "instrument_capabilities": {
+    "harmonic_bed": ["electric_piano", "synth_pad", "vibraphone", "guitar"],
+    "pulse_anchor": ["electric_bass", "upright_bass", "synth_bass"],
+    "foreground_voice": ["synth_lead", "saxophone", "flute", "violin", "guitar", "voice"],
+    "color_or_counterline": ["flute", "violin", "saxophone", "synth_texture"],
+    "percussion_interlocutor": ["drum_kit", "electronic_percussion", "hand_percussion"]
+  },
+  "interaction_laws": [
+    "bass may lock to the kick, push into a new harmony, or break away for a short fill",
+    "drums answer phrase accents and transitions; they do not only repeat a genre preset",
+    "comping leaves foreground space and varies its placement with the active gesture",
+    "foreground handoffs preserve, transform, or deliberately break a motif identity",
+    "articulation is instrument-specific and must be supported by the selected renderer"
+  ],
+  "prototype_piece": {
+    "title": "Glass Meridian",
+    "status": "experimental_authored_prototype",
+    "meter": "4/4",
+    "tempo_bpm": 108,
+    "tonal_center": "D",
+    "form": [
+      {"section": "opening", "bars": 4, "gesture": "GLIDE", "motif": "M0", "behavior": "electric-piano harmonic color and flute fragments establish space"},
+      {"section": "pocket_theme", "bars": 8, "gesture": "LOCK", "motif": "M1", "behavior": "bass ostinato, ride pulse, offbeat piano comping, synth hook"},
+      {"section": "fracture", "bars": 8, "gesture": "FRACTURE", "motif": "M2", "behavior": "bar-displaced accents and short bass escapes interrupt the pocket"},
+      {"section": "synth_improvisation", "bars": 8, "gesture": "ORBIT", "motif": "M1", "behavior": "synth develops M1 over a stable groove, then yields to a sax response"},
+      {"section": "handoff", "bars": 4, "gesture": "HANDOFF", "motif": "M1", "behavior": "sax hands the hook to flute; the drums thin for the transfer"},
+      {"section": "return_transformed", "bars": 8, "gesture": "LIFT", "motif": "M1", "behavior": "hook returns higher with denser harmony and busier cymbal conversation"},
+      {"section": "coda", "bars": 4, "gesture": "RELEASE", "motif": "M0", "behavior": "ensemble sheds density and settles into a sustained D color"}
+    ],
+    "motif_identities": ["M0: rising fourth followed by a held color tone", "M1: syncopated three-note hook", "M2: descending chromatic answer"],
+    "instrumentation": ["electric_piano", "electric_bass", "acoustic_drum_kit", "monophonic_synth_lead", "tenor_saxophone", "flute"],
+    "render_note": "FluidR3 GM is a licensed prototype rendering palette. Its patch articulation is not a claim of live-instrument realism."
+  }
+}

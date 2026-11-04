@@ -1,0 +1,135 @@
+{
+  "case_id": "SYNTHETIC-CORPORATE-READINESS-001",
+  "title": "SME corporate document readiness review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "CHECKLIST",
+      "text": "Lender intake checklist: current company registration, director resolution, tax compliance status, bank confirmation, and latest management accounts."
+    },
+    {
+      "source_id": "CIPC",
+      "text": "Company profile: Lethabo Foods (Pty) Ltd, registration 2021/772019/07; two directors listed in the supplied profile."
+    },
+    {
+      "source_id": "BANK",
+      "text": "Bank confirmation dated 2026-08-15 identifies the business account ending 4412; no account ownership verification was supplied."
+    },
+    {
+      "source_id": "ACCOUNTS",
+      "text": "2026 Q2 unaudited ZAR management summary: revenue 325000; cost of sales 171000; current assets 410000; current liabilities 295000."
+    },
+    {
+      "source_id": "GAPS",
+      "text": "Director resolution, current tax compliance evidence, signed bank account verification, and current-year statements are not attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Company registration and director record",
+      "source_id": "CHECKLIST",
+      "quote": "current company registration",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Governance authority",
+      "source_id": "CHECKLIST",
+      "quote": "director resolution",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Tax status",
+      "source_id": "CHECKLIST",
+      "quote": "tax compliance status",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R4",
+      "label": "Bank account evidence",
+      "source_id": "CHECKLIST",
+      "quote": "bank confirmation",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R5",
+      "label": "Financial statements",
+      "source_id": "CHECKLIST",
+      "quote": "latest management accounts",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "CIPC",
+      "quote": "Lethabo Foods (Pty) Ltd, registration 2021/772019/07; two directors listed in the supplied profile",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "BANK",
+      "quote": "Bank confirmation dated 2026-08-15 identifies the business account ending 4412",
+      "supports": [
+        "R4"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The supplied bank confirmation identifies the business account ending 4412. A separate source note says signed account-ownership verification was not supplied. Confirm whether the confirmation meets the checklist scope or provide the requested ownership verification.",
+      "coverage_basis_ids": [
+        "R4",
+        "ISSUE-003"
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source_id": "ACCOUNTS",
+      "quote": "2026 Q2 unaudited ZAR management summary",
+      "supports": [
+        "R5"
+      ],
+      "coverage_state": "PARTIAL_FOR_REVIEW",
+      "coverage_note": "The supplied record is a 2026 Q2 unaudited management summary. A separate source note says current-year statements are not attached. Confirm whether this summary meets the requested latest-management-accounts scope and period.",
+      "coverage_basis_ids": [
+        "R5",
+        "ISSUE-004"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R2",
+      "source_id": "GAPS",
+      "quote": "Director resolution"
+    },
+    {
+      "requirement_id": "R3",
+      "source_id": "GAPS",
+      "quote": "current tax compliance evidence"
+    },
+    {
+      "requirement_id": "R4",
+      "source_id": "BANK",
+      "quote": "no account ownership verification was supplied."
+    },
+    {
+      "requirement_id": "R5",
+      "source_id": "GAPS",
+      "quote": "current-year statements are not attached."
+    }
+  ],
+  "financials": {
+    "period": "2026 Q2",
+    "currency": "ZAR",
+    "source_id": "ACCOUNTS",
+    "quote": "2026 Q2 unaudited ZAR management summary: revenue 325000; cost of sales 171000; current assets 410000; current liabilities 295000.",
+    "revenue": "325000",
+    "cost_of_sales": "171000",
+    "current_assets": "410000",
+    "current_liabilities": "295000"
+  }
+}

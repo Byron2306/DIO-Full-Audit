@@ -11,8 +11,22 @@ READINESS = {'Corporate Readiness', 'Finance Readiness', 'Finance Readiness Stud
 REPORTS = {'Report & Pitch Studio', 'Article Publication', 'Article Publication Studio'}
 CORRESPONDENCE = {'Professional Correspondence', 'Professional Correspondence Studio'}
 DOCUMENT_SERVICES = {'Document Studio Edit': 'technical_edit', 'Document Studio Localize': 'translation'}
+ACCESSIBLE_PUBLISH = {'Accessible Publish'}
+AGENT_AUTHORITY = {'Agent Authority'}
+CAMPAIGN_LAB = {'Campaign Lab'}
+CHANGE_PROOF = {'ChangeProof'}
+CONTRACT_PROOF = {'ContractProof'}
+OBLIGATION_FAMILY_CUSTOMER = {'GrantProof', 'PermitProof', 'PolicyProof', 'TenderProof'}
+NATIVE_PACKET_CUSTOMER = {'DIO AI Assurance', 'DIO RegOps', 'DossierOps', 'Offer Lab', 'Site Studio', 'Vesper Desk', 'Market Radar', 'Opportunity Foundry', 'CPDProof', 'PromotionProof', 'Sophia Integrity', 'Sophia Research', 'Sophia Review', 'Sophia Supervisor', 'Sophia Tutor'}
+ACCREDITATION = {'HOMS Accreditation'}
+HOMS_CURRICULUM = {'HOMS Curriculum'}
+HOMS_LEARNING_STUDIO = {'HOMS Learning Studio'}
+HOMS_EXAM = {'HOMS Exam'}
+HOMS_MODERATE = {'HOMS Moderate'}
+HOMS_ASSESS = {'HOMS Assess'}
+DOCUMENT_STUDIO_PUBLISH = {'Document Studio Publish'}
 EVIDENCE_STUDIO_PILOTS = frozenset({
-    'AuditProof', 'QualityProof', 'VendorProof', 'AssuranceRoom',
+    'AuditProof', 'QualityProof', 'VendorProof', 'AssuranceRoom', 'CertificationProof',
     'DiligenceRoom', 'DonorProof', 'ImpactProof', 'ProgrammeProof',
 })
 
@@ -93,6 +107,20 @@ def customer_product_catalog() -> list[dict[str, Any]]:
         elif name == 'Evidex EvidenceOps': contract = 'source_evidence_records'
         elif name == 'VAMP Performance': contract = 'source_objectives_review_period_and_consents'
         elif name in DOCUMENT_SERVICES: contract = 'document_studio_request'
+        elif name in ACCESSIBLE_PUBLISH: contract = 'accessibility_publication_request'
+        elif name in AGENT_AUTHORITY: contract = 'agent_authority_assessment'
+        elif name in CAMPAIGN_LAB: contract = 'source_anchored_campaign_brief'
+        elif name in CHANGE_PROOF: contract = 'model_change_assessment'
+        elif name in CONTRACT_PROOF: contract = 'source_contract_and_evidence'
+        elif name in OBLIGATION_FAMILY_CUSTOMER: contract = 'source_instrument_and_mapped_evidence_review'
+        elif name in NATIVE_PACKET_CUSTOMER: contract = 'manifest_bound_native_customer_packet'
+        elif name in ACCREDITATION: contract = 'accreditation_framework_and_source_mapped_evidence'
+        elif name in HOMS_CURRICULUM: contract = 'customer_plan_and_official_caps_source_or_randomized_grade_exam_spine'
+        elif name in HOMS_LEARNING_STUDIO: contract = 'randomized_grade_exam_memo_and_caps_spine'
+        elif name in HOMS_EXAM: contract = 'randomized_grade_draft_exam_and_memo'
+        elif name in HOMS_MODERATE: contract = 'randomized_grade_exam_memo_consistency_review'
+        elif name in HOMS_ASSESS: contract = 'manifest_bound_learner_submissions_local_marking_review'
+        elif name in DOCUMENT_STUDIO_PUBLISH: contract = 'approved_manuscript_format_only_publication_package'
         elif native.get('route') in {'evidence_profile', 'high_risk_profile', 'education_research_profile'}:
             contract = 'requirements_and_evidence_profile'
         result.append({'product_name': name, 'customer_packet_contract': contract or None,
@@ -147,6 +175,31 @@ def run_customer_product(product_name: str, packet: Mapping[str, Any], output_di
     if product_name == 'Contract Desk':
         from products.customer_specialist_pathways import build_contract_desk_package
         receipt = build_contract_desk_package(packet, out, render_pdf=render_pdf)
+    elif product_name in ACCREDITATION:
+        from products.customer_specialist_pathways import build_accreditation_customer_package
+        receipt = build_accreditation_customer_package(packet, out, render_pdf=render_pdf)
+    elif product_name in HOMS_CURRICULUM:
+        if packet.get('randomized_exam_spine') is True:
+            from products.homs_curriculum_grade_spine import build_homs_curriculum_grade_spine_package
+            receipt = build_homs_curriculum_grade_spine_package(packet, out)
+        else:
+            from products.homs_curriculum_customer import build_homs_curriculum_customer_package
+            receipt = build_homs_curriculum_customer_package(packet, out)
+    elif product_name in HOMS_LEARNING_STUDIO:
+        from products.homs_learning_studio_customer import build_homs_learning_studio_customer_package
+        receipt = build_homs_learning_studio_customer_package(packet, out)
+    elif product_name in HOMS_EXAM:
+        from products.homs_exam_customer import build_homs_exam_customer_package
+        receipt = build_homs_exam_customer_package(packet, out)
+    elif product_name in HOMS_MODERATE:
+        from products.homs_moderate_customer import build_homs_moderate_customer_package
+        receipt = build_homs_moderate_customer_package(packet, out)
+    elif product_name in HOMS_ASSESS:
+        from products.homs_assess_customer import build_homs_assess_customer_package
+        receipt = build_homs_assess_customer_package(packet, out)
+    elif product_name in DOCUMENT_STUDIO_PUBLISH:
+        from products.document_studio_publish import build_publication_package
+        receipt = build_publication_package(packet, out)
     elif product_name in READINESS:
         from products.customer_specialist_pathways import build_readiness_package
         receipt = build_readiness_package(product_name, packet, out, render_pdf=render_pdf)
@@ -158,7 +211,10 @@ def run_customer_product(product_name: str, packet: Mapping[str, Any], output_di
         receipt = build_correspondence_package(packet, out, render_pdf=render_pdf)
     elif product_name == 'FundingFinder':
         from products.funding_finder_pipeline import build_funding_shortlist
-        receipt = build_funding_shortlist(packet, out, as_of=packet.get('as_of'), fetch_public=False, render_pdf=render_pdf)
+        fetch_public = packet.get('fetch_public', False)
+        if not isinstance(fetch_public, bool):
+            raise ValueError('fetch_public must be an explicit boolean')
+        receipt = build_funding_shortlist(packet, out, as_of=packet.get('as_of'), fetch_public=fetch_public, render_pdf=render_pdf)
     elif product_name == 'Launch Studio':
         from products.customer_launch_pipeline import build_customer_launch_package
         receipt = build_customer_launch_package(packet, out, render_media=False)
@@ -170,6 +226,27 @@ def run_customer_product(product_name: str, packet: Mapping[str, Any], output_di
         receipt = build_vamp_customer_package(packet, out, render_pdf=render_pdf)
     elif product_name in DOCUMENT_SERVICES:
         receipt = _document(product_name, packet, out)
+    elif product_name in ACCESSIBLE_PUBLISH:
+        from products.accessible_publish import build_accessible_publish_package
+        receipt = build_accessible_publish_package(packet, out)
+    elif product_name in AGENT_AUTHORITY:
+        from products.agent_authority_customer import build_agent_authority_package
+        receipt = build_agent_authority_package(packet, out)
+    elif product_name in CAMPAIGN_LAB:
+        from products.customer_campaign_lab import build_campaign_lab_package
+        receipt = build_campaign_lab_package(packet, out)
+    elif product_name in CHANGE_PROOF:
+        from products.ai_trust.customer_runner import run_customer_ai_trust_product
+        receipt = run_customer_ai_trust_product(product_name, packet, out)
+    elif product_name in CONTRACT_PROOF:
+        from products.contractproof.customer_runner import run_customer_contractproof
+        receipt = run_customer_contractproof(packet, out)
+    elif product_name in OBLIGATION_FAMILY_CUSTOMER:
+        from products.obligationfamily.customer_runner import build_obligation_family_customer_package
+        receipt = build_obligation_family_customer_package(product_name, packet, out)
+    elif product_name in NATIVE_PACKET_CUSTOMER:
+        from products.native_customer_runner import run_native_customer_packet
+        receipt = run_native_customer_packet(product_name, packet, out)
     else:
         from products.customer_specialist_pathways import build_evidence_review_package
         receipt = build_evidence_review_package(product_name, packet, out, render_pdf=render_pdf)

@@ -54,6 +54,29 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
     html = index_path.read_text(encoding="utf-8")
     css = css_path.read_text(encoding="utf-8")
 
+    # Keep Site Studio's governed SVG compositions authoritative, while adding
+    # a Pictora-generated visual candidate to the held review preview.
+    from products.pictora_visual_studio import find_candidate
+    pictora = find_candidate(product="site_studio", context="website proof")
+    pictora_receipt = None
+    if pictora:
+        source, description = pictora
+        pictora_dir = package_dir / "assets" / "pictora"
+        pictora_dir.mkdir(parents=True, exist_ok=True)
+        target = pictora_dir / source.name
+        if source.resolve() != target.resolve():
+            import shutil
+            shutil.copy2(source, target)
+        visual = (
+            '<figure class="dio-pictora-candidate"><img src="assets/pictora/' + _escape_attr(target.name) + '" alt="">'
+            '<figcaption>' + _escape_attr(description) + ' · illustrative Pictora candidate; human review required.</figcaption></figure>'
+        )
+        html = html.replace('<ul class="story-strip">', visual + '<ul class="story-strip">', 1)
+        css += "\n.dio-pictora-candidate{width:min(1180px,calc(100% - 40px));margin:24px auto;overflow:hidden;border:1px solid #b99137;border-radius:14px;background:#0b1118}.dio-pictora-candidate img{display:block;width:100%;max-height:320px;object-fit:cover}.dio-pictora-candidate figcaption{padding:8px 12px;color:#e2d2a6;font:13px/1.4 system-ui}\n"
+        from products.pictora_visual_studio import _sha
+        pictora_receipt = {"schema": "dio.pictora.site_candidate.v1", "asset": str(target.relative_to(package_dir)), "sha256": _sha(target), "human_review": "REQUIRED", "commercial_validation": "UNPROVED", "release_authorized": False, "semantic_authority": "NONE"}
+        (package_dir / "proof" / "SITE_PICTORA_VISUAL_CANDIDATE.json").write_text(json.dumps(pictora_receipt, indent=2) + "\n", encoding="utf-8")
+
     hero = _figure(assets["site_hook"], class_name="dio-svg-hero")
     marker = '<ul class="story-strip">'
     if marker not in html:
@@ -102,6 +125,8 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
         "gamma_layout_authority": "REFUSE",
         "gamma_text_authority": "REFUSE",
         "human_visual_release": "NEEDS_YOU",
+        "pictora_candidate_attached": bool(pictora_receipt),
+        "pictora_release_authorized": False,
     }
 
 

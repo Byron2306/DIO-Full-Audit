@@ -1,0 +1,73 @@
+{
+  "case_id": "SYNTHETIC-RELEASEPROOF-001",
+  "title": "Controlled production release readiness review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "RELEASE",
+      "text": "Release record REL-2026-117: version 5.8 is proposed for production deployment on 2026-11-08; scope includes API gateway and customer billing workflow."
+    },
+    {
+      "source_id": "TEST",
+      "text": "Verification summary: functional tests passed in staging; load test results are from version 5.7 and the security scan has one unresolved critical finding."
+    },
+    {
+      "source_id": "APPROVAL",
+      "text": "Change board note: operations owner is recorded; rollback rehearsal, security exception approval, and business owner acceptance are not attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Establish release scope and proposed date",
+      "source_id": "RELEASE",
+      "quote": "version 5.8 is proposed for production deployment on 2026-11-08; scope includes API gateway and customer billing workflow",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Review current verification coverage and exceptions",
+      "source_id": "TEST",
+      "quote": "functional tests passed in staging; load test results are from version 5.7 and the security scan has one unresolved critical finding",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Check release authority and rollback evidence",
+      "source_id": "APPROVAL",
+      "quote": "rollback rehearsal, security exception approval, and business owner acceptance are not attached",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "RELEASE",
+      "quote": "version 5.8 is proposed for production deployment on 2026-11-08",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "TEST",
+      "quote": "functional tests passed in staging",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R2",
+      "source_id": "TEST",
+      "quote": "load test results are from version 5.7 and the security scan has one unresolved critical finding"
+    },
+    {
+      "requirement_id": "R3",
+      "source_id": "APPROVAL",
+      "quote": "rollback rehearsal, security exception approval, and business owner acceptance are not attached"
+    }
+  ]
+}

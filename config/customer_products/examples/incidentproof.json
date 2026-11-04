@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-INCIDENTPROOF-001",
+  "title": "Operational incident proof review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "INCIDENT",
+      "text": "Incident ticket OPS-882: on 2026-10-18, the order service returned duplicate confirmations for a subset of requests after a retry configuration change."
+    },
+    {
+      "source_id": "LOG",
+      "text": "Service log: retry policy r17 deployed at 09:42 UTC; request IDs and duplicate count are available, but the supplied extract does not show downstream order reconciliation."
+    },
+    {
+      "source_id": "RESPONSE",
+      "text": "Response record: retry policy reverted at 10:15 UTC; customer impact assessment, reconciliation completion, and approved root-cause review are not attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Describe incident and affected service",
+      "source_id": "INCIDENT",
+      "quote": "the order service returned duplicate confirmations for a subset of requests after a retry configuration change",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Trace event to technical evidence",
+      "source_id": "LOG",
+      "quote": "retry policy r17 deployed at 09:42 UTC; request IDs and duplicate count are available",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Record containment and unresolved impact checks",
+      "source_id": "RESPONSE",
+      "quote": "customer impact assessment, reconciliation completion, and approved root-cause review are not attached",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "INCIDENT",
+      "quote": "Incident ticket OPS-882",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "LOG",
+      "quote": "retry policy r17 deployed at 09:42 UTC",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "RESPONSE",
+      "quote": "customer impact assessment, reconciliation completion, and approved root-cause review are not attached"
+    }
+  ]
+}

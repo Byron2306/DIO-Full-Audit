@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.example/schemas/launch-studio-customer-brand-asset-v1.json",
+  "title": "Launch Studio customer brand asset and rights attestation",
+  "type": "object",
+  "required": ["schema", "asset_file", "asset_sha256", "owner_name", "rights_statement", "customer_attested_rights", "permitted_uses"],
+  "properties": {
+    "schema": {"const": "dio.launch_studio.customer_brand_asset.v1"},
+    "asset_file": {"type": "string", "pattern": "^[^/\\\\]+\\.(png|jpe?g|webp)$"},
+    "asset_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "owner_name": {"type": "string", "minLength": 1},
+    "rights_statement": {"type": "string", "minLength": 1},
+    "customer_attested_rights": {"const": true},
+    "permitted_uses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["draft_marketing", "internal_review"]}},
+    "accent": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"}
+  },
+  "additionalProperties": false
+}

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -20,12 +21,23 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Inches, Pt, RGBColor
+from products.homs_curriculum_spine import SCHEMA as CURRICULUM_SPINE_SCHEMA, educator_crosswalk_markdown, learning_map_markdown
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REQUEST = ROOT / "samples" / "homs" / "learning_grade10_physical_sciences_motion.json"
 DEFAULT_OUTPUT = ROOT / "deliverables" / "homs_learning_studio" / "grade_10_physical_sciences_term_3_motion"
 CAPS_SOURCE = ROOT / "corpora" / "caps" / "text" / "fet_grade_10_12" / "caps_fet_physical_science_web.txt"
+GOLDEN_VIDEO_DIR = ROOT / "deliverables" / "homs_learning_studio" / "grade_10_physical_sciences_term_3_motion" / "video"
+GOLDEN_VIDEO_FILES = (
+    "HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+    "captions.srt",
+    "thumbnail.png",
+    "MUSIC_ATTRIBUTION.md",
+    "COMMERCIAL_MUSIC_RECEIPT.json",
+    "HOMS_LEARNING_VIDEO_RECEIPT.json",
+    "approval_checklist.md",
+)
 
 INK = "1C2733"
 TEAL = "176B68"
@@ -73,6 +85,59 @@ def validate_request(request: dict[str, Any]) -> None:
         errors.append("educator_approval_required must be true")
     if errors:
         raise ValueError("Invalid HOMS learning-pack request: " + "; ".join(errors))
+
+
+def load_matching_curriculum_spine(path: Path | None, request: dict[str, Any]) -> dict[str, Any] | None:
+    if path is None:
+        return None
+    spine_path = path.expanduser().resolve()
+    spine = load_json(spine_path)
+    if spine.get("schema") != CURRICULUM_SPINE_SCHEMA:
+        raise ValueError("Unsupported HOMS curriculum spine schema")
+    course = spine.get("curriculum") or {}
+    if str(course.get("subject") or "").casefold() != str(request.get("subject") or "").casefold():
+        raise ValueError("Learning Studio request subject does not match the Exam Studio curriculum spine")
+    if int(course.get("grade") or 0) != int(request.get("grade") or 0):
+        raise ValueError("Learning Studio request grade does not match the Exam Studio curriculum spine")
+    spine_term = str(course.get("term") or "").strip().casefold()
+    request_term = str(request.get("term") or "").strip().casefold()
+    if spine_term not in {"", "auto"} and request_term not in {"", "auto", spine_term}:
+        raise ValueError("Learning Studio request term does not match the Exam Studio curriculum spine")
+    def topic_tokens(value: Any) -> set[str]:
+        return {token for token in re.findall(r"[a-z0-9]+", str(value or "").casefold()) if len(token) > 4}
+    requested_topic = topic_tokens(request.get("topic")) | topic_tokens(request.get("topic_id"))
+    spine_topics = list(course.get("topics") or []) + [course.get("topic")]
+    if requested_topic and not any(requested_topic & topic_tokens(topic) for topic in spine_topics):
+        raise ValueError("Learning Studio request topic does not overlap the Exam Studio curriculum spine")
+    for source in spine.get("curriculum_sources") or []:
+        source_path = (ROOT / str(source.get("path") or "")).resolve()
+        if source.get("sha256") and source.get("path"):
+            try:
+                source_path.relative_to(ROOT.resolve())
+            except ValueError as exc:
+                raise ValueError("Curriculum source path escapes the DIO workspace") from exc
+            if not source_path.is_file() or sha256(source_path) != source["sha256"]:
+                raise ValueError("Curriculum source hash no longer matches the Exam Studio spine")
+    spine["_spine_path"] = str(spine_path)
+    return spine
+
+
+def copy_matching_video_bundle(request: dict[str, Any], target_dir: Path) -> list[Path]:
+    if request.get("include_video_lesson") is not True:
+        return []
+    if (str(request.get("subject") or "").casefold() != "physical sciences"
+            or int(request.get("grade") or 0) != 10
+            or str(request.get("topic_id") or "") != "motion_in_one_dimension"):
+        raise ValueError("No subject-matched reviewed video bundle exists for this learning-pack request")
+    if not all((GOLDEN_VIDEO_DIR / name).is_file() for name in GOLDEN_VIDEO_FILES):
+        raise FileNotFoundError("The reviewed HOMS motion video, captions, rights receipt, or approval checklist is missing")
+    target_dir.mkdir(parents=True, exist_ok=True)
+    copied = []
+    for name in GOLDEN_VIDEO_FILES:
+        target = target_dir / name
+        shutil.copy2(GOLDEN_VIDEO_DIR / name, target)
+        copied.append(target)
+    return copied
 
 
 def image_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -502,7 +567,7 @@ def add_memo_item(document: Document, number: str, points: list[str], marks: int
     right.paragraphs[0].add_run(f"[{marks}]").bold = True
 
 
-def build_guide(request: dict[str, Any], assets: dict[str, Path], output: Path) -> None:
+def build_guide(request: dict[str, Any], assets: dict[str, Path], output: Path, curriculum_spine: dict[str, Any] | None = None) -> None:
     document = Document()
     configure_document(document, "Motion in One Dimension")
     add_cover(document, request, "Learner Concept Guide", "Understand the motion story, then calculate it with confidence.")
@@ -589,6 +654,15 @@ def build_guide(request: dict[str, Any], assets: dict[str, Path], output: Path) 
         "Mixing kilometres per hour with metres per second without converting.",
         "Reporting a number without its unit and direction.",
     ])
+    if curriculum_spine:
+        first = (curriculum_spine.get("opportunities") or {}).get("first") or {}
+        document.add_page_break()
+        document.add_heading("Assessment-linked retrieval practice", level=1)
+        document.add_paragraph("These prompts come from the matching HOMS Exam Studio curriculum spine. Attempt them after studying the guide. Your educator has a separate memo and crosswalk.")
+        for question in first.get("questions") or []:
+            document.add_heading(f"Question {question.get('number') or '—'} · {question.get('marks') or 0} marks", level=2)
+            document.add_paragraph(str(question.get("question") or "Review the linked question paper."))
+            document.add_paragraph("After your attempt, explain which idea or method helped you answer.")
     document.save(output)
 
 
@@ -763,7 +837,20 @@ def caps_evidence() -> dict[str, Any]:
     }
 
 
-def build_alignment_report(request: dict[str, Any], caps: dict[str, Any], output: Path) -> None:
+def build_alignment_report(request: dict[str, Any], caps: dict[str, Any], output: Path, curriculum_spine: dict[str, Any] | None = None) -> None:
+    spine_section = []
+    if curriculum_spine:
+        course = curriculum_spine.get("curriculum") or {}
+        first = (curriculum_spine.get("opportunities") or {}).get("first") or {}
+        source_rows = curriculum_spine.get("curriculum_sources") or []
+        spine_section = [
+            "", "## Exam Studio Curriculum Spine", "",
+            f"The companion is paired with `{curriculum_spine.get('job_id')}` for {course.get('subject')} Grade {course.get('grade')}, Term {course.get('term') or 'unspecified'}.",
+            f"The exam opportunity supplies {len(first.get('questions') or [])} structured retrieval prompts and a separate educator memo.",
+            f"Bloom targets: {', '.join((curriculum_spine.get('learning_design') or {}).get('bloom_targets') or []) or 'not recorded'}.",
+            *[f"- Source hash: `{source.get('sha256') or 'not recorded'}` ({source.get('title') or 'CAPS'})" for source in source_rows],
+            "",
+        ]
     output.write_text(
         "\n".join([
             "# HOMS Learning Studio: Educator Alignment Report",
@@ -794,6 +881,7 @@ def build_alignment_report(request: dict[str, Any], caps: dict[str, Any], output
             "## Cognitive Progression",
             "",
             "The pack moves from terminology and interpretation to calculations, graph analysis, method evaluation and an independent mini-assessment. The assessment does not introduce content absent from the guide and practice sequence.",
+            *spine_section,
             "",
             "## Required Human Review",
             "",
@@ -808,10 +896,12 @@ def build_alignment_report(request: dict[str, Any], caps: dict[str, Any], output
     )
 
 
-def validate_pack(request: dict[str, Any], files: list[Path], manifest_data: dict[str, Any]) -> list[str]:
+def validate_pack(request: dict[str, Any], files: list[Path], manifest_data: dict[str, Any], curriculum_spine: dict[str, Any] | None = None) -> list[str]:
     errors: list[str] = []
     for path in files:
-        if not path.exists() or path.stat().st_size < 500:
+        # Rights and approval records are short by design. Requiring 500 bytes
+        # rejected valid attribution and checklist files copied with the video.
+        if not path.exists() or path.stat().st_size == 0:
             errors.append(f"missing_or_empty:{path.name}")
     if sum(item[2] for item in WORKSHEET) != 40:
         errors.append("worksheet_marks_must_equal_40")
@@ -819,8 +909,18 @@ def validate_pack(request: dict[str, Any], files: list[Path], manifest_data: dic
         errors.append("assessment_marks_must_equal_30")
     if len(manifest_data.get("visual_assets") or []) != 8:
         errors.append("eight_meaningful_visual_assets_required")
+    if request.get("include_video_lesson") is True:
+        video_files = (manifest_data.get("video_assets") or [])
+        if not any(str(item.get("path") or "").endswith(".mp4") for item in video_files):
+            errors.append("video_requested_but_missing_from_release")
+        if not any(str(item.get("path") or "").endswith(".srt") for item in video_files):
+            errors.append("caption_file_missing_from_video_release")
+        if not any("ATTRIBUTION" in str(item.get("path") or "").upper() for item in video_files):
+            errors.append("music_attribution_missing_from_video_release")
     if request.get("educator_approval_required") is not True:
         errors.append("educator_approval_gate_missing")
+    if curriculum_spine and not curriculum_spine.get("_spine_path"):
+        errors.append("curriculum_spine_provenance_missing")
     return errors
 
 
@@ -831,15 +931,17 @@ def zip_pack(out_dir: Path, target: Path, files: list[Path]) -> None:
                 archive.write(path, path.relative_to(out_dir))
 
 
-def build(request_path: Path, out_dir: Path) -> dict[str, Any]:
+def build(request_path: Path, out_dir: Path, curriculum_spine_path: Path | None = None) -> dict[str, Any]:
     request = load_json(request_path)
     validate_request(request)
+    curriculum_spine = load_matching_curriculum_spine(curriculum_spine_path, request)
     out_dir.mkdir(parents=True, exist_ok=True)
     asset_dir = out_dir / "assets"
     document_dir = out_dir / "documents"
     pdf_dir = out_dir / "pdf"
     for directory in [asset_dir, document_dir, pdf_dir]:
         directory.mkdir(parents=True, exist_ok=True)
+    video_files = copy_matching_video_bundle(request, out_dir / "video")
     request_copy = out_dir / "LEARNING_PACK_REQUEST.json"
     write_json(request_copy, request)
 
@@ -868,17 +970,47 @@ def build(request_path: Path, out_dir: Path) -> dict[str, Any]:
     worksheet_memo = document_dir / "HOMS_G10_T3_MOTION_WORKSHEET_MEMO.docx"
     assessment = document_dir / "HOMS_G10_T3_MOTION_MINI_ASSESSMENT.docx"
     assessment_memo = document_dir / "HOMS_G10_T3_MOTION_MINI_ASSESSMENT_MEMO.docx"
-    build_guide(request, assets, guide)
+    build_guide(request, assets, guide, curriculum_spine)
     build_activity(request, assets, activity)
     build_questions(request, assets, worksheet, title="Learner Worksheet", questions=WORKSHEET)
     build_memo(request, worksheet_memo, title="Worksheet Memorandum", questions=WORKSHEET)
     build_questions(request, assets, assessment, title="Mini-Assessment", questions=ASSESSMENT, assessment=True)
     build_memo(request, assessment_memo, title="Mini-Assessment Memorandum", questions=ASSESSMENT)
     docx_files = [guide, activity, worksheet, worksheet_memo, assessment, assessment_memo]
+    spine_copy = None
+    linked_maps: list[Path] = []
+    if curriculum_spine:
+        spine_copy = out_dir / "HOMS_CURRICULUM_SPINE.json"
+        original_spine = Path(curriculum_spine.pop("_spine_path"))
+        shutil.copy2(original_spine, spine_copy)
+        curriculum_spine["_spine_path"] = str(original_spine)
+        teaching_map = out_dir / "ASSESSMENT_LINKED_TEACHING_MAP.md"
+        teaching_map.write_text(learning_map_markdown(curriculum_spine), encoding="utf-8")
+        educator_map = out_dir / "EDUCATOR_ASSESSMENT_CROSSWALK.md"
+        educator_map.write_text(educator_crosswalk_markdown(curriculum_spine), encoding="utf-8")
+        linked_maps.extend([spine_copy, teaching_map, educator_map])
+        first = (curriculum_spine.get("opportunities") or {}).get("first") or {}
+        for role, key in (("paper", "paper_path"), ("memo", "memo_path")):
+            relative = str(first.get(key) or "").strip()
+            source = (ROOT / relative).resolve()
+            if not relative:
+                continue
+            try:
+                source.relative_to(ROOT.resolve())
+            except ValueError as exc:
+                raise ValueError("Exam output path escapes the DIO workspace") from exc
+            if not source.is_file() or source.suffix.lower() != ".docx":
+                raise ValueError(f"Exam Studio {role} artifact is missing or not a DOCX: {relative}")
+            expected_hash = str(first.get(f"{role}_sha256") or "")
+            if not expected_hash or sha256(source) != expected_hash:
+                raise ValueError(f"Exam Studio {role} hash does not match the curriculum spine")
+            target = document_dir / f"EXAM_STUDIO_FIRST_OPPORTUNITY_{role.upper()}{source.suffix}"
+            shutil.copy2(source, target)
+            docx_files.append(target)
     pdfs = convert_pdfs(docx_files, pdf_dir)
     caps = caps_evidence()
     alignment = out_dir / "EDUCATOR_ALIGNMENT_REPORT.md"
-    build_alignment_report(request, caps, alignment)
+    build_alignment_report(request, caps, alignment, curriculum_spine)
 
     manifest_data = {
         "schema": "homs.learning_pack.manifest.v1",
@@ -887,15 +1019,23 @@ def build(request_path: Path, out_dir: Path) -> dict[str, Any]:
         "request": request,
         "status": "educator_review_required",
         "curriculum_evidence": caps,
+        "assessment_spine": {
+            "schema": curriculum_spine.get("schema"),
+            "job_id": curriculum_spine.get("job_id"),
+            "subject": (curriculum_spine.get("curriculum") or {}).get("subject"),
+            "grade": (curriculum_spine.get("curriculum") or {}).get("grade"),
+            "included": bool(curriculum_spine),
+        } if curriculum_spine else None,
         "learning_sequence": ["concept_guide", "practical_activity", "scaffolded_worksheet", "mini_assessment", "memoranda", "optional_video_lesson"],
         "visual_assets": [{"id": key, "path": str(path.relative_to(out_dir)), "sha256": sha256(path), "meaningful_content": True} for key, path in assets.items()],
+        "video_assets": [{"path": str(path.relative_to(out_dir)), "sha256": sha256(path), "rights_or_review_record": path.name.endswith(("ATTRIBUTION.md", "RECEIPT.json", "checklist.md"))} for path in video_files],
         "documents": [{"path": str(path.relative_to(out_dir)), "sha256": sha256(path)} for path in docx_files + pdfs],
         "marks": {"worksheet": 40, "mini_assessment": 30},
         "authority": {"generation": "completed", "educator_approval": "required", "classroom_release": "blocked_pending_approval", "video_publication": "blocked_pending_review"},
     }
     manifest = out_dir / "LEARNING_PACK_MANIFEST.json"
     write_json(manifest, manifest_data)
-    validation_errors = validate_pack(request, docx_files + pdfs + list(assets.values()) + [alignment, manifest], manifest_data)
+    validation_errors = validate_pack(request, docx_files + pdfs + list(assets.values()) + video_files + [alignment, manifest] + linked_maps, manifest_data, curriculum_spine)
     validation = {
         "schema": "homs.learning_pack.validation.v1",
         "pack_id": request["pack_id"],
@@ -916,7 +1056,7 @@ def build(request_path: Path, out_dir: Path) -> dict[str, Any]:
     validation_path = out_dir / "HOMS_LEARNING_PACK_VALIDATION.json"
     write_json(validation_path, validation)
     release_zip = out_dir / "HOMS_G10_T3_MOTION_ONE_TOPIC_COMPANION.zip"
-    zip_pack(out_dir, release_zip, list(assets.values()) + docx_files + pdfs + [alignment, manifest, validation_path, request_copy])
+    zip_pack(out_dir, release_zip, list(assets.values()) + video_files + docx_files + pdfs + [alignment, manifest, validation_path, request_copy] + linked_maps)
     summary = {
         "status": "passed" if not validation_errors else "failed",
         "pack_id": request["pack_id"],
@@ -925,6 +1065,7 @@ def build(request_path: Path, out_dir: Path) -> dict[str, Any]:
         "documents": len(docx_files),
         "pdfs": len(pdfs),
         "visual_assets": len(assets),
+        "video_assets": len(video_files),
         "validation_errors": validation_errors,
         "next_gate": "educator_subject_expert_review",
     }
@@ -936,8 +1077,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Build a CAPS-grounded HOMS one-topic learner companion pack.")
     parser.add_argument("--request", type=Path, default=DEFAULT_REQUEST)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--curriculum-spine", type=Path, default=None, help="Optional matching HOMS Exam Studio HOMS_CURRICULUM_SPINE.json")
     args = parser.parse_args()
-    summary = build(args.request.resolve(), args.out.resolve())
+    summary = build(args.request.resolve(), args.out.resolve(), args.curriculum_spine.resolve() if args.curriculum_spine else None)
     print(json.dumps(summary, indent=2))
     return 0 if summary["status"] == "passed" else 1
 

@@ -439,7 +439,8 @@ def _configure_docx(
             notice.runs[0].font.color.rgb = _hex_rgb(colours["accent_2"])
         document.add_page_break()
         heading_count = sum(block.get("type") == "heading" for block in projected["blocks"])
-        if heading_count >= 2:
+        include_contents = (projected.get("context") or {}).get("include_contents", True)
+        if include_contents and heading_count >= 2:
             document.add_heading("Contents", level=1)
             paragraph = document.add_paragraph()
             run = paragraph.add_run()
@@ -688,9 +689,23 @@ def _render_pptx(
             _add_pptx_textbox(slide, str(block["caption"]), x=0.9, y=6.45, w=11.5, h=0.45, size=10, colour=colours["muted"])
         elif kind in {"table", "rubric"}:
             rows, cols = len(block["rows"]) + 1, len(block["headers"])
-            table = slide.shapes.add_table(rows, cols, PptxInches(0.72), PptxInches(1.28), PptxInches(11.9), PptxInches(5.55)).table
-            for col in range(cols):
-                table.columns[col].width = PptxInches(11.9 / cols)
+            # Keep short tables compact and readable instead of stretching a
+            # two-row table over most of the slide. Longer tables still use
+            # the available area and preserve room for wrapped text.
+            table_height = min(5.55, max(1.65, 0.58 * rows + 0.22 * sum(
+                max(0, len(str(value)) - 34) // 34
+                for row_values in block["rows"] for value in row_values
+            )))
+            table = slide.shapes.add_table(rows, cols, PptxInches(0.72), PptxInches(1.48), PptxInches(11.9), PptxInches(table_height)).table
+            headers = [str(value).casefold() for value in block["headers"]]
+            weights = [2.0 if any(key in header for key in ("measure", "description", "criterion"))
+                       else 1.65 if any(key in header for key in ("period", "source", "unit"))
+                       else 1.0 for header in headers]
+            total_weight = sum(weights) or 1.0
+            for col, weight in enumerate(weights):
+                table.columns[col].width = PptxInches(11.9 * weight / total_weight)
+            for row in range(rows):
+                table.rows[row].height = PptxInches(table_height / rows)
             for col, value in enumerate(block["headers"]):
                 cell = table.cell(0, col)
                 cell.text = str(value)
@@ -937,6 +952,16 @@ def render_semantic_asset(
     if "html" in selected_channels:
         outputs["html"] = out_dir / f"{stem}.html"
         _render_html(projected, outputs["html"], style, delivery, source_root, assets)
+    pictora_visual = None
+    product_context = str((projected.get("context") or {}).get("product") or "")
+    # The canonical correspondence customer page is copied to a separate
+    # delivery folder by its owner, so its visual is attached after that copy.
+    if "html" in outputs and not release_mode and "correspondence" not in product_context.casefold():
+        from products.pictora_visual_studio import attach_html_visual
+        pictora_visual = attach_html_visual(
+            outputs["html"], product=product_context or "format_core",
+            context=str((projected.get("context") or {}).get("artifact_type") or projected.get("title") or "review artifact"),
+        )
     warnings = list(validation["warnings"])
     if "vtt" in selected_channels:
         vtt = out_dir / f"{stem}.vtt"
@@ -962,6 +987,7 @@ def render_semantic_asset(
         "delivery_profile_hash": _content_digest(delivery),
         "language": language_receipt,
         "release_mode": release_mode,
+        "pictora_visual": pictora_visual,
         "semantic_source_hash": _content_digest(content),
         "semantic_blocks": validation["block_count"],
         "translation_expansion_ratio": expansion_ratio,

@@ -34,6 +34,8 @@ def test_ai_assurance_executes_aitrust_component_then_broader_control_evidence_r
     assert proof["component_product_id"] == "dio_aitrustproof"
     assert proof["component_executor_id"] == "ai_trust_internal_runner_v1"
     assert proof["component_execution_proved"] is True
+    assert proof["seraph_challenge_sha256"] == result["component_result"]["seraph_challenge"]["receipt_sha256"]
+    assert proof["seraph_coverage_state"] == "partial"
     assert proof["identity_equivalence_rejected"] is True
     assert proof["composition_review_processor"] == "controlled_evidence_review_v1"
     assert proof["control_evidence_states"] == {

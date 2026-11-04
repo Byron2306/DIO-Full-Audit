@@ -1,0 +1,3219 @@
+{
+  "schema": "dio.sonoris.genre_grammar_catalog.v1",
+  "compiler_version": "0.2.0",
+  "principle": "A genre is a governed space of musical morphology: structural behavior, embodied gesture, instrument interaction, articulation, harmony, and production. Notes are the realization layer, not the starting unit.",
+  "blend_policy": {
+    "primary_grammar_owns": [
+      "form",
+      "section_laws",
+      "core_gesture_distribution",
+      "harmonic_center",
+      "acceptance_constraints"
+    ],
+    "secondary_grammar_may_contribute": [
+      "timbre",
+      "counter-gestures",
+      "instrument_roles",
+      "production_color"
+    ],
+    "secondary_weight_max": 0.35,
+    "never_average_conflicting_hard_constraints": true,
+    "conflict_resolution": "Declare which grammar owns each layer; reject unresolved contradictions rather than blending numeric presets."
+  },
+  "profiles": {
+    "black_metal": {
+      "id": "BLACK_METAL_CLASSIC",
+      "label": "Black metal",
+      "family": "metal",
+      "tempo_bpm": [
+        150,
+        170,
+        220,
+        240
+      ],
+      "preferred_bpm": 168,
+      "meters": [
+        "4/4",
+        "6/8",
+        "3/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "conventional_chorus_required": false,
+        "through_composition_allowed": true,
+        "trance_repetition_allowed": true,
+        "distinct_riff_identities_required": true,
+        "section_contrast_required": true,
+        "double_tracked_rhythm_guitar_required": true,
+        "lead_guitar_required": false
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "pedal_tone",
+          "chromatic_minor_motion",
+          "minor_second",
+          "diminished_fifth",
+          "augmented_fifth",
+          "open_fifth",
+          "slow_dissonance_resolution"
+        ],
+        "avoid": [
+          "major-key cadential certainty as default"
+        ]
+      },
+      "performance": {
+        "guitar": [
+          "alternating tremolo picking",
+          "high sustain",
+          "low palm-mute use",
+          "independent double tracking",
+          "phrase-end mutation"
+        ],
+        "bass": [
+          "lock to riff or kick",
+          "push into chromatic change",
+          "brief escape fill"
+        ],
+        "drums": [
+          "blast beat",
+          "double bass",
+          "skank",
+          "half-time stomp",
+          "cymbal transition"
+        ],
+        "keys": [
+          "optional cold drone or choir-like color"
+        ]
+      },
+      "production": [
+        "distorted guitar amp and cabinet",
+        "cold wide stereo guitars",
+        "raw-to-icy dynamics",
+        "reverb used as spatial behavior"
+      ],
+      "roles": {
+        "rhythm_foundation": [
+          "electric_guitar"
+        ],
+        "low_anchor": [
+          "electric_bass"
+        ],
+        "physical_pulse": [
+          "acoustic_drums"
+        ],
+        "atmospheric_color": [
+          "synth_pad",
+          "choir",
+          "strings"
+        ]
+      },
+      "gestures": {
+        "TRANCE": "long tremolo repetition that transforms incrementally",
+        "SPRINT": "continuous forward rush with a distinct riff identity",
+        "PANIC": "chromatic destabilization and blast-driven density",
+        "STOMP": "weight and half-time bodily impact",
+        "COLLAPSE": "energy falls away to a low dissonant remnant",
+        "HOOK": "recognizable motif returns altered",
+        "RELEASE": "dissolve into sustain, noise, or unresolved space"
+      },
+      "form": [
+        {
+          "section": "Frost breath",
+          "gesture": "TRANCE",
+          "bars": 4
+        },
+        {
+          "section": "Tremor identity",
+          "gesture": "SPRINT",
+          "bars": 8
+        },
+        {
+          "section": "Black wind",
+          "gesture": "PANIC",
+          "bars": 8
+        },
+        {
+          "section": "Rooted storm",
+          "gesture": "STOMP",
+          "bars": 8
+        },
+        {
+          "section": "Ashen gap",
+          "gesture": "COLLAPSE",
+          "bars": 4
+        },
+        {
+          "section": "Night opens",
+          "gesture": "TRANCE",
+          "bars": 8
+        },
+        {
+          "section": "Return as ruin",
+          "gesture": "HOOK",
+          "bars": 8
+        },
+        {
+          "section": "Dissolution",
+          "gesture": "RELEASE",
+          "bars": 4
+        }
+      ],
+      "tempo_ranges": [
+        [
+          150,
+          170
+        ],
+        [
+          220,
+          240
+        ]
+      ],
+      "acceptance_requirements": [
+        {
+          "field": "harmony_center",
+          "op": "eq",
+          "value": "minor",
+          "reason": "black-metal harmonic center"
+        },
+        {
+          "field": "harmony_intervals",
+          "op": "contains_any",
+          "value": [
+            "diminished_fifth",
+            "augmented_fifth"
+          ],
+          "reason": "icy altered-fifth color"
+        },
+        {
+          "field": "guitar_behaviors",
+          "op": "contains",
+          "value": "tremolo_picking",
+          "reason": "sustained tremolo grammar"
+        },
+        {
+          "field": "drum_behaviors",
+          "op": "contains",
+          "value": "blast_beat",
+          "reason": "blast-beat physical grammar"
+        },
+        {
+          "field": "drum_behaviors",
+          "op": "contains",
+          "value": "double_bass",
+          "reason": "double-bass propulsion"
+        },
+        {
+          "field": "guitar_behaviors",
+          "op": "contains",
+          "value": "double_tracking",
+          "reason": "distinct stereo guitar performances"
+        }
+      ],
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "Frost assault",
+          "tempo_factor": 1.05,
+          "energy": 0.92,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "Lament and winter",
+          "tempo_factor": 0.91,
+          "energy": 0.69,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "War ascent",
+          "tempo_factor": 1.0,
+          "energy": 0.84,
+          "bar_factor": 1.3
+        }
+      ]
+    },
+    "synthwave": {
+      "id": "SYNTHWAVE_CLASSIC",
+      "label": "Synthwave",
+      "family": "electronic",
+      "tempo_bpm": [
+        75,
+        85,
+        115,
+        130
+      ],
+      "preferred_bpm": 110,
+      "meters": [
+        "4/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "conventional_verse_chorus_required": false,
+        "through_composition_allowed": true,
+        "repeating_motif_required": true,
+        "build_or_drop_required": true,
+        "pulse_identity_required": true
+      },
+      "harmony": {
+        "center": "minor or modal",
+        "behaviors": [
+          "minor_progression",
+          "pedal_bass",
+          "slow_chord_cycle",
+          "suspension",
+          "modal_borrowing"
+        ]
+      },
+      "performance": {
+        "synth_bass": [
+          "pulsing eighths",
+          "octave drive",
+          "side-chain-shaped release"
+        ],
+        "drums": [
+          "electronic kick-snare grid",
+          "gated snare",
+          "tom or fill transitions"
+        ],
+        "lead_synth": [
+          "memorable short motif",
+          "arpeggiated orbit",
+          "filter transformation"
+        ],
+        "pads": [
+          "wide sustained harmony",
+          "detuned chord bloom"
+        ]
+      },
+      "production": [
+        "analog-style saturation",
+        "chorus and delay",
+        "wide pads",
+        "clear kick and bass separation",
+        "bright transient over dark harmonic bed"
+      ],
+      "roles": {
+        "pulse_anchor": [
+          "synth_bass",
+          "electric_bass"
+        ],
+        "harmonic_bed": [
+          "synth_pad",
+          "analog_keys"
+        ],
+        "hook_voice": [
+          "lead_synth",
+          "guitar"
+        ],
+        "pulse_and_fill": [
+          "electronic_drums"
+        ]
+      },
+      "gestures": {
+        "PULSE": "repeating bass-and-kick motor",
+        "GLOW": "wide chord field opens around a motif",
+        "ASCENT": "register and filter rise toward arrival",
+        "DROP": "texture contracts then pulse re-enters",
+        "ORBIT": "arpeggio circles a stable harmonic bed",
+        "RELEASE": "beat falls away into a long tail"
+      },
+      "form": [
+        {
+          "section": "Night signal",
+          "gesture": "GLOW",
+          "bars": 4
+        },
+        {
+          "section": "Motorik pulse",
+          "gesture": "PULSE",
+          "bars": 8
+        },
+        {
+          "section": "Theme orbit",
+          "gesture": "ORBIT",
+          "bars": 8
+        },
+        {
+          "section": "Neon ascent",
+          "gesture": "ASCENT",
+          "bars": 8
+        },
+        {
+          "section": "Dark drop",
+          "gesture": "DROP",
+          "bars": 4
+        },
+        {
+          "section": "Theme returns",
+          "gesture": "ORBIT",
+          "bars": 8
+        },
+        {
+          "section": "Long fade",
+          "gesture": "RELEASE",
+          "bars": 4
+        }
+      ],
+      "tempo_ranges": [
+        [
+          75,
+          130
+        ]
+      ],
+      "acceptance_requirements": [
+        {
+          "field": "beat_present",
+          "op": "eq",
+          "value": true,
+          "reason": "synthwave pulse identity"
+        },
+        {
+          "field": "groove_behaviors",
+          "op": "contains",
+          "value": "pulse_motor",
+          "reason": "recognizable electronic pulse"
+        },
+        {
+          "field": "motif_behaviors",
+          "op": "contains",
+          "value": "arpeggio_orbit",
+          "reason": "synthwave motif development"
+        },
+        {
+          "field": "transition_behaviors",
+          "op": "contains",
+          "value": "build_or_drop",
+          "reason": "energy transition"
+        },
+        {
+          "field": "production_behaviors",
+          "op": "contains",
+          "value": "chorus_or_delay",
+          "reason": "moving synth production"
+        }
+      ],
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "Outrun pursuit",
+          "tempo_factor": 1.1,
+          "energy": 0.88,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "Dreamwave nocturne",
+          "tempo_factor": 0.8,
+          "energy": 0.48,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "Darkwave descent",
+          "tempo_factor": 0.95,
+          "energy": 0.74,
+          "bar_factor": 1.3
+        },
+        {
+          "key": "dark_aggro",
+          "label": "Dark Aggro",
+          "tempo_factor": 1.0,
+          "energy": 0.92,
+          "bar_factor": 1.0
+        }
+      ],
+      "reference_artists": [
+        "Tangerine Dream",
+        "Vangelis",
+        "The Midnight"
+      ],
+      "research_source": "https://www.berklee.edu/berklee-now/news/electronic-music-genres-a-guide-to-the-most-influential-styles"
+    },
+    "jazz_fusion": {
+      "id": "JAZZ_SYNTH_FUSION",
+      "label": "Jazz synth fusion",
+      "family": "jazz",
+      "tempo_bpm": [
+        70,
+        90,
+        130,
+        190
+      ],
+      "preferred_bpm": 108,
+      "meters": [
+        "4/4",
+        "5/4",
+        "7/8",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "conventional_verse_chorus_required": false,
+        "through_composition_allowed": true,
+        "distinct_motif_identities_required": true,
+        "instrument_handoff_encouraged": true,
+        "improvisational_orbit_allowed": true
+      },
+      "harmony": {
+        "center": "modal, extended, or chromatic",
+        "behaviors": [
+          "extended_chords",
+          "voice_leading",
+          "modal_exchange",
+          "altered_dominants",
+          "harmonic_rhythm_variation"
+        ]
+      },
+      "performance": {
+        "bass": [
+          "pocket lock",
+          "syncopated push",
+          "walking or ostinato variation"
+        ],
+        "drums": [
+          "ride-led pocket",
+          "displaced accents",
+          "metric handoff"
+        ],
+        "keys": [
+          "offbeat comping",
+          "voicing transformation"
+        ],
+        "lead": [
+          "improvisation around motif",
+          "instrument handoff",
+          "call and response"
+        ]
+      },
+      "production": [
+        "dynamic headroom",
+        "stereo separation by ensemble role",
+        "instrument articulation remains legible",
+        "effects support timbre without masking interaction"
+      ],
+      "roles": {
+        "harmonic_bed": [
+          "electric_piano",
+          "synth_pad",
+          "guitar"
+        ],
+        "pulse_anchor": [
+          "electric_bass",
+          "upright_bass",
+          "synth_bass"
+        ],
+        "foreground_voice": [
+          "synth_lead",
+          "saxophone",
+          "flute",
+          "violin",
+          "guitar"
+        ],
+        "percussion_interlocutor": [
+          "acoustic_drums",
+          "electronic_percussion"
+        ]
+      },
+      "gestures": {
+        "GLIDE": "motif enters through long tones and widening register",
+        "LOCK": "bass, drums, and comping interlock around a pocket",
+        "FRACTURE": "displaced accents and rests break the pocket",
+        "ORBIT": "motif develops while groove remains grounded",
+        "HANDOFF": "foreground identity transfers between instruments",
+        "LIFT": "register and ensemble density rise toward arrival",
+        "RELEASE": "activity falls and harmonic tension resolves or hangs"
+      },
+      "form": [
+        {
+          "section": "Opening",
+          "gesture": "GLIDE",
+          "bars": 4
+        },
+        {
+          "section": "Pocket theme",
+          "gesture": "LOCK",
+          "bars": 8
+        },
+        {
+          "section": "Fracture",
+          "gesture": "FRACTURE",
+          "bars": 8
+        },
+        {
+          "section": "Improvisation orbit",
+          "gesture": "ORBIT",
+          "bars": 8
+        },
+        {
+          "section": "Handoff",
+          "gesture": "HANDOFF",
+          "bars": 4
+        },
+        {
+          "section": "Return transformed",
+          "gesture": "LIFT",
+          "bars": 8
+        },
+        {
+          "section": "Coda",
+          "gesture": "RELEASE",
+          "bars": 4
+        }
+      ],
+      "tempo_ranges": [
+        [
+          70,
+          190
+        ]
+      ],
+      "acceptance_requirements": [
+        {
+          "field": "harmony_behaviors",
+          "op": "contains",
+          "value": "extended_harmony",
+          "reason": "harmonic color and voice leading"
+        },
+        {
+          "field": "groove_behaviors",
+          "op": "contains",
+          "value": "pocket_interlock",
+          "reason": "ensemble pocket"
+        },
+        {
+          "field": "ensemble_behaviors",
+          "op": "contains_any",
+          "value": [
+            "instrument_handoff",
+            "improvisational_orbit"
+          ],
+          "reason": "foreground exchange or development"
+        }
+      ],
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "Electric pocket",
+          "tempo_factor": 1.08,
+          "energy": 0.82,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "Modal glide",
+          "tempo_factor": 0.85,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "Odd meter exchange",
+          "tempo_factor": 1.0,
+          "energy": 0.75,
+          "bar_factor": 1.3
+        }
+      ]
+    },
+    "rock": {
+      "id": "ROCK_BAND",
+      "label": "Rock",
+      "family": "rock",
+      "tempo_bpm": [
+        80,
+        95,
+        140,
+        180
+      ],
+      "preferred_bpm": 120,
+      "meters": [
+        "4/4",
+        "6/8",
+        "3/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "conventional_verse_chorus_preferred": true,
+        "through_composition_allowed": true,
+        "hook_identity_encouraged": true,
+        "guitar_bass_drums_interlock_required": true
+      },
+      "harmony": {
+        "center": "major, minor, modal, or mixed",
+        "behaviors": [
+          "riff pedal",
+          "diatonic progression",
+          "chromatic approach",
+          "borrowed chord"
+        ]
+      },
+      "performance": {
+        "guitar": [
+          "riff articulation",
+          "power chord sustain",
+          "muted contrast",
+          "hook reinforcement"
+        ],
+        "bass": [
+          "kick lock",
+          "riff counterline",
+          "transition pickup"
+        ],
+        "drums": [
+          "backbeat",
+          "dynamic lift",
+          "fills that announce section change"
+        ],
+        "voice": [
+          "phrase arc",
+          "hook emphasis",
+          "breath-aware spacing"
+        ]
+      },
+      "production": [
+        "guitar body and vocal intelligibility",
+        "section-dependent density",
+        "rhythm-section impact",
+        "stereo width supports hook"
+      ],
+      "roles": {
+        "riff_and_hook": [
+          "electric_guitar",
+          "voice",
+          "lead_synth"
+        ],
+        "low_anchor": [
+          "electric_bass"
+        ],
+        "pulse_and_transition": [
+          "acoustic_drums"
+        ],
+        "harmonic_color": [
+          "keys",
+          "organ",
+          "synth_pad"
+        ]
+      },
+      "gestures": {
+        "INTRODUCE": "establish riff, pulse, and tonal center",
+        "VERSE": "leave space for narrative and build",
+        "HOOK": "motif opens in register and ensemble weight",
+        "BRIDGE": "reframe harmony, rhythm, or point of view",
+        "LIFT": "increase energy and density",
+        "RELEASE": "resolve, ring out, or cut away"
+      },
+      "form": [
+        {
+          "section": "Intro",
+          "gesture": "INTRODUCE",
+          "bars": 4
+        },
+        {
+          "section": "Verse",
+          "gesture": "VERSE",
+          "bars": 8
+        },
+        {
+          "section": "Hook",
+          "gesture": "HOOK",
+          "bars": 8
+        },
+        {
+          "section": "Verse transformed",
+          "gesture": "VERSE",
+          "bars": 8
+        },
+        {
+          "section": "Hook return",
+          "gesture": "HOOK",
+          "bars": 8
+        },
+        {
+          "section": "Bridge",
+          "gesture": "BRIDGE",
+          "bars": 8
+        },
+        {
+          "section": "Final hook",
+          "gesture": "HOOK",
+          "bars": 8
+        },
+        {
+          "section": "Outro",
+          "gesture": "RELEASE",
+          "bars": 4
+        }
+      ],
+      "tempo_ranges": [
+        [
+          80,
+          180
+        ]
+      ],
+      "acceptance_requirements": [
+        {
+          "field": "section_behaviors",
+          "op": "contains",
+          "value": "hook_identity",
+          "reason": "recognizable hook"
+        },
+        {
+          "field": "ensemble_behaviors",
+          "op": "contains",
+          "value": "guitar_bass_drums_interlock",
+          "reason": "band relationship"
+        },
+        {
+          "field": "drum_behaviors",
+          "op": "contains",
+          "value": "backbeat",
+          "reason": "rock pulse identity"
+        }
+      ],
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "Riff drive",
+          "tempo_factor": 1.08,
+          "energy": 0.83,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "Open road",
+          "tempo_factor": 0.86,
+          "energy": 0.56,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "Bridge break",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.3
+        }
+      ]
+    },
+    "ambient": {
+      "id": "AMBIENT_MORPHOLOGY",
+      "label": "Ambient",
+      "family": "atmospheric",
+      "tempo_bpm": [
+        35,
+        45,
+        90,
+        115
+      ],
+      "preferred_bpm": 72,
+      "meters": [
+        "free",
+        "4/4",
+        "3/4",
+        "6/8"
+      ],
+      "default_meter": "free",
+      "structural_laws": {
+        "beat_required": false,
+        "conventional_verse_chorus_required": false,
+        "hook_required": false,
+        "long_repetition_allowed": true,
+        "timbral_or_harmonic_transformation_required": true,
+        "slow_change_is_valid_structure": true
+      },
+      "harmony": {
+        "center": "modal, suspended, drone, or slowly shifting",
+        "behaviors": [
+          "pedal drone",
+          "cluster",
+          "open fifth",
+          "slow voice-leading",
+          "non-cadential suspension"
+        ]
+      },
+      "performance": {
+        "foreground": [
+          "long attack and release",
+          "slow spectral change",
+          "gesture through register and density"
+        ],
+        "low_anchor": [
+          "sub drone",
+          "sparse pulse",
+          "no bass required"
+        ],
+        "percussion": [
+          "optional",
+          "texture rather than backbeat"
+        ]
+      },
+      "production": [
+        "long reverb field",
+        "slow modulation",
+        "spatial motion",
+        "preserve quiet detail",
+        "no forced loudness arc"
+      ],
+      "roles": {
+        "harmonic_field": [
+          "synth_pad",
+          "strings",
+          "processed_piano",
+          "field_texture"
+        ],
+        "slow_motion_voice": [
+          "granular_texture",
+          "bowed_tone",
+          "synth_lead"
+        ],
+        "low_anchor": [
+          "synth_bass",
+          "drone"
+        ],
+        "percussion_color": [
+          "soft_percussion",
+          "noise_texture"
+        ]
+      },
+      "gestures": {
+        "DRIFT": "establish a slowly changing sound field",
+        "BLOOM": "harmonic and spectral components enter gradually",
+        "SUSPEND": "hold unresolved tones and allow duration to carry form",
+        "TRANSFORM": "change timbre, voicing, register, or spatial position without forcing a new section",
+        "THIN": "remove layers until one trace remains",
+        "SETTLE": "fade or resolve into a stable field"
+      },
+      "form": [
+        {
+          "section": "Drift",
+          "gesture": "DRIFT",
+          "bars": 8
+        },
+        {
+          "section": "Bloom",
+          "gesture": "BLOOM",
+          "bars": 12
+        },
+        {
+          "section": "Suspension",
+          "gesture": "SUSPEND",
+          "bars": 16
+        },
+        {
+          "section": "Slow transformation",
+          "gesture": "TRANSFORM",
+          "bars": 12
+        },
+        {
+          "section": "Thin and settle",
+          "gesture": "SETTLE",
+          "bars": 12
+        }
+      ],
+      "tempo_ranges": [
+        [
+          35,
+          115
+        ]
+      ],
+      "acceptance_requirements": [
+        {
+          "field": "transformation_behaviors",
+          "op": "contains",
+          "value": "slow_timbre_or_harmony_change",
+          "reason": "slow change carries form"
+        },
+        {
+          "field": "beat_present",
+          "op": "eq",
+          "value": false,
+          "reason": "ambient plan need not impose a conventional beat"
+        },
+        {
+          "field": "space_behaviors",
+          "op": "contains",
+          "value": "sustained_field",
+          "reason": "duration and space carry structure"
+        }
+      ]
+    },
+    "jazz": {
+      "id": "JAZZ",
+      "label": "Jazz",
+      "family": "jazz",
+      "tempo_bpm": [
+        65,
+        90,
+        155,
+        225
+      ],
+      "preferred_bpm": 122,
+      "tempo_ranges": [
+        [
+          65,
+          225
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "3/4",
+        "5/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "modal",
+        "behaviors": [
+          "ii_v_i",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "swing"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "jazz timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "piano",
+          "bass",
+          "drums",
+          "sax"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "HEAD": "Jazz head with swing pulse and ii_v_i harmony",
+        "SOLO": "Jazz solo with swing pulse and ii_v_i harmony",
+        "TRADE": "Jazz trade with swing pulse and ii_v_i harmony",
+        "HEAD_RETURN": "Jazz head return with swing pulse and ii_v_i harmony"
+      },
+      "form": [
+        {
+          "section": "Head",
+          "gesture": "HEAD",
+          "bars": 4
+        },
+        {
+          "section": "Solo",
+          "gesture": "SOLO",
+          "bars": 8
+        },
+        {
+          "section": "Trade",
+          "gesture": "TRADE",
+          "bars": 8
+        },
+        {
+          "section": "Head Return",
+          "gesture": "HEAD_RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "swing",
+      "harmony_topology": "ii_v_i",
+      "reference_artists": [
+        "Duke Ellington",
+        "Miles Davis",
+        "John Coltrane"
+      ],
+      "research_source": "https://online.berklee.edu/courses/jazz-composition",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "swing head",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "modal conversation",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "late night ballad",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "death_metal": {
+      "id": "DEATH_METAL",
+      "label": "Death metal",
+      "family": "metal",
+      "tempo_bpm": [
+        125,
+        160,
+        225,
+        250
+      ],
+      "preferred_bpm": 192,
+      "tempo_ranges": [
+        [
+          125,
+          250
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "chromatic_minor",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "blast"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "RIFF": "Death metal riff with blast pulse and chromatic_minor harmony",
+        "BLAST": "Death metal blast with blast pulse and chromatic_minor harmony",
+        "BREAKDOWN": "Death metal breakdown with blast pulse and chromatic_minor harmony",
+        "MUTATION": "Death metal mutation with blast pulse and chromatic_minor harmony"
+      },
+      "form": [
+        {
+          "section": "Riff",
+          "gesture": "RIFF",
+          "bars": 4
+        },
+        {
+          "section": "Blast",
+          "gesture": "BLAST",
+          "bars": 8
+        },
+        {
+          "section": "Breakdown",
+          "gesture": "BREAKDOWN",
+          "bars": 8
+        },
+        {
+          "section": "Mutation",
+          "gesture": "MUTATION",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "blast",
+      "harmony_topology": "chromatic_minor",
+      "reference_artists": [
+        "Death",
+        "Morbid Angel",
+        "Cannibal Corpse"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "technical assault",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "melodic descent",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "cavernous crush",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "folk_metal": {
+      "id": "FOLK_METAL",
+      "label": "Folk metal",
+      "family": "metal",
+      "tempo_bpm": [
+        95,
+        120,
+        175,
+        205
+      ],
+      "preferred_bpm": 147,
+      "tempo_ranges": [
+        [
+          95,
+          205
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8",
+        "3/4"
+      ],
+      "default_meter": "6/8",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "modal_minor",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "dance"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "folk_lead"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "FOLK_THEME": "Folk metal folk theme with dance pulse and modal_minor harmony",
+        "HEAVY_RIFF": "Folk metal heavy riff with dance pulse and modal_minor harmony",
+        "DANCE_RETURN": "Folk metal dance return with dance pulse and modal_minor harmony",
+        "RITUAL_CODA": "Folk metal ritual coda with dance pulse and modal_minor harmony"
+      },
+      "form": [
+        {
+          "section": "Folk Theme",
+          "gesture": "FOLK_THEME",
+          "bars": 4
+        },
+        {
+          "section": "Heavy Riff",
+          "gesture": "HEAVY_RIFF",
+          "bars": 8
+        },
+        {
+          "section": "Dance Return",
+          "gesture": "DANCE_RETURN",
+          "bars": 8
+        },
+        {
+          "section": "Ritual Coda",
+          "gesture": "RITUAL_CODA",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "dance",
+      "harmony_topology": "modal_minor",
+      "reference_artists": [
+        "Korpiklaani",
+        "Eluveitie",
+        "Ensiferum"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "festival dance",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "epic march",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "acoustic rite",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "power_metal": {
+      "id": "POWER_METAL",
+      "label": "Power metal",
+      "family": "metal",
+      "tempo_bpm": [
+        115,
+        145,
+        195,
+        225
+      ],
+      "preferred_bpm": 170,
+      "tempo_ranges": [
+        [
+          115,
+          225
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "minor_major_lift",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "gallop"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "keys"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "GALLOP": "Power metal gallop with gallop pulse and minor_major_lift harmony",
+        "ANTHEM": "Power metal anthem with gallop pulse and minor_major_lift harmony",
+        "SOLO": "Power metal solo with gallop pulse and minor_major_lift harmony",
+        "FINAL_LIFT": "Power metal final lift with gallop pulse and minor_major_lift harmony"
+      },
+      "form": [
+        {
+          "section": "Gallop",
+          "gesture": "GALLOP",
+          "bars": 4
+        },
+        {
+          "section": "Anthem",
+          "gesture": "ANTHEM",
+          "bars": 8
+        },
+        {
+          "section": "Solo",
+          "gesture": "SOLO",
+          "bars": 8
+        },
+        {
+          "section": "Final Lift",
+          "gesture": "FINAL_LIFT",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "gallop",
+      "harmony_topology": "minor_major_lift",
+      "reference_artists": [
+        "Helloween",
+        "Blind Guardian",
+        "DragonForce"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "heroic gallop",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "anthemic ascent",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "neoclassical chase",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "thrash_metal": {
+      "id": "THRASH_METAL",
+      "label": "Thrash metal",
+      "family": "metal",
+      "tempo_bpm": [
+        140,
+        175,
+        230,
+        260
+      ],
+      "preferred_bpm": 202,
+      "tempo_ranges": [
+        [
+          140,
+          260
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "5/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "chromatic_minor",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "thrash"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "DOWNPICK_RIFF": "Thrash metal downpick riff with thrash pulse and chromatic_minor harmony",
+        "SPEED_RUN": "Thrash metal speed run with thrash pulse and chromatic_minor harmony",
+        "STOP_START": "Thrash metal stop start with thrash pulse and chromatic_minor harmony",
+        "RETURN": "Thrash metal return with thrash pulse and chromatic_minor harmony"
+      },
+      "form": [
+        {
+          "section": "Downpick Riff",
+          "gesture": "DOWNPICK_RIFF",
+          "bars": 4
+        },
+        {
+          "section": "Speed Run",
+          "gesture": "SPEED_RUN",
+          "bars": 8
+        },
+        {
+          "section": "Stop Start",
+          "gesture": "STOP_START",
+          "bars": 8
+        },
+        {
+          "section": "Return",
+          "gesture": "RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "thrash",
+      "harmony_topology": "chromatic_minor",
+      "reference_artists": [
+        "Metallica",
+        "Slayer",
+        "Megadeth"
+      ],
+      "research_source": "https://academic.oup.com/book/62310/chapter/552774426",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "speed assault",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "midtempo stomp",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "crossover sprint",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "doom_metal": {
+      "id": "DOOM_METAL",
+      "label": "Doom metal",
+      "family": "metal",
+      "tempo_bpm": [
+        45,
+        60,
+        105,
+        125
+      ],
+      "preferred_bpm": 82,
+      "tempo_ranges": [
+        [
+          45,
+          125
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "minor_drone",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "doom"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "organ"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "WEIGHT": "Doom metal weight with doom pulse and minor_drone harmony",
+        "SLOW_TURN": "Doom metal slow turn with doom pulse and minor_drone harmony",
+        "FEEDBACK": "Doom metal feedback with doom pulse and minor_drone harmony",
+        "DECAY": "Doom metal decay with doom pulse and minor_drone harmony"
+      },
+      "form": [
+        {
+          "section": "Weight",
+          "gesture": "WEIGHT",
+          "bars": 4
+        },
+        {
+          "section": "Slow Turn",
+          "gesture": "SLOW_TURN",
+          "bars": 8
+        },
+        {
+          "section": "Feedback",
+          "gesture": "FEEDBACK",
+          "bars": 8
+        },
+        {
+          "section": "Decay",
+          "gesture": "DECAY",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "doom",
+      "harmony_topology": "minor_drone",
+      "reference_artists": [
+        "Black Sabbath",
+        "Candlemass",
+        "Electric Wizard"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "funeral crawl",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "traditional lament",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "stoner hypnosis",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "industrial_metal": {
+      "id": "INDUSTRIAL_METAL",
+      "label": "Industrial metal",
+      "family": "metal",
+      "tempo_bpm": [
+        85,
+        105,
+        155,
+        180
+      ],
+      "preferred_bpm": 130,
+      "tempo_ranges": [
+        [
+          85,
+          180
+        ]
+      ],
+      "meters": [
+        "4/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "chromatic_minor",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "machine"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "synth_bass",
+          "drums",
+          "noise"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "MACHINE_LOOP": "Industrial metal machine loop with machine pulse and chromatic_minor harmony",
+        "METAL_INTRUSION": "Industrial metal metal intrusion with machine pulse and chromatic_minor harmony",
+        "DROP": "Industrial metal drop with machine pulse and chromatic_minor harmony",
+        "MECHANICAL_RETURN": "Industrial metal mechanical return with machine pulse and chromatic_minor harmony"
+      },
+      "form": [
+        {
+          "section": "Machine Loop",
+          "gesture": "MACHINE_LOOP",
+          "bars": 4
+        },
+        {
+          "section": "Metal Intrusion",
+          "gesture": "METAL_INTRUSION",
+          "bars": 8
+        },
+        {
+          "section": "Drop",
+          "gesture": "DROP",
+          "bars": 8
+        },
+        {
+          "section": "Mechanical Return",
+          "gesture": "MECHANICAL_RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "machine",
+      "harmony_topology": "chromatic_minor",
+      "reference_artists": [
+        "Ministry",
+        "Nine Inch Nails",
+        "Rammstein"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "machine march",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "dystopian pulse",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "noise collapse",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "nu_metal": {
+      "id": "NU_METAL",
+      "label": "Nu metal",
+      "family": "metal",
+      "tempo_bpm": [
+        75,
+        90,
+        135,
+        155
+      ],
+      "preferred_bpm": 112,
+      "tempo_ranges": [
+        [
+          75,
+          155
+        ]
+      ],
+      "meters": [
+        "4/4"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "minor_pedal",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "syncopated"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "texture"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "GROOVE": "Nu metal groove with syncopated pulse and minor_pedal harmony",
+        "SPACE": "Nu metal space with syncopated pulse and minor_pedal harmony",
+        "IMPACT": "Nu metal impact with syncopated pulse and minor_pedal harmony",
+        "HOOK": "Nu metal hook with syncopated pulse and minor_pedal harmony"
+      },
+      "form": [
+        {
+          "section": "Groove",
+          "gesture": "GROOVE",
+          "bars": 4
+        },
+        {
+          "section": "Space",
+          "gesture": "SPACE",
+          "bars": 8
+        },
+        {
+          "section": "Impact",
+          "gesture": "IMPACT",
+          "bars": 8
+        },
+        {
+          "section": "Hook",
+          "gesture": "HOOK",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "syncopated",
+      "harmony_topology": "minor_pedal",
+      "reference_artists": [
+        "Korn",
+        "Deftones",
+        "Slipknot"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "low groove",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "quiet impact",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "percussive bounce",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "glam_metal": {
+      "id": "GLAM_METAL",
+      "label": "Glam metal",
+      "family": "metal",
+      "tempo_bpm": [
+        85,
+        105,
+        155,
+        180
+      ],
+      "preferred_bpm": 130,
+      "tempo_ranges": [
+        [
+          85,
+          180
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "major_minor_hook",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "arena"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "keys"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "HOOK": "Glam metal hook with arena pulse and major_minor_hook harmony",
+        "VERSE": "Glam metal verse with arena pulse and major_minor_hook harmony",
+        "SOLO": "Glam metal solo with arena pulse and major_minor_hook harmony",
+        "FINAL_HOOK": "Glam metal final hook with arena pulse and major_minor_hook harmony"
+      },
+      "form": [
+        {
+          "section": "Hook",
+          "gesture": "HOOK",
+          "bars": 4
+        },
+        {
+          "section": "Verse",
+          "gesture": "VERSE",
+          "bars": 8
+        },
+        {
+          "section": "Solo",
+          "gesture": "SOLO",
+          "bars": 8
+        },
+        {
+          "section": "Final Hook",
+          "gesture": "FINAL_HOOK",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "arena",
+      "harmony_topology": "major_minor_hook",
+      "reference_artists": [
+        "Def Leppard",
+        "Mötley Crüe",
+        "Poison"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "arena anthem",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "power ballad",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "shuffle strut",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "prog_metal": {
+      "id": "PROG_METAL",
+      "label": "Progressive metal",
+      "family": "metal",
+      "tempo_bpm": [
+        75,
+        95,
+        175,
+        220
+      ],
+      "preferred_bpm": 135,
+      "tempo_ranges": [
+        [
+          75,
+          220
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "5/4",
+        "7/8"
+      ],
+      "default_meter": "7/8",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "modal",
+        "behaviors": [
+          "modal_shift",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "odd"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "keys"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "ASYMMETRY": "Progressive metal asymmetry with odd pulse and modal_shift harmony",
+        "UNISON": "Progressive metal unison with odd pulse and modal_shift harmony",
+        "DEVELOPMENT": "Progressive metal development with odd pulse and modal_shift harmony",
+        "RETURN": "Progressive metal return with odd pulse and modal_shift harmony"
+      },
+      "form": [
+        {
+          "section": "Asymmetry",
+          "gesture": "ASYMMETRY",
+          "bars": 4
+        },
+        {
+          "section": "Unison",
+          "gesture": "UNISON",
+          "bars": 8
+        },
+        {
+          "section": "Development",
+          "gesture": "DEVELOPMENT",
+          "bars": 8
+        },
+        {
+          "section": "Return",
+          "gesture": "RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "odd",
+      "harmony_topology": "modal_shift",
+      "reference_artists": [
+        "Dream Theater",
+        "Opeth",
+        "Tool"
+      ],
+      "research_source": "https://academic.oup.com/book/62310/chapter/552774426",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "polymetric engine",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "atmospheric suite",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "technical dialogue",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "alternative_metal": {
+      "id": "ALTERNATIVE_METAL",
+      "label": "Alternative metal",
+      "family": "metal",
+      "tempo_bpm": [
+        75,
+        95,
+        155,
+        190
+      ],
+      "preferred_bpm": 125,
+      "tempo_ranges": [
+        [
+          75,
+          190
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "7/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "minor_pedal",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "syncopated"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "metal timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "texture"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "TEXTURE": "Alternative metal texture with syncopated pulse and minor_pedal harmony",
+        "GROOVE": "Alternative metal groove with syncopated pulse and minor_pedal harmony",
+        "RUPTURE": "Alternative metal rupture with syncopated pulse and minor_pedal harmony",
+        "HOOK": "Alternative metal hook with syncopated pulse and minor_pedal harmony"
+      },
+      "form": [
+        {
+          "section": "Texture",
+          "gesture": "TEXTURE",
+          "bars": 4
+        },
+        {
+          "section": "Groove",
+          "gesture": "GROOVE",
+          "bars": 8
+        },
+        {
+          "section": "Rupture",
+          "gesture": "RUPTURE",
+          "bars": 8
+        },
+        {
+          "section": "Hook",
+          "gesture": "HOOK",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "syncopated",
+      "harmony_topology": "minor_pedal",
+      "reference_artists": [
+        "Faith No More",
+        "System of a Down",
+        "Tool"
+      ],
+      "research_source": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "angular groove",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "atmospheric weight",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "dissonant hook",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "hard_rock": {
+      "id": "HARD_ROCK",
+      "label": "Hard rock",
+      "family": "rock",
+      "tempo_bpm": [
+        90,
+        110,
+        160,
+        190
+      ],
+      "preferred_bpm": 135,
+      "tempo_ranges": [
+        [
+          90,
+          190
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "modal",
+        "behaviors": [
+          "blues_rock",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "backbeat"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "organ"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "RIFF": "Hard rock riff with backbeat pulse and blues_rock harmony",
+        "VERSE": "Hard rock verse with backbeat pulse and blues_rock harmony",
+        "CHORUS": "Hard rock chorus with backbeat pulse and blues_rock harmony",
+        "SOLO": "Hard rock solo with backbeat pulse and blues_rock harmony"
+      },
+      "form": [
+        {
+          "section": "Riff",
+          "gesture": "RIFF",
+          "bars": 4
+        },
+        {
+          "section": "Verse",
+          "gesture": "VERSE",
+          "bars": 8
+        },
+        {
+          "section": "Chorus",
+          "gesture": "CHORUS",
+          "bars": 8
+        },
+        {
+          "section": "Solo",
+          "gesture": "SOLO",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "backbeat",
+      "harmony_topology": "blues_rock",
+      "reference_artists": [
+        "Led Zeppelin",
+        "AC/DC",
+        "Deep Purple"
+      ],
+      "research_source": "https://academic.oup.com/book/6294/chapter-abstract/149978188",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "blues riff",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "arena drive",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "slow burn",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "math_rock": {
+      "id": "MATH_ROCK",
+      "label": "Math rock",
+      "family": "rock",
+      "tempo_bpm": [
+        75,
+        100,
+        165,
+        205
+      ],
+      "preferred_bpm": 132,
+      "tempo_ranges": [
+        [
+          75,
+          205
+        ]
+      ],
+      "meters": [
+        "5/4",
+        "7/8",
+        "4/4"
+      ],
+      "default_meter": "5/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "modal",
+        "behaviors": [
+          "modal_shift",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "odd"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "clean_guitar",
+          "bass",
+          "drums"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "ANGULAR_MOTIF": "Math rock angular motif with odd pulse and modal_shift harmony",
+        "DISPLACEMENT": "Math rock displacement with odd pulse and modal_shift harmony",
+        "INTERLOCK": "Math rock interlock with odd pulse and modal_shift harmony",
+        "RETURN": "Math rock return with odd pulse and modal_shift harmony"
+      },
+      "form": [
+        {
+          "section": "Angular Motif",
+          "gesture": "ANGULAR_MOTIF",
+          "bars": 4
+        },
+        {
+          "section": "Displacement",
+          "gesture": "DISPLACEMENT",
+          "bars": 8
+        },
+        {
+          "section": "Interlock",
+          "gesture": "INTERLOCK",
+          "bars": 8
+        },
+        {
+          "section": "Return",
+          "gesture": "RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "odd",
+      "harmony_topology": "modal_shift",
+      "reference_artists": [
+        "Don Caballero",
+        "Battles",
+        "American Football"
+      ],
+      "research_source": "https://academic.oup.com/book/6294/chapter-abstract/149978188",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "angular interlock",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "clean tapping",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "stop start",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "post_rock": {
+      "id": "POST_ROCK",
+      "label": "Post-rock",
+      "family": "rock",
+      "tempo_bpm": [
+        55,
+        75,
+        130,
+        155
+      ],
+      "preferred_bpm": 102,
+      "tempo_ranges": [
+        [
+          55,
+          155
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "modal_drone",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "crescendo"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "clean_guitar",
+          "bass",
+          "drums",
+          "keys"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "TEXTURE": "Post-rock texture with crescendo pulse and modal_drone harmony",
+        "SLOW_BUILD": "Post-rock slow build with crescendo pulse and modal_drone harmony",
+        "ERUPTION": "Post-rock eruption with crescendo pulse and modal_drone harmony",
+        "AFTERGLOW": "Post-rock afterglow with crescendo pulse and modal_drone harmony"
+      },
+      "form": [
+        {
+          "section": "Texture",
+          "gesture": "TEXTURE",
+          "bars": 4
+        },
+        {
+          "section": "Slow Build",
+          "gesture": "SLOW_BUILD",
+          "bars": 8
+        },
+        {
+          "section": "Eruption",
+          "gesture": "ERUPTION",
+          "bars": 8
+        },
+        {
+          "section": "Afterglow",
+          "gesture": "AFTERGLOW",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "crescendo",
+      "harmony_topology": "modal_drone",
+      "reference_artists": [
+        "Mogwai",
+        "Godspeed You! Black Emperor",
+        "Explosions in the Sky"
+      ],
+      "research_source": "https://academic.oup.com/book/6294/chapter-abstract/149978188",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "slow crescendo",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "ambient drift",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "rhythmic swell",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "prog_rock": {
+      "id": "PROG_ROCK",
+      "label": "Progressive rock",
+      "family": "rock",
+      "tempo_bpm": [
+        75,
+        95,
+        165,
+        195
+      ],
+      "preferred_bpm": 130,
+      "tempo_ranges": [
+        [
+          75,
+          195
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "5/4",
+        "7/8",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "modal",
+        "behaviors": [
+          "modal_shift",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "odd"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums",
+          "organ"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "OVERTURE": "Progressive rock overture with odd pulse and modal_shift harmony",
+        "THEME": "Progressive rock theme with odd pulse and modal_shift harmony",
+        "DEVELOPMENT": "Progressive rock development with odd pulse and modal_shift harmony",
+        "REPRISE": "Progressive rock reprise with odd pulse and modal_shift harmony"
+      },
+      "form": [
+        {
+          "section": "Overture",
+          "gesture": "OVERTURE",
+          "bars": 4
+        },
+        {
+          "section": "Theme",
+          "gesture": "THEME",
+          "bars": 8
+        },
+        {
+          "section": "Development",
+          "gesture": "DEVELOPMENT",
+          "bars": 8
+        },
+        {
+          "section": "Reprise",
+          "gesture": "REPRISE",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "odd",
+      "harmony_topology": "modal_shift",
+      "reference_artists": [
+        "King Crimson",
+        "Yes",
+        "Genesis"
+      ],
+      "research_source": "https://academic.oup.com/book/49450/chapter-abstract/422323295",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "miniature suite",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "organ dialogue",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "pastoral arc",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "folk_rock": {
+      "id": "FOLK_ROCK",
+      "label": "Folk rock",
+      "family": "rock",
+      "tempo_bpm": [
+        70,
+        90,
+        135,
+        160
+      ],
+      "preferred_bpm": 112,
+      "tempo_ranges": [
+        [
+          70,
+          160
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "3/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "modal",
+        "behaviors": [
+          "modal_major",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "folk"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "acoustic_guitar",
+          "bass",
+          "drums",
+          "folk_lead"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "STORY": "Folk rock story with folk pulse and modal_major harmony",
+        "VERSE": "Folk rock verse with folk pulse and modal_major harmony",
+        "REFRAIN": "Folk rock refrain with folk pulse and modal_major harmony",
+        "RETURN": "Folk rock return with folk pulse and modal_major harmony"
+      },
+      "form": [
+        {
+          "section": "Story",
+          "gesture": "STORY",
+          "bars": 4
+        },
+        {
+          "section": "Verse",
+          "gesture": "VERSE",
+          "bars": 8
+        },
+        {
+          "section": "Refrain",
+          "gesture": "REFRAIN",
+          "bars": 8
+        },
+        {
+          "section": "Return",
+          "gesture": "RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "folk",
+      "harmony_topology": "modal_major",
+      "reference_artists": [
+        "The Byrds",
+        "Fairport Convention",
+        "Jethro Tull"
+      ],
+      "research_source": "https://academic.oup.com/book/6294/chapter-abstract/149978188",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "acoustic narrative",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "electric folk",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "waltz refrain",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "indie_rock": {
+      "id": "INDIE_ROCK",
+      "label": "Indie rock",
+      "family": "rock",
+      "tempo_bpm": [
+        85,
+        105,
+        155,
+        185
+      ],
+      "preferred_bpm": 130,
+      "tempo_ranges": [
+        [
+          85,
+          185
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "major_minor_hook",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "jangle"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "clean_guitar",
+          "bass",
+          "drums",
+          "keys"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "MOTIF": "Indie rock motif with jangle pulse and major_minor_hook harmony",
+        "VERSE": "Indie rock verse with jangle pulse and major_minor_hook harmony",
+        "HOOK": "Indie rock hook with jangle pulse and major_minor_hook harmony",
+        "CONTRAST": "Indie rock contrast with jangle pulse and major_minor_hook harmony"
+      },
+      "form": [
+        {
+          "section": "Motif",
+          "gesture": "MOTIF",
+          "bars": 4
+        },
+        {
+          "section": "Verse",
+          "gesture": "VERSE",
+          "bars": 8
+        },
+        {
+          "section": "Hook",
+          "gesture": "HOOK",
+          "bars": 8
+        },
+        {
+          "section": "Contrast",
+          "gesture": "CONTRAST",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "jangle",
+      "harmony_topology": "major_minor_hook",
+      "reference_artists": [
+        "Pavement",
+        "The Strokes",
+        "Arctic Monkeys"
+      ],
+      "research_source": "https://academic.oup.com/book/6294/chapter-abstract/149978188",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "jangle hook",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "lofi push",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "wide chorus",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    },
+    "grunge": {
+      "id": "GRUNGE",
+      "label": "Grunge",
+      "family": "rock",
+      "tempo_bpm": [
+        70,
+        90,
+        145,
+        175
+      ],
+      "preferred_bpm": 117,
+      "tempo_ranges": [
+        [
+          70,
+          175
+        ]
+      ],
+      "meters": [
+        "4/4",
+        "6/8"
+      ],
+      "default_meter": "4/4",
+      "structural_laws": {
+        "motif_development_required": true,
+        "section_contrast_required": true,
+        "instrument_interaction_required": true,
+        "human_performance_review_required": true
+      },
+      "harmony": {
+        "center": "minor",
+        "behaviors": [
+          "minor_pedal",
+          "motif_harmonic_variation"
+        ],
+        "avoid": [
+          "unchanging one-bar loop as the only form"
+        ]
+      },
+      "performance": {
+        "groove": [
+          "quiet_loud"
+        ],
+        "ensemble": [
+          "role interplay",
+          "phrase variation",
+          "dynamic contrast"
+        ]
+      },
+      "production": [
+        "rock timbre contrast",
+        "section-specific dynamics",
+        "human review of tone and articulation"
+      ],
+      "roles": {
+        "lead_and_harmony": [
+          "guitar",
+          "bass",
+          "drums"
+        ],
+        "rhythm_section": [
+          "bass",
+          "drums"
+        ]
+      },
+      "gestures": {
+        "QUIET_VERSE": "Grunge quiet verse with quiet_loud pulse and minor_pedal harmony",
+        "HEAVY_HOOK": "Grunge heavy hook with quiet_loud pulse and minor_pedal harmony",
+        "BREAKDOWN": "Grunge breakdown with quiet_loud pulse and minor_pedal harmony",
+        "RETURN": "Grunge return with quiet_loud pulse and minor_pedal harmony"
+      },
+      "form": [
+        {
+          "section": "Quiet Verse",
+          "gesture": "QUIET_VERSE",
+          "bars": 4
+        },
+        {
+          "section": "Heavy Hook",
+          "gesture": "HEAVY_HOOK",
+          "bars": 8
+        },
+        {
+          "section": "Breakdown",
+          "gesture": "BREAKDOWN",
+          "bars": 8
+        },
+        {
+          "section": "Return",
+          "gesture": "RETURN",
+          "bars": 4
+        }
+      ],
+      "rhythm_topology": "quiet_loud",
+      "harmony_topology": "minor_pedal",
+      "reference_artists": [
+        "Nirvana",
+        "Soundgarden",
+        "Alice in Chains"
+      ],
+      "research_source": "https://rockhall.com/inductees/soundgarden/",
+      "song_types": [
+        {
+          "key": "drive",
+          "label": "quiet loud",
+          "tempo_factor": 1.12,
+          "energy": 0.86,
+          "bar_factor": 1.0
+        },
+        {
+          "key": "space",
+          "label": "sludge weight",
+          "tempo_factor": 0.83,
+          "energy": 0.55,
+          "bar_factor": 1.2
+        },
+        {
+          "key": "fracture",
+          "label": "punk surge",
+          "tempo_factor": 1.0,
+          "energy": 0.73,
+          "bar_factor": 1.4
+        }
+      ],
+      "reference_boundary": "Study structural traits only; do not reproduce an artist's melody, riff, recording or performance."
+    }
+  },
+  "research_sources": {
+    "synthwave": "https://www.berklee.edu/berklee-now/news/electronic-music-genres-a-guide-to-the-most-influential-styles",
+    "jazz": "https://online.berklee.edu/courses/jazz-composition",
+    "jazz_modal": "https://online.berklee.edu/takenote/harmonic-considerations-modal-harmony/",
+    "metal": "https://academic.oup.com/book/62310/chapter/552774426",
+    "metal_taxonomy": "https://digitalspace.bradfordcollege.ac.uk/10633466/wp-content/uploads/sites/568/2025/01/ConsideringGenreinMetalMusicFINAL.pdf",
+    "rock": "https://academic.oup.com/book/6294/chapter-abstract/149978188",
+    "prog_rock": "https://academic.oup.com/book/49450/chapter-abstract/422323295",
+    "grunge": "https://rockhall.com/inductees/soundgarden/"
+  }
+}

@@ -154,6 +154,12 @@ def run_regops_execution_proof(
             raise ProductClassExecutionProofError(f"DIO RegOps illegally promotes {field}")
     if receipt.get("ai_regulatory_component_state") != "CONTROLLED_CONTEXT_EVALUATED":
         raise ProductClassExecutionProofError("DIO RegOps bounded AI regulatory component was not evaluated")
+    seraph = (result.get("ai_regulatory_component") or {}).get("seraph_challenge") or {}
+    if (seraph.get("schema") != "dio.seraph.challenge_receipt.v1"
+            or seraph.get("execution_authorized") is not False
+            or seraph.get("coverage_state") != "partial"
+            or receipt.get("seraph_challenge_sha256") != seraph.get("receipt_sha256")):
+        raise ProductClassExecutionProofError("DIO RegOps AI component Seraph challenge binding is missing or unsafe")
 
     if manifest.get("schema") != "dio.regops.controlled_proof_manifest.v1" or manifest.get("provider_id") != "regops_controlled_readiness_v1":
         raise ProductClassExecutionProofError("DIO RegOps proof manifest identity drifted")
@@ -196,6 +202,9 @@ def run_regops_execution_proof(
         "external_release_gate": receipt.get("external_release_gate"),
         "readiness_state": receipt.get("readiness_state"),
         "ai_regulatory_component_state": receipt.get("ai_regulatory_component_state"),
+        "seraph_challenge_sha256": seraph.get("receipt_sha256"),
+        "seraph_verdict": seraph.get("verdict"),
+        "seraph_coverage_state": seraph.get("coverage_state"),
         "authority_created": False,
         "external_effects": False,
         "external_release": False,

@@ -23,6 +23,7 @@ from products.vesper_web_chat import (  # noqa: E402
     load_session,
     post_message,
 )
+from products import vesper_web_chat as web
 from products import vesper_public_web as public_web
 
 
@@ -114,6 +115,9 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
                                     'replies': public_web.read_replies(cid, token, after=0)['replies']})
                 elif route == '/api/vesper/web/replies':
                     self.send_json(public_web.read_replies(cid, token, after=(query.get('after') or [0])[0]))
+                elif route == '/api/vesper/web/journey':
+                    public_web.owning_session(cid, token)
+                    self.send_json({'journey': web.customer_journey(cid), 'authority_created': False})
                 else:
                     self.send_json({'error': 'not_found'}, HTTPStatus.NOT_FOUND)
             except public_web.PublicWebAccessError as exc:
@@ -173,6 +177,7 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
                         "channel": session["channel"],
                         "surface": session["surface"],
                         "incarnation_hint": session.get("incarnation_hint"),
+                        "contact": dict(session.get("contact") or {}),
                         "route": session.get("route") or {},
                         "state": session["state"],
                         "messages": session["messages"],
@@ -190,12 +195,24 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
             except VesperWebChatError as exc:
                 self.send_json({"error": "vesper_session_not_found", "message": str(exc)}, HTTPStatus.NOT_FOUND)
             return
+        if route == "/api/vesper/chat/journey":
+            conversation_id = str((parse_qs(split.query).get("conversation_id") or [""])[0]).strip()
+            try:
+                session = load_session(conversation_id)
+                if session.get('public_web_token_sha256'):
+                    public_web.owning_session(conversation_id, self.headers.get('X-Vesper-Session-Token'))
+                self.send_json({"journey": web.customer_journey(conversation_id), "authority_created": False})
+            except public_web.PublicWebAccessError as exc:
+                self.send_json({'message': str(exc)}, HTTPStatus.FORBIDDEN)
+            except (VesperWebChatError, ValueError, OSError) as exc:
+                self.send_json({"error": "vesper_journey_unavailable", "message": str(exc)}, HTTPStatus.NOT_FOUND)
+            return
         if route == "/api/vesper/health":
             self.send_json(
                 {
                     "ok": True,
                     "service": "vesper-web-chat",
-                    "version": "1.1",
+                    "version": "1.2",
                     "canonical_presence_engine": True,
                     "website_frontend": 'DIO-Workflows/vesper-intake.html' if self.site_root else 'legacy_local_intake',
                     "website_session_protocol": 'session_token_v1',
@@ -225,6 +242,16 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
                     self.send_json(public_web.accept_message(payload, token))
                 elif route == '/api/vesper/web/voice':
                     self.send_json(public_web.accept_voice(payload, token))
+                elif route == '/api/vesper/web/journey':
+                    if set(payload) != {"conversation_id", "action", "action_ref", "payload"} or not isinstance(payload.get("payload"), dict):
+                        raise VesperWebChatValidationError("journey request does not match its schema")
+                    cid = str(payload.get('conversation_id') or '')
+                    public_web.owning_session(cid, token)
+                    result = web.perform_customer_journey_action(
+                        cid, action=payload.get('action'), action_ref=payload.get('action_ref'),
+                        payload=payload.get('payload') if isinstance(payload.get('payload'), dict) else {},
+                    )
+                    self.send_json(result)
                 else:
                     self.send_json({'error': 'not_found'}, HTTPStatus.NOT_FOUND)
                 return
@@ -239,6 +266,20 @@ class VesperWebChatHandler(BaseHTTPRequestHandler):
                     public_web.owning_session(conversation_id, self.headers.get('X-Vesper-Session-Token'))
                 result = post_message(conversation_id, payload)
                 self.send_json({"status": "completed", **result})
+                return
+            if route == "/api/vesper/chat/journey":
+                if set(payload) != {"conversation_id", "action", "action_ref", "payload"} or not isinstance(payload.get("payload"), dict):
+                    raise VesperWebChatValidationError("journey request does not match its schema")
+                conversation_id = str(payload.get("conversation_id") or "").strip()
+                session = load_session(conversation_id)
+                if session.get('public_web_token_sha256'):
+                    public_web.owning_session(conversation_id, self.headers.get('X-Vesper-Session-Token'))
+                result = web.perform_customer_journey_action(
+                    conversation_id, action=payload.get("action"),
+                    action_ref=payload.get("action_ref"),
+                    payload=payload.get("payload") if isinstance(payload.get("payload"), dict) else {},
+                )
+                self.send_json(result)
                 return
             self.send_json({"error": "not_found"}, HTTPStatus.NOT_FOUND)
         except public_web.PublicWebAccessError as exc:

@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-DORA-VENDOR-001",
+  "title": "ICT third-party resilience evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "REGISTER",
+      "text": "ICT third-party register: payment processing is classified as supporting a critical business service; service owner and subcontractor list are recorded."
+    },
+    {
+      "source_id": "CONTRACT",
+      "text": "Contract summary: incident notification within 24 hours and audit access are stated; tested exit and transition assistance terms were not supplied."
+    },
+    {
+      "source_id": "TEST",
+      "text": "Resilience review: provider recovery test was completed 2026-05-15; customer participation, recovery objective results, and remediation closure evidence are absent."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Establish critical service and provider scope",
+      "source_id": "REGISTER",
+      "quote": "payment processing is classified as supporting a critical business service; service owner and subcontractor list are recorded",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Review contractual resilience and exit provisions",
+      "source_id": "CONTRACT",
+      "quote": "incident notification within 24 hours and audit access are stated; tested exit and transition assistance terms were not supplied",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Assess test evidence and remediation closure",
+      "source_id": "TEST",
+      "quote": "customer participation, recovery objective results, and remediation closure evidence are absent",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "REGISTER",
+      "quote": "payment processing is classified as supporting a critical business service",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "CONTRACT",
+      "quote": "incident notification within 24 hours and audit access are stated",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "TEST",
+      "quote": "customer participation, recovery objective results, and remediation closure evidence are absent"
+    }
+  ]
+}

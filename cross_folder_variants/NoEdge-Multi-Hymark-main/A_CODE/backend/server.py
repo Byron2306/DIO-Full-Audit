@@ -277,16 +277,33 @@ IMPORTANT:
 4. Do NOT invent or guess mark values - extract them from the text"""
 
     try:
-        response = openai_client.chat.completions.create(
-            model=AI_MODEL,
-            messages=[
+        request_params = {
+            "model": AI_MODEL,
+            "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            temperature=0.1,  # Lower temperature for more consistent parsing
-            max_tokens=3000,
-            response_format={"type": "json_object"},
-        )
+            "temperature": 0.1,  # Lower temperature for more consistent parsing
+            "max_tokens": 3000,
+            "response_format": {"type": "json_object"},
+        }
+        base_url = str(os.getenv("OPENAI_BASE_URL") or "").casefold()
+        local_ollama = any(host in base_url for host in (
+            "127.0.0.1:11434", "localhost:11434", "[::1]:11434",
+        ))
+        if pointwise_mode and local_ollama:
+            request_params["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "homs_pointwise_assessment",
+                    "strict": True,
+                    "schema": _pointwise_response_schema(rubric),
+                },
+            }
+        seed_value = os.getenv("HOMS_AI_SEED")
+        if seed_value is not None:
+            request_params["seed"] = int(seed_value)
+        response = openai_client.chat.completions.create(**request_params)
 
         content = response.choices[0].message.content
         if not content:
@@ -511,6 +528,96 @@ def parse_rubric_from_text(text: str) -> Dict[str, Any]:
 # ===================== AI ASSESSMENT =====================
 
 
+def _pointwise_response_schema(rubric: Dict[str, Any]) -> Dict[str, Any]:
+    """Constrain local pointwise output to the exact source rubric IDs."""
+    criterion_properties: Dict[str, Any] = {}
+    criterion_names = []
+    for criterion in rubric.get("criteria", []):
+        name = str(criterion.get("name") or "").strip()
+        if not name:
+            continue
+        criterion_names.append(name)
+        point_properties: Dict[str, Any] = {}
+        point_ids = []
+        for point in criterion.get("marking_points") or []:
+            point_id = str(point.get("point_id") or "").strip()
+            if not point_id:
+                continue
+            point_ids.append(point_id)
+            point_properties[point_id] = {
+                "type": "object",
+                "properties": {
+                    "score": {
+                        "anyOf": [
+                            {"type": "number", "minimum": 0, "maximum": float(point.get("marks") or 0)},
+                            {"type": "null"},
+                        ]
+                    },
+                    "quotes": {"type": "array", "items": {"type": "string"}},
+                },
+                "required": ["score", "quotes"],
+                "additionalProperties": False,
+                "anyOf": [
+                    {
+                        "properties": {
+                            "score": {"type": "number", "exclusiveMinimum": 0},
+                            "quotes": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                        }
+                    },
+                    {
+                        "properties": {
+                            "score": {"type": "number", "minimum": 0, "maximum": 0},
+                            "quotes": {"type": "array", "maxItems": 0},
+                        }
+                    },
+                    {
+                        "properties": {
+                            "score": {"type": "null"},
+                            "quotes": {"type": "array", "maxItems": 0},
+                        }
+                    },
+                ],
+            }
+        properties: Dict[str, Any] = {
+            "quotes": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        }
+        required = ["quotes"]
+        if point_ids:
+            properties["point_scores"] = {
+                "type": "object",
+                "properties": point_properties,
+                "required": point_ids,
+                "additionalProperties": False,
+            }
+            required.append("point_scores")
+        else:
+            properties["score"] = {
+                "type": "number", "minimum": 0,
+                "maximum": float(criterion.get("weight") or 0),
+            }
+            properties["feedback"] = {"type": "string"}
+            required.extend(["score", "feedback"])
+        criterion_properties[name] = {
+            "type": "object",
+            "properties": properties,
+            "required": required,
+            "additionalProperties": False,
+        }
+    return {
+        "type": "object",
+        "properties": {
+            "criteria_scores": {
+                "type": "object",
+                "properties": criterion_properties,
+                "required": criterion_names,
+                "additionalProperties": False,
+            }
+        },
+        "required": ["criteria_scores"],
+        "additionalProperties": False,
+    }
+
+
 async def assess_with_ai(
     submission_text: str, rubric: Dict[str, Any], assignment_instructions: str=""
 ) -> Dict[str, Any]:
@@ -522,6 +629,12 @@ async def assess_with_ai(
         rubric_description += (
             f"\n### {criterion['name']} (Weight: {criterion['weight']} marks)\n"
         )
+        if criterion.get("question_prompt"):
+            rubric_description += f"  - QUESTION: {criterion['question_prompt']}\n"
+        for point in criterion.get("marking_points", []):
+            rubric_description += (
+                f"  - POINT {point['point_id']} ({point['marks']} marks): {point['point']}\n"
+            )
         for level_name, level_data in criterion.get("levels", {}).items():
             desc = level_data.get("description", "")
             min_s = level_data.get("min_score", 0)
@@ -532,31 +645,30 @@ async def assess_with_ai(
     assignment_context = rubric.get("assignment_context", "")
     submission_requirements = rubric.get("submission_requirements", "")
 
-    system_prompt = """You are a careful, fair rubric-based assessor. Treat the supplied rubric and assignment instructions as authoritative. Do not apply unrelated subject standards, target averages, or invent facts. Score every criterion within its stated range, explain each score with concise evidence from the submission, and flag ambiguity rather than guessing. Marks are recommendations for educator review, not final authority.
+    pointwise_mode = any(criterion.get("marking_points") for criterion in rubric.get("criteria", []))
+    if pointwise_mode:
+        system_prompt = """You are a careful rubric assessor. The supplied question and memo points are authoritative. Do not invent facts or award marks by impression. Marks are proposals for educator review, never final authority.
 
-Return only valid JSON with this shape:
+For every criterion, return every exact memo point ID exactly once, including points awarded zero. Give each determinable point a numeric score from zero to its stated maximum; do not invent or redistribute marks. If a point cannot be judged reliably from the answer, return null for that point; it remains unscored and prevents a criterion or total from being calculated. Never omit a point ID. The scoring system calculates criterion and total scores from numeric point scores only. Include one short, verbatim learner answer line in criterion-level quotes. For every positive point score, also include a concise verbatim quote from that same numbered answer that supports that specific memo point. Do not reuse a quote from another question or invent/paraphrase text. Use an empty quotes list for a zero score. If no exact supporting span can be identified, return null for the point rather than a positive score. Quotes establish traceability only; the educator must still verify the proposed mark against the answer and memo. If the evidence is ambiguous, use null rather than guess.
+
+Return only compact valid JSON in this shape. Do not include feedback, annotations, strengths, or other prose:
 {
   "total_score": 0,
   "criteria_scores": {
-    "<exact criterion name>": {
-      "level": "<rubric level or empty string>",
-      "score": 0,
-      "feedback": "<criterion-specific reason and next step>",
-      "quotes": ["<short exact quote>"]
+    "1.1": {
+      "quotes": ["<exact labelled answer line>"],
+      "point_scores": {
+        "1.1.P01": {"score": 1, "quotes": ["<exact supporting span from answer 1.1>"]},
+        "1.1.P02": {"score": 0, "quotes": []}
+      }
     }
-  },
-  "overall_feedback": "<concise summary>",
-  "strengths": ["<supported strength>"],
-  "areas_for_improvement": ["<specific improvement>"],
-  "annotations": [
-    {
-      "quote": "<short exact quote>",
-      "comment": "<specific feedback>",
-      "type": "praise|suggestion|correction|question"
-    }
-  ]
+  }
 }
-Include every rubric criterion and at least three concise annotations. The total must equal the sum of criterion scores."""
+Include every exact criterion name and every exact memo point ID once. Use null only when the answer does not support a reliable point judgment. Do not return a criterion score. The examples show the format only; score the submitted answer."""
+    else:
+        system_prompt = """You are a careful, fair rubric-based assessor. Treat the supplied rubric and assignment instructions as authoritative. Do not apply unrelated subject standards, target averages, or invent facts. Score every criterion within its stated range, explain each score with concise evidence from the submission, and flag ambiguity rather than guessing. Marks are recommendations for educator review, not final authority.
+
+Return only valid JSON with criteria_scores, total_score, feedback, and exact supporting quotes. Include every rubric criterion. The total must equal the sum of criterion scores."""
 
     context_section = ""
     if assignment_context:
@@ -576,21 +688,44 @@ Include every rubric criterion and at least three concise annotations. The total
 {submission_text[:15000]}"""
 
     try:
-        response = openai_client.chat.completions.create(
-            model=AI_MODEL,
-            messages=[
+        request_params = {
+            "model": AI_MODEL,
+            "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            temperature=0.3,
-            max_tokens=int(os.getenv("HOMS_AI_MAX_TOKENS", "4000")),
-            response_format={"type": "json_object"},
-        )
+            # Scoring is a measurement step: sample deterministically by
+            # default, while keeping an explicit override for provider tuning.
+            "temperature": float(os.getenv("HOMS_AI_TEMPERATURE", "0.0")),
+            "max_tokens": int(os.getenv("HOMS_AI_MAX_TOKENS", "4000")),
+            "response_format": {"type": "json_object"},
+        }
+        base_url = str(os.getenv("OPENAI_BASE_URL") or "").casefold()
+        local_ollama = any(host in base_url for host in (
+            "127.0.0.1:11434", "localhost:11434", "[::1]:11434",
+        ))
+        if pointwise_mode and local_ollama:
+            request_params["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "homs_pointwise_assessment",
+                    "strict": True,
+                    "schema": _pointwise_response_schema(rubric),
+                },
+            }
+        # Local Ollama accepts a fixed OpenAI-compatible seed. Preserve
+        # provider behavior elsewhere by adding it only when explicitly set.
+        seed_value = os.getenv("HOMS_AI_SEED")
+        if seed_value is not None:
+            request_params["seed"] = int(seed_value)
+        response = openai_client.chat.completions.create(**request_params)
 
         result = json.loads(response.choices[0].message.content)
 
-        # Validate and recalculate total_score from criteria scores
-        if result.get("criteria_scores"):
+        # Criterion totals are intentionally absent in pointwise mode. Do not
+        # manufacture a provider total from nonexistent criterion scores; the
+        # source-bound point allocations are normalized by the caller.
+        if result.get("criteria_scores") and not pointwise_mode:
             calculated_total = sum(
                 data.get("score", 0) for data in result["criteria_scores"].values()
             )

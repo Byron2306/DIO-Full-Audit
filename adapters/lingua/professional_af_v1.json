@@ -1,7 +1,7 @@
 {
   "schema": "dio.lingua.terminology_profile.v1",
   "profile_id": "professional_af_v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "source_language": "English",
   "target_language": "Afrikaans",
   "domain": "Professional business operations and translation workflow",
@@ -70,16 +70,36 @@
       "target": "opskrifstruktuur"
     },
     {
+      "source": "The note explains clinic appointment procedures and contains several protected programme names.",
+      "target": "Die nota verduidelik die prosedures vir kliniekafsprake en bevat verskeie beskermde programname.",
+      "provenance": "machine_proposed_review_required",
+      "diagnostic_policy": "required_candidate"
+    },
+    {
+      "source": "Draft section",
+      "target": "Konsepafdeling",
+      "provenance": "machine_proposed_review_required",
+      "diagnostic_policy": "required_candidate"
+    },
+    {
+      "source": "Results was discussed across the working group, however the wording and heading structure are inconsistent.",
+      "target": "Die resultate is in die werkgroep bespreek, maar die bewoording en opskrifstruktuur is inkonsekwent.",
+      "provenance": "machine_proposed_review_required",
+      "diagnostic_policy": "required_candidate"
+    },
+    {
       "source": "clinic appointment procedures",
       "target": "prosedures vir kliniekafsprake"
     },
     {
       "source": "appointment procedures",
-      "target": "afspraakprosedures"
+      "target": "afspraakprosedures",
+      "diagnostic_policy": "advisory_candidate"
     },
     {
       "source": "clinic appointment",
-      "target": "kliniekafspraak"
+      "target": "kliniekafspraak",
+      "diagnostic_policy": "advisory_candidate"
     },
     {
       "source": "rough source copy",

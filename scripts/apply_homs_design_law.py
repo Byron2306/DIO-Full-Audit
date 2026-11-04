@@ -1426,7 +1426,7 @@ def add_source_material(doc: Any, pack: dict[str, Any]) -> None:
             image_paragraph.paragraph_format.space_before = 0
             image_paragraph.paragraph_format.space_after = Pt(6)
             image_paragraph.paragraph_format.keep_together = True
-            image_paragraph.add_run().add_picture(str(image_path), width=Inches(5.2))
+            image_paragraph.add_run().add_picture(str(image_path), width=Inches(6.25))
         details = []
         detail_labels = (
             {"paper": "Vraestel", "page": "Bladsy", "source_type": "Brontipe", "snippet": "Uittreksel"}
@@ -1443,6 +1443,8 @@ def add_source_material(doc: Any, pack: dict[str, Any]) -> None:
         if details:
             note = doc.add_paragraph(" | ".join(details[:4]))
             note.paragraph_format.space_after = Pt(6)
+        if index < len(source_assets):
+            doc.add_page_break()
 
 
 def evidence_cards(pack: dict[str, Any]) -> list[dict[str, Any]]:

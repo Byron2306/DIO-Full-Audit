@@ -1,0 +1,88 @@
+{
+  "case_id": "SYNTHETIC-PERMITPROOF-20261102",
+  "title": "Permit readiness evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "source_id": "SYNTHETIC-PERMITPROOF-20261102",
+  "source_ref": "synthetic://SYNTHETIC-PERMITPROOF-20261102",
+  "source_type": "permit",
+  "source_text": "# Synthetic permit conditions and applicant record\n\nInstrument conditions:\nClause 1: A landowner consent signed by the owner is required with the application.\nClause 2: The permit application must include the current site plan revision.\nClause 3: A noise study signed by the consultant and current for the application date is required.\nClause 4: Only the authorised project owner may approve application release.\n\nApplicant record:\nThe supplied landowner consent has no signature.\nThe uploaded site plan is revision C, dated 14 August 2026, and the applicant identifies it as current.\nThe supplied noise study is current and signed by the consultant.\nThe release owner is assigned to the authorised project owner; no release decision is recorded.",
+  "obligations": [
+    {
+      "locator": "CLAUSE-1",
+      "statement": "Clause 1: A landowner consent signed by the owner is required with the application.",
+      "kind": "approval_prerequisite",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-2",
+      "statement": "Clause 2: The permit application must include the current site plan revision.",
+      "kind": "deliverable",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-3",
+      "statement": "Clause 3: A noise study signed by the consultant and current for the application date is required.",
+      "kind": "deliverable",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-4",
+      "statement": "Clause 4: Only the authorised project owner may approve application release.",
+      "kind": "approval_prerequisite",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "R-01",
+      "source_ref": "synthetic://permitproof/applicant-consent/R-01",
+      "text": "The supplied landowner consent has no signature.",
+      "target_locators": [
+        "CLAUSE-1"
+      ],
+      "relation": "contradicts"
+    },
+    {
+      "evidence_id": "R-02",
+      "source_ref": "synthetic://permitproof/site-plan/R-02",
+      "text": "The uploaded site plan is revision C, dated 14 August 2026, and the applicant identifies it as current.",
+      "target_locators": [
+        "CLAUSE-2"
+      ],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-03",
+      "source_ref": "synthetic://permitproof/noise-study/R-03",
+      "text": "The supplied noise study is current and signed by the consultant.",
+      "target_locators": [
+        "CLAUSE-3"
+      ],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-04",
+      "source_ref": "synthetic://permitproof/release/R-04",
+      "text": "The release owner is assigned to the authorised project owner; no release decision is recorded.",
+      "target_locators": [
+        "CLAUSE-4"
+      ],
+      "relation": "supports"
+    }
+  ],
+  "operator_id": "synthetic-acceptance-operator",
+  "as_of": "2026-11-01T00:00:00+00:00"
+}

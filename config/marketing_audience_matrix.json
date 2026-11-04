@@ -12,16 +12,61 @@
     "promotion_requires_operator": true
   },
   "channels": {
-    "LINKEDIN_ORGANIC": {"format": "professional_post", "asset": "landscape_1200x628", "body_limit": 150, "headline_limit": 70},
-    "FACEBOOK_PAGE": {"format": "page_post", "asset": "square_1080", "body_limit": 125, "headline_limit": 40},
-    "META_ADS": {"format": "feed_ad", "asset": "portrait_1080x1350", "body_limit": 125, "headline_limit": 40, "description_limit": 30},
-    "INSTAGRAM_ORGANIC": {"format": "feed_and_reel", "asset": "portrait_1080x1350", "body_limit": 125},
-    "TIKTOK_ORGANIC": {"format": "vertical_reel", "asset": "reel_1080x1920", "body_limit": 80},
-    "TIKTOK_ADS": {"format": "vertical_video_ad", "asset": "reel_1080x1920", "body_limit": 80},
-    "REDDIT_ORGANIC": {"format": "community_post", "asset": "square_1080", "headline_limit": 150},
-    "REDDIT_ADS": {"format": "promoted_post", "asset": "landscape_1200x628", "headline_limit": 150},
-    "GOOGLE_ADS": {"format": "responsive_search_and_display", "asset": "landscape_1200x628", "headline_limit": 30, "description_limit": 90},
-    "YOUTUBE_ORGANIC": {"format": "short_and_explainer", "asset": "youtube_1280x720", "headline_limit": 100}
+    "LINKEDIN_ORGANIC": {
+      "format": "professional_post",
+      "asset": "landscape_1200x628",
+      "body_limit": 150,
+      "headline_limit": 70
+    },
+    "FACEBOOK_PAGE": {
+      "format": "page_post",
+      "asset": "square_1080",
+      "body_limit": 125,
+      "headline_limit": 40
+    },
+    "META_ADS": {
+      "format": "feed_ad",
+      "asset": "portrait_1080x1350",
+      "body_limit": 125,
+      "headline_limit": 40,
+      "description_limit": 30
+    },
+    "INSTAGRAM_ORGANIC": {
+      "format": "feed_and_reel",
+      "asset": "portrait_1080x1350",
+      "body_limit": 125
+    },
+    "TIKTOK_ORGANIC": {
+      "format": "vertical_reel",
+      "asset": "reel_1080x1920",
+      "body_limit": 80
+    },
+    "TIKTOK_ADS": {
+      "format": "vertical_video_ad",
+      "asset": "reel_1080x1920",
+      "body_limit": 80
+    },
+    "REDDIT_ORGANIC": {
+      "format": "community_post",
+      "asset": "square_1080",
+      "headline_limit": 150
+    },
+    "REDDIT_ADS": {
+      "format": "promoted_post",
+      "asset": "landscape_1200x628",
+      "headline_limit": 150
+    },
+    "GOOGLE_ADS": {
+      "format": "responsive_search_and_display",
+      "asset": "landscape_1200x628",
+      "headline_limit": 30,
+      "description_limit": 90
+    },
+    "YOUTUBE_ORGANIC": {
+      "format": "short_and_explainer",
+      "asset": "youtube_1280x720",
+      "headline_limit": 100
+    }
   },
   "products": [
     {
@@ -37,10 +82,30 @@
       "source_image": "campaigns/phase3/evidex/campaign_v2/gamma/evidex_mapping_proof.png",
       "accent": "#22c55e",
       "audiences": [
-        {"id": "ngo_programme_leads", "name": "NGO and NPO programme leads", "pain": "Reporting evidence is scattered across folders, email and staff memory.", "outcome": "A donor-ready evidence trail that a human can verify."},
-        {"id": "monitoring_evaluation", "name": "Monitoring, evaluation and grant managers", "pain": "Claims, indicators and source files are difficult to reconcile before reporting deadlines.", "outcome": "Mapped indicators, claims and provenance in one reviewable pack."},
-        {"id": "compliance_audit", "name": "Compliance and audit teams", "pain": "Review preparation consumes hours of manual searching and cross-checking.", "outcome": "A bounded evidence index with gaps made visible before review."},
-        {"id": "professional_consultants", "name": "Independent reporting consultants", "pain": "Every client arrives with a different evidence mess and little usable structure.", "outcome": "A repeatable first-pass evidence workflow that preserves consultant authority."}
+        {
+          "id": "ngo_programme_leads",
+          "name": "NGO and NPO programme leads",
+          "pain": "Reporting evidence is scattered across folders, email and staff memory.",
+          "outcome": "A donor-ready evidence trail that a human can verify."
+        },
+        {
+          "id": "monitoring_evaluation",
+          "name": "Monitoring, evaluation and grant managers",
+          "pain": "Claims, indicators and source files are difficult to reconcile before reporting deadlines.",
+          "outcome": "Mapped indicators, claims and provenance in one reviewable pack."
+        },
+        {
+          "id": "compliance_audit",
+          "name": "Compliance and audit teams",
+          "pain": "Review preparation consumes hours of manual searching and cross-checking.",
+          "outcome": "A bounded evidence index with gaps made visible before review."
+        },
+        {
+          "id": "professional_consultants",
+          "name": "Independent reporting consultants",
+          "pain": "Every client arrives with a different evidence mess and little usable structure.",
+          "outcome": "A repeatable first-pass evidence workflow that preserves consultant authority."
+        }
       ]
     },
     {
@@ -56,10 +121,30 @@
       "source_image": "campaigns/phase3/homs/campaign_v2/gamma/homs_exam_proof.png",
       "accent": "#f59e0b",
       "audiences": [
-        {"id": "teachers_lecturers", "name": "Teachers and lecturers", "pain": "Marking, feedback and paper preparation consume evenings and weekends.", "outcome": "Structured drafts and learner feedback ready for educator review."},
-        {"id": "heads_assessment", "name": "HODs and assessment coordinators", "pain": "Assessment quality varies across subjects, markers and campuses.", "outcome": "A reviewable workflow with common evidence and approval checkpoints."},
-        {"id": "schools_universities", "name": "Independent schools and universities", "pain": "Large assessment batches create bottlenecks without adding review capacity.", "outcome": "Bounded batch preparation with educator changes recorded before release."},
-        {"id": "tutors_publishers", "name": "Tutors and education publishers", "pain": "Creating credible activities, memos and feedback repeatedly is slow.", "outcome": "Curriculum-aware assessment drafts that can be professionally refined."}
+        {
+          "id": "teachers_lecturers",
+          "name": "Teachers and lecturers",
+          "pain": "Marking, feedback and paper preparation consume evenings and weekends.",
+          "outcome": "Structured drafts and learner feedback ready for educator review."
+        },
+        {
+          "id": "heads_assessment",
+          "name": "HODs and assessment coordinators",
+          "pain": "Assessment quality varies across subjects, markers and campuses.",
+          "outcome": "A reviewable workflow with common evidence and approval checkpoints."
+        },
+        {
+          "id": "schools_universities",
+          "name": "Independent schools and universities",
+          "pain": "Large assessment batches create bottlenecks without adding review capacity.",
+          "outcome": "Bounded batch preparation with educator changes recorded before release."
+        },
+        {
+          "id": "tutors_publishers",
+          "name": "Tutors and education publishers",
+          "pain": "Creating credible activities, memos and feedback repeatedly is slow.",
+          "outcome": "Curriculum-aware assessment drafts that can be professionally refined."
+        }
       ]
     },
     {
@@ -75,10 +160,30 @@
       "source_image": "campaigns/phase3/homs/campaign_v2/gamma/homs_learning_companion.png",
       "accent": "#38bdf8",
       "audiences": [
-        {"id": "extra_class_tutors", "name": "Tutors and extra-class providers", "pain": "Every lesson needs fresh explanations, activities and take-home material.", "outcome": "A reusable topic pack with a worksheet and companion explainer."},
-        {"id": "teachers_schools", "name": "Teachers and schools", "pain": "Learners need differentiated practice that still follows the curriculum.", "outcome": "Grade, term and topic-aware resources ready for teacher adaptation."},
-        {"id": "education_publishers", "name": "Education publishers and content teams", "pain": "Content production is difficult to scale without losing alignment or consistency.", "outcome": "A structured production lane with sources, pedagogy and review gates."},
-        {"id": "parents_learners", "name": "Parents supporting school learners", "pain": "Generic online material often does not match the learner's grade, term or topic.", "outcome": "A focused learning pack built around the actual classroom need."}
+        {
+          "id": "extra_class_tutors",
+          "name": "Tutors and extra-class providers",
+          "pain": "Every lesson needs fresh explanations, activities and take-home material.",
+          "outcome": "A reusable topic pack with a worksheet and companion explainer."
+        },
+        {
+          "id": "teachers_schools",
+          "name": "Teachers and schools",
+          "pain": "Learners need differentiated practice that still follows the curriculum.",
+          "outcome": "Grade, term and topic-aware resources ready for teacher adaptation."
+        },
+        {
+          "id": "education_publishers",
+          "name": "Education publishers and content teams",
+          "pain": "Content production is difficult to scale without losing alignment or consistency.",
+          "outcome": "A structured production lane with sources, pedagogy and review gates."
+        },
+        {
+          "id": "parents_learners",
+          "name": "Parents supporting school learners",
+          "pain": "Generic online material often does not match the learner's grade, term or topic.",
+          "outcome": "A focused learning pack built around the actual classroom need."
+        }
       ]
     },
     {
@@ -94,10 +199,30 @@
       "source_image": "sites/sophia/assets/sophia-review-hero.png",
       "accent": "#e879f9",
       "audiences": [
-        {"id": "postgraduate_students", "name": "Postgraduate students", "pain": "Dense feedback, reference checks and literature gaps are hard to resolve alone.", "outcome": "A structured review that strengthens the student's own academic work."},
-        {"id": "research_supervisors", "name": "Research supervisors", "pain": "Repeated technical corrections consume time better spent on substantive supervision.", "outcome": "A first-pass review with issues grouped for faster supervisor attention."},
-        {"id": "writing_centres", "name": "Writing centres and academic libraries", "pain": "Support teams need a scalable way to triage technical and source-related issues.", "outcome": "Consistent review notes with provenance and human escalation points."},
-        {"id": "research_groups", "name": "Research offices and project teams", "pain": "Collaborative manuscripts accumulate inconsistent references and argument seams.", "outcome": "A shared technical review trail before formal peer review or submission."}
+        {
+          "id": "postgraduate_students",
+          "name": "Postgraduate students",
+          "pain": "Dense feedback, reference checks and literature gaps are hard to resolve alone.",
+          "outcome": "A structured review that strengthens the student's own academic work."
+        },
+        {
+          "id": "research_supervisors",
+          "name": "Research supervisors",
+          "pain": "Repeated technical corrections consume time better spent on substantive supervision.",
+          "outcome": "A first-pass review with issues grouped for faster supervisor attention."
+        },
+        {
+          "id": "writing_centres",
+          "name": "Writing centres and academic libraries",
+          "pain": "Support teams need a scalable way to triage technical and source-related issues.",
+          "outcome": "Consistent review notes with provenance and human escalation points."
+        },
+        {
+          "id": "research_groups",
+          "name": "Research offices and project teams",
+          "pain": "Collaborative manuscripts accumulate inconsistent references and argument seams.",
+          "outcome": "A shared technical review trail before formal peer review or submission."
+        }
       ]
     },
     {
@@ -113,10 +238,30 @@
       "source_image": "campaigns/phase3/vamp/campaign_v2/gamma/vamp_mapping_proof.png",
       "accent": "#fb7185",
       "audiences": [
-        {"id": "academic_professional_staff", "name": "Academic and professional staff", "pain": "Useful performance evidence is buried across Outlook, documents and project records.", "outcome": "A review snapshot showing what supports each objective and what is missing."},
-        {"id": "hr_performance_admin", "name": "HR and performance administrators", "pain": "Performance submissions arrive late, inconsistent and difficult to verify.", "outcome": "A standard evidence workflow with human acceptance and provenance."},
-        {"id": "line_managers", "name": "Line managers and HODs", "pain": "Review meetings lose time establishing what evidence exists and whether it is relevant.", "outcome": "A concise evidence map prepared before the conversation begins."},
-        {"id": "institution_leaders", "name": "University and organisation leaders", "pain": "Performance processes generate administration without creating a clear institutional view.", "outcome": "Comparable, governed snapshots without surrendering managerial judgement."}
+        {
+          "id": "academic_professional_staff",
+          "name": "Academic and professional staff",
+          "pain": "Useful performance evidence is buried across Outlook, documents and project records.",
+          "outcome": "A review snapshot showing what supports each objective and what is missing."
+        },
+        {
+          "id": "hr_performance_admin",
+          "name": "HR and performance administrators",
+          "pain": "Performance submissions arrive late, inconsistent and difficult to verify.",
+          "outcome": "A standard evidence workflow with human acceptance and provenance."
+        },
+        {
+          "id": "line_managers",
+          "name": "Line managers and HODs",
+          "pain": "Review meetings lose time establishing what evidence exists and whether it is relevant.",
+          "outcome": "A concise evidence map prepared before the conversation begins."
+        },
+        {
+          "id": "institution_leaders",
+          "name": "University and organisation leaders",
+          "pain": "Performance processes generate administration without creating a clear institutional view.",
+          "outcome": "Comparable, governed snapshots without surrendering managerial judgement."
+        }
       ]
     },
     {
@@ -132,10 +277,84 @@
       "source_image": "sites/document-studio/assets/document-studio-proof.png",
       "accent": "#a3e635",
       "audiences": [
-        {"id": "professional_firms", "name": "SMEs and professional firms", "pain": "Client-facing documents need polish without losing technical meaning or house terminology.", "outcome": "A clean document plus an auditable change and terminology trail."},
-        {"id": "ngo_public_programmes", "name": "NGOs and public programmes", "pain": "Reports and public material must work across English, Afrikaans, isiZulu, Sesotho and Setswana.", "outcome": "Controlled multilingual delivery with semantic QA and human authority."},
-        {"id": "education_academia", "name": "Education and academic teams", "pain": "Learning and research documents require technical editing as well as domain-aware language checks.", "outcome": "Readable, consistent material that preserves disciplinary intent."},
-        {"id": "government_communications", "name": "Government and public-facing teams", "pain": "High-stakes public documents must remain consistent across languages and revisions.", "outcome": "Terminology-controlled translation with deterministic QA and review evidence."}
+        {
+          "id": "professional_firms",
+          "name": "SMEs and professional firms",
+          "pain": "Client-facing documents need polish without losing technical meaning or house terminology.",
+          "outcome": "A clean document plus an auditable change and terminology trail."
+        },
+        {
+          "id": "ngo_public_programmes",
+          "name": "NGOs and public programmes",
+          "pain": "Reports and public material must work across English, Afrikaans, isiZulu, Sesotho and Setswana.",
+          "outcome": "Controlled multilingual delivery with semantic QA and human authority."
+        },
+        {
+          "id": "education_academia",
+          "name": "Education and academic teams",
+          "pain": "Learning and research documents require technical editing as well as domain-aware language checks.",
+          "outcome": "Readable, consistent material that preserves disciplinary intent."
+        },
+        {
+          "id": "government_communications",
+          "name": "Government and public-facing teams",
+          "pain": "High-stakes public documents must remain consistent across languages and revisions.",
+          "outcome": "Terminology-controlled translation with deterministic QA and review evidence."
+        }
+      ]
+    },
+    {
+      "id": "PROFESSIONAL_CAMPAIGN_LAB",
+      "name": "DIO Campaign Lab",
+      "short_name": "DIO Campaign Lab",
+      "offer": "governed_campaign_creative",
+      "promise": "Turn an approved offer into audience-specific campaign copy, locally composed visuals and reviewable media drafts.",
+      "proof": "Campaign assets carry semantic, visual-source and human-review receipts; publication and spend remain held.",
+      "cta": "Build a controlled campaign concept",
+      "landing_page": "sites/market-command/index.html",
+      "proof_asset": "acceptance_runs/68-product-integration-20261027/canonical-repaired/normal/campaign-lab/EXECUTION/PROFESSIONAL_CAMPAIGN_LAB_RECEIPT.json",
+      "source_image": "media/product_asset_packs/dio_creative_organs_site_matched_v2/assets/PICTORA_ORGAN_BANNER_1920x1080.jpg",
+      "accent": "#d8ad48",
+      "audiences": [
+        {
+          "id": "professional_customer",
+          "name": "Professional campaign teams",
+          "pain": "Campaign content needs to move across formats while keeping its proof, voice and review state consistent.",
+          "outcome": "A coherent campaign family with local image candidates and explicit release control."
+        }
+      ]
+    },
+    {
+      "id": "PICTORA_IMAGE_EDITOR",
+      "name": "Pictora Image Editor",
+      "short_name": "Pictora",
+      "offer": "local_image_editing",
+      "promise": "Refine owned images on-device with precise photo controls and reviewable AI operations.",
+      "proof": "Originals remain untouched; edit parameters, model workflows and output hashes are retained.",
+      "cta": "Edit one image locally",
+      "landing_page": "sites/pictora-image-editor/index.html",
+      "proof_asset": "deliverables/pictora_image_editor/PICTORA_IMAGE_EDITOR_LIVE_EVIDENCE.md",
+      "source_image": "media/product_asset_packs/dio_creative_organs_site_matched_v2/assets/PICTORA_ORGAN_BANNER_1920x1080.jpg",
+      "accent": "#d8ad48",
+      "audiences": [
+        {
+          "id": "photographers_creators",
+          "name": "Photographers and independent creators",
+          "pain": "Quick cleanup and delivery edits interrupt the creative process.",
+          "outcome": "A repeatable local workflow for lighting, colour, detail and cutouts."
+        },
+        {
+          "id": "marketing_creative_teams",
+          "name": "Marketing and content teams",
+          "pain": "Campaign imagery needs fast, consistent adaptation across placements.",
+          "outcome": "A traceable edit path that preserves the source and keeps release review visible."
+        },
+        {
+          "id": "design_studios",
+          "name": "Design studios and production teams",
+          "pain": "Finishing work is spread across tools with inconsistent provenance and output handling.",
+          "outcome": "A local asset workbench with predictable controls and model receipts."
+        }
       ]
     }
   ]

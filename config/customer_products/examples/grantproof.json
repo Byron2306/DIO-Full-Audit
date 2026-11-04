@@ -1,0 +1,75 @@
+{
+  "case_id": "SYNTHETIC-GRANTPROOF-20261102",
+  "title": "Grant readiness evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "source_id": "SYNTHETIC-GRANTPROOF-20261102",
+  "source_ref": "synthetic://SYNTHETIC-GRANTPROOF-20261102",
+  "source_type": "grant",
+  "source_text": "# Synthetic grant call extract\n\nThis synthetic source set demonstrates source-bound grant readiness review. Applicant statements are separate unverified evidence records.\n\nClause 1: The maximum grant request is ZAR 2,500,000.\nClause 2: Applicants must supply audited financial statements for the latest two financial years.\nClause 3: Applicants must supply a current safeguarding policy and a board resolution signed by the authorised chair.",
+  "obligations": [
+    {
+      "locator": "CLAUSE-1",
+      "statement": "Clause 1: The maximum grant request is ZAR 2,500,000.",
+      "kind": "other",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-2",
+      "statement": "Clause 2: Applicants must supply audited financial statements for the latest two financial years.",
+      "kind": "other",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    },
+    {
+      "locator": "CLAUSE-3",
+      "statement": "Clause 3: Applicants must supply a current safeguarding policy and a board resolution signed by the authorised chair.",
+      "kind": "other",
+      "responsible_party": "Customer-designated owner to confirm",
+      "evidence_requirements": [
+        "Customer record for owner review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "R-01",
+      "source_ref": "synthetic://grantproof/applicant-budget/R-01",
+      "text": "The applicant requests ZAR 2,400,000.",
+      "target_locators": [
+        "CLAUSE-1"
+      ],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-02",
+      "source_ref": "synthetic://grantproof/applicant-financials/R-02",
+      "text": "The applicant reports that only 2024 audited financial statements are supplied.",
+      "target_locators": [
+        "CLAUSE-2"
+      ],
+      "relation": "contradicts"
+    },
+    {
+      "evidence_id": "R-03",
+      "source_ref": "synthetic://grantproof/applicant-governance/R-03",
+      "text": "The applicant states the board resolution is signed by the authorised chair.",
+      "target_locators": ["CLAUSE-3"],
+      "relation": "supports"
+    },
+    {
+      "evidence_id": "R-04",
+      "source_ref": "synthetic://grantproof/applicant-governance/R-04",
+      "text": "The applicant reports the policy is dated 2022 and no current review record was included with the supplied packet.",
+      "target_locators": ["CLAUSE-3"],
+      "relation": "contradicts"
+    }
+  ],
+  "operator_id": "synthetic-acceptance-operator",
+  "as_of": "2026-11-01T00:00:00+00:00"
+}

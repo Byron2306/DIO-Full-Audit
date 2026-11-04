@@ -1,0 +1,68 @@
+{
+  "case_id": "SYNTHETIC-MODELPROOF-001",
+  "title": "AI model evidence and change review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "MODEL_CARD",
+      "text": "Model card: document classifier v3.2 routes submitted documents to a human review queue; it does not make final eligibility decisions."
+    },
+    {
+      "source_id": "EVAL",
+      "text": "Evaluation report: aggregate F1 is 0.91 on the supplied holdout set; the set excludes documents in two supported languages and reports no subgroup error analysis."
+    },
+    {
+      "source_id": "CHANGE",
+      "text": "Change record: OCR preprocessing library changed on 2026-10-12; model version and deployment fingerprint are unchanged. No post-change regression run, rollback evidence, or independent approval is attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "R1",
+      "label": "Establish model use and human decision boundary",
+      "source_id": "MODEL_CARD",
+      "quote": "routes submitted documents to a human review queue; it does not make final eligibility decisions",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R2",
+      "label": "Assess evaluation coverage and performance limits",
+      "source_id": "EVAL",
+      "quote": "aggregate F1 is 0.91 on the supplied holdout set; the set excludes documents in two supported languages and reports no subgroup error analysis",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "R3",
+      "label": "Review change control and missing verification",
+      "source_id": "CHANGE",
+      "quote": "No post-change regression run, rollback evidence, or independent approval is attached",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "MODEL_CARD",
+      "quote": "routes submitted documents to a human review queue",
+      "supports": [
+        "R1"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "EVAL",
+      "quote": "aggregate F1 is 0.91 on the supplied holdout set",
+      "supports": [
+        "R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "R3",
+      "source_id": "CHANGE",
+      "quote": "No post-change regression run, rollback evidence, or independent approval is attached"
+    }
+  ]
+}

@@ -396,12 +396,15 @@ def concat_segments_with_transitions(segment_paths: list[Path], durations: list[
 
 
 def write_music_search_plan(episode_dir: Path) -> None:
+    from products.sonoris_music_direction import direction_for_video
     imports = episode_dir / "imports"
     imports.mkdir(parents=True, exist_ok=True)
     plan = {
         "schema": "knowedge.free_media.music_search_plan.v1",
         "created_at": utc_now(),
         "goal": "Find a cleared instrumental bed for a practical B2B workflow explainer.",
+        "sonoris_direction": direction_for_video({"pacing": "measured", "voice": {"required": True},
+                                                     "music": {"family": "minimal_neutral", "volume": 0.05}}),
         "search_terms": [
             "corporate technology instrumental",
             "minimal clean focused instrumental",

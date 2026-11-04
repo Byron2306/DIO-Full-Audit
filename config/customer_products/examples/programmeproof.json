@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-PROGRAMMEPROOF-001",
+  "title": "Community health programme delivery evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "PLAN",
+      "text": "Programme plan P-12 targets monthly health education sessions in five community sites."
+    },
+    {
+      "source_id": "LOG",
+      "text": "Delivery log: 18 sessions recorded across five sites in September 2026; attendance sheets were supplied for 15 sessions."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Coordinator note: three sessions have no attached attendance sheet and participant reach is therefore incomplete."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "PROGRAMME-R1",
+      "source_id": "PLAN",
+      "quote": "targets monthly health education sessions in five community sites",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "PROGRAMME-R2",
+      "source_id": "LOG",
+      "quote": "18 sessions recorded across five sites in September 2026",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "PROGRAMME-R3",
+      "source_id": "EXCEPTION",
+      "quote": "three sessions have no attached attendance sheet",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "PROGRAMME-E1",
+      "source_id": "PLAN",
+      "quote": "targets monthly health education sessions in five community sites",
+      "supports": [
+        "PROGRAMME-R1"
+      ]
+    },
+    {
+      "evidence_id": "PROGRAMME-E2",
+      "source_id": "LOG",
+      "quote": "18 sessions recorded across five sites in September 2026",
+      "supports": [
+        "PROGRAMME-R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "PROGRAMME-R3",
+      "source_id": "EXCEPTION",
+      "quote": "three sessions have no attached attendance sheet"
+    }
+  ]
+}

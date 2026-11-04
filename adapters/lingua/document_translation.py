@@ -135,7 +135,10 @@ def translation_checks(
         ):
             abbreviation = str(term.get("abbreviation") or "")
             if not abbreviation or abbreviation not in target:
-                add("preferred_term_missing", preferred)
+                if term.get("diagnostic_policy") == "advisory_candidate":
+                    add("terminology_candidate_not_used", preferred)
+                else:
+                    add("preferred_term_missing", preferred)
     if not target.strip():
         add("empty_translation", "No target text")
     if re.search(r"[\u0400-\u052f\u0600-\u06ff\u4e00-\u9fff]", target):
@@ -189,9 +192,22 @@ def translation_checks(
                 "target_language_evidence_missing",
                 "No common Afrikaans function words; manual language check required",
             )
+        residual_english_check = clean
+        for term in terms:
+            source_term = str(term.get("source") or term.get("source_term") or "")
+            translated_term = str(term.get("target") or term.get("target_term") or "")
+            if (
+                source_term
+                and translated_term
+                and source_term.casefold() in source.casefold()
+                and translated_term.casefold() in clean.casefold()
+            ):
+                residual_english_check = re.sub(
+                    re.escape(source_term), "", residual_english_check, flags=re.I
+                )
         if re.search(
             r"\b(the|must|appointment|please|should|until|minutes|before|after|identity|documents)\b",
-            clean,
+            residual_english_check,
             re.I,
         ):
             add(
@@ -238,6 +254,40 @@ def _text(value: str) -> tuple[str, dict[str, Any]]:
     except json.JSONDecodeError:
         pass
     return value.strip(), {}
+
+
+def _complete_simple_afrikaans_double_negation(
+    source: str, target: str, language: str
+) -> tuple[str, dict[str, str] | None]:
+    """Repair one bounded, literal English ``is not`` Afrikaans sentence.
+
+    This is a syntax repair for a single-clause candidate, not a fluency or
+    translation-approval signal. Keep it deliberately narrow and retain the
+    original candidate in the attempt receipt.
+    """
+    if language.strip().casefold() not in {"afrikaans", "af", "af-za"}:
+        return target, None
+    source_sentences = re.findall(r"[^.!?]+[.!?]?", source.strip())
+    if len([sentence for sentence in source_sentences if sentence.strip()]) != 1:
+        return target, None
+    if not re.search(r"\bis\s+not\b", source, re.I) or re.search(
+        r"\bis\s+not\s+(?:only|just)\b", source, re.I
+    ):
+        return target, None
+    if not re.search(r"\bis\s+nie\b", target, re.I):
+        return target, None
+    if len(re.findall(r"\bnie\b", target, re.I)) != 1:
+        return target, None
+    match = re.search(r"([.!?]?)\s*$", target)
+    punctuation = match.group(1) if match else ""
+    body = target[: match.start()].rstrip() if match else target.rstrip()
+    repaired = f"{body} nie{punctuation}"
+    return repaired, {
+        "rule": "literal_is_not_afrikaans_double_negation",
+        "original_candidate": target,
+        "repaired_candidate": repaired,
+        "review_required": "proficient_target_language_review",
+    }
 
 
 def translate_document(
@@ -355,6 +405,9 @@ def translate_document(
                 continue
             calls.append({"paragraph_id": pid, "phase": "translate", **receipt})
             target, _ = _text(value)
+            target, syntax_repair = _complete_simple_afrikaans_double_negation(
+                source, target, language
+            )
             # Marian's scoped machine-proposed terminology is prepared inside
             # its local engine. Feed those exact terms back into the outer
             # deterministic checks; otherwise the engine can ignore its own
@@ -376,6 +429,7 @@ def translate_document(
                 "issues": issues,
                 "attempt": attempt + 1,
                 "terms_for_checks": candidate_terms,
+                "syntax_repair": syntax_repair,
             }
             attempts.append(entry)
             if best is None or len(issues) < len(best["issues"]):
@@ -396,6 +450,11 @@ def translate_document(
             "attempts": attempts,
             "language_diagnostics": best["issues"],
         }
+        if best.get("syntax_repair"):
+            row["syntax_repair"] = best["syntax_repair"]
+            row["review_note"] = (
+                "A bounded Afrikaans negation syntax repair was applied; proficient target-language review remains required."
+            )
         if request.get("automated_language_critic", True):
             review_system = (
                 f"You are an independent bilingual {language} editor. Check the draft against the source for meaning, natural grammar, genuine vocabulary, negation and terminology. "
@@ -431,6 +490,13 @@ def translate_document(
                 source, revised, language, protected,
                 best.get("terms_for_checks", scoped_terms),
             )
+            source_word_count = len(re.findall(r"[\w'-]+", source))
+            revised_word_count = len(re.findall(r"[\w'-]+", revised))
+            if source_word_count <= 4 and revised_word_count > max(8, source_word_count * 4):
+                diagnostics.append({
+                    "code": "critic_scope_expansion",
+                    "detail": "A short source unit was expanded into a long critic rewrite; retain the original draft and require human review.",
+                })
             row["critic_review"] = review
             row["critic_revision_rejected"] = bool(diagnostics)
             row["initial_model_draft"] = best["text"]
@@ -463,8 +529,9 @@ def translate_document(
             flags.append(
                 {
                     "paragraph_id": pid,
-                    "severity": "high",
+                    "severity": "low" if issue["code"] == "terminology_candidate_not_used" else "high",
                     "issue": issue["code"] + ": " + issue["detail"],
+                    "origin": "advisory_machine_proposed_term" if issue["code"] == "terminology_candidate_not_used" else "deterministic_language_check",
                 }
             )
         rows.append(row)
@@ -534,11 +601,14 @@ def build_review_template(
         "domain": request.get("document_domain", ""),
         "reviewer": "",
         "reviewer_role": "",
+        "reviewer_language_proficiency": "",
+        "reviewer_qualification_reference": "",
         "approved_at": "",
         "units": [
             {
                 "unit_id": p["paragraph_id"],
                 "source_hash": digest_text(p["text"]),
+                "target_hash": digest_text(translations[p["paragraph_id"]]["translated"]),
                 "source_text": p["text"],
                 "target_text": translations[p["paragraph_id"]]["translated"],
                 "approved": False,
@@ -555,4 +625,44 @@ def build_review_template(
             for p in paragraphs
         ],
         "terms": [],
+        "release_authorized": False,
+        "authority_note": "A proficient target-language reviewer must verify every segment and record their language proficiency. This template does not release or publish the translation.",
     }
+
+
+def validate_human_review(template: dict[str, Any]) -> dict[str, Any]:
+    """Validate review completeness and bind it to the exact text reviewed.
+
+    This checks record completeness only; it cannot verify identity, proficiency,
+    linguistic accuracy, or authority to release.
+    """
+    errors: list[str] = []
+    if template.get("schema") != "dio.lingua.human_approval.v1":
+        errors.append("unsupported_schema")
+    for key, error in (("reviewer", "reviewer_missing"), ("reviewer_role", "reviewer_role_missing"),
+                       ("reviewer_language_proficiency", "reviewer_language_proficiency_missing"),
+                       ("approved_at", "review_timestamp_missing")):
+        if not str(template.get(key) or "").strip():
+            errors.append(error)
+    units = template.get("units")
+    if not isinstance(units, list) or not units:
+        errors.append("units_missing")
+        units = []
+    for index, unit in enumerate(units):
+        prefix = f"unit_{unit.get('unit_id') or index}"
+        if unit.get("source_hash") != digest_text(str(unit.get("source_text") or "")):
+            errors.append(f"{prefix}_source_hash_mismatch")
+        if unit.get("target_hash") != digest_text(str(unit.get("target_text") or "")):
+            errors.append(f"{prefix}_target_hash_mismatch")
+        if unit.get("approved") is not True:
+            errors.append(f"{prefix}_not_approved")
+        for flag in unit.get("flag_resolutions") or []:
+            if flag.get("resolution") not in {"resolved", "accepted_with_rationale"} or not str(flag.get("note") or "").strip():
+                errors.append(f"{prefix}_flag_unresolved")
+    ready = not errors and template.get("approval_state") == "approved"
+    return {"schema": "dio.lingua.human_review_validation.v1",
+            "state": "REVIEW_RECORD_COMPLETE" if ready else "NEEDS_REVIEW_COMPLETION",
+            "errors": errors, "release_authorized": False,
+            "identity_or_proficiency_independently_verified": False,
+            "linguistic_accuracy_independently_verified": False,
+            "note": "A complete hash-bound review record is not independent credential verification or publication authorization."}

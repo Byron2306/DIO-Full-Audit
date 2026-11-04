@@ -445,16 +445,50 @@ def _validate_current_materialization(
         receipt["canon_provenance_scope"] = "LEGACY_ARTIFACT_SEAL_ONLY"
         return ["canon_materialization_required_for_current_profile"]
     receipt["canon_provenance_scope"] = "MATERIALIZATION_BINDING_REFUSED"
-    generation = (root / declared).resolve()
-    if not declared or generation != canon.parent / filename or not generation.is_relative_to(root):
-        return ["canon_materialization_source_path_mismatch"]
-    if not generation.is_file():
-        return ["canon_materialization_source_missing"]
     blockers: list[str] = []
-    if seal.get("source_generation_receipt_schema") != schema:
-        blockers.append("canon_materialization_source_schema_invalid")
-    if str(seal.get("source_generation_receipt_sha256") or "").removeprefix("sha256:") != _sha(generation):
-        blockers.append("canon_materialization_source_hash_mismatch")
+    expected_materialization = (canon.parent / filename).resolve()
+    declared_generation = (root / declared).resolve() if declared else None
+    if declared_generation == expected_materialization:
+        if not declared_generation.is_relative_to(root) or not declared_generation.is_file():
+            return ["canon_materialization_source_missing"]
+        if seal.get("source_generation_receipt_schema") != schema:
+            blockers.append("canon_materialization_source_schema_invalid")
+        if str(seal.get("source_generation_receipt_sha256") or "").removeprefix("sha256:") != _sha(declared_generation):
+            blockers.append("canon_materialization_source_hash_mismatch")
+        generation = declared_generation
+    elif declared_generation == (root / str(spec.get("proof_receipt") or "")).resolve():
+        # Current canon seals bind Gamma, while Gamma separately binds the
+        # current-profile materialization receipt. This keeps the canonical
+        # generation receipt path stable without weakening strict profile checks.
+        if not declared_generation.is_relative_to(root) or not declared_generation.is_file():
+            return ["canon_materialization_source_missing"]
+        if seal.get("source_generation_receipt_schema") != "dio.canon_extension.current_profile_generation.v1":
+            blockers.append("canon_materialization_source_schema_invalid")
+        if str(seal.get("source_generation_receipt_sha256") or "").removeprefix("sha256:") != _sha(declared_generation):
+            blockers.append("canon_materialization_source_hash_mismatch")
+        try:
+            gamma = json.loads(declared_generation.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return [*blockers, "canon_materialization_source_invalid"]
+        material_rel = str(gamma.get("source_generation_receipt") or "")
+        generation = (root / material_rel).resolve()
+        if generation != expected_materialization or not generation.is_relative_to(root):
+            blockers.append("canon_materialization_source_path_mismatch")
+        elif not generation.is_file():
+            return [*blockers, "canon_materialization_source_missing"]
+        elif gamma.get("source_generation_receipt_schema") != schema:
+            blockers.append("canon_materialization_source_schema_invalid")
+        elif str(gamma.get("source_generation_receipt_sha256") or "").removeprefix("sha256:") != _sha(generation):
+            blockers.append("canon_materialization_source_hash_mismatch")
+        for record in (seal, gamma):
+            if record.get("canon_id") != spec["canon_id"] or record.get("slug") != spec["slug"]:
+                blockers.append("canon_materialization_identity_mismatch")
+            if record.get("primary_artifact") != spec["primary_artifact"]:
+                blockers.append("canon_materialization_artifact_path_mismatch")
+            if str(record.get("current_artifact_sha256") or record.get("primary_artifact_sha256") or "").removeprefix("sha256:") != receipt["canon_artifact_sha256"]:
+                blockers.append("canon_materialization_artifact_mismatch")
+    else:
+        return ["canon_materialization_source_path_mismatch"]
     try:
         material = json.loads(generation.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):

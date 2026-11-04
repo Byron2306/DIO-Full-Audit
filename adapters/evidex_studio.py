@@ -119,25 +119,31 @@ def build_readiness_gap_map(manifest: dict[str, Any]) -> dict[str, Any]:
     evidence = contract.get("supplied_evidence_fixture") or []
     rows = []
     for requirement in contract.get("published_requirements_fixture") or []:
-        supporting = sorted(
-            str(item["evidence_id"])
-            for item in evidence
+        supporting_rows = [
+            item for item in evidence
             if requirement["requirement_id"] in set(item.get("supports") or []) and item.get("state") == "supplied"
-        )
+        ]
+        supporting = sorted(str(item["evidence_id"]) for item in supporting_rows)
+        partial_rows = [item for item in supporting_rows if item.get("coverage_state") == "PARTIAL_FOR_REVIEW"]
         rows.append({
             "requirement_id": requirement["requirement_id"],
             "label": requirement["label"],
             "mandatory": bool(requirement.get("mandatory", True)),
             "supporting_evidence_ids": supporting,
-            "state": "SUPPORTED_FOR_READINESS_REVIEW" if supporting else "EVIDENCE_NEEDED",
+            "coverage_notes": [str(item["coverage_note"]) for item in partial_rows],
+            "coverage_basis_ids": sorted({str(value) for item in partial_rows for value in item.get("coverage_basis_ids", [])}),
+            "state": ("PARTIAL_EVIDENCE_FOR_REVIEW" if partial_rows else
+                      "SUPPORTED_FOR_READINESS_REVIEW" if supporting else "EVIDENCE_NEEDED"),
         })
     missing = [row for row in rows if row["mandatory"] and row["state"] == "EVIDENCE_NEEDED"]
+    incomplete = [row for row in rows if row["mandatory"] and row["state"] in {"EVIDENCE_NEEDED", "PARTIAL_EVIDENCE_FOR_REVIEW"}]
     body = {
         "schema": "dio.evidex_finance_readiness_gap_map.v1",
         "studio_id": manifest["studio_id"],
         "requirements": rows,
         "mandatory_gap_count": len(missing),
-        "readiness_state": "EVIDENCE_GAPS_PRESENT" if missing else "EVIDENCE_SET_COMPLETE_FOR_HUMAN_REVIEW",
+        "mandatory_incomplete_count": len(incomplete),
+        "readiness_state": "EVIDENCE_GAPS_PRESENT" if incomplete else "EVIDENCE_SET_COMPLETE_FOR_HUMAN_REVIEW",
         "decision_boundary": contract["decision_boundary"],
         "lender_decision": "NOT_MADE",
         "authority_created": False,

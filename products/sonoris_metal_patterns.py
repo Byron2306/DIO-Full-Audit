@@ -160,6 +160,43 @@ def realize_metal(plan: Mapping[str, Any], *, seed: int, tuning: str | None = No
                 < beats_per_bar
             ]
 
+            # Give the metal subgenres different physical time-feels before
+            # instrument realization. These are abstract performance laws,
+            # not transcriptions of any referenced riff.
+            if genre == "doom_metal":
+                # One heavy arrival per bar leaves room for the chord and amp
+                # tail to carry the phrase instead of turning into a fast loop.
+                onsets = [(0.0, 0)]
+            elif genre == "power_metal" and beats_per_bar >= 3 and "GALLOP" in gesture:
+                gallop = []
+                for beat in range(math.ceil(beats_per_bar)):
+                    for fraction in (0.0, 0.5, 0.75):
+                        at = beat + fraction
+                        if at < beats_per_bar:
+                            source_degree = onsets[(beat * 3 + len(gallop)) % len(onsets)][1] if onsets else 0
+                            gallop.append((at, source_degree))
+                onsets = gallop
+            elif genre == "folk_metal" and beats_per_bar == 3:
+                # Six eighth-note cells with a three-pulse dance accent cycle.
+                dance = (0, 2, 4, 3, 2, 1)
+                onsets = [(step * 0.5, dance[step]) for step in range(6)]
+            elif genre == "industrial_metal":
+                # Clocked quarter-note motor; keep note pitches locked and
+                # let the machine-gate articulation provide the movement.
+                onsets = [(float(beat), onsets[beat % len(onsets)][1] if onsets else 0)
+                          for beat in range(math.ceil(beats_per_bar)) if beat < beats_per_bar]
+            elif genre == "nu_metal" and beats_per_bar >= 4:
+                # Low-register syncopation with deliberate gaps around the
+                # half-time backbeat; the groove is carried by accents/rests.
+                syncopation = (0.0, 0.75, 1.75, 2.75, 3.5)
+                onsets = [(at, onsets[i % len(onsets)][1] if onsets else 0)
+                          for i, at in enumerate(syncopation) if at < beats_per_bar]
+            elif genre == "glam_metal" and beats_per_bar >= 4:
+                # Broad quarter-note power-chord bed; lead answers supply the
+                # blues-rock motion rather than a continuous palm-muted grid.
+                onsets = [(float(beat), onsets[beat % len(onsets)][1] if onsets else 0)
+                          for beat in range(4)]
+
             if quiet:
                 onsets = onsets[::2]
             if not onsets: onsets=[(0,0)]
@@ -183,10 +220,16 @@ def realize_metal(plan: Mapping[str, Any], *, seed: int, tuning: str | None = No
             _drums(rows["drums"],style["drums"],t,beats_per_bar,energy,gesture,sec,bar_in_section,rng)
             # Lead motifs answer the riff every few bars; power metal adds a harmonized line.
             lead_active=(bar_in_section%4==2 or ("SOLO" in gesture and bar_in_section%2==0)) and not quiet and genre not in {"industrial_metal","nu_metal"}
+            if genre == "folk_metal" and gesture not in {"HEAVY_RIFF"} and "SOLO" not in gesture:
+                lead_active = False
             if lead_active:
                 lead_steps = (
                     motif_dna.lead_pool
                 )
+                if genre == "glam_metal":
+                    # Original pentatonic answer shapes retain a bluesy
+                    # contour without borrowing a source melody.
+                    lead_steps = (0, 3, 5, 7, 10, 12)
                 span=2 if genre=="doom_metal" else 4 if genre in {"power_metal","glam_metal","prog_metal"} else 3
                 for j in range(span):
                     offset=j*beats_per_bar/span
@@ -195,13 +238,24 @@ def realize_metal(plan: Mapping[str, Any], *, seed: int, tuning: str | None = No
                     rows["lead"].append(event("lead",t+offset,length,pitch,int(68+energy*37),gesture,sec,"lead"))
                     if genre=="power_metal": rows["lead"].append(event("lead",t+offset,length,pitch+4,int(62+energy*31),gesture,sec,"harmony_third"))
             if style["extra"]=="folk":
-                # Modal reed melody and drone use the same tonic but occupy their own instrument stem.
+                # The reed takes the foreground only in folk-theme and dance
+                # sections. Heavy sections trade the answer to electric guitar.
                 folk_root=60+tonic
                 if folk_root<65:folk_root+=12
-                for j,step in enumerate(style["lead_degrees"][:4]):
-                    offset=j*beats_per_bar/4
-                    rows["folk"].append(event("folk",t+offset,beats_per_bar/4*.82,folk_root+step,
-                                              int(64+energy*31),gesture,sec,"folk_melody"))
+                folk_front = gesture in {"FOLK_THEME","DANCE_RETURN"}
+                if folk_front:
+                    if meter == "6/8":
+                        pool = motif_dna.lead_pool
+                        contour = (0,1,2,3,2,1)
+                        melody = [(step*0.5,pool[(contour[step]+bar_in_section//2)%len(pool)]) for step in range(6)]
+                    elif meter == "3/4":
+                        pool = motif_dna.lead_pool
+                        melody = [(float(step),pool[(step+bar_in_section//2)%len(pool)]) for step in range(3)]
+                    else:
+                        melody = [(j*beats_per_bar/4,step) for j,step in enumerate(motif_dna.lead_pool[:4])]
+                    for offset,step in melody:
+                        rows["folk"].append(event("folk",t+offset,beats_per_bar/(6 if meter=="6/8" else 3 if meter=="3/4" else 4)*.82,folk_root+step,
+                                                  int(64+energy*31),gesture,sec,"folk_melody"))
                 if bar_in_section%4==0:
                     rows["folk"].append(event("folk",t,beats_per_bar*min(4,section["end_bar"]-bar),36+tonic,
                                               int(47+energy*14),gesture,sec,"drone"))

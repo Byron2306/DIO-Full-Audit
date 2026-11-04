@@ -1,0 +1,94 @@
+{
+  "schema": "dio.vesper.viseme-contract.v1",
+  "description": "Deterministic speech-performance contract for Vera/VESPER using ten visual mouth poses, ARPAbet-to-viseme mapping, and ARKit-compatible facial controls.",
+  "authority": {
+    "voice_profile_id": "vera_pocket_public",
+    "audio_is_canonical": true,
+    "speech_generation_in_scope": false,
+    "human_review_required_for_release": true
+  },
+  "geometry": {
+    "source": "ComfyUI MediaPipe Face Landmarker v2",
+    "landmark_output": "478-point face mesh with image-space coordinates",
+    "mask_region": "lips",
+    "blendshape_schema": "ARKit-52",
+    "comfy_nodes": [
+      "LoadMediaPipeFaceLandmarker",
+      "MediaPipeFaceLandmarker",
+      "MediaPipeFaceMask"
+    ],
+    "purpose": "Use Vera's canonical face landmarks and lip mask to anchor the mouth region. Blendshape weights describe the performance; the lip mask constrains any ComfyUI inpaint/edit pass to that region."
+  },
+  "timing": {
+    "default_fps": 30,
+    "default_coarticulation_ms": 80,
+    "easing": "smoothstep",
+    "time_unit": "seconds",
+    "frame_timestamps": "frame_index / fps",
+    "rounding_decimals": 4
+  },
+  "visemes": {
+    "REST": {
+      "label": "rest / silence",
+      "phonemes": ["SIL", "SP", "PAUSE"],
+      "blendshapes": {}
+    },
+    "MBP": {
+      "label": "bilabial closure",
+      "phonemes": ["M", "B", "P"],
+      "blendshapes": {"mouthClose": 0.92, "mouthPressLeft": 0.35, "mouthPressRight": 0.35}
+    },
+    "FV": {
+      "label": "lower lip to upper teeth",
+      "phonemes": ["F", "V"],
+      "blendshapes": {"jawOpen": 0.12, "mouthLowerDownLeft": 0.18, "mouthLowerDownRight": 0.18, "mouthPressLeft": 0.12, "mouthPressRight": 0.12}
+    },
+    "EE": {
+      "label": "wide front vowel",
+      "phonemes": ["IY", "IH", "EY", "Y"],
+      "blendshapes": {"jawOpen": 0.22, "mouthStretchLeft": 0.52, "mouthStretchRight": 0.52, "mouthSmileLeft": 0.12, "mouthSmileRight": 0.12}
+    },
+    "EH": {
+      "label": "mid front vowel",
+      "phonemes": ["EH", "AE", "EH1", "AE1"],
+      "blendshapes": {"jawOpen": 0.38, "mouthStretchLeft": 0.20, "mouthStretchRight": 0.20, "mouthLowerDownLeft": 0.14, "mouthLowerDownRight": 0.14}
+    },
+    "AH": {
+      "label": "open vowel",
+      "phonemes": ["AA", "AH", "AX", "ER", "AW"],
+      "blendshapes": {"jawOpen": 0.68, "mouthLowerDownLeft": 0.38, "mouthLowerDownRight": 0.38, "mouthUpperUpLeft": 0.12, "mouthUpperUpRight": 0.12}
+    },
+    "OH": {
+      "label": "rounded open vowel",
+      "phonemes": ["AO", "OW", "OY"],
+      "blendshapes": {"jawOpen": 0.36, "mouthFunnel": 0.56, "mouthPucker": 0.16}
+    },
+    "OO": {
+      "label": "close rounded vowel / glide",
+      "phonemes": ["UW", "UH", "W", "UW1"],
+      "blendshapes": {"jawOpen": 0.16, "mouthFunnel": 0.38, "mouthPucker": 0.72}
+    },
+    "TH": {
+      "label": "interdental tongue gesture",
+      "phonemes": ["TH", "DH"],
+      "blendshapes": {"jawOpen": 0.20, "mouthStretchLeft": 0.08, "mouthStretchRight": 0.08, "mouthLowerDownLeft": 0.12, "mouthLowerDownRight": 0.12}
+    },
+    "SH": {
+      "label": "sibilant / affricate",
+      "phonemes": ["SH", "ZH", "CH", "JH", "S", "Z"],
+      "blendshapes": {"jawOpen": 0.14, "mouthFunnel": 0.24, "mouthPucker": 0.14, "mouthStretchLeft": 0.10, "mouthStretchRight": 0.10}
+    }
+  },
+  "phoneme_fallbacks": {
+    "default": "REST",
+    "alveolar_and_velar": "EE",
+    "phonemes": ["T", "D", "N", "L", "R", "K", "G", "NG", "H"]
+  },
+  "quality_constraints": [
+    "All blendshape weights remain in [0, 1].",
+    "Phoneme events must be ordered, have positive duration, and not overlap.",
+    "The output timeline is deterministic for identical input events and settings.",
+    "ARKit weights are a renderer-neutral performance target; they do not claim that a raster portrait itself is a morph-target mesh.",
+    "TH tongue placement is approximated because the ARKit-52 set has no tongue-out control; preserve this limitation in receipts."
+  ]
+}

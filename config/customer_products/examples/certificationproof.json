@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-CERTIFICATIONPROOF-001",
+  "title": "ISO management-system certification evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "CRITERIA",
+      "text": "Certification scope requires a valid certificate identifying the audited entity, standard, scope and expiry date."
+    },
+    {
+      "source_id": "CERTIFICATE",
+      "text": "Certificate copy: North Valley Foods; ISO 22000; scope: packaged produce; expiry date shown as 2026-09-30."
+    },
+    {
+      "source_id": "REGISTER",
+      "text": "Supplier register entry dated 2026-10-15 lists the certificate as current through 2027-09-30; issuing-body verification record was not attached."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "CERT-SCOPE",
+      "source_id": "CRITERIA",
+      "quote": "identifying the audited entity, standard, scope and expiry date",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "CERT-DETAILS",
+      "source_id": "CERTIFICATE",
+      "quote": "ISO 22000; scope: packaged produce; expiry date shown as 2026-09-30",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "CERT-STATUS",
+      "source_id": "REGISTER",
+      "quote": "issuing-body verification record was not attached",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "CRITERIA",
+      "quote": "identifying the audited entity, standard, scope and expiry date",
+      "supports": [
+        "CERT-SCOPE"
+      ]
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "CERTIFICATE",
+      "quote": "ISO 22000; scope: packaged produce; expiry date shown as 2026-09-30",
+      "supports": [
+        "CERT-DETAILS"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "CERT-STATUS",
+      "source_id": "REGISTER",
+      "quote": "issuing-body verification record was not attached"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {"image": "vesper_vise_geometry_source_20261028.png"}
+  },
+  "2": {
+    "class_type": "LoadMediaPipeFaceLandmarker",
+    "inputs": {"model_name": "mediapipe_face_fp32.safetensors"}
+  },
+  "3": {
+    "class_type": "MediaPipeFaceLandmarker",
+    "inputs": {
+      "face_detection_model": ["2", 0],
+      "image": ["1", 0],
+      "detector_variant": "full",
+      "num_faces": 1,
+      "min_confidence": 0.5,
+      "missing_frame_fallback": "empty"
+    }
+  },
+  "4": {
+    "class_type": "MediaPipeFaceMask",
+    "inputs": {
+      "face_landmarks": ["3", 0],
+      "regions": "custom",
+      "regions.face_oval": false,
+      "regions.lips": true,
+      "regions.left_eye": false,
+      "regions.right_eye": false,
+      "regions.irises": false
+    }
+  },
+  "5": {
+    "class_type": "MaskToImage",
+    "inputs": {"mask": ["4", 0]}
+  },
+  "6": {
+    "class_type": "SaveImage",
+    "inputs": {"images": ["5", 0], "filename_prefix": "vesper_geometry/vera_lips_mask"}
+  },
+  "7": {
+    "class_type": "MediaPipeFaceMeshVisualize",
+    "inputs": {
+      "face_landmarks": ["3", 0],
+      "image": ["1", 0],
+      "connections": "custom",
+      "connections.face_oval": false,
+      "connections.lips": true,
+      "connections.left_eye": false,
+      "connections.right_eye": false,
+      "connections.left_eyebrow": false,
+      "connections.right_eyebrow": false,
+      "connections.irises": false,
+      "connections.nose": false,
+      "connections.tesselation": false,
+      "color": "#D6A94A",
+      "thickness": 2,
+      "point_size": 2
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {"images": ["7", 0], "filename_prefix": "vesper_geometry/vera_lips_mesh"}
+  },
+  "9": {
+    "class_type": "GrowMask",
+    "inputs": {"mask": ["4", 0], "expand": 22, "tapered_corners": true}
+  },
+  "10": {
+    "class_type": "MaskToImage",
+    "inputs": {"mask": ["9", 0]}
+  },
+  "11": {
+    "class_type": "SaveImage",
+    "inputs": {"images": ["10", 0], "filename_prefix": "vesper_geometry/vera_mouth_edit_mask"}
+  }
+}

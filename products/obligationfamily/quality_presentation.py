@@ -23,6 +23,7 @@ def _value(value: Any, fallback: str = "Not supplied") -> str:
 def report_sections(title: str, pack: dict[str, Any]):
     ledger = pack.get("requirement_or_obligation_ledger") or []
     evidence = pack.get("evidence_map") or []
+    provenance = pack.get("provenance_manifest") or {}
     contested = pack.get("contested_state_register") or []
     missing = pack.get("missing_evidence_register") or []
     deadlines = pack.get("deadline_register") or []
@@ -103,6 +104,37 @@ def report_sections(title: str, pack: dict[str, Any]):
     sections.append((
         "Source and evidence register",
         evidence_lines or ["No evidence mappings supplied."],
+    ))
+
+    provenance_lines = []
+    for row in provenance.get("source_clause_sources") or []:
+        matches = row.get("source_matches") or []
+        locations = "; ".join(
+            f"lines {item.get('line_start')}-{item.get('line_end')}, bytes [{item.get('byte_start')},{item.get('byte_end_exclusive')})"
+            for item in matches
+        ) or f"lines {row.get('source_line_start')}-{row.get('source_line_end')}, bytes [{row.get('source_byte_start')},{row.get('source_byte_end_exclusive')})"
+        provenance_lines.append(
+            f"Instrument clause {_value(row.get('clause_id'))}: "
+            f"quote={_value(row.get('text'))}; file={_value(row.get('source_file_ref'), _value(row.get('source_ref')))}; "
+            f"file_sha256={_value(row.get('source_file_sha256'))}; "
+            f"statement_sha256={_value(row.get('source_statement_sha256'))}; "
+            f"match_state={_value(row.get('source_match_state'), 'NOT_BOUND')}; "
+            f"match_count={_value(row.get('source_match_count'))}; locations={locations}"
+        )
+        provenance_lines.append("Verbatim source text: " + _value(row.get("text")))
+    for row in provenance.get("evidence_input_sources") or []:
+        provenance_lines.append(
+            f"{_value(row.get('evidence_kind'))} {_value(row.get('record_id'), 'record')}: "
+            f"{_value(row.get('source_ref'))}; file_sha256={_value(row.get('source_file_sha256'))}; "
+            f"row_sha256={_value(row.get('source_row_sha256'))}; "
+            f"statement_sha256={_value(row.get('source_statement_sha256'))}; "
+            f"bytes=[{_value(row.get('source_byte_start'))},{_value(row.get('source_byte_end_exclusive'))}); "
+            f"association={_value(row.get('association_state'), 'not applicable')}; "
+            f"trust={_value(row.get('trust_state'), 'unknown')}"
+        )
+    sections.append((
+        "Exact source byte provenance",
+        provenance_lines or ["No byte-level source provenance was supplied."],
     ))
 
     review_lines = []

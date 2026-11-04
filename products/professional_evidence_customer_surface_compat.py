@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -39,7 +40,8 @@ def _fingerprint(value: Any) -> str:
 
 
 def _tokens(value: Any) -> set[str]:
-    return {part for part in re.sub(r"[^a-z0-9]+", " ", str(value or "").casefold()).split() if part}
+    parts = {part for part in re.sub(r"[^a-z0-9]+", " ", str(value or "").casefold()).split() if part}
+    return {part[:-1] if part.endswith("s") and not part.endswith("ss") else part for part in parts}
 
 
 def _merge_reference_text(embedded: str, supplied: str) -> str:
@@ -124,13 +126,81 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows
     """Project customer records into the actual domain vocabulary VAMP accepts."""
 
     supplied_rows = source_rows if source_rows is not None else evidence_rows(packet)
+    from products.professional_evidence_projection import evidence_record_spans
+    register_path = packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"
+    register_bytes = register_path.read_bytes()
+    register_sha256 = hashlib.sha256(register_bytes).hexdigest()
+    record_spans = evidence_record_spans(packet)
+    source_bindings: dict[str, dict[str, Any]] = {}
+    for source_row in supplied_rows:
+        record_id = str(source_row.get("record_id") or "").strip()
+        source_statement = str(source_row.get("customer_supplied_record") or "").strip()
+        row_span = record_spans.get(record_id)
+        if row_span is None or not source_statement:
+            continue
+        row_start, row_end = int(row_span["source_byte_start"]), int(row_span["source_byte_end_exclusive"])
+        row_bytes = register_bytes[row_start:row_end]
+        statement_bytes = source_statement.encode("utf-8")
+        # A CSV field may double embedded quotes. Search both literal and CSV
+        # escaped spellings, and fail closed when a precise source location is
+        # not recoverable from the original row bytes.
+        escaped_statement_bytes = source_statement.replace('"', '""').encode("utf-8")
+        relative_start = row_bytes.find(statement_bytes)
+        matched_bytes = statement_bytes
+        if relative_start < 0:
+            relative_start = row_bytes.find(escaped_statement_bytes)
+            matched_bytes = escaped_statement_bytes
+        if relative_start < 0 or row_bytes.find(matched_bytes, relative_start + 1) >= 0:
+            raise ValueError(f"VAMP source statement cannot be uniquely byte-bound to CSV row {record_id}")
+        value_start = row_start + relative_start
+        value_end = value_start + len(matched_bytes)
+        source_bindings[record_id] = {
+            "source_id": str(source_row.get("source_id") or "SOURCES/02_evidence_register.csv"),
+            "source_ref": f"customer-packet://SOURCES/02_evidence_register.csv#bytes={value_start}:{value_end}",
+            "source_file_sha256": register_sha256,
+            "source_row_sha256": str(row_span["source_row_sha256"]),
+            "source_statement_sha256": hashlib.sha256(statement_bytes).hexdigest(),
+            "source_statement_csv_escaped": matched_bytes != statement_bytes,
+            "source_byte_start": value_start,
+            "source_byte_end_exclusive": value_end,
+            "parent_source_ref": f"customer-packet://SOURCES/02_evidence_register.csv#{record_id}",
+            "parent_source_statement_sha256": hashlib.sha256(source_statement.encode("utf-8")).hexdigest(),
+        }
+    declared_files = {str(item.get("path") or ""): item for item in (packet.get("manifest") or {}).get("files") or []}
     # A source document can contain both scope metadata and real objectives.
     # Split explicit statements before classifying; never drop its whole body.
     rows = []
     for supplied in supplied_rows:
         text = str(supplied.get("customer_supplied_record") or "")
-        statements = [part.strip() for part in re.split(r"\r?\n+|(?<=[.!?;])\s+(?=(?:Objective|KPA\d|Review period)\b)", text, flags=re.I) if part.strip()]
-        rows.extend({**supplied, "customer_supplied_record": statement} for statement in statements)
+        # Keep an attached artifact paired with its complete source-register
+        # row. Splitting an artifact-bearing row would otherwise duplicate the
+        # same underlying file as several VAMP evidence records.
+        statements = ([text.strip()] if str(supplied.get("artifact_path") or "").strip() else
+                      [part.strip() for part in re.split(r"\r?\n+|(?<=[.!?;])\s+", text, flags=re.I) if part.strip()])
+        cursor = 0
+        parent_binding = source_bindings.get(str(supplied.get("record_id") or ""), {})
+        for statement in statements:
+            item = {**supplied, "customer_supplied_record": statement}
+            char_start = text.find(statement, cursor)
+            if char_start < 0:
+                char_start = text.find(statement)
+            if parent_binding and char_start >= 0:
+                char_end = char_start + len(statement)
+                byte_start = int(parent_binding["source_byte_start"]) + len(text[:char_start].encode("utf-8"))
+                byte_end = byte_start + len(statement.encode("utf-8"))
+                item["source_binding"] = {
+                    "source_id": parent_binding.get("source_id"),
+                    "source_ref": re.sub(r"#bytes=\d+:\d+$", f"#bytes={byte_start}:{byte_end}", str(parent_binding["source_ref"])),
+                    "source_file_sha256": parent_binding["source_file_sha256"],
+                    "source_row_sha256": parent_binding["source_row_sha256"],
+                    "source_statement_sha256": hashlib.sha256(statement.encode("utf-8")).hexdigest(),
+                    "source_byte_start": byte_start,
+                    "source_byte_end_exclusive": byte_end,
+                    "parent_source_ref": parent_binding["source_ref"],
+                    "parent_source_statement_sha256": parent_binding["source_statement_sha256"],
+                }
+                cursor = char_end
+            rows.append(item)
     from products.vamp_customer_projection import review_window, is_objective, objective_minimum
     window = review_window(rows)
     if not any(is_objective(str(row.get("customer_supplied_record") or "")) for row in rows):
@@ -149,26 +219,110 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows
         """
     )
     projection: list[dict[str, Any]] = []
+    objective_records: list[dict[str, Any]] = []
+    ignored = set()
+    task_rows: list[tuple[int, dict[str, str], str, str, int, str]] = []
     for index, row in enumerate(rows, 1):
         record = str(row.get("customer_supplied_record") or "").strip()
         if re.match(r"review period\s*:", record, re.I) and not is_objective(record):
+            ignored.add(index)
             continue
         task = f"PRO-TASK-{index:02d}"
-        evidence = f"PRO-E-{index:02d}"
         domain = _vamp_domain(record)
+        minimum, minimum_basis = objective_minimum(record)
+        task_rows.append((index, row, task, domain, minimum, minimum_basis))
+        if is_objective(record):
+            objective_records.append({"task_id": task, "record": record, "domain": domain,
+                                     "record_id": str(row.get("record_id") or "")})
+
+    def mapping_candidate(record: str, domain: str, record_id: str) -> tuple[str | None, str | None]:
+        """Return only an explainable lexical candidate; never a confirmed match."""
+        if record_id:
+            same_row = [item for item in objective_records if item["record_id"] == record_id]
+            same_domain = [item for item in same_row if item["domain"] == domain]
+            candidates = same_domain if same_domain else same_row
+            if len(candidates) == 1:
+                objective = candidates[0]
+                return objective["task_id"], f"Same customer register row {record_id} contains this statement beside the stated objective; proposed for human review only, and the underlying artifact, content and date are not verified."
+        def terms(text: str) -> set[str]:
+            tokens = {token.casefold() for token in re.findall(r"[A-Za-z0-9]+", text) if len(token) >= 4}
+            tokens = {token[:-1] if token.endswith("s") and not token.endswith("ss") else token for token in tokens}
+            if tokens & {"publication", "article", "journal"}:
+                tokens.update({"research", "output"})
+            if tokens & {"supervision", "supervision"}:
+                tokens.update({"postgraduate", "completion"})
+            return tokens
+        tokens = terms(record)
+        stop = {"this", "that", "with", "from", "have", "were", "their", "there", "current", "period", "criterion", "requires", "requirement", "evidence", "record", "records", "customer", "verified", "verification", "documented", "documented"}
+        tokens -= stop
+        best: tuple[int, dict[str, Any], list[str]] | None = None
+        for objective in objective_records:
+            if objective["domain"] != domain:
+                continue
+            objective_tokens = terms(objective["record"]) - stop
+            shared = sorted(tokens & objective_tokens)
+            if shared and (best is None or len(shared) > best[0]):
+                best = (len(shared), objective, shared)
+        if best is None:
+            return None, None
+        return best[1]["task_id"], "Shared source wording: " + ", ".join(best[2]) + "; candidate only because customer statement does not include the underlying artifact."
+
+    created_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    for index, row, task, domain, minimum, minimum_basis in task_rows:
+        record = str(row.get("customer_supplied_record") or "").strip()
+        evidence = f"PRO-E-{index:02d}"
         path = evidence_dir / f"record_{index:02d}.txt"
         path.write_text(record + "\n", encoding="utf-8")
+        attachment = None
+        attachment_rel = str(row.get("artifact_path") or "").strip()
+        if attachment_rel:
+            relative = Path(attachment_rel)
+            source = (packet["packet_dir"] / relative).resolve()
+            if relative.is_absolute() or ".." in relative.parts or packet["packet_dir"] not in source.parents:
+                raise ValueError(f"evidence attachment path escapes customer packet: {attachment_rel}")
+            declared = declared_files.get(relative.as_posix())
+            if declared is None or not source.is_file():
+                raise ValueError(f"evidence attachment is not a manifest-bound packet file: {attachment_rel}")
+            source_hash = sha256(source)
+            supplied_hash = str(row.get("artifact_sha256") or "").strip().removeprefix("sha256:")
+            manifest_hash = str(declared.get("sha256") or "").removeprefix("sha256:")
+            if not supplied_hash or supplied_hash != source_hash or manifest_hash != source_hash:
+                raise ValueError(f"evidence attachment hash binding failed: {attachment_rel}")
+            attachment_path = evidence_dir / f"attachment_{index:02d}_{source.name}"
+            attachment_path.write_bytes(source.read_bytes())
+            attachment = {
+                "source_ref": f"customer-packet://{relative.as_posix()}",
+                "source_sha256": "sha256:" + source_hash,
+                "projection_path": str(attachment_path),
+                "projection_sha256": "sha256:" + sha256(attachment_path),
+                "trust_state": "captured_untrusted",
+                "content_validation": "not_performed",
+            }
+        objective = is_objective(record)
+        candidate_task_id, candidate_reason = (None, None) if objective else mapping_candidate(record, domain, str(row.get("record_id") or ""))
+        normalized_record = re.sub(r"\s+", " ", record.casefold())
+        candidate_mapping_state = "CANDIDATE_PENDING_HUMAN_REVIEW" if candidate_task_id else "UNMAPPED_PENDING_INDEPENDENT_SOURCE_REVIEW"
+        if not objective and re.search(r"outside (?:the )?(?:current|review) (?:cycle|period|window)", normalized_record):
+            candidate_task_id, candidate_reason = None, "Not linked: the supplied statement places this activity outside the review cycle; verify the original dated certificate if the period is disputed."
+            candidate_mapping_state = "OUT_OF_WINDOW_BY_CUSTOMER_STATEMENT"
+        elif not objective and re.search(r"(?:do not|does not|doesn't) state (?:the )?(?:accredited )?(?:cpd )?(?:point|credit|value)", normalized_record):
+            candidate_task_id, candidate_reason = None, "Not linked: the supplied statement says the record does not establish an accredited point value; obtain the accredited provider record and point allocation."
+            candidate_mapping_state = "POINT_VALUE_UNESTABLISHED_BY_CUSTOMER_STATEMENT"
         meta = {
-            "target_task_id": task,
+            "target_task_id": candidate_task_id or "",
             "customer_packet_fingerprint": packet["packet_fingerprint"],
             "profile_domain_projection": domain,
             "rating_authority_created": False,
             "event_date_verified": False,
             "month_bucket_basis": "review_scope_end_bucket_only_not_an_event_date",
-            "evidence_mapping_state": "UNMAPPED_PENDING_INDEPENDENT_SOURCE_REVIEW",
+            "evidence_mapping_state": candidate_mapping_state,
+            "customer_statement_only": attachment is None,
+            "attachment_binding": attachment,
+            "trust_state": "captured_untrusted",
+            "customer_statement_projection_path": str(path),
+            "mapping_candidate_reason": candidate_reason,
+            "customer_source_binding": row.get("source_binding"),
         }
-        objective = is_objective(record)
-        minimum, minimum_basis = objective_minimum(record)
         if objective:
             con.execute(
                 "INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)",
@@ -176,12 +330,17 @@ def _build_vamp_database_v2(packet: dict[str, Any], target: Path, *, source_rows
             )
         con.execute(
             "INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)",
-            (evidence, hashlib.sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", window["year"], window["months"][-1], domain, "", "", str(path), json.dumps(meta, sort_keys=True)),
+            (evidence, hashlib.sha1((Path(attachment["projection_path"]).read_bytes() if attachment else path.read_bytes())).hexdigest(), "PROFESSIONAL-001", window["year"], window["months"][-1], domain, "", "", attachment["projection_path"] if attachment else str(path), json.dumps(meta, sort_keys=True)),
         )
-        # A customer's requirement declaration is not proof that it was met.
-        # Retain its source row for review, but do not self-link it as evidence.
-        # Independent artifact-to-objective matching needs a separate proof gate.
-        projection.append({"record_id": row.get("record_id"), "task_id": task if objective else None, "evidence_id": evidence, "domain": domain, "record": record, "minimum_required_basis": minimum_basis if objective else None})
+        if candidate_task_id:
+            # Low-confidence candidate links are surfaced for a reviewer only.
+            # The source is a customer statement rather than the underlying
+            # artifact, so the adapter's sufficiency gate must keep it unaccepted.
+            con.execute(
+                "INSERT INTO evidence_task VALUES(?,?,?,?,?)",
+                (evidence, candidate_task_id, "customer_packet_semantic_candidate", 0.1, created_at),
+            )
+        projection.append({"record_id": row.get("record_id"), "task_id": task if objective else None, "candidate_task_id": candidate_task_id, "candidate_mapping_reason": candidate_reason, "candidate_mapping_state": candidate_mapping_state, "evidence_id": evidence, "domain": domain, "record": record, "source_binding": row.get("source_binding"), "minimum_required_basis": minimum_basis if objective else None, "attachment_binding": attachment, "trust_state": "captured_untrusted", "evidence_source_state": "CUSTOMER_ATTACHMENT_HASH_BOUND_CONTENT_UNVALIDATED" if attachment else "CUSTOMER_STATEMENT_ONLY_UNDERLYING_ARTIFACT_NOT_SUPPLIED"})
     con.commit()
     con.close()
     write_json(
@@ -406,6 +565,59 @@ def _campaign_material_candidates() -> list[dict[str, Any]]:
         if composition.get("crop_safe") is not True:
             continue
         rows.append({**material, "_path": path})
+    # Include a Pictora-generated design candidate for local internal campaign
+    # proofs. It deliberately bypasses the commercial selector: the receipt
+    # marks it held for visual/model-license review, and it cannot authorize release.
+    campaign_pool = ROOT / "media/product_asset_packs/pictora_image_editor_v1/PICTORA_IMAGE_EDITOR_CAMPAIGN_POOL.json"
+    if campaign_pool.is_file():
+        try:
+            pool = json.loads(campaign_pool.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            pool = {}
+        role_visuals = {
+            "hook": ["research_workbench", "decision_landscape", "campaign_hook"],
+            "workflow_demo": ["method_map", "communication_outputs"],
+            "proof": ["provenance_stack", "evidence_network"],
+            "human_context": ["human_review_scene", "human_context"],
+        }
+        for asset in pool.get("assets") or []:
+            path = (ROOT / str(asset.get("path") or "")).resolve()
+            if not path.is_file() or "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest() != str(asset.get("sha256") or ""):
+                continue
+            role = str(asset.get("role") or "editorial_scene")
+            rows.insert(0, {
+                "material_id": "pictora_editor_campaign_" + str(asset.get("asset_id") or path.stem),
+                "material_kind": "generated_editorial",
+                "semantic_visual_kinds": role_visuals.get(role, ["campaign_hook", "editorial_scene"]),
+                "surface_suitability": ["campaign_story", "landscape_explainer", "vertical_short", "advertising"],
+                "subjects": ["photography", "image editing", "creative production"],
+                "composition": {"crop_safe": True, "orientation": "landscape", "subject_bias": "center", "negative_space": "balanced"},
+                "approval": {"state": "NEEDS_REVIEW"},
+                "license": {"status": "DIO_GENERATED", "commercial_use": False, "attribution_required": False},
+                "pictora_candidate": True,
+                "candidate_description": "Pictora image-editor campaign concept · " + role,
+                "candidate_state": "PICTORA_CANDIDATE_NEEDS_MODEL_LICENSE_AND_HUMAN_REVIEW",
+                "_path": path,
+            })
+    if not any(row.get("pictora_candidate") for row in rows):
+        from products.pictora_visual_studio import find_candidate
+        pictora = find_candidate(product="market_command_campaign", context="advertising campaign")
+        if pictora:
+            path, description = pictora
+            rows.insert(0, {
+                "material_id": "pictora_campaign_candidate_local_review",
+                "material_kind": "generated_editorial",
+                "semantic_visual_kinds": ["campaign_hook", "human_context", "editorial_scene", "service_context"],
+                "surface_suitability": ["campaign_story", "vertical_short", "advertising"],
+                "subjects": ["advertising", "DIO creative studio"],
+                "composition": {"crop_safe": True, "orientation": "landscape", "subject_bias": "center", "negative_space": "right"},
+                "approval": {"state": "NEEDS_REVIEW"},
+                "license": {"status": "DIO_GENERATED", "commercial_use": False, "attribution_required": False},
+                "pictora_candidate": True,
+                "candidate_description": description,
+                "candidate_state": "PICTORA_CANDIDATE_NEEDS_MODEL_LICENSE_AND_HUMAN_REVIEW",
+                "_path": path,
+            })
     return rows
 
 
@@ -422,6 +634,8 @@ def _campaign_material_for_role(role: str, candidates: list[dict[str, Any]], use
             score += 20
         if material.get("material_kind") == "artifact_render" and role in {"proof", "workflow_demo"}:
             score += 35
+        if material.get("pictora_candidate") is True:
+            score += 600
         ranked.append((score, material_id, material))
     if not ranked:
         return None
@@ -443,7 +657,7 @@ def _campaign_frames_with_material_pool(
     if not str(story.get("family_id") or "").startswith("PROFESSIONAL_CAMPAIGN_LAB--"):
         return original(story=story, art_direction=art_direction, directory=directory)
     candidates = _campaign_material_candidates()
-    if len(candidates) < 2:
+    if not candidates:
         receipt = original(story=story, art_direction=art_direction, directory=directory)
         selection_log.append({
             "surface": story.get("surface"),
@@ -501,7 +715,7 @@ def _campaign_frames_with_material_pool(
             "material_kind": material.get("material_kind"),
             "semantic_visual_kinds": material.get("semantic_visual_kinds") or [],
             "registry_surface_suitability": material.get("surface_suitability") or [],
-            "campaign_use_state": "CANDIDATE_NEEDS_YOU",
+            "campaign_use_state": str(material.get("candidate_state") or "PICTORA_CANDIDATE_NEEDS_MODEL_LICENSE_AND_HUMAN_REVIEW") if material.get("pictora_candidate") else "CANDIDATE_NEEDS_YOU",
         })
 
     distinct = len({row["material_id"] for row in scene_materials})

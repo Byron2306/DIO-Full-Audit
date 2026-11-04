@@ -1,0 +1,22 @@
+{
+  "case_id": "SYNTHETIC-CONTRACTPROOF-001",
+  "title": "Clinic pump supply obligation review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "source_id": "SUPPLY-AGREEMENT-104",
+  "source_type": "contract",
+  "source_ref": "synthetic://supply-agreement-104",
+  "owner_role": "Moya Clinic contract owner",
+  "parties": ["Moya Clinic", "Pump Supplier"],
+  "review_at": "2026-12-04T10:00:00+02:00",
+  "source_text": "1. Supplier must deliver 12 pumps by 2026-12-03.\n2. Customer must pay ZAR 48000 within 30 days after acceptance.\n3. Supplier must provide installation records for every delivered pump.",
+  "obligations": [
+    {"locator": "CLAUSE-1", "statement": "Supplier must deliver 12 pumps by 2026-12-03.", "kind": "deliverable", "responsible_party": "Pump Supplier", "due_at": "2026-12-03", "evidence_requirements": ["delivery receipt"]},
+    {"locator": "CLAUSE-2", "statement": "Customer must pay ZAR 48000 within 30 days after acceptance.", "kind": "payment", "responsible_party": "Moya Clinic", "evidence_requirements": ["acceptance record", "payment record"]},
+    {"locator": "CLAUSE-3", "statement": "Supplier must provide installation records for every delivered pump.", "kind": "reporting", "responsible_party": "Pump Supplier", "evidence_requirements": ["installation record"]}
+  ],
+  "evidence": [
+    {"evidence_id": "DELIVERY-RECORD", "source_ref": "synthetic://delivery-note", "text": "Supplier delivery note dated 2026-12-03 records 10 pumps delivered; two pumps remain unaccounted for.", "target_locators": ["CLAUSE-1"], "relation": "supports", "observed_at": "2026-12-03T15:00:00+02:00"},
+    {"evidence_id": "ACCEPTANCE-RECORD", "source_ref": "synthetic://acceptance-note", "text": "Clinic acceptance note for the 10 delivered pumps dated 2026-12-04; it does not address the missing two pumps.", "target_locators": ["CLAUSE-2"], "relation": "supports", "observed_at": "2026-12-04T09:00:00+02:00"}
+  ]
+}

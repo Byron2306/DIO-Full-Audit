@@ -117,28 +117,66 @@ def _safe_artifact_id(value: Any) -> str:
 
 
 def _render_index_html(index: dict[str, Any], *, title: str) -> bytes:
-    rows = "".join(
-        "<tr>"
-        f"<td>{html.escape(str(row['artifact_id']))}</td>"
-        f"<td>{html.escape(str(row['artifact_type']))}</td>"
-        f"<td>{html.escape(str(row['source_system']))}</td>"
-        f"<td>{html.escape(str(row['approval_state']))}</td>"
-        f"<td><code>{html.escape(str(row['sha256']))}</code></td>"
-        "</tr>"
-        for row in index["items"]
-    )
-    page = (
-        "<!doctype html><meta charset='utf-8'>"
-        f"<title>{html.escape(title)}</title>"
-        f"<h1>{html.escape(title)}</h1>"
-        "<p><strong>HUMAN DOSSIER REVIEW REQUIRED. EXTERNAL RELEASE REFUSED.</strong></p>"
-        "<table border='1' cellspacing='0' cellpadding='6'>"
-        "<tr><th>Artifact</th><th>Type</th><th>Source</th><th>Approval state</th><th>SHA-256</th></tr>"
-        f"{rows}</table>"
-        "<p>This assembly pack indexes and hash-binds supplied artifacts only. "
-        "It creates no completeness, sufficiency, authenticity, retention, submission, "
-        "release, or other consequential determination.</p>"
-    )
+    def esc(value: Any) -> str:
+        return html.escape(str(value), quote=True)
+
+    rows = []
+    for position, row in enumerate(index["items"]):
+        copied_path = str(row["copied_path"])
+        rows.append(
+            f"<tr data-index='{position}'>"
+            f"<th scope='row'>{esc(row['artifact_id'])}</th>"
+            f"<td>{esc(row['artifact_type'])}</td>"
+            f"<td>{esc(row['source_system'])}</td>"
+            f"<td>{esc(row['approval_state'])}</td>"
+            f"<td><a href='{esc(copied_path)}'>Open included file</a><small>{esc(row['source_name'])}</small></td>"
+            f"<td><code>{esc(row['sha256'])}</code></td>"
+            "<td><label class='review-label'>Decision"
+            "<select data-field='reviewer_decision'><option value=''>Pending review</option>"
+            "<option>ACCEPT_FOR_DOSSIER</option><option>REQUEST_CORRECTION</option>"
+            "<option>HOLD</option><option>REJECT</option></select></label>"
+            "<label class='review-label'>Reviewer<input data-field='reviewer_name' autocomplete='name'></label>"
+            "<label class='review-label'>Rationale<textarea data-field='rationale' rows='2'></textarea></label></td>"
+            "</tr>"
+        )
+    item_json = json.dumps(index["items"], ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    page = f"""<!doctype html>
+<html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>{esc(title)}</title>
+<style>
+:root{{color-scheme:light;--ink:#172b29;--muted:#536862;--line:#cbd5d0;--paper:#f2f5f2;--green:#174b43;--gold:#bd8740;}}
+*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}}
+main{{max-width:1500px;margin:auto;padding:clamp(1rem,4vw,3rem)}}h1{{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;max-width:950px}}
+.eyebrow{{font-size:.8rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}}
+.hold{{border-left:5px solid var(--gold);background:#fff8e9;padding:1rem 1.2rem;font-weight:650}}
+.summary{{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.2rem 0}}.summary span{{background:white;border:1px solid var(--line);padding:.65rem .9rem;border-radius:.35rem}}
+.toolbar{{display:flex;gap:.8rem;align-items:end;flex-wrap:wrap;margin:1.4rem 0}}label{{display:block;font-size:.9rem;font-weight:600}}
+input,select,textarea,button{{font:inherit}}input[type=search],select,textarea{{display:block;width:100%;padding:.55rem;border:1px solid #80948d;border-radius:.25rem;background:white;color:var(--ink)}}
+input[type=search]{{min-width:min(22rem,80vw)}}button{{border:0;border-radius:.3rem;background:var(--green);color:white;padding:.7rem 1rem;font-weight:650;cursor:pointer}}
+a{{color:#075e70}}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{{outline:3px solid var(--gold);outline-offset:3px}}
+.scroll{{overflow:auto;background:white;border:1px solid var(--line);border-radius:.4rem}}table{{border-collapse:collapse;width:100%;min-width:1120px}}caption{{text-align:left;padding:1rem;font-weight:650}}
+th,td{{padding:.8rem;vertical-align:top;border-bottom:1px solid var(--line);text-align:left}}thead th{{background:var(--green);color:white;position:sticky;top:0}}tbody th{{min-width:8rem}}td small{{display:block;color:var(--muted);overflow-wrap:anywhere}}
+td code{{font-size:.82rem;overflow-wrap:anywhere}}.review-label{{margin:.45rem 0}}.actions{{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin:1rem 0}}#status{{min-height:1.5em;color:var(--muted)}}
+.boundary{{color:var(--muted);max-width:1000px;margin-top:2rem}}.skip{{position:absolute;left:-10000px;top:auto}}.skip:focus{{left:1rem;top:1rem;background:white;padding:.8rem;z-index:10}}
+[hidden]{{display:none!important}}@media print{{body{{background:white}}main{{max-width:none;padding:0}}.toolbar,.actions,.review-label{{display:none!important}}table{{min-width:0;font-size:9pt}}td,th{{padding:4pt}}}}
+</style></head><body><a class='skip' href='#records'>Skip to dossier records</a><main>
+<p class='eyebrow'>DossierOps · controlled assembly</p><h1>{esc(title)}</h1>
+<p class='hold'>Human dossier review required. External release is refused.</p>
+<p>This index lists and hash-binds supplied files. Review decisions below are local to this page; download the worksheet to retain them. Nothing is submitted, approved, or transmitted.</p>
+<div class='summary'><span><strong>{len(index['items'])}</strong> indexed artifacts</span><span>Completeness and sufficiency: <strong>NEEDS YOU</strong></span><span>Final release: <strong>NEEDS YOU</strong></span></div>
+<section class='toolbar' aria-label='Dossier tools'><label for='filter'>Find an artifact<input id='filter' type='search' placeholder='ID, type, source or filename'></label><p id='count' aria-live='polite'>{len(index['items'])} artifacts shown</p></section>
+<div class='scroll' id='records' tabindex='0' role='region' aria-label='Scrollable dossier artifact and review table'>
+<table><caption>Included artifacts and reviewer worksheet</caption><thead><tr><th scope='col'>Artifact ID</th><th scope='col'>Type</th><th scope='col'>Source</th><th scope='col'>Supplied approval state</th><th scope='col'>File</th><th scope='col'>SHA-256</th><th scope='col'>Human review fields</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+<div class='actions'><button id='download' type='button'>Download review worksheet CSV</button><span id='status' role='status' aria-live='polite'></span></div>
+<p class='boundary'>This assembly does not determine completeness, sufficiency, authenticity, legal effect, retention, submission, or release. Source and approval labels are carried from supplied records and remain unverified. A reviewer must validate the files and obtain separate release authority.</p>
+<script type='application/json' id='dossier-data'>{item_json}</script>
+<script>
+const records=JSON.parse(document.querySelector('#dossier-data').textContent);
+const filter=document.querySelector('#filter');
+filter.addEventListener('input',()=>{{const term=filter.value.trim().toLowerCase();let shown=0;for(const row of document.querySelectorAll('tbody tr')){{const item=records[Number(row.dataset.index)];const hay=[item.artifact_id,item.artifact_type,item.source_system,item.approval_state,item.source_name,item.copied_path].join(' ').toLowerCase();row.hidden=Boolean(term)&&!hay.includes(term);if(!row.hidden)shown++}}document.querySelector('#count').textContent=shown+' of '+records.length+' artifacts shown'}});
+const csvCell=value=>'"'+String(value??'').replaceAll('"','""')+'"';
+document.querySelector('#download').addEventListener('click',()=>{{const headers=['artifact_id','artifact_type','source_system','approval_state','source_name','copied_path','sha256','reviewer_decision','reviewer_name','rationale'];const lines=[headers.map(csvCell).join(',')];for(const row of document.querySelectorAll('tbody tr')){{const item=records[Number(row.dataset.index)];const values={{...item}};for(const field of ['reviewer_decision','reviewer_name','rationale'])values[field]=row.querySelector('[data-field="'+field+'"]')?.value||'';lines.push(headers.map(key=>csvCell(values[key])).join(','))}}const blob=new Blob(['\\ufeff'+lines.join('\\r\\n')],{{type:'text/csv;charset=utf-8'}});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='DOSSIEROPS_REVIEW_WORKSHEET.csv';link.click();URL.revokeObjectURL(url);document.querySelector('#status').textContent='Review worksheet downloaded. Decisions remain on your device.'}});
+</script></main></body></html>"""
     return page.encode("utf-8")
 
 
@@ -330,6 +368,35 @@ def run_controlled_dossier_assembly(
         json.dumps(proof, indent=2, sort_keys=True, ensure_ascii=False).encode("utf-8") + b"\n",
     )
 
+    # Give reviewers a portable integrity check after the ZIP leaves this
+    # workspace. The manifest lists every other ZIP member by path, size, and
+    # SHA-256; the outer processing receipt binds the manifest and full bundle.
+    bundle_members = [
+        {"path": row["copied_path"], "bytes": (output_dir / row["copied_path"]).stat().st_size,
+         "sha256": row["sha256"], "artifact_type": "DOSSIER_ITEM"}
+        for row in items
+    ]
+    bundle_members.extend([
+        {"path": index_json_name, "bytes": len(index_json), "sha256": index_json_sha, "artifact_type": "DOSSIER_INDEX_JSON"},
+        {"path": index_html_name, "bytes": len(index_html), "sha256": index_html_sha, "artifact_type": "DOSSIER_INDEX_HTML"},
+        {"path": proof_name, "bytes": (output_dir / proof_name).stat().st_size, "sha256": proof_sha, "artifact_type": "PROOF_MANIFEST"},
+    ])
+    bundle_manifest = {
+        "schema": "dio.dossier_assembly.bundle_manifest.v1",
+        "profile_id": profile["profile_id"],
+        "product_id": profile["product_id"],
+        "case_id": case["case_id"],
+        "index_fingerprint": proof["index_fingerprint"],
+        "bound_proof_fingerprint": proof["proof_fingerprint"],
+        "members": bundle_members,
+        "member_count": len(bundle_members),
+        "verification": "Recompute each listed member SHA-256 and byte count after extraction.",
+        "processing_receipt_included": False,
+    }
+    manifest_name = "DOSSIER_BUNDLE_MANIFEST.json"
+    manifest_bytes = json.dumps(bundle_manifest, indent=2, sort_keys=True, ensure_ascii=False).encode("utf-8") + b"\n"
+    manifest_sha = _write(output_dir / manifest_name, manifest_bytes)
+
     bundle_name = f"{prefix}_CONTROLLED_DOSSIER.zip"
     bundle_path = output_dir / bundle_name
     with zipfile.ZipFile(bundle_path, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
@@ -338,6 +405,7 @@ def run_controlled_dossier_assembly(
         bundle.write(output_dir / index_json_name, index_json_name)
         bundle.write(output_dir / index_html_name, index_html_name)
         bundle.write(output_dir / proof_name, proof_name)
+        bundle.write(output_dir / manifest_name, manifest_name)
     bundle_sha = _sha_file(bundle_path)
 
     receipt = {
@@ -359,6 +427,7 @@ def run_controlled_dossier_assembly(
         "index_fingerprint": proof["index_fingerprint"],
         "proof_fingerprint": proof["proof_fingerprint"],
         "proof_manifest_sha256": proof_sha,
+        "bundle_manifest": {"filename": manifest_name, "sha256": manifest_sha, "member_count": len(bundle_members)},
         "bundle": {
             "filename": bundle_name,
             "sha256": bundle_sha,

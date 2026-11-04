@@ -1,0 +1,161 @@
+{
+  "schema": "dio.creative_organs.registry.v1",
+  "state": "local_pilot",
+  "invariants": {
+    "local_processing_default": true,
+    "provider_calls": false,
+    "human_review_required": true,
+    "release_authorized_by_registration": false,
+    "commercial_validation": "UNPROVED"
+  },
+  "organs": [
+    {
+      "id": "sonoris",
+      "name": "DIO Sonoris",
+      "role": "local_music_composition_expression_and_audio_design_workbench",
+      "state": "embodied_morphology_jazz_prototype_rendered",
+      "entrypoint": "products.sonoris_organ",
+      "capabilities": [
+        "source_midi_inventory",
+        "polly_host_composition",
+        "riff_morphology_and_gesture_analysis",
+        "genre_grammar_prototype",
+        "authored_jazz_synth_fusion_prototype",
+        "native_sfz_instrument_routing",
+        "local_gm_reconstruction",
+        "deterministic_dsp_variants",
+        "hash_receipts",
+        "review_gated_audio_jobs"
+      ],
+      "current_limit": "Thrash morphology remains guitar/bar-centric. Glass Meridian is an authored jazz synth fusion prototype, not a generalized prompt-to-composition engine. Genre grammar, arbitrary instrument roles, customer revisions, professional mix/mastering and sonic approval remain open.",
+      "source_of_truth": "/data/byron/sonoris",
+      "instrument_asset_receipt": "/data/byron/sonoris/instruments/open-licensed-experiments/DIO_SONORIS_INSTRUMENT_ASSET_RECEIPT.json",
+      "experiment": {
+        "id": "dio-sonoris-acoustic-iron-v001",
+        "output": "/data/byron/sonoris/rendered/dio-acoustic-iron-v001",
+        "state": "RENDERED_REVIEW_PENDING",
+        "composition_host": "host-003-chainsaw-diplomacy",
+        "palette": [
+          "Meta steel guitar",
+          "Meta nylon guitar",
+          "Growlybass clean",
+          "Gogodze Phu II low-fidelity kit",
+          "Meta upright piano lead"
+        ]
+      },
+      "prototype": {
+        "id": "glass-meridian-jazz-synth-fusion-v004",
+        "source_composition": "/data/byron/sonoris/rendered/glass-meridian-v002/GLASS_MERIDIAN_JAZZ_SYNTH_FUSION.mid",
+        "output": "/data/byron/sonoris/rendered/glass-meridian-v004",
+        "state": "OWNER_REPORTS_POSITIVE_RENDERS_VARIANT_SELECTION_UNRECORDED",
+        "variants": [
+          "GLASS_MERIDIAN_V4_NO_SAX.wav",
+          "GLASS_MERIDIAN_V4_SAX_SUPPORT.wav"
+        ],
+        "grammar": "config/sonoris/embodied_music_grammar_jazz_synth_fusion_v1.json",
+        "cli": "scripts/run_dio_creative_organs.py --sonoris-glass-meridian"
+      },
+      "downstream_pathways": [
+        "DIO marketing media soundtrack prototyping",
+        "HOMS/Sophia music learning exercises",
+        "DIO Music Studio product discovery"
+      ],
+      "commercial_gates": [
+        "verify rights for every source composition and any non-CC0 asset",
+        "human sonic approval",
+        "mix/master and delivery specification",
+        "customer brief/intake and revision workflow"
+      ]
+    },
+    {
+      "id": "pictora",
+      "name": "DIO Pictora",
+      "role": "local_image_generation_editing_and_visual_asset_workbench",
+      "state": "local_comfyui_adapter_and_candidate_art_pack_generated_review_pending",
+      "entrypoint": "products.pictora_organ",
+      "capabilities": [
+        "local_comfy_capability_discovery",
+        "api_workflow_submission",
+        "local_image_input",
+        "site_asset_anchored_img2img",
+        "mask_guided_subject_refinement",
+        "source_receipt_binding",
+        "output_collection_and_hash_receipts",
+        "generation_editing_upscale_and_conditioning_workflows",
+        "non_destructive_photo_exposure_contrast_saturation_tint_sharpness",
+        "median_denoise",
+        "clone_stamp_retouch",
+        "local_real_esrgan_upscale",
+        "local_rmbg_background_removal",
+        "local_image_editor_web_workbench"
+      ],
+      "runtime_default": "http://127.0.0.1:8188",
+      "candidate_asset_pack": "media/product_asset_packs/dio_creative_organs_site_matched_v1/PICTORA_SITE_ASSET_SELECTION.json",
+      "current_limit": "Pictora Image Editor now provides deterministic local photo controls and capability-gated ComfyUI background removal/upscale with a loopback web workbench. Clone-stamp retouch is source-patch based, not semantic healing. Model and source-asset rights remain unadjudicated; customer-facing release requires human visual review and explicit rights approval.",
+      "downstream_pathways": [
+        "Sonoris and Pictora organ identity assets",
+        "HOMS exam diagrams, maps and worked-example visuals",
+        "HOMS Learning Studio packs and explainers",
+        "DIO marketing media and Vera/VESPER campaign assets",
+        "character and world design product discovery"
+      ],
+      "commercial_gates": [
+        "record model, LoRA, input and output provenance",
+        "verify model and source-asset rights for each use",
+        "human visual and factual review",
+        "customer brief/intake and revision workflow"
+      ]
+    },
+    {
+      "id": "dicere",
+      "name": "DIO Dicere",
+      "role": "local_speech_articulation_and_audiovisual_performance_organ",
+      "state": "local_pilot_external_runtime_evidence_available",
+      "entrypoint": "products.dicere_organ",
+      "source_of_truth": "/data/byron/lilith-local/vesper-github-lipsync",
+      "capabilities": [
+        "local_speech_audio_ingestion",
+        "audio_driven_lip_synchronization",
+        "canonical_presenter_image_binding",
+        "controlled_eye_animation",
+        "local_facial_motion_rendering",
+        "speech_and_eye_animation_composition",
+        "audio_video_muxing",
+        "media_metadata_verification",
+        "hash_receipts"
+      ],
+      "default_presenter": "vesper",
+      "default_voice": "vera",
+      "runtime": {
+        "execution_mode": "local_sequential",
+        "gpu": "nvidia_rtx_3050_6gb",
+        "speech_engine": "musetalk_v15",
+        "presence_engine": "liveportrait",
+        "compiler": "opencv_ffmpeg",
+        "comfyui_gpu_handoff_required_for_inference": true
+      },
+      "current_limit": "Demonstrated on the canonical Vesper presenter with a 7.88-second Vera speech clip. Generalized arbitrary-presenter performance, reliable long-form scene sequencing, real-time inference, expression control, customer voice rights, and production-grade automated QA remain unverified.",
+      "downstream_pathways": [
+        "DIO marketing media and Vesper campaign performances",
+        "NicheFoundry governed video compilation",
+        "DIO training and instructional media",
+        "DIO product explainer videos"
+      ],
+      "commercial_gates": [
+        "verify performer identity and audio rights",
+        "verify script semantic approval",
+        "verify speech and face alignment",
+        "verify audio-video synchronization",
+        "human visual and sonic review",
+        "verify presenter and source provenance",
+        "explicit publication and commercial-use approval"
+      ],
+      "authority": {
+        "external_publication": false,
+        "advertising_spend": false,
+        "customer_delivery": false,
+        "human_review_required": true
+      }
+    }
+  ]
+}

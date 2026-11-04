@@ -12,6 +12,7 @@ import re
 import shutil
 import socket
 import ssl
+import subprocess
 import zipfile
 from datetime import date, datetime, timezone
 from html.parser import HTMLParser
@@ -22,6 +23,7 @@ from urllib.parse import urlsplit
 from adapters.format_core.renderer import render_semantic_asset
 
 MAX_SOURCE_BYTES = 2 * 1024 * 1024
+MAX_SUPPORTING_SOURCE_BYTES = 12 * 1024 * 1024
 _ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,63}\Z")
 _INSTRUCTION = re.compile(r"ignore (?:all |previous |prior )*(?:instructions|rules)|(?:system|developer)\s*(?:prompt|message)|declare .*eligible|<script\b[^>]*>.*(?:credential|password)", re.I | re.S)
 
@@ -91,7 +93,7 @@ def _public_url(url: str, *, resolve: bool) -> tuple[str, list[str]]:
     return hostname, addresses
 
 
-def _fetch_official(url: str, allowlist: list[str]) -> dict[str, Any]:
+def _fetch_official(url: str, allowlist: list[str], *, allow_pdf: bool = False) -> dict[str, Any]:
     if url not in allowlist:
         raise ValueError("Public fetch URL must be explicitly present in official_url_allowlist")
     hostname, addresses = _public_url(url, resolve=True)
@@ -101,16 +103,21 @@ def _fetch_official(url: str, allowlist: list[str]) -> dict[str, Any]:
     connection.sock = connection._context.wrap_socket(socket.create_connection((addresses[0], 443), timeout=15), server_hostname=hostname)
     parsed = urlsplit(url)
     try:
-        connection.request("GET", (parsed.path or "/") + ("?" + parsed.query if parsed.query else ""), headers={"User-Agent": "DIO-FundingFinder-source-review/1.0", "Accept": "text/html,text/plain", "Accept-Encoding": "identity"})
+        accept = "text/html,text/plain,application/xhtml+xml,application/pdf" if allow_pdf else "text/html,text/plain,application/xhtml+xml"
+        connection.request("GET", (parsed.path or "/") + ("?" + parsed.query if parsed.query else ""), headers={"User-Agent": "DIO-FundingFinder-source-review/1.0", "Accept": accept, "Accept-Encoding": "identity"})
         response = connection.getresponse()
         if response.status != 200:
             raise ValueError(f"Official source returned HTTP {response.status}; redirects are not followed")
         content_type = response.getheader("Content-Type", "").split(";", 1)[0].strip().casefold()
-        if content_type not in {"text/html", "text/plain", "application/xhtml+xml"}:
-            raise ValueError("Only bounded public HTML/plain-text opportunity pages may be fetched")
-        raw = response.read(MAX_SOURCE_BYTES + 1)
-        if len(raw) > MAX_SOURCE_BYTES:
-            raise ValueError("Official source exceeds the bounded 2 MiB fetch limit")
+        allowed_types = {"text/html", "text/plain", "application/xhtml+xml"}
+        if allow_pdf:
+            allowed_types.add("application/pdf")
+        if content_type not in allowed_types:
+            raise ValueError("Official source content type is unsupported for this source role")
+        byte_limit = MAX_SUPPORTING_SOURCE_BYTES if allow_pdf else MAX_SOURCE_BYTES
+        raw = response.read(byte_limit + 1)
+        if len(raw) > byte_limit:
+            raise ValueError("Official source exceeds the bounded fetch limit")
         return {"raw": raw, "retrieved_at": datetime.now(timezone.utc).isoformat(), "content_type": content_type,
                 "transport": "HTTPS public-IP-pinned GET; no redirects", "http_status": response.status,
                 "last_modified": response.getheader("Last-Modified"), "resolved_ip": addresses[0]}
@@ -142,6 +149,10 @@ def _normal(text: str) -> str:
 
 
 def _visible(raw: bytes, content_type: str) -> str:
+    if content_type == "application/pdf":
+        result = subprocess.run(["pdftotext", "-layout", "-", "-"], input=raw, capture_output=True, check=True)
+        text = result.stdout.decode("utf-8", errors="replace")
+        return _normal(text)
     text = raw.decode("utf-8-sig", errors="replace")
     if "html" in content_type or re.match(r"\s*<(?:!doctype|html)", text, re.I):
         page = _PageText()
@@ -228,7 +239,8 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
     opportunities = packet.get("opportunities")
     if not isinstance(opportunities, list) or not 1 <= len(opportunities) <= 25:
         raise ValueError("Supply 1 to 25 official opportunity records")
-    seen, prepared, raw_sources = set(), [], []
+    seen, prepared, raw_sources, supporting_raw_sources = set(), [], [], []
+    supporting_source_records: dict[str, dict[str, Any]] = {}
     for opportunity in opportunities:
         oid = _id(opportunity.get("opportunity_id"))
         if oid in seen:
@@ -257,8 +269,11 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
         if retrieved > as_of:
             raise ValueError("Source retrieval date cannot be later than as_of")
         digest = hashlib.sha256(raw).hexdigest()
-        if supplied.get("sha256") and supplied["sha256"] != digest:
-            raise ValueError("Opportunity raw-byte SHA256 mismatch")
+        pinned_digest = supplied.get("expected_sha256")
+        if pinned_digest and pinned_digest != digest:
+            raise ValueError("Fetched opportunity differs from the explicitly pinned expected_sha256")
+        if not fetch_public and supplied.get("sha256") and supplied["sha256"] != digest:
+            raise ValueError("Opportunity snapshot raw-byte SHA256 mismatch")
         text = _visible(raw, snapshot["content_type"])
         if _INSTRUCTION.search(text):
             flags.append({"code": "source_instruction_quarantined", "opportunity_id": oid, "detail": "Source contains instruction-like material; instruction-bearing evidence fields are held."})
@@ -266,6 +281,81 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
             flags.append({"code": "source_refresh_required", "opportunity_id": oid, "detail": "Source snapshot is older than 30 days; recheck programme availability and rules."})
         source_row = {"opportunity_id": oid, "url": url, "sha256": digest, "bytes": len(raw), "raw_path": f"sources/{oid}.raw", "text_path": f"sources/{oid}.txt", "synthetic": bool(supplied.get("synthetic")), **snapshot}
         raw_sources.append({"record": source_row, "raw": raw, "text": text})
+        opportunity_support_sources = []
+        support_rows = opportunity.get("supporting_sources") or []
+        if not isinstance(support_rows, list) or len(support_rows) > 20:
+            raise ValueError("Each opportunity may bind at most 20 supporting official sources")
+        for support in support_rows:
+            sid = _id(support.get("source_id"))
+            if sid in supporting_source_records:
+                raise ValueError("Duplicate supporting official source_id")
+            support_url = _nonempty(support.get("official_url"), "supporting_source.official_url")
+            _public_url(support_url, resolve=False)
+            supplied_support = support.get("source") or {}
+            if fetch_public:
+                support_snapshot = _fetch_official(support_url, packet.get("official_url_allowlist") or [], allow_pdf=True)
+            else:
+                support_content = supplied_support.get("content")
+                if isinstance(support_content, str):
+                    support_raw = support_content.encode("utf-8")
+                elif supplied_support.get("content_base64"):
+                    support_raw = base64.b64decode(supplied_support["content_base64"], validate=True)
+                else:
+                    raise ValueError("Supply content or enable public fetching for each supporting source")
+                support_snapshot = {
+                    "raw": support_raw,
+                    "retrieved_at": supplied_support.get("retrieved_at"),
+                    "content_type": supplied_support.get("content_type", "text/plain"),
+                    "transport": "supplied_snapshot_not_independently_fetched",
+                    "http_status": None,
+                    "last_modified": None,
+                    "resolved_ip": None,
+                }
+            support_raw = support_snapshot.pop("raw")
+            byte_limit = MAX_SUPPORTING_SOURCE_BYTES if support_snapshot.get("content_type") == "application/pdf" else MAX_SOURCE_BYTES
+            if not support_raw or len(support_raw) > byte_limit:
+                raise ValueError("Supporting official source is empty or exceeds its role-specific byte limit")
+            if support_snapshot.get("content_type") not in {"text/html", "text/plain", "application/xhtml+xml", "application/pdf"}:
+                raise ValueError("Supporting source must be HTML, plain text or PDF")
+            support_retrieved = _day(support_snapshot.get("retrieved_at"))
+            if support_retrieved > as_of:
+                raise ValueError("Supporting source retrieval date cannot be later than as_of")
+            support_digest = hashlib.sha256(support_raw).hexdigest()
+            if supplied_support.get("expected_sha256") and supplied_support["expected_sha256"] != support_digest:
+                raise ValueError("Supporting official source differs from its explicitly pinned expected_sha256")
+            if not fetch_public and supplied_support.get("sha256") and supplied_support["sha256"] != support_digest:
+                raise ValueError("Supporting source snapshot raw-byte SHA256 mismatch")
+            support_text = _visible(support_raw, support_snapshot["content_type"])
+            if not support_text:
+                raise ValueError("Supporting source has no extractable visible text")
+            support_stem = f"{oid}--{sid}"
+            suffix = ".pdf" if support_snapshot["content_type"] == "application/pdf" else ".raw"
+            support_record = {
+                "source_id": sid,
+                "opportunity_id": oid,
+                "title": _nonempty(support.get("title"), "supporting_source.title"),
+                "url": support_url,
+                "sha256": support_digest,
+                "visible_text_sha256": hashlib.sha256(support_text.encode("utf-8")).hexdigest(),
+                "bytes": len(support_raw),
+                "raw_path": f"sources/{support_stem}{suffix}",
+                "text_path": f"sources/{support_stem}.txt",
+                "synthetic": bool(supplied_support.get("synthetic")),
+                **support_snapshot,
+            }
+            supporting_source_records[sid] = {"record": support_record, "text": support_text}
+            supporting_raw_sources.append({"record": support_record, "raw": support_raw, "text": support_text})
+            opportunity_support_sources.append(dict(support_record))
+
+        def evidence_source(source_id: Any) -> tuple[str, dict[str, Any]]:
+            if source_id is None:
+                return text, source_row
+            selected_id = _id(source_id)
+            row = supporting_source_records.get(selected_id)
+            if row is None or row["record"].get("opportunity_id") != oid:
+                raise ValueError(f"Evidence source_id {selected_id} is not bound to opportunity {oid}")
+            return row["text"], row["record"]
+
         criteria, counts = [], {"met": 0, "mismatch": 0, "unknown": 0}
         criterion_ids = set()
         for rule in opportunity.get("criteria") or []:
@@ -273,7 +363,8 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
             if cid in criterion_ids:
                 raise ValueError("Duplicate criterion_id")
             criterion_ids.add(cid)
-            support, why = _quoted(text, rule.get("quote"), rule.get("expected"))
+            evidence_text, evidence_record = evidence_source(rule.get("source_id"))
+            support, why = _quoted(evidence_text, rule.get("quote"), rule.get("expected"))
             support = support and rule.get("expected") is not None
             fact = facts.get(rule.get("field"))
             state = _comparison(rule.get("operator"), fact.get("value"), rule.get("expected")) if support and fact and fact["supported"] else "unknown"
@@ -282,10 +373,13 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
                 raise ValueError("Criterion weights must be finite and between 0 and 100")
             counts[state] += 1
             criteria.append({"criterion_id": cid, "field": rule.get("field"), "operator": rule.get("operator"), "expected": rule.get("expected"), "state": state, "weight": weight,
-                             "funder_quote": rule.get("quote"), "applicant_evidence": fact,
+                             "funder_quote": rule.get("quote"), "funder_source_id": rule.get("source_id"),
+                             "funder_source_url": evidence_record.get("url"), "funder_source_sha256": evidence_record.get("sha256"),
+                             "applicant_evidence": fact,
                              "reason": why if not support else "Applicant evidence missing/unsupported" if not fact or not fact["supported"] else "Explicit comparison on supplied records; confirm full funder rules"})
         deadline = opportunity.get("deadline") or {}
-        supported, why = _date_evidence(text, deadline)
+        deadline_text, deadline_source = evidence_source(deadline.get("source_id"))
+        supported, why = _date_evidence(deadline_text, deadline)
         timing, deadline_date = "unknown", None
         if deadline.get("date") and supported:
             try:
@@ -312,19 +406,25 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
         if timing in {"expired", "not_yet_open"}:
             fit = "closed_on_as_of_date"
         funding = opportunity.get("funding") or {}
-        fund_support, fund_reason = _quoted(text, funding.get("quote"), [funding.get("minimum"), funding.get("maximum"), funding.get("currency")]) if funding else (False, "Funding bounds not supplied")
+        funding_text, funding_source = evidence_source(funding.get("source_id")) if funding else (text, source_row)
+        fund_support, fund_reason = _quoted(funding_text, funding.get("quote"), [funding.get("minimum"), funding.get("maximum"), funding.get("currency")]) if funding else (False, "Funding bounds not supplied")
         if funding and (not fund_support or not all(isinstance(funding.get(k), (int, float)) and not isinstance(funding.get(k), bool) and math.isfinite(funding[k]) for k in ("minimum", "maximum")) or funding.get("minimum", 0) < 0 or funding.get("maximum", 0) < funding.get("minimum", 0)):
             fund_support = False
         funds = {**funding, "source_supported": fund_support, "reason": fund_reason}
         descriptors = {}
         for key, value_key in (("purpose", "text"), ("stage", "value")):
             supplied_descriptor = opportunity.get(key) or {}
-            descriptor_support, reason = _quoted(text, supplied_descriptor.get("quote"), supplied_descriptor.get(value_key)) if isinstance(supplied_descriptor, dict) else (False, "Provide an exact source quotation and value")
-            descriptors[key] = {**supplied_descriptor, "source_supported": descriptor_support and supplied_descriptor.get(value_key) is not None, "reason": reason} if isinstance(supplied_descriptor, dict) else {"source_supported": False, "reason": reason}
+            descriptor_text, descriptor_source = evidence_source(supplied_descriptor.get("source_id")) if isinstance(supplied_descriptor, dict) else (text, source_row)
+            descriptor_support, reason = _quoted(descriptor_text, supplied_descriptor.get("quote"), supplied_descriptor.get(value_key)) if isinstance(supplied_descriptor, dict) else (False, "Provide an exact source quotation and value")
+            descriptors[key] = {**supplied_descriptor, "source_supported": descriptor_support and supplied_descriptor.get(value_key) is not None,
+                                "source_id": supplied_descriptor.get("source_id") if isinstance(supplied_descriptor, dict) else None,
+                                "source_url": descriptor_source.get("url"), "source_sha256": descriptor_source.get("sha256"), "reason": reason} if isinstance(supplied_descriptor, dict) else {"source_supported": False, "reason": reason}
         documents = []
         for item in opportunity.get("required_documents") or []:
-            support, reason = _quoted(text, item.get("quote"), item.get("name"))
-            documents.append({**item, "source_supported": support, "reason": reason})
+            evidence_text, evidence_record = evidence_source(item.get("source_id"))
+            support, reason = _quoted(evidence_text, item.get("quote"), item.get("name"))
+            documents.append({**item, "source_supported": support, "source_url": evidence_record.get("url"),
+                              "source_sha256": evidence_record.get("sha256"), "reason": reason})
         points = {"met": 2, "mismatch": -4, "unknown": -1}
         timing_penalty = -1000 if fit == "closed_on_as_of_date" else -10 if timing == "unknown" else 0
         score = sum(points[r["state"]] * r["weight"] for r in criteria) + timing_penalty
@@ -339,13 +439,14 @@ def _prepare(packet: Mapping[str, Any], as_of: date, fetch_public: bool) -> dict
         prepared.append({"opportunity_id": oid, "title": _nonempty(opportunity.get("title"), "opportunity.title"), "funder": _nonempty(opportunity.get("funder"), "opportunity.funder"), "official_url": url,
                          "retrieved_at": snapshot["retrieved_at"], "source_sha256": digest, "fit_state": fit, "timing_state": timing, "deadline": deadline_date.isoformat() if deadline_date else None,
                          "criteria": criteria, "criteria_counts": counts, "funding": funds, "required_documents": documents, "next_actions": actions, "score": score,
-                         "purpose": descriptors["purpose"], "stage": descriptors["stage"]})
+                         "purpose": descriptors["purpose"], "stage": descriptors["stage"],
+                         "supporting_sources": opportunity_support_sources})
     category = {"appears_aligned_on_supplied_record": 0, "unknown_review_required": 1, "mismatch_on_supplied_record": 2, "closed_on_as_of_date": 3}
     prepared.sort(key=lambda row: (category[row["fit_state"]], -row["score"], row["opportunity_id"]))
     for rank, row in enumerate(prepared, 1):
         row["rank"] = rank
     flags.append({"code": "funder_confirmation_required", "detail": "Source presence and numeric/string comparisons do not certify eligibility, completeness, programme availability or award likelihood."})
-    return {"title": title, "applicant_name": name, "as_of": as_of.isoformat(), "facts": list(facts.values()), "applicant_sources": list(sources.values()), "shortlist": prepared, "raw_sources": raw_sources, "review_flags": flags}
+    return {"title": title, "applicant_name": name, "as_of": as_of.isoformat(), "facts": list(facts.values()), "applicant_sources": list(sources.values()), "shortlist": prepared, "raw_sources": raw_sources, "supporting_raw_sources": supporting_raw_sources, "supporting_sources": [row["record"] for row in supporting_source_records.values()], "review_flags": flags}
 
 
 def _semantic(model: dict[str, Any]) -> dict[str, Any]:
@@ -359,6 +460,8 @@ def _semantic(model: dict[str, Any]) -> dict[str, Any]:
         blocks.extend([{"type": "heading", "level": 1, "text": f"{row['rank']}. {row['title']}"},
                        {"type": "paragraph", "text": f"Funder: {row['funder']}. Official URL declared for this record: {row['official_url']}. Source captured {row['retrieved_at']}; SHA256 {row['source_sha256']}."},
                        {"type": "paragraph", "text": f"Fit: {row['fit_state']}. Timing: {row['timing_state']}. Deadline: {row['deadline'] or 'not established from captured source'}."}])
+        for source in row.get("supporting_sources") or []:
+            blocks.append({"type": "paragraph", "text": f"Supporting official document: {source['title']}. Captured {source['retrieved_at']}; SHA256 {source['sha256']}; source ID {source['source_id']}. Original URL: {source['url']}. The captured file and extracted visible text are included in the review package."})
         if row["funding"]["source_supported"]:
             funding = row["funding"]
             blocks.append({"type": "paragraph", "text": f"Source-stated funding bounds: {funding['minimum']}–{funding['maximum']} {funding.get('currency', 'currency not established')}. Evidence: {funding['quote']}"})
@@ -371,6 +474,8 @@ def _semantic(model: dict[str, Any]) -> dict[str, Any]:
         for rule in row["criteria"]:
             fact = rule["applicant_evidence"]
             detail = f"{rule['criterion_id']}: {rule['field']} — {rule['state']}. {rule['reason']}."
+            if rule.get("funder_source_id"):
+                detail += f" Funder source: {rule['funder_source_id']} ({rule.get('funder_source_url')}); SHA256 {rule.get('funder_source_sha256')}."
             if rule["state"] != "unknown":
                 detail += f" Funder evidence: {rule['funder_quote']} Applicant evidence [{fact['source_id']}]: {fact['quote']}"
             blocks.append({"type": "paragraph", "text": detail})
@@ -387,7 +492,9 @@ def build_funding_shortlist(packet: Mapping[str, Any], output_dir: str | Path, *
 
     No browsing occurs unless fetch_public=True and every fetched official_url
     is declared in packet.official_url_allowlist. Redirects and non-public IPs
-    are refused. Supply snapshots for deterministic/offline customer work.
+    are refused. Offline `source.sha256` binds supplied snapshot bytes; live
+    fetches may instead pin a desired response with `source.expected_sha256`.
+    Supply snapshots for deterministic/offline customer work.
     """
     as_of_day = _day(as_of) if as_of is not None else datetime.now(timezone.utc).date()
     out = Path(output_dir).expanduser().resolve()
@@ -396,10 +503,12 @@ def build_funding_shortlist(packet: Mapping[str, Any], output_dir: str | Path, *
     model = _prepare(packet, as_of_day, fetch_public)
     out.mkdir(parents=True, exist_ok=True)
     (out / "sources").mkdir()
-    for source in model["raw_sources"]:
+    for source in model["raw_sources"] + model.get("supporting_raw_sources", []):
         (out / source["record"]["raw_path"]).write_bytes(source["raw"])
         (out / source["record"]["text_path"]).write_text(source["text"], encoding="utf-8")
-    _json(out / "source_register.json", {"opportunities": [s["record"] for s in model["raw_sources"]], "applicant_sources": model["applicant_sources"], "applicant_facts": model["facts"]})
+    _json(out / "source_register.json", {"opportunities": [s["record"] for s in model["raw_sources"]],
+                                          "supporting_sources": model.get("supporting_sources", []),
+                                          "applicant_sources": model["applicant_sources"], "applicant_facts": model["facts"]})
     _json(out / "eligibility_matrix.json", {"as_of": model["as_of"], "opportunities": model["shortlist"], "review_flags": model["review_flags"]})
     _json(out / "next_actions.json", {"opportunities": [{"opportunity_id": r["opportunity_id"], "actions": r["next_actions"]} for r in model["shortlist"]], "actions_executed": False})
     semantic = _semantic(model)

@@ -343,6 +343,11 @@ def render_campaign_media_v3(
             height=height,
             brand_owner="dio",
         )
+        shutil.copy2(attribution, output.parent / "MUSIC_ATTRIBUTION.md")
+        rights_receipt = Path(str(music_spec.get("rights_receipt") or "")).expanduser().resolve()
+        if not rights_receipt.is_file():
+            raise CampaignMediaError("Selected campaign music has no local rights receipt to ship with the rendered video.")
+        shutil.copy2(rights_receipt, output.parent / "MUSIC_RIGHTS_RECEIPT.json")
         variant_receipts[surface] = {
             "surface": surface,
             "story_hash": story.get("story_hash"),

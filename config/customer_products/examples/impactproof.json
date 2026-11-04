@@ -1,0 +1,65 @@
+{
+  "case_id": "SYNTHETIC-IMPACTPROOF-001",
+  "title": "Youth employment outcome evidence review",
+  "owner_authorized": true,
+  "synthetic_acceptance_not_customer_evidence": true,
+  "sources": [
+    {
+      "source_id": "FRAMEWORK",
+      "text": "Outcome framework O-3 defines sustained employment as paid work maintained for at least six months."
+    },
+    {
+      "source_id": "DATA",
+      "text": "Programme spreadsheet: 27 participants reported placed in paid work during 2026 Q3; follow-up duration was not recorded."
+    },
+    {
+      "source_id": "EXCEPTION",
+      "text": "Monitoring note: no six-month follow-up records were included, so sustained employment cannot be established from this dataset."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "IMPACT-R1",
+      "source_id": "FRAMEWORK",
+      "quote": "defines sustained employment as paid work maintained for at least six months",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "IMPACT-R2",
+      "source_id": "DATA",
+      "quote": "27 participants reported placed in paid work during 2026 Q3",
+      "mandatory": true
+    },
+    {
+      "requirement_id": "IMPACT-R3",
+      "source_id": "EXCEPTION",
+      "quote": "no six-month follow-up records were included",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "IMPACT-E1",
+      "source_id": "FRAMEWORK",
+      "quote": "defines sustained employment as paid work maintained for at least six months",
+      "supports": [
+        "IMPACT-R1"
+      ]
+    },
+    {
+      "evidence_id": "IMPACT-E2",
+      "source_id": "DATA",
+      "quote": "27 participants reported placed in paid work during 2026 Q3",
+      "supports": [
+        "IMPACT-R2"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_id": "IMPACT-R3",
+      "source_id": "EXCEPTION",
+      "quote": "no six-month follow-up records were included"
+    }
+  ]
+}
