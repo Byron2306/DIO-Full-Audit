@@ -457,20 +457,37 @@ def send_outlook_draft(
         raise ValueError("SEND_AUTHORITY_REFUSED: exact Outlook draft is missing.")
     intent["send_state"] = "sending"
     intent["updated_at"] = timestamp()
+    intent["send_attempt"] = {"state": "sending", "provider_draft_id": draft_id,
+                              "started_at": intent["updated_at"], "reconciliation_required": True}
     write_json(path, intent)
     try:
         graph.json("POST", f"/me/messages/{draft_id}/send")
     except Exception as exc:
-        intent["send_state"] = "failed"
+        # A transport error does not prove Graph rejected the send. Keep this
+        # intent out of the retryable `failed` state until provider evidence has
+        # been reconciled; replaying the POST can send a duplicate message.
+        intent["send_state"] = "in_doubt"
+        intent["send_attempt"] = {
+            "state": "in_doubt",
+            "provider_draft_id": draft_id,
+            "started_at": intent.get("send_attempt", {}).get("started_at") or intent.get("updated_at"),
+            "recorded_at": timestamp(),
+            "error_class": type(exc).__name__,
+            "error": str(exc)[:500],
+            "reconciliation_required": True,
+        }
         intent["approval"].update({"state": "consumed", "token_sha256": None, "expires_at": None})
-        intent["last_error"] = str(exc)
         intent["updated_at"] = timestamp()
         write_json(path, intent)
-        emit_event(event_log, "mail.send_failed", "critical", "mail_intent", mail_intent_id, {"provider": "microsoft_graph"}, intent.get("job_id"))
+        emit_event(event_log, "mail.send_in_doubt", "critical", "mail_intent", mail_intent_id,
+                   {"provider": "microsoft_graph", "provider_draft_id": draft_id,
+                    "automatic_retry": False, "error_class": type(exc).__name__}, intent.get("job_id"))
         raise
     sent_at = timestamp()
     intent["send_state"] = "sent"
     intent["sent_at"] = sent_at
+    intent["send_attempt"] = {"state": "accepted_by_provider", "provider_draft_id": draft_id,
+                              "accepted_at": sent_at, "reconciliation_required": True}
     intent["updated_at"] = sent_at
     intent["approval"].update({"state": "consumed", "token_sha256": None, "expires_at": None})
     write_json(path, intent)
@@ -483,6 +500,9 @@ def send_outlook_draft(
         "conversation_id": intent.get("conversation_id"),
         "recipient": intent.get("recipient"),
         "sent_at": sent_at,
+        "provider_state": "accepted_by_graph",
+        "delivery_confirmed": False,
+        "reconciliation_required": True,
         "approval_consumed": True,
     }
     write_json(receipt_dir / f"{receipt['receipt_id']}.json", receipt, exclusive=True)

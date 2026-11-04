@@ -107,3 +107,20 @@ config/microsoft_mirror_routes.json
 ## Boundary
 
 HOMS and Evidex outputs remain operator-reviewed. HOMS must use fake, redacted, or non-sensitive learner data until the governance and client approval posture is explicit.
+# Outlook outbound recovery note (2026-11-04)
+
+The Graph send path now treats transport exceptions as `in_doubt`, consumes the
+one-use approval, and blocks reapproval while provider state is unresolved. This
+avoids retrying a send that Graph may already have accepted. A successful Graph
+send response is recorded as `accepted_by_graph`; the receipt explicitly says
+delivery is not yet confirmed and requires reconciliation. Graph's send-draft
+endpoint returns `202 Accepted` with no body, which signals acceptance, not
+completed delivery. The immutable draft ID can be used to look for the sent
+copy, but that copy may not appear immediately. See Microsoft's
+[send-draft response contract](https://learn.microsoft.com/en-us/graph/api/message-send?view=graph-rest-1.0)
+and [immutable ID guidance](https://learn.microsoft.com/en-us/graph/outlook-immutable-id).
+
+The reconciliation operation itself and controlled-mailbox proof are still
+pending. `in_doubt` intents must not be resent from the UI or by direct script
+invocation. Legacy `failed` intents are also held because the older state did
+not distinguish a definite rejection from a lost response.

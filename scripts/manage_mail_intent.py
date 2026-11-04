@@ -220,8 +220,8 @@ def create_intent(spec_path: Path, intent_dir: Path, event_log: Path) -> dict[st
 def approve_intent(intent_id: str, intent_dir: Path, event_log: Path, ttl_minutes: int) -> tuple[dict[str, Any], str]:
     path = intent_path(intent_dir, intent_id)
     intent = read_json(path)
-    if intent["send_state"] in {"sent", "sending"}:
-        raise ValueError(f"Intent is already {intent['send_state']}.")
+    if intent["send_state"] in {"sent", "sending", "in_doubt", "failed"}:
+        raise ValueError(f"Intent is already {intent['send_state']}; reconcile provider state before any retry.")
     token = secrets.token_urlsafe(32)
     approved = now()
     intent["approval"].update(
