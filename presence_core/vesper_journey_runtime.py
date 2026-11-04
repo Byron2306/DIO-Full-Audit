@@ -90,6 +90,7 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
     commercial = deepcopy(case.get("commercial") or {})
     quote_result = deepcopy(commercial.get("quote_result") or {})
     quote = deepcopy(quote_result.get("quote") or {})
+    quote_request = deepcopy(commercial.get("quote_request") or {})
     settlement = deepcopy(case.get("settlement") or {})
     fulfilment = deepcopy(case.get("fulfilment") or {})
     manifest = deepcopy(fulfilment.get("deliverable_manifest") or {})
@@ -111,6 +112,8 @@ def _bounded_facts(case: dict[str, Any]) -> dict[str, Any]:
         },
         "quote": {
             "quote_id": quote.get("quote_id") or commercial.get("quote_id"),
+            "quote_request_id": quote_request.get("quote_request_id"),
+            "quote_request_state": commercial.get("quote_state"),
             "amount": quote.get("amount") or commercial.get("amount"),
             "currency": quote.get("currency") or commercial.get("currency"),
             "presentation_authority": bool(quote.get("presentation_authority")),

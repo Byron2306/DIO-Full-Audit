@@ -36,6 +36,26 @@ def test_scope_capture_is_product_agnostic_across_full_commercial_catalog():
         assert row["authority_created"] is False
 
 
+def test_intake_reference_is_not_misread_as_a_quantity():
+    row = extract_customer_scope_observations(
+        "Please retain intake PRES-1058B66FF19C2A. The batch is 12 reports with a maximum of 180 pages.",
+        product_id="Document Studio Edit",
+    )
+    values = [item["value"] for item in row["quantities"]]
+    assert 1058 not in values
+    assert 12 in values
+    assert 180 in values
+
+
+def test_scope_parser_does_not_turn_adjectives_or_approval_into_scope():
+    row = extract_customer_scope_observations(
+        "12 professionally formatted reports; preserve facts without changing them without approval.",
+        recognized_units=["report", "page"],
+    )
+    assert [(item["value"], item["unit"]) for item in row["quantities"]] == [(12, "report")]
+    assert row["exclusions"] == []
+
+
 def test_upload_uses_existing_case_intake_and_creates_quarantine_review(tmp_path, monkeypatch):
     root = _root(tmp_path)
     monkeypatch.setenv("DIO_PRESENCE_IDENTITY_SALT", "v" * 40)
@@ -69,9 +89,10 @@ def test_upload_uses_existing_case_intake_and_creates_quarantine_review(tmp_path
     assert len(list((root / "state" / "presence" / "intakes").glob("PRES-*.json"))) == 1
     assert case["sample_review"]["state"] == "ATTACHMENT_QUARANTINED"
     assert case["sample_review"]["approved"] is False
-    assert len(case["needs_you_ids"]) == 1
+    assert len(case["needs_you_ids"]) == 2
     tasks = [read_json(path) for path in (root / "state" / "presence" / "needs_you").glob("*.json")]
     assert any(task.get("reason") == "public_attachment_review" and task.get("case_id") == case["case_id"] for task in tasks)
+    assert any(task.get("reason") == "public_intake_review" and task.get("case_id") == case["case_id"] for task in tasks)
     assert second["authority"]["attachment_processed"] is False
     assert "not inspected" in second["reply"]["text"].lower()
     assert "180 pages" in second["reply"]["text"].lower(), second["reply"]["text"]

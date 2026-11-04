@@ -466,6 +466,24 @@ def _merge_case_scope_observations(
     scope = dict(case.get("scope") or {})
     customer_scope = dict(scope.get("customer_stated") or {})
     prior = list(customer_scope.get("observations") or [])
+    for stored in prior:
+        if not isinstance(stored, dict):
+            continue
+        stored["quantities"] = [
+            item for item in stored.get("quantities") or []
+            if not re.search(r"\b\d+[A-Za-z0-9]{5,}\b", str(item.get("source_text") or ""))
+            and str(item.get("unit") or "").casefold() not in {"formatted", "edited", "processed", "reviewed", "checked", "approved", "requested", "required"}
+        ]
+        stored["exclusions"] = [
+            item for item in stored.get("exclusions") or []
+            if not (str(item.get("item") or "").strip().casefold() == "approval"
+                    or re.search(r"\bwithout\s+(?:my|your|their)?\s*approval\b", str(item.get("source_text") or ""), re.I))
+        ]
+        stored["deadline_statements"] = [
+            item for item in stored.get("deadline_statements") or []
+            if not (re.search(r"\b(?:turnaround|delivery schedule)\b", str(item.get("source_text") or ""), re.I)
+                    and not re.search(r"\b(?:deadline|due date|fixed date)\b", str(item.get("source_text") or ""), re.I))
+        ]
     known_hashes = {str(item.get("message_sha256") or "") for item in prior if isinstance(item, dict)}
     for observation in observations:
         if observation.get("message_sha256") not in known_hashes:
@@ -516,7 +534,8 @@ def _merge_case_scope_observations(
         typed_inputs["scope_quantity"] = quantity
     try:
         if str(case.get("stage") or "") in {"NEW_LEAD", "QUALIFIED", "INTAKE_OPEN", "FILES_RECEIVED_QUARANTINED"}:
-            case = open_intake(dio_root, presence_root, str(case["case_id"]))
+            open_intake(dio_root, presence_root, str(case["case_id"]))
+            case = load_case(presence_root, str(case["case_id"])) or case
             if typed_inputs:
                 case = record_intake_inputs(
                     dio_root,
@@ -618,7 +637,7 @@ def _ensure_quarantine_review_task(
             continue
         if (item.get("state") == "open" and item.get("reason") == "public_attachment_review"
                 and item.get("conversation_id") == conversation_id
-                and set(attachment_ids).issubset(set(item.get("attachment_ids") or []))):
+                and item.get("case_id") in {None, case.get("case_id")}):
             existing = item
             break
     if existing is None:
@@ -633,6 +652,16 @@ def _ensure_quarantine_review_task(
         existing["case_id"] = case.get("case_id")
         existing["attachment_ids"] = attachment_ids
         existing["review_action"] = "VERIFY_CUSTODY_AND_AUTHORIZE_SAMPLE_LAYOUT_REVIEW"
+        write_json(presence_root / "needs_you" / f"{existing['needs_you_id']}.json", existing)
+    else:
+        existing["case_id"] = case.get("case_id")
+        existing["product"] = case.get("product_id")
+        existing["attachment_ids"] = list(dict.fromkeys(list(existing.get("attachment_ids") or []) + attachment_ids))
+        existing["review_action"] = "VERIFY_CUSTODY_AND_AUTHORIZE_PRODUCT_REVIEW"
+        existing["summary"] = (
+            f"Review quarantine custody/access for attachment(s) {', '.join(existing['attachment_ids'])} "
+            f"on case {case.get('case_id')}; do not parse or process before review authorization."
+        )
         write_json(presence_root / "needs_you" / f"{existing['needs_you_id']}.json", existing)
     ids = list(dict.fromkeys(list(case.get("needs_you_ids") or []) + [str(existing.get("needs_you_id"))]))
     sample_review = dict(case.get("sample_review") or {})
@@ -653,6 +682,48 @@ def _ensure_quarantine_review_task(
     )
 
 
+def _ensure_intake_review_task(
+    presence_root: Path,
+    case: dict[str, Any] | None,
+    *,
+    conversation_id: str,
+    intake_id: str,
+) -> dict[str, Any] | None:
+    if not isinstance(case, dict) or not intake_id:
+        return case
+    item = None
+    for path in (presence_root / "needs_you").glob("*.json"):
+        try:
+            candidate = read_json(path)
+        except Exception:
+            continue
+        if (candidate.get("state") == "open"
+                and candidate.get("reason") == "public_intake_review"
+                and candidate.get("conversation_id") == conversation_id
+                and intake_id in str(candidate.get("summary") or "")):
+            item = candidate
+            break
+    if item is None:
+        item = create_needs_you(
+            presence_root,
+            reason="public_intake_review",
+            conversation_id=conversation_id,
+            product=str(case.get("product_id") or "") or None,
+            summary=f"Review {case.get('product_id')} intake {intake_id} for case {case.get('case_id')}; do not issue a quote or start fulfilment.",
+        )
+    item["case_id"] = case.get("case_id")
+    item["intake_id"] = intake_id
+    item["review_action"] = "REVIEW_CUSTOMER_STATED_SCOPE_AND_PRODUCT_REQUIREMENTS"
+    write_json(presence_root / "needs_you" / f"{item['needs_you_id']}.json", item)
+    ids = list(dict.fromkeys(list(case.get("needs_you_ids") or []) + [str(item.get("needs_you_id"))]))
+    return update_case(
+        presence_root,
+        case,
+        patch={"needs_you_ids": ids},
+        evidence_ref=f"needs_you:{item.get('needs_you_id')}",
+    )
+
+
 def _case_scope_progress_reply(
     case: dict[str, Any],
     *,
@@ -662,7 +733,7 @@ def _case_scope_progress_reply(
     scope = case.get("scope") or {}
     customer_stated = scope.get("customer_stated") or {}
     observations = [row for row in customer_stated.get("observations") or [] if isinstance(row, dict)]
-    quantities = []
+    quantities: dict[str, dict[str, Any]] = {}
     formats = {}
     exclusions = []
     requirement_statements = []
@@ -683,8 +754,10 @@ def _case_scope_progress_reply(
                 display = "maximum " + display
             elif qualifier == "approximate":
                 display = "approximately " + display
-            if display not in quantities:
-                quantities.append(display)
+            rank = {"maximum": 3, "customer_stated": 2, "approximate": 1, "minimum": 0}.get(qualifier, 0)
+            current = quantities.get(unit.casefold())
+            if current is None or rank >= current["rank"]:
+                quantities[unit.casefold()] = {"rank": rank, "display": display}
         for item in row.get("requested_formats") or []:
             formats[(item.get("format"), item.get("preference"))] = item
         exclusions.extend(item.get("item") for item in row.get("exclusions") or [] if item.get("item"))
@@ -693,7 +766,7 @@ def _case_scope_progress_reply(
         data_statements.extend(item.get("statement") for item in row.get("data_classification_statements") or [] if item.get("statement"))
     details = []
     if quantities:
-        details.append("scope quantities already recorded: " + ", ".join(quantities))
+        details.append("scope quantities already recorded: " + ", ".join(row["display"] for row in quantities.values()))
     if formats:
         details.append("requested output formats: " + ", ".join(
             f"{name} ({'optional' if preference == 'optional' else 'requested'})"
@@ -717,10 +790,19 @@ def _case_scope_progress_reply(
     sample_review = case.get("sample_review") or {}
     attachments = [row for row in case.get("attachments") or [] if isinstance(row, dict)]
     if attachments and str(sample_review.get("state") or "") == "ATTACHMENT_QUARANTINED":
-        ids = ", ".join(str(row.get("attachment_id")) for row in attachments if row.get("attachment_id"))
+        pending = [row for row in attachments if str(row.get("state") or "").casefold() == "quarantined"]
+        hashes: dict[str, list[str]] = {}
+        for row in pending:
+            key = str(row.get("sha256") or row.get("attachment_id") or "unknown")
+            hashes.setdefault(key, []).append(str(row.get("attachment_id") or ""))
+        duplicate_note = (
+            f" DIO has {len(pending)} attachment records with the same content hash, consistent with repeated uploads."
+            if len(pending) > 1 and len(hashes) == 1 else ""
+        )
+        ids = ", ".join(str(row.get("attachment_id")) for row in pending if row.get("attachment_id"))
         review = (
             f" The uploaded attachment(s) {ids} are associated with this case and remain in quarantine. "
-            "They have not been opened or inspected. An operator review is queued to verify custody/access and determine what review is authorized for this product. "
+            + duplicate_note + " They have not been opened or inspected. An operator review is queued to verify custody/access and determine what review is authorized for this product. "
         )
     elif sample_review.get("state") == "SAMPLE_REVIEW_APPROVED":
         review = " The sample has a recorded operator approval for the stated review scope; this does not approve production or factual changes. "
@@ -737,13 +819,25 @@ def _case_scope_progress_reply(
         outstanding = " The intake still lacks " + ", ".join(missing_labels) + "; I will not infer those fields."
     else:
         outstanding = " The recorded customer-stated intake fields are complete; the operator must review them before a quotation is prepared."
-    next_step = (
-        "No quotation has been issued, so there is no quote reference, price, validity period, or delivery schedule yet. "
-        "After the operator completes the required review and confirms the pricing basis, a written quotation will state the scope, inclusions, exclusions, assumptions, ZAR price, validity, and agreed schedule for your review."
-    )
+    commercial = case.get("commercial") or {}
+    quote_request = commercial.get("quote_request") or {}
+    quote_request_id = str(quote_request.get("quote_request_id") or "").strip()
+    if quote_request_id and commercial.get("quote_state") == "needs_operator_review":
+        next_step = (
+            f"A scoped quote request ({quote_request_id}) is queued for operator pricing review; it is not an issued quotation. "
+            "No customer quote reference, price, validity period, or delivery schedule exists yet. The operator must review the quarantined sample and confirm the pricing basis and schedule before a written quote can be issued."
+        )
+    else:
+        next_step = (
+            "No quotation has been issued, so there is no quote reference, price, validity period, or delivery schedule yet. "
+            "After the operator completes the required review and confirms the pricing basis, a written quotation will state the scope, inclusions, exclusions, assumptions, ZAR price, validity, and agreed schedule for your review."
+        )
+    upload_note = ""
+    if attachments:
+        upload_note = " Use the + Attach Files control to submit a file; this web intake accepts one attachment per message. Your sample is already recorded, so do not upload it again. Upload the remaining batch after you review and accept the written quotation."
     return (
         f"I confirm the attachment is recorded against case {case_id} in quarantine; I have not inspected its contents."
-        + reference_note + scope_note + review + outstanding + " " + next_step
+        + reference_note + scope_note + review + outstanding + " " + next_step + upload_note
     )
 
 
@@ -1398,14 +1492,34 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
             )
             conversation_state["active_intake_id"] = intake.get("intake_id")
             customer_case = load_case(presence_root, str(customer_case.get("case_id"))) or customer_case
+            customer_case = _ensure_intake_review_task(
+                presence_root,
+                customer_case,
+                conversation_id=correlation,
+                intake_id=str(intake.get("intake_id") or ""),
+            ) or customer_case
 
         # Quarantine review is created from custody state, independently of
         # the intent classifier, and remains explicitly unapproved.
-        if has_upload:
+        has_pending_quarantine = any(
+            isinstance(row, dict)
+            and str(row.get("state") or "").casefold() == "quarantined"
+            and str(row.get("review_state") or "ATTACHMENT_QUARANTINED") != "SAMPLE_REVIEW_APPROVED"
+            for row in customer_case.get("attachments") or []
+        )
+        if has_pending_quarantine:
             customer_case = _ensure_quarantine_review_task(
                 presence_root,
                 customer_case,
                 conversation_id=correlation,
+            ) or customer_case
+        canonical_intake_id = str(customer_case.get("presence_intake_id") or "").strip()
+        if canonical_intake_id:
+            customer_case = _ensure_intake_review_task(
+                presence_root,
+                customer_case,
+                conversation_id=correlation,
+                intake_id=canonical_intake_id,
             ) or customer_case
 
     if customer_case is not None:
@@ -1552,13 +1666,17 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
                 case=customer_case,
             )
         conversation_state['active_intake_id'] = intake['intake_id']
+        customer_case = _ensure_intake_review_task(
+            presence_root, customer_case, conversation_id=correlation,
+            intake_id=str(intake.get('intake_id') or ''),
+        ) or customer_case
         item = None
         for path in (presence_root / 'needs_you').glob('*.json'):
             try:
                 candidate = read_json(path)
             except Exception:
                 continue
-            if candidate.get('state') == 'open' and candidate.get('reason') == 'public_intake_review' and candidate.get('conversation_id') == correlation and intake['intake_id'] in str(candidate.get('summary') or ''):
+            if candidate.get('reason') == 'public_intake_review' and candidate.get('conversation_id') == correlation and intake['intake_id'] in str(candidate.get('summary') or ''):
                 item = candidate
                 break
         if item is None:

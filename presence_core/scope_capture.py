@@ -31,6 +31,7 @@ _COMMON_UNITS = {
     "channel", "language", "meeting", "workshop", "session", "course",
 }
 _UNIT_IRREGULAR = {"people": "person", "children": "child", "indices": "index"}
+_NON_UNIT_ADJECTIVES = {"formatted", "edited", "processed", "reviewed", "checked", "approved", "requested", "required"}
 
 
 def _digest(text: str) -> str:
@@ -73,12 +74,14 @@ def _unit_from_tail(tail: str, recognized_units: set[str]) -> str:
 def _quantity_observations(text: str, recognized_units: set[str]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     pattern = re.compile(
-        r"(?<![\w.])(?P<low>\d+)\s*(?:(?:to|[-–—])\s*(?P<high>\d+)\s*)?"
+        r"(?<![\w.])(?P<low>\d+)(?:\s+(?:(?:to|[-–—])\s*(?P<high>\d+)\s*)?)"
         r"(?P<tail>[A-Za-z][A-Za-z0-9_-]*(?:\s+[A-Za-z][A-Za-z0-9_-]*){0,4})"
     )
     for match in pattern.finditer(str(text or "")):
         raw_tail = match.group("tail")
         unit = _unit_from_tail(raw_tail, recognized_units)
+        if unit.casefold() in _NON_UNIT_ADJECTIVES:
+            continue
         before = str(text[max(0, match.start() - 72):match.start()]).casefold()
         if re.search(r"\b(?:maximum|max\.?|at most|up to|no more than|not exceeding|cap(?:ped)? at)\b", before):
             qualifier = "maximum"
@@ -93,6 +96,9 @@ def _quantity_observations(text: str, recognized_units: set[str]) -> list[dict[s
         value: int | dict[str, int] = {"minimum": low, "maximum": int(high_text)} if high_text else low
         raw = str(text[match.start():match.end()]).strip()
         if not raw or not unit:
+            continue
+        # IDs such as PRES-1058B66FF19C2A are not numeric scope quantities.
+        if re.search(r"\b\d+[A-Za-z0-9]{5,}\b", raw):
             continue
         rows.append({"kind": "quantity", "value": value, "unit": unit, "qualifier": qualifier, "source_text": raw})
     # The two parsers can encounter the same numeric span only once; preserve
@@ -135,6 +141,8 @@ def extract_customer_scope_observations(
         match = re.search(r"\b(?:exclude|excluding|do not include|must not include|without)\s+(.+)$", sentence, re.I)
         if match:
             tail = re.sub(r"[.!?]+$", "", match.group(1)).strip()
+            if re.search(r"\b(?:my|your|their)?\s*approval\b", tail, re.I):
+                continue
             for item in re.split(r",|\band\b|\bor\b", tail, flags=re.I):
                 item = re.sub(r"^(?:any|all|the)\s+", "", item.strip(), flags=re.I)
                 if item:
@@ -147,7 +155,7 @@ def extract_customer_scope_observations(
     deadlines = [
         {"statement": sentence, "source_text": sentence}
         for sentence in sentences
-        if re.search(r"\b(?:deadline|due date|turnaround|delivery schedule|schedule|fixed date)\b", sentence, re.I)
+        if re.search(r"\b(?:deadline|due date|fixed date)\b", sentence, re.I)
     ]
     data_classification = [
         {"statement": sentence, "source_text": sentence}
