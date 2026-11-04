@@ -513,6 +513,7 @@ def _document_quote_scope_reply(
     *,
     presence_root: Path | None = None,
     conversation_id: str | None = None,
+    intake_reference_hint: str | None = None,
 ) -> str | None:
     """Answer a document quote request with the actual scope and next steps."""
     if not re.search(r"\b(?:quote|quotation|estimate)\b", str(message or ""), re.I):
@@ -550,8 +551,13 @@ def _document_quote_scope_reply(
         if isinstance(row, dict)
     ]
     intake_reference = None
+    if re.fullmatch(r"PRES-[A-Z0-9]{8,32}", str(intake_reference_hint or "")):
+        intake_reference = str(intake_reference_hint)
     if presence_root is not None and conversation_id:
-        for candidate in re.findall(r"\bPRES-[A-Z0-9]{8,32}\b", str(message or "").upper()):
+        candidates = re.findall(r"\bPRES-[A-Z0-9]{8,32}\b", str(message or "").upper())
+        if intake_reference is None:
+            candidates = [str(intake_reference_hint or "").upper(), *candidates]
+        for candidate in candidates:
             path = Path(presence_root) / "intakes" / f"{candidate}.json"
             try:
                 recorded = json.loads(path.read_text(encoding="utf-8"))
@@ -575,6 +581,8 @@ def _document_quote_scope_reply(
             f" I’ll retain your existing intake reference {intake_reference} and keep this "
             f"work linked to case {case_id}."
         )
+    elif intake_reference:
+        reference_note = f" I’ll retain your existing intake reference {intake_reference}."
     elif case_id:
         reference_note = f" This remains linked to case {case_id}."
     else:
@@ -713,12 +721,16 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
         }
     elif role == 'public' and re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I):
         active_case = find_case_for_conversation(presence_root, correlation)
-        if active_case and active_case.get('product_id'):
+        retained_product = (
+            (active_case or {}).get('product_id')
+            or conversation_state.get('selected_product')
+        )
+        if retained_product:
             decision.update({
                 'intent': 'pricing_info',
-                'product': str(active_case['product_id']),
-                'source': 'active_customer_case',
-                'reason': 'quotation follow-up retains active case product',
+                'product': str(retained_product),
+                'source': 'active_customer_case' if active_case else 'conversation_product_context',
+                'reason': 'quotation follow-up retains active product context',
             })
     if (attachment_record or quarantined_attachments) and decision['intent'] in {'unknown','general_info'}:
         decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
@@ -1102,6 +1114,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
     elif decision['intent']=='intake_request' and decision.get('product') and not buyer_scope_followup:
         intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
+        conversation_state['active_intake_id'] = intake['intake_id']
         item=create_needs_you(presence_root,reason='public_intake_review',conversation_id=correlation,product=decision['product'],summary=f"Review {decision['product']} intake {intake['intake_id']}: {text[:300]}")
         emit_event(event_log,'presence.intake_received','action','presence_intake',intake['intake_id'],{'product':decision['product'],'needs_you_id':item['needs_you_id'],'automatic_fulfilment':False,'attachment_ids':intake.get('attachment_ids',[])},correlation)
     elif decision['intent']=='attachment_received' and quarantined_attachments and not attachment_record:
@@ -1472,18 +1485,35 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
         reply = case_price_reply
 
     document_quote_reply = None
+    quote_case = customer_case
+    if (
+        quote_case is None
+        and role == "public"
+        and re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I)
+        and str(decision.get("product") or "") in {
+            "Document Studio Edit", "Document Studio Localize", "Document Studio Publish"
+        }
+    ):
+        # A missing commercial census must not erase the product already
+        # selected in this conversation or trigger unrelated sibling guesses.
+        quote_case = {"product_id": decision["product"], "stage": "NEW_LEAD", "attachments": []}
     if (
         role == "public"
         and quote_ready_reply is None
         and case_price_reply is None
-        and isinstance(customer_case, dict)
+        and isinstance(quote_case, dict)
     ):
         document_quote_reply = _document_quote_scope_reply(
-            str(customer_case.get("product_id") or ""),
-            customer_case,
+            str(quote_case.get("product_id") or ""),
+            quote_case,
             text,
             presence_root=presence_root,
             conversation_id=correlation,
+            intake_reference_hint=str(
+                (intake or {}).get("intake_id")
+                or conversation_state.get("active_intake_id")
+                or ""
+            ) or None,
         )
 
     if document_quote_reply is not None:

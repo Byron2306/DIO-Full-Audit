@@ -1,5 +1,6 @@
 
 import json
+import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -7,7 +8,7 @@ from presence_core.commercial_cognition import (
     _document_edit_job,
     _document_operation_override,
 )
-from presence_core.engine import _document_quote_scope_reply
+from presence_core.engine import _document_quote_scope_reply, process_envelope
 from presence_core.vesper_journey_runtime import build_vesper_journey_view
 from presence_core.journey_core import available_actions
 from presence_core.customer_cases import create_or_attach_case, load_case, update_case
@@ -164,6 +165,42 @@ if __name__ == "__main__":
     unittest.main()
 
 class TestDocumentEditConversationRouting(unittest.TestCase):
+    def test_full_three_turn_customer_conversation(self):
+        root = Path(__file__).resolve().parents[1]
+        with TemporaryDirectory() as td:
+            state_root = Path(td)
+            (state_root / "config").mkdir()
+            (state_root / "telemetry").mkdir()
+            (state_root / "config" / "routes.json").write_bytes((root / "config" / "routes.json").read_bytes())
+            cfg = {
+                "state_root": "state/presence",
+                "event_log": "telemetry/dio_events.jsonl",
+                "routes_path": "config/routes.json",
+                "lingua_state_root": str(state_root / "state" / "lingua"),
+            }
+            os.environ.setdefault("DIO_PRESENCE_IDENTITY_SALT", "r" * 40)
+            turns = [
+                "Hello Vesper. We have several inconsistent reports with messy headings and need them professionally formatted for a client. Which DIO service fits and how does it work?",
+                "We have 12 English DOCX reports, 8 to 15 pages each. Please standardise branding, headings, typography, tables and layouts while preserving facts. Can I get a bounded quotation and upload one sample before committing?",
+                "Before accepting, show the exact quotation scope, inclusions, exclusions, ZAR price, assumptions, turnaround, reference and validity. Explain how the sample could change the assessment and how the batch is handled securely.",
+            ]
+            responses = [
+                process_envelope({"channel": "webchat", "external_user_id": "route-regression", "text": text, "message_type": "text"}, state_root, cfg)
+                for text in turns
+            ]
+        self.assertEqual(responses[0]["decision"]["product"], "Document Studio Edit")
+        self.assertIn("Document Studio Edit is the best starting service", responses[0]["reply"]["text"])
+        self.assertEqual(responses[1]["decision"]["intent"], "intake_request")
+        intake_ref = responses[1]["intake"]["intake_id"]
+        self.assertIn(intake_ref, responses[1]["reply"]["text"])
+        final = responses[2]["reply"]["text"].casefold()
+        self.assertIn("document studio edit is the best fit", final)
+        self.assertIn(intake_ref.casefold(), final)
+        self.assertIn("no quotation has been issued", final)
+        self.assertIn("no quote reference", final)
+        self.assertIn("turnaround estimate", final)
+        self.assertIn("quarantine", final)
+
     def test_greeting_prefix_does_not_hide_recommendation(self):
         from presence_core.router import route_message
         root = Path(__file__).resolve().parents[1]
