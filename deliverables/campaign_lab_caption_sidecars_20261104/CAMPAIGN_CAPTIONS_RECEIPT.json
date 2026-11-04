@@ -1,0 +1,151 @@
+{
+  "schema": "dio.campaign_lab.caption_sidecars.v1",
+  "status": "generated_held_for_human_caption_review",
+  "timing_method": "Scene-order cumulative source audio durations plus 0.30-second render padding per scene; cues end at spoken audio duration.",
+  "limits": [
+    "Timing is derived from renderer inputs and scene order, not phoneme-level forced alignment.",
+    "Human review should confirm text, reading speed and synchronization before publication."
+  ],
+  "variants": [
+    {
+      "variant": "landscape_explainer",
+      "video": "moya-mobile-care/moya-operations/assets/explainer_1920x1080.mp4",
+      "video_sha256": "928c3dfb6b4a0e7cd1706620ad0d366ae8d997fbf63c044811f20390942cf456",
+      "narration_receipt": "moya-mobile-care/moya-operations/media/landscape_explainer/POCKET_TTS_NARRATION_RECEIPT.json",
+      "narration_receipt_sha256": "89903a947c510fdab66be1b2c2b9e197c8eae462a077136ed74cc996b9faf045",
+      "scene_count": 6,
+      "captioned_voice_seconds": 45.76,
+      "timeline_end_seconds": 47.56,
+      "scene_audio_pad_seconds": 0.3,
+      "timing_method": "cumulative Pocket TTS source durations; 0.30s per-scene render pad from build_campaign_media_v3.py; no transition overlap",
+      "cues": [
+        {
+          "index": 1,
+          "scene_id": "landscape_explainer_01_question",
+          "start": 0.0,
+          "end": 9.16,
+          "text": "For Moya Clinic operations committee, the pressure appears before any tool enters the picture: monthly site reports are split across five clinic spreadsheets.",
+          "audio_sha256": "9b32b8bc8285211069adb92972e2960847af6599c35df4c75769cec89b06d103"
+        },
+        {
+          "index": 2,
+          "scene_id": "landscape_explainer_02_problem",
+          "start": 9.46,
+          "end": 19.42,
+          "text": "The burden rarely stays in one place. It moves through handoffs, revisions and review, increasing the amount of specialist attention needed to reconstruct what happened.",
+          "audio_sha256": "4549d2e91e212bfdd61387ec9af9a80fe4060d7493433d50610bf2a7bfbcc34c"
+        },
+        {
+          "index": 3,
+          "scene_id": "landscape_explainer_03_workflow_demo",
+          "start": 19.720000000000002,
+          "end": 25.360000000000003,
+          "text": "The bounded customer-facing result is one monthly view of scheduled and completed appointments.",
+          "audio_sha256": "fb00a67188a923525d76dd68b130546f266e14df40ab232d8b8984bbfa77e5a4"
+        },
+        {
+          "index": 4,
+          "scene_id": "landscape_explainer_04_proof",
+          "start": 25.660000000000004,
+          "end": 34.1,
+          "text": "The case for the workflow rests on inspectable evidence: the September service log records 240 completed appointments.",
+          "audio_sha256": "a649e2463a236b8f082819af527c37e6f85e137d79b8e7b4544ed16ff612f101"
+        },
+        {
+          "index": 5,
+          "scene_id": "landscape_explainer_05_boundary",
+          "start": 34.400000000000006,
+          "end": 41.64000000000001,
+          "text": "The workflow may prepare a bounded review state; judgement, commitment and release remain with the authorised human.",
+          "audio_sha256": "757ed1eeb38e8158154deac5485efcf9ed27540f5354b3fb62488dd62b89ab4c"
+        },
+        {
+          "index": 6,
+          "scene_id": "landscape_explainer_06_cta",
+          "start": 41.940000000000005,
+          "end": 47.260000000000005,
+          "text": "A sensible next move is deliberately bounded: request the next-quarter schedule.",
+          "audio_sha256": "2b06899704c986c160b333b8de8633f346a868b2f58686ff479a99013826fb2a"
+        }
+      ],
+      "srt": {
+        "path": "moya-mobile-care/moya-operations/assets/explainer_1920x1080.srt",
+        "sha256": "8f974fef4c1cd19a1587962093ebfc9a1d617bd939479a1e40c5dea7e84f299d"
+      },
+      "vtt": {
+        "path": "moya-mobile-care/moya-operations/assets/explainer_1920x1080.vtt",
+        "sha256": "eee92cf5364ede84d1d360fef83ae7ff15f8431908b2b11c7a9b2978659d3c54"
+      }
+    },
+    {
+      "variant": "vertical_short",
+      "video": "moya-mobile-care/moya-operations/assets/reel_1080x1920.mp4",
+      "video_sha256": "3c2000ab96051f377a45f62e2c606d038ced47ee37ba3a9426bb7a80e84a3a8f",
+      "narration_receipt": "moya-mobile-care/moya-operations/media/vertical_short/POCKET_TTS_NARRATION_RECEIPT.json",
+      "narration_receipt_sha256": "03bf771f5127ab7e03b4d7b428927a9efed4b85302bd4728f85587d3ba9bfddd",
+      "scene_count": 6,
+      "captioned_voice_seconds": 44.96,
+      "timeline_end_seconds": 46.76,
+      "scene_audio_pad_seconds": 0.3,
+      "timing_method": "cumulative Pocket TTS source durations; 0.30s per-scene render pad from build_campaign_media_v3.py; no transition overlap",
+      "cues": [
+        {
+          "index": 1,
+          "scene_id": "vertical_short_01_hook",
+          "start": 0.0,
+          "end": 7.72,
+          "text": "For Moya Clinic operations committee, the immediate friction is monthly site reports are split across five clinic spreadsheets.",
+          "audio_sha256": "7607ebd5175bedfa6ca09f8a1730a00438fbe42e43035aaf4792d3c74c1e8234"
+        },
+        {
+          "index": 2,
+          "scene_id": "vertical_short_02_pain",
+          "start": 8.02,
+          "end": 18.38,
+          "text": "The recurring cost is not only the task itself. It is the repeated effort needed to reconstruct context, check the work and prepare something another person can safely review.",
+          "audio_sha256": "e4f4294bb1a1a7c795663eb59e92860381cb5c67ebb52e529b4e03cf08a9f22d"
+        },
+        {
+          "index": 3,
+          "scene_id": "vertical_short_03_workflow",
+          "start": 18.68,
+          "end": 29.2,
+          "text": "Mobile Care is used to provide scheduled primary-care appointments at five community sites. The bounded result is one monthly view of scheduled and completed appointments.",
+          "audio_sha256": "84c86e43ede297fd73d4124de9a827f3781d55489a374d9139b594776bf1c1ba"
+        },
+        {
+          "index": 4,
+          "scene_id": "vertical_short_04_proof",
+          "start": 29.5,
+          "end": 36.5,
+          "text": "The claim has to survive inspection: the September service log records 240 completed appointments.",
+          "audio_sha256": "c096617826c49a3f6551df82097af3dd13c6046e233c840fbd4aa1768a83216f"
+        },
+        {
+          "index": 5,
+          "scene_id": "vertical_short_05_human_gate",
+          "start": 36.8,
+          "end": 42.839999999999996,
+          "text": "The system prepares a bounded review state; the authorised human keeps judgement and release.",
+          "audio_sha256": "77f712ea08fc63c1f32850bf08111a2b6d14adacd93594a323c04a5505f6b3d2"
+        },
+        {
+          "index": 6,
+          "scene_id": "vertical_short_06_cta",
+          "start": 43.14,
+          "end": 46.46,
+          "text": "The next step is request the next-quarter schedule.",
+          "audio_sha256": "a406e0f0cb10cf27e5a7ffe9a4ff748557f90e73934f4985e0b0a5157505ddc6"
+        }
+      ],
+      "srt": {
+        "path": "moya-mobile-care/moya-operations/assets/reel_1080x1920.srt",
+        "sha256": "ebbf65c1dee5a42669c9db47f92a8b4ba6a3fa4570b0de9a78bf255888ef5d33"
+      },
+      "vtt": {
+        "path": "moya-mobile-care/moya-operations/assets/reel_1080x1920.vtt",
+        "sha256": "29b1ad537d19e81462fc4eabf2f84efba5a5ff7d156883d95c7c704bc7871ade"
+      }
+    }
+  ]
+}

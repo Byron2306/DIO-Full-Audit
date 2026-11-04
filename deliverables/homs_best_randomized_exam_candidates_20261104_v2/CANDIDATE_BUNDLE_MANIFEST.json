@@ -1,0 +1,1526 @@
+{
+  "schema": "dio.homs.exam.curated_candidate_bundle.v1",
+  "selection_manifest_path": "source_receipts/HOMS_BEST_EXAM_CANDIDATES_SHORTLIST_20261104.json",
+  "selection_manifest_sha256": "eb4c578861a01d5972f0f62fb154d3dfba0b7041b385d3989901f26581172bba",
+  "source_batch_receipt_sha256": {
+    "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45": "945dde5a7be30a51663acab0b17689251ee2e1ade87e5f5066bb47b4177a5008"
+  },
+  "grade_count": 12,
+  "random_seed": 20261101,
+  "classroom_release_authorized": false,
+  "educator_review_required": true,
+  "independent_moderation_decision": "NOT_ISSUED",
+  "selection_basis": "Use corrected batch V45 for every grade. Grade 4 preserves the 29-mark paper because its conversion prompt and six-point memo align. Grade 7 Question 1.1 now names all four items and explicitly includes production input, business expense and sales revenue categories; its six memo points match the four classifications and two requested explanations. All selected exam and memo PDF hashes match current customer-route receipts. This is a source-owned correction and mechanical artifact selection, not an independent academic quality ranking.",
+  "grades": [
+    {
+      "grade": 1,
+      "subject": "Life Skills",
+      "total_marks": 20,
+      "duration_minutes": 45,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-01/documents/GRADE_01_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-01/documents/GRADE_01_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-01/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "3eb48e1ed01eb659ccb5c0cb7606b09791f24e151a18b3f34c35115592bbb07e",
+          "bytes": 21061
+        },
+        {
+          "path": "grade-01/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "ceeada2c2cb230cda2c8ce02202015aa79ed51e09cf90012391e956c702fc0d5",
+          "bytes": 8696
+        },
+        {
+          "path": "grade-01/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "8f3ea3560b8444764a98ee7f3e1845adfb1f23a8cf419f225446c18e2358c323",
+          "bytes": 6060
+        },
+        {
+          "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "44940f7a4cce9e9e578a8857741f38e4ce91a930a99eb67c945e20c3e3fb8748",
+          "bytes": 3293
+        },
+        {
+          "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "fec17ae335ad1c654d8c94b4861ff053db06cdea3b799c89c27fe2b83b675169",
+          "bytes": 31390
+        },
+        {
+          "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "bf74f08b1a4e504376ba30f6a1a80c62ce65b7f406f50330adfd5ace7e6a45bb",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-01/documents/GRADE_01_DRAFT_EXAM.docx",
+          "sha256": "798835daf7579d9038547322f26708da9c0aebcddd883e6c82e8c4f29ee2270b",
+          "bytes": 37565
+        },
+        {
+          "path": "grade-01/documents/GRADE_01_DRAFT_EXAM.pdf",
+          "sha256": "ff076a1f3f6318bbe1e6ea1483d2fe2b706d5275154749e5edbb7558c1748946",
+          "bytes": 51526
+        },
+        {
+          "path": "grade-01/documents/GRADE_01_DRAFT_MARKING_MEMO.docx",
+          "sha256": "e6cf60e51ccfc0adc250d6115c522e5c82b665355511ad8c9e32bbb302608fc8",
+          "bytes": 38008
+        },
+        {
+          "path": "grade-01/documents/GRADE_01_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "5f302608eb9f48614990c41bc23ff1054323ae84eb3824e363b8e90b1f03f6b8",
+          "bytes": 62509
+        }
+      ]
+    },
+    {
+      "grade": 2,
+      "subject": "English Language",
+      "total_marks": 20,
+      "duration_minutes": 45,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-02/documents/GRADE_02_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-02/documents/GRADE_02_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-02/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "5774d2ab2451d30b92cc9842b1801d7ab08fa95ada983982a37b88d23751347e",
+          "bytes": 20359
+        },
+        {
+          "path": "grade-02/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "3b96b1d0322ed5b27d18c56fe2b5499e23ed21049891af98f655e62a7959db9a",
+          "bytes": 8693
+        },
+        {
+          "path": "grade-02/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "bff0f479a3c5e338169869afa34c3961b39248f660d3c8683f7ce7f6ec3fb82e",
+          "bytes": 6057
+        },
+        {
+          "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "220a24b8f14a571ab2d438e2c6b942007cfdf486b994392b77bbf4ba05831769",
+          "bytes": 3575
+        },
+        {
+          "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "984da45179b3250479d54d9c2ea4160a48cc9cfcea5952659bb77535b972fb48",
+          "bytes": 32004
+        },
+        {
+          "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "f355bf3cff325850b60a7e5623403ae7b71c8cef15bc8400b2f0cc28d1aea2a7",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-02/documents/GRADE_02_DRAFT_EXAM.docx",
+          "sha256": "e1b6cb5de7e606be86bee1c598248ec18eb4217c2abd8419734c0abb1a0585b4",
+          "bytes": 37629
+        },
+        {
+          "path": "grade-02/documents/GRADE_02_DRAFT_EXAM.pdf",
+          "sha256": "896ab23f5e0022c6247532d060cefdc35c56421bb283e599bef95c99a0c61259",
+          "bytes": 51613
+        },
+        {
+          "path": "grade-02/documents/GRADE_02_DRAFT_MARKING_MEMO.docx",
+          "sha256": "1324a0b8d1ba1df4a7721306bf6b0b19665c6961dbb927ac5c2c16daaff801cb",
+          "bytes": 38088
+        },
+        {
+          "path": "grade-02/documents/GRADE_02_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "baff7bef660298b92faa1cf8c1f17c5950d535566fcce639b6e15300e88cf191",
+          "bytes": 62614
+        }
+      ]
+    },
+    {
+      "grade": 3,
+      "subject": "Mathematics",
+      "total_marks": 20,
+      "duration_minutes": 45,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-03/documents/GRADE_03_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-03/documents/GRADE_03_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-03/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "12b13a6889b5592b1a5b922d6c4c9f58f88e35cc35d679ca4b6248292092fcf5",
+          "bytes": 30736
+        },
+        {
+          "path": "grade-03/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "fd1c959e6bad1b0cfa75b7dc9b8e2f7de6b63740996a6fc282c8c05d254c2e6b",
+          "bytes": 8674
+        },
+        {
+          "path": "grade-03/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "f545ab7f9142b095cd06f2846be4ca3423c993ef911843b3fc1a7ecec947be58",
+          "bytes": 6040
+        },
+        {
+          "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "63465ccea24afde339ca02028b6a5e7dc3e1606a4f14df09cec72a4cff822b4c",
+          "bytes": 3215
+        },
+        {
+          "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "15a0c2686564192090dcfb9fa2904f44122cff7c791bd42d3cb78ab7d376a153",
+          "bytes": 31265
+        },
+        {
+          "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "6932d54f2ab9e7a034eb2601f75c89c82915cafda477daf65d5a2ce9b509d8a1",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-03/documents/GRADE_03_DRAFT_EXAM.docx",
+          "sha256": "48f632f142e2cb7b05dd6931f14f90b66c914618c1831af9ee08831e6e6ff9af",
+          "bytes": 37578
+        },
+        {
+          "path": "grade-03/documents/GRADE_03_DRAFT_EXAM.pdf",
+          "sha256": "eff991f2f6a973f5ac264357f2e5b555088dfd490a090f57029e8f4264eb8583",
+          "bytes": 51366
+        },
+        {
+          "path": "grade-03/documents/GRADE_03_DRAFT_MARKING_MEMO.docx",
+          "sha256": "e6bb8ca87f4b64715b715742d6a862f215f5903e3e5c43f9e6dec0aa23c216aa",
+          "bytes": 38022
+        },
+        {
+          "path": "grade-03/documents/GRADE_03_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "0c0656115a9dbaa6ffce30a1b9a55b4cdfd9c0370b3b9b3d63c1fd78f13ece22",
+          "bytes": 63302
+        }
+      ]
+    },
+    {
+      "grade": 4,
+      "subject": "Mathematics",
+      "total_marks": 29,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-04/documents/GRADE_04_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-04/documents/GRADE_04_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-04/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "daf3b84173c83bc1c5a72462ae66651fb40ce01193f6e32fa154162011669ba9",
+          "bytes": 31542
+        },
+        {
+          "path": "grade-04/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "f385dc57f23aed58db6c2320f5236a1e2cf6b2c181cefcf3994d41944de77b1c",
+          "bytes": 8861
+        },
+        {
+          "path": "grade-04/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "fb4fa15f4012e44acd89e60352beed6c0521b3fce94e746828b1c93efc3ef9af",
+          "bytes": 6217
+        },
+        {
+          "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "e45c102d65cc4d2b2ab999338882ff58a81c12fd887e2dd045eb1161669ed3d2",
+          "bytes": 4164
+        },
+        {
+          "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "051afcdccf3773605ce827bd45d86667111d9b0681595a2f4f65d9893bc030a1",
+          "bytes": 33313
+        },
+        {
+          "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "77a7b0496c6677b6133fe106f899d9abc85254c3297933df508d2af285017b4a",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-04/documents/GRADE_04_DRAFT_EXAM.docx",
+          "sha256": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f",
+          "bytes": 37613
+        },
+        {
+          "path": "grade-04/documents/GRADE_04_DRAFT_EXAM.pdf",
+          "sha256": "4bbf8a12d167d8e9e7bc6bb69b300c27f1289d7a161fd889cd9855b60c8ea408",
+          "bytes": 52425
+        },
+        {
+          "path": "grade-04/documents/GRADE_04_DRAFT_MARKING_MEMO.docx",
+          "sha256": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b",
+          "bytes": 38220
+        },
+        {
+          "path": "grade-04/documents/GRADE_04_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "499ce5faf4867701fc3ff69a3c50d4fd471afc0f27e7ef1c629416cf599166e2",
+          "bytes": 69902
+        }
+      ]
+    },
+    {
+      "grade": 5,
+      "subject": "Natural Sciences and Technology",
+      "total_marks": 30,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-05/documents/GRADE_05_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-05/documents/GRADE_05_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-05/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "2821a2cfc2d8eeddae3f1cd6b57fe22dea1952c09cdd95803ef9b4c145201d74",
+          "bytes": 39109
+        },
+        {
+          "path": "grade-05/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "967e4db7e67d938362458e2d7feefe6fe6708a941afec990b592dadc437b9234",
+          "bytes": 9333
+        },
+        {
+          "path": "grade-05/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "e4cd20ea90427b7a45e2407d8c2f0b329133a65cf035e16716299757edc34ebd",
+          "bytes": 6665
+        },
+        {
+          "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "57389b6ef31880576f2dd0db5eec2bd08e5885215f54646e935f63706a1d37a3",
+          "bytes": 5180
+        },
+        {
+          "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "3a235be1456f9049e34e7eb9f1952bbcf78f00b6f05a90880b747bb89fb14f8e",
+          "bytes": 35276
+        },
+        {
+          "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "068c498f6ac59b7334d652197d4ed93e56008427fb06df53e06ad945b7a8b793",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-05/documents/GRADE_05_DRAFT_EXAM.docx",
+          "sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+          "bytes": 37867
+        },
+        {
+          "path": "grade-05/documents/GRADE_05_DRAFT_EXAM.pdf",
+          "sha256": "5bf4d4b2d10e921979dbd58d5e525eedab81a4e738a540e8c08305554f3efe81",
+          "bytes": 53330
+        },
+        {
+          "path": "grade-05/documents/GRADE_05_DRAFT_MARKING_MEMO.docx",
+          "sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224",
+          "bytes": 38486
+        },
+        {
+          "path": "grade-05/documents/GRADE_05_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "51a6783fab6703ee7e6f75b6565086705593e2651dd637008115c8f9495ffbe7",
+          "bytes": 70847
+        }
+      ]
+    },
+    {
+      "grade": 6,
+      "subject": "Life Skills",
+      "total_marks": 30,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-06/documents/GRADE_06_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-06/documents/GRADE_06_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-06/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "54416a3231a7b172d0f8e83e09dd4f6ecefecd79a9a4aab3a0bf53d639bb5e4b",
+          "bytes": 17137
+        },
+        {
+          "path": "grade-06/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "19f7c495961314d14953c5b645d2733e5297db321b127fa20c049a0d246c4dad",
+          "bytes": 8715
+        },
+        {
+          "path": "grade-06/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "582e81bc5ddd4ffaec0c6f50bda8773543307265ae0b86252de785e70159a8ac",
+          "bytes": 6079
+        },
+        {
+          "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "d95a53062124b7bf8551a7418d158b7062f8db8e3154cbfd87c0f4b1d40564cf",
+          "bytes": 4591
+        },
+        {
+          "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "f2f6da9f886102a5bd49ea34f032410294da6c6676675b02953e6b6edeceb0b3",
+          "bytes": 34185
+        },
+        {
+          "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "e51398e22f2ed9fa57795a8e06c70ba18111060e5e6ec9677c0e51173d8f576d",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-06/documents/GRADE_06_DRAFT_EXAM.docx",
+          "sha256": "b8922247d6c7c2e08ae5f96df6044ce3d3f9d48bf390b991900882564c2657a6",
+          "bytes": 37846
+        },
+        {
+          "path": "grade-06/documents/GRADE_06_DRAFT_EXAM.pdf",
+          "sha256": "69b607a8fd2c245b5a9bc3cd4f3237fd24b3d4989c3fc6634d683155d4180e1d",
+          "bytes": 53053
+        },
+        {
+          "path": "grade-06/documents/GRADE_06_DRAFT_MARKING_MEMO.docx",
+          "sha256": "a9a8b2de1c5a118506b331b881356c711846aa87232254eafec55ec5e81b8e61",
+          "bytes": 38351
+        },
+        {
+          "path": "grade-06/documents/GRADE_06_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "2d4bdfe59b94477e0e189500bb09ac53807891d9e0511e9e981cb9116dbfb13d",
+          "bytes": 70594
+        }
+      ]
+    },
+    {
+      "grade": 7,
+      "subject": "Economic and Management Sciences",
+      "total_marks": 40,
+      "duration_minutes": 90,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-07/documents/GRADE_07_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-07/documents/GRADE_07_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-07/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "cee901ba98c0c44439f1421b864d8fdc292b43f39de495833739d2f2ca8a5102",
+          "bytes": 16435
+        },
+        {
+          "path": "grade-07/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "5bed0f72ebda76d9764eab6e6cd2527052391e5f283a491d4c8bfeed04b791b1",
+          "bytes": 8988
+        },
+        {
+          "path": "grade-07/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "f24aa1456e1ac5714c1199321a43eb5dbb007251846278a487611f4d4db4a627",
+          "bytes": 6340
+        },
+        {
+          "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "78da32b317f87a485d30826e2ea0594e36021f2d2722b79c31a3432b138af760",
+          "bytes": 5188
+        },
+        {
+          "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "233e9f447e771db947331a28c6196ccbb452f3ff9aed0efe0eee76fb72470304",
+          "bytes": 35503
+        },
+        {
+          "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "4c232314c7c0b5a5c49e7e75098c576b52be46b0646c8e0fb1e6379964f8f080",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-07/documents/GRADE_07_DRAFT_EXAM.docx",
+          "sha256": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314",
+          "bytes": 37696
+        },
+        {
+          "path": "grade-07/documents/GRADE_07_DRAFT_EXAM.pdf",
+          "sha256": "1f085b3fea3076fbd5c4f439ecbddd7438ba2292560e1ad5811a7266e47c15d6",
+          "bytes": 53020
+        },
+        {
+          "path": "grade-07/documents/GRADE_07_DRAFT_MARKING_MEMO.docx",
+          "sha256": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4",
+          "bytes": 38458
+        },
+        {
+          "path": "grade-07/documents/GRADE_07_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "fde152c3569c3589bdc0a2af0b99593c27d92ea14aee65f6f3c3e331b4e39647",
+          "bytes": 76902
+        }
+      ]
+    },
+    {
+      "grade": 8,
+      "subject": "Life Orientation",
+      "total_marks": 40,
+      "duration_minutes": 90,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-08/documents/GRADE_08_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-08/documents/GRADE_08_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-08/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "d89bcea06df4d06cb3d0bd7dabc6fdfc392f67f9e3209e8947c05ffde646066a",
+          "bytes": 22519
+        },
+        {
+          "path": "grade-08/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "c89e56539f6e80d5fd3fe12dbb8655ad1755e51a56e080e78e5ae634e06ab210",
+          "bytes": 8752
+        },
+        {
+          "path": "grade-08/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "150721e751ad2b6d2c5ea258d84e0731df253c11e39fdf166f48a12787f72e12",
+          "bytes": 6114
+        },
+        {
+          "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "9571bae77818209665cd642242b5b98309c55b15afaa1f5ee2f548467e66dcf6",
+          "bytes": 4854
+        },
+        {
+          "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "5aae6ae0c11cd8654c85d105fc43298b868881dff46151e5e0ff71a353a607b8",
+          "bytes": 34898
+        },
+        {
+          "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "9ab24699a4ffff9f468ec7b742992b0b069cc22cff124c8644c7fff248ca7a53",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-08/documents/GRADE_08_DRAFT_EXAM.docx",
+          "sha256": "c31c0cc02545d2195d6fe605152d5d86b736b5ea57b712ca2ef7b0f102635633",
+          "bytes": 37638
+        },
+        {
+          "path": "grade-08/documents/GRADE_08_DRAFT_EXAM.pdf",
+          "sha256": "b4c7e267c04717885f5158bcd9e7dd9cd9dffbf3093a2bd6cf99db7d3c359dd8",
+          "bytes": 51848
+        },
+        {
+          "path": "grade-08/documents/GRADE_08_DRAFT_MARKING_MEMO.docx",
+          "sha256": "e34356a320631a83f5d6cac3b08ef943bc83e90729f1645f5cd3d751de31bc22",
+          "bytes": 38472
+        },
+        {
+          "path": "grade-08/documents/GRADE_08_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "b5470b20043f2ae20004666ef792b9e6e40fa6994c724c742ee03d6b6242cccb",
+          "bytes": 75978
+        }
+      ]
+    },
+    {
+      "grade": 9,
+      "subject": "English Language",
+      "total_marks": 40,
+      "duration_minutes": 90,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-09/documents/GRADE_09_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-09/documents/GRADE_09_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-09/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "fda372d29d181a4eec7dde873a81de83225b79e500f43e424abf87a4d64174d4",
+          "bytes": 47080
+        },
+        {
+          "path": "grade-09/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "47c2eeb9bf2cb4b5606f7e5b96423d600c2369ff403f98b764c24888ce0f0bad",
+          "bytes": 8761
+        },
+        {
+          "path": "grade-09/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "8b44c1dbc833c5cc5d1416aa2aa9736abf8c6ec2e45c8740ac82ff479ff43685",
+          "bytes": 6121
+        },
+        {
+          "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495",
+          "bytes": 4786
+        },
+        {
+          "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b",
+          "bytes": 34746
+        },
+        {
+          "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-09/documents/GRADE_09_DRAFT_EXAM.docx",
+          "sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788",
+          "bytes": 37859
+        },
+        {
+          "path": "grade-09/documents/GRADE_09_DRAFT_EXAM.pdf",
+          "sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723",
+          "bytes": 53705
+        },
+        {
+          "path": "grade-09/documents/GRADE_09_DRAFT_MARKING_MEMO.docx",
+          "sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017",
+          "bytes": 38567
+        },
+        {
+          "path": "grade-09/documents/GRADE_09_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5",
+          "bytes": 76929
+        }
+      ]
+    },
+    {
+      "grade": 10,
+      "subject": "Physical Sciences",
+      "total_marks": 50,
+      "duration_minutes": 120,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-10/documents/GRADE_10_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-10/documents/GRADE_10_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-10/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "330937738cc8212a1d37754872b2d24263cc6eca33ccb00b485ff238e5f2fe65",
+          "bytes": 42485
+        },
+        {
+          "path": "grade-10/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "f8b22ed8bd6702d27c8dc94d75794d2cefb8d42c28347b0921bf93e384d7a1d5",
+          "bytes": 8896
+        },
+        {
+          "path": "grade-10/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "4e5df4a61fdfd9203543a65d3918fcb2e2caee39f5d929c99c467521e1af6db2",
+          "bytes": 6250
+        },
+        {
+          "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "27392d0ea65cf321b5d5a0594cce000d95b3f5ea1ad0057d38f188aa05fc0309",
+          "bytes": 6546
+        },
+        {
+          "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "2a9ce12c4d047bddb6459226b94c9dc233cca00f1d1fda6e085dd435283ee2f7",
+          "bytes": 38414
+        },
+        {
+          "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "ac27a96909c13dd7ca3ac00129793bda68cc362872385aaf2385485b27603df9",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-10/documents/GRADE_10_DRAFT_EXAM.docx",
+          "sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+          "bytes": 37761
+        },
+        {
+          "path": "grade-10/documents/GRADE_10_DRAFT_EXAM.pdf",
+          "sha256": "7130764e04c368e02c657db912737ac36151a614da9877f1139e914aa3015c93",
+          "bytes": 53184
+        },
+        {
+          "path": "grade-10/documents/GRADE_10_DRAFT_MARKING_MEMO.docx",
+          "sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273",
+          "bytes": 38677
+        },
+        {
+          "path": "grade-10/documents/GRADE_10_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "e85f416ed47b51da8572a5d304d45b471edbd8affd4a99c9f70bdffc7deb641d",
+          "bytes": 82813
+        }
+      ]
+    },
+    {
+      "grade": 11,
+      "subject": "English Language",
+      "total_marks": 50,
+      "duration_minutes": 120,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-11/documents/GRADE_11_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-11/documents/GRADE_11_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-11/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "71c8414e28933da96aa3e785c1dc4d0fd98a5407916849562faef5df38cc21c0",
+          "bytes": 35633
+        },
+        {
+          "path": "grade-11/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "12c0e21f1925e56ebe8380cba36dcab3ede6a83d2658eb43ff5e4b0668fc0b5f",
+          "bytes": 8715
+        },
+        {
+          "path": "grade-11/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "82bad99a95afab89cad020610de2fc65d1cfbde83ea07a8744bc82655c730010",
+          "bytes": 6079
+        },
+        {
+          "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "e07e0b52ab2f89531fcfe2a95caa2139ff651bb7b8189b6d06918928e9fea5b5",
+          "bytes": 5760
+        },
+        {
+          "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "2d371b416d07bf3546d813bffd8f4983c6af705345c5dc00d875336a13bcefbd",
+          "bytes": 36885
+        },
+        {
+          "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "e8eb9530727c31b802afbea6508b3e0d536d30c856f8e2e55a6aef77d828d24a",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-11/documents/GRADE_11_DRAFT_EXAM.docx",
+          "sha256": "047a84d2a1caec8149aef164c4cb0060de17fb8d7a9921f2f6b85ebf24f09357",
+          "bytes": 38159
+        },
+        {
+          "path": "grade-11/documents/GRADE_11_DRAFT_EXAM.pdf",
+          "sha256": "d69c2e73c6583f9de0636ad654012517aa332cfb8dd0c675ea4a58eccbdb2cc1",
+          "bytes": 59035
+        },
+        {
+          "path": "grade-11/documents/GRADE_11_DRAFT_MARKING_MEMO.docx",
+          "sha256": "7278d730dbbee1bd443f1e1a350875d7de767360bab1a3d9d987355232f30033",
+          "bytes": 39155
+        },
+        {
+          "path": "grade-11/documents/GRADE_11_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "a1f421c5aff96b30ac7dd2fe9f481d91e93d1fdc83d66316f1a8aef1048a08e4",
+          "bytes": 88941
+        }
+      ]
+    },
+    {
+      "grade": 12,
+      "subject": "Business Studies",
+      "total_marks": 50,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "exam_pdf": "grade-12/documents/GRADE_12_DRAFT_EXAM.pdf",
+      "memo_pdf": "grade-12/documents/GRADE_12_DRAFT_MARKING_MEMO.pdf",
+      "educator_review_csv": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "files": [
+        {
+          "path": "grade-12/CUSTOMER_EXAM_PACKAGE.html",
+          "sha256": "c1c3337273688b72e92ff8849ed3553274a71aa6adfcdb382fd832fdbf9a8266",
+          "bytes": 34067
+        },
+        {
+          "path": "grade-12/CUSTOMER_EXECUTION_RECEIPT.json",
+          "sha256": "69205083a50c656077705043d063e8e8d394b0d0be4efd4fd0ad95ae9827210c",
+          "bytes": 9104
+        },
+        {
+          "path": "grade-12/CUSTOMER_PACKAGE_RECEIPT.json",
+          "sha256": "a90864cd1bd3897895b15c735a41c079aeaa97b4268ba10e8a7b17fdfeec3785",
+          "bytes": 6446
+        },
+        {
+          "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+          "sha256": "93660173f3577fbc703fafa7a6a178f2edc85faa3fc3d75ee60a1df7feceeaea",
+          "bytes": 6613
+        },
+        {
+          "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+          "sha256": "01db8a330884598aa7fc34676f12f637403460423acf5ded621f05f4d13152c3",
+          "bytes": 38553
+        },
+        {
+          "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+          "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+          "bytes": 1333
+        },
+        {
+          "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+          "sha256": "d68b736c84653fc83c2100ffc78a5012dc043461277bed608f173c6904b294f3",
+          "bytes": 5810
+        },
+        {
+          "path": "grade-12/documents/GRADE_12_DRAFT_EXAM.docx",
+          "sha256": "e302dcede450e8e930f8293dc28e23d1c78d3171052a0cb8b62b423d1ed28157",
+          "bytes": 37990
+        },
+        {
+          "path": "grade-12/documents/GRADE_12_DRAFT_EXAM.pdf",
+          "sha256": "8908493f42d6735d372281ca2daf5852bb473471403b60436f398d31e06db19a",
+          "bytes": 54918
+        },
+        {
+          "path": "grade-12/documents/GRADE_12_DRAFT_MARKING_MEMO.docx",
+          "sha256": "faf900f3e9832d7bf58ee874d3d519408312ca9639a92a2004d31669ead35310",
+          "bytes": 39055
+        },
+        {
+          "path": "grade-12/documents/GRADE_12_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "ba33f2e79ad49d5d9d53f9835ec5138082643ad7cf7fadf8b55067c89a7b0fac",
+          "bytes": 84269
+        }
+      ]
+    }
+  ],
+  "bundle_artifacts": [
+    {
+      "path": "README.md",
+      "sha256": "f78a4beb7ddabd2038000e6b5b1950af65d22bf04c4ea6aadfbd7a3fa6f3769a",
+      "bytes": 1126
+    },
+    {
+      "path": "grade-01/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "3eb48e1ed01eb659ccb5c0cb7606b09791f24e151a18b3f34c35115592bbb07e",
+      "bytes": 21061
+    },
+    {
+      "path": "grade-01/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "ceeada2c2cb230cda2c8ce02202015aa79ed51e09cf90012391e956c702fc0d5",
+      "bytes": 8696
+    },
+    {
+      "path": "grade-01/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "8f3ea3560b8444764a98ee7f3e1845adfb1f23a8cf419f225446c18e2358c323",
+      "bytes": 6060
+    },
+    {
+      "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "44940f7a4cce9e9e578a8857741f38e4ce91a930a99eb67c945e20c3e3fb8748",
+      "bytes": 3293
+    },
+    {
+      "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "fec17ae335ad1c654d8c94b4861ff053db06cdea3b799c89c27fe2b83b675169",
+      "bytes": 31390
+    },
+    {
+      "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-01/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "bf74f08b1a4e504376ba30f6a1a80c62ce65b7f406f50330adfd5ace7e6a45bb",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-01/documents/GRADE_01_DRAFT_EXAM.docx",
+      "sha256": "798835daf7579d9038547322f26708da9c0aebcddd883e6c82e8c4f29ee2270b",
+      "bytes": 37565
+    },
+    {
+      "path": "grade-01/documents/GRADE_01_DRAFT_EXAM.pdf",
+      "sha256": "ff076a1f3f6318bbe1e6ea1483d2fe2b706d5275154749e5edbb7558c1748946",
+      "bytes": 51526
+    },
+    {
+      "path": "grade-01/documents/GRADE_01_DRAFT_MARKING_MEMO.docx",
+      "sha256": "e6cf60e51ccfc0adc250d6115c522e5c82b665355511ad8c9e32bbb302608fc8",
+      "bytes": 38008
+    },
+    {
+      "path": "grade-01/documents/GRADE_01_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "5f302608eb9f48614990c41bc23ff1054323ae84eb3824e363b8e90b1f03f6b8",
+      "bytes": 62509
+    },
+    {
+      "path": "grade-02/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "5774d2ab2451d30b92cc9842b1801d7ab08fa95ada983982a37b88d23751347e",
+      "bytes": 20359
+    },
+    {
+      "path": "grade-02/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "3b96b1d0322ed5b27d18c56fe2b5499e23ed21049891af98f655e62a7959db9a",
+      "bytes": 8693
+    },
+    {
+      "path": "grade-02/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "bff0f479a3c5e338169869afa34c3961b39248f660d3c8683f7ce7f6ec3fb82e",
+      "bytes": 6057
+    },
+    {
+      "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "220a24b8f14a571ab2d438e2c6b942007cfdf486b994392b77bbf4ba05831769",
+      "bytes": 3575
+    },
+    {
+      "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "984da45179b3250479d54d9c2ea4160a48cc9cfcea5952659bb77535b972fb48",
+      "bytes": 32004
+    },
+    {
+      "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-02/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "f355bf3cff325850b60a7e5623403ae7b71c8cef15bc8400b2f0cc28d1aea2a7",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-02/documents/GRADE_02_DRAFT_EXAM.docx",
+      "sha256": "e1b6cb5de7e606be86bee1c598248ec18eb4217c2abd8419734c0abb1a0585b4",
+      "bytes": 37629
+    },
+    {
+      "path": "grade-02/documents/GRADE_02_DRAFT_EXAM.pdf",
+      "sha256": "896ab23f5e0022c6247532d060cefdc35c56421bb283e599bef95c99a0c61259",
+      "bytes": 51613
+    },
+    {
+      "path": "grade-02/documents/GRADE_02_DRAFT_MARKING_MEMO.docx",
+      "sha256": "1324a0b8d1ba1df4a7721306bf6b0b19665c6961dbb927ac5c2c16daaff801cb",
+      "bytes": 38088
+    },
+    {
+      "path": "grade-02/documents/GRADE_02_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "baff7bef660298b92faa1cf8c1f17c5950d535566fcce639b6e15300e88cf191",
+      "bytes": 62614
+    },
+    {
+      "path": "grade-03/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "12b13a6889b5592b1a5b922d6c4c9f58f88e35cc35d679ca4b6248292092fcf5",
+      "bytes": 30736
+    },
+    {
+      "path": "grade-03/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "fd1c959e6bad1b0cfa75b7dc9b8e2f7de6b63740996a6fc282c8c05d254c2e6b",
+      "bytes": 8674
+    },
+    {
+      "path": "grade-03/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "f545ab7f9142b095cd06f2846be4ca3423c993ef911843b3fc1a7ecec947be58",
+      "bytes": 6040
+    },
+    {
+      "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "63465ccea24afde339ca02028b6a5e7dc3e1606a4f14df09cec72a4cff822b4c",
+      "bytes": 3215
+    },
+    {
+      "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "15a0c2686564192090dcfb9fa2904f44122cff7c791bd42d3cb78ab7d376a153",
+      "bytes": 31265
+    },
+    {
+      "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-03/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "6932d54f2ab9e7a034eb2601f75c89c82915cafda477daf65d5a2ce9b509d8a1",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-03/documents/GRADE_03_DRAFT_EXAM.docx",
+      "sha256": "48f632f142e2cb7b05dd6931f14f90b66c914618c1831af9ee08831e6e6ff9af",
+      "bytes": 37578
+    },
+    {
+      "path": "grade-03/documents/GRADE_03_DRAFT_EXAM.pdf",
+      "sha256": "eff991f2f6a973f5ac264357f2e5b555088dfd490a090f57029e8f4264eb8583",
+      "bytes": 51366
+    },
+    {
+      "path": "grade-03/documents/GRADE_03_DRAFT_MARKING_MEMO.docx",
+      "sha256": "e6bb8ca87f4b64715b715742d6a862f215f5903e3e5c43f9e6dec0aa23c216aa",
+      "bytes": 38022
+    },
+    {
+      "path": "grade-03/documents/GRADE_03_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "0c0656115a9dbaa6ffce30a1b9a55b4cdfd9c0370b3b9b3d63c1fd78f13ece22",
+      "bytes": 63302
+    },
+    {
+      "path": "grade-04/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "daf3b84173c83bc1c5a72462ae66651fb40ce01193f6e32fa154162011669ba9",
+      "bytes": 31542
+    },
+    {
+      "path": "grade-04/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "f385dc57f23aed58db6c2320f5236a1e2cf6b2c181cefcf3994d41944de77b1c",
+      "bytes": 8861
+    },
+    {
+      "path": "grade-04/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "fb4fa15f4012e44acd89e60352beed6c0521b3fce94e746828b1c93efc3ef9af",
+      "bytes": 6217
+    },
+    {
+      "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "e45c102d65cc4d2b2ab999338882ff58a81c12fd887e2dd045eb1161669ed3d2",
+      "bytes": 4164
+    },
+    {
+      "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "051afcdccf3773605ce827bd45d86667111d9b0681595a2f4f65d9893bc030a1",
+      "bytes": 33313
+    },
+    {
+      "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-04/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "77a7b0496c6677b6133fe106f899d9abc85254c3297933df508d2af285017b4a",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-04/documents/GRADE_04_DRAFT_EXAM.docx",
+      "sha256": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f",
+      "bytes": 37613
+    },
+    {
+      "path": "grade-04/documents/GRADE_04_DRAFT_EXAM.pdf",
+      "sha256": "4bbf8a12d167d8e9e7bc6bb69b300c27f1289d7a161fd889cd9855b60c8ea408",
+      "bytes": 52425
+    },
+    {
+      "path": "grade-04/documents/GRADE_04_DRAFT_MARKING_MEMO.docx",
+      "sha256": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b",
+      "bytes": 38220
+    },
+    {
+      "path": "grade-04/documents/GRADE_04_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "499ce5faf4867701fc3ff69a3c50d4fd471afc0f27e7ef1c629416cf599166e2",
+      "bytes": 69902
+    },
+    {
+      "path": "grade-05/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "2821a2cfc2d8eeddae3f1cd6b57fe22dea1952c09cdd95803ef9b4c145201d74",
+      "bytes": 39109
+    },
+    {
+      "path": "grade-05/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "967e4db7e67d938362458e2d7feefe6fe6708a941afec990b592dadc437b9234",
+      "bytes": 9333
+    },
+    {
+      "path": "grade-05/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "e4cd20ea90427b7a45e2407d8c2f0b329133a65cf035e16716299757edc34ebd",
+      "bytes": 6665
+    },
+    {
+      "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "57389b6ef31880576f2dd0db5eec2bd08e5885215f54646e935f63706a1d37a3",
+      "bytes": 5180
+    },
+    {
+      "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "3a235be1456f9049e34e7eb9f1952bbcf78f00b6f05a90880b747bb89fb14f8e",
+      "bytes": 35276
+    },
+    {
+      "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-05/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "068c498f6ac59b7334d652197d4ed93e56008427fb06df53e06ad945b7a8b793",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-05/documents/GRADE_05_DRAFT_EXAM.docx",
+      "sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+      "bytes": 37867
+    },
+    {
+      "path": "grade-05/documents/GRADE_05_DRAFT_EXAM.pdf",
+      "sha256": "5bf4d4b2d10e921979dbd58d5e525eedab81a4e738a540e8c08305554f3efe81",
+      "bytes": 53330
+    },
+    {
+      "path": "grade-05/documents/GRADE_05_DRAFT_MARKING_MEMO.docx",
+      "sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224",
+      "bytes": 38486
+    },
+    {
+      "path": "grade-05/documents/GRADE_05_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "51a6783fab6703ee7e6f75b6565086705593e2651dd637008115c8f9495ffbe7",
+      "bytes": 70847
+    },
+    {
+      "path": "grade-06/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "54416a3231a7b172d0f8e83e09dd4f6ecefecd79a9a4aab3a0bf53d639bb5e4b",
+      "bytes": 17137
+    },
+    {
+      "path": "grade-06/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "19f7c495961314d14953c5b645d2733e5297db321b127fa20c049a0d246c4dad",
+      "bytes": 8715
+    },
+    {
+      "path": "grade-06/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "582e81bc5ddd4ffaec0c6f50bda8773543307265ae0b86252de785e70159a8ac",
+      "bytes": 6079
+    },
+    {
+      "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "d95a53062124b7bf8551a7418d158b7062f8db8e3154cbfd87c0f4b1d40564cf",
+      "bytes": 4591
+    },
+    {
+      "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "f2f6da9f886102a5bd49ea34f032410294da6c6676675b02953e6b6edeceb0b3",
+      "bytes": 34185
+    },
+    {
+      "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-06/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "e51398e22f2ed9fa57795a8e06c70ba18111060e5e6ec9677c0e51173d8f576d",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-06/documents/GRADE_06_DRAFT_EXAM.docx",
+      "sha256": "b8922247d6c7c2e08ae5f96df6044ce3d3f9d48bf390b991900882564c2657a6",
+      "bytes": 37846
+    },
+    {
+      "path": "grade-06/documents/GRADE_06_DRAFT_EXAM.pdf",
+      "sha256": "69b607a8fd2c245b5a9bc3cd4f3237fd24b3d4989c3fc6634d683155d4180e1d",
+      "bytes": 53053
+    },
+    {
+      "path": "grade-06/documents/GRADE_06_DRAFT_MARKING_MEMO.docx",
+      "sha256": "a9a8b2de1c5a118506b331b881356c711846aa87232254eafec55ec5e81b8e61",
+      "bytes": 38351
+    },
+    {
+      "path": "grade-06/documents/GRADE_06_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "2d4bdfe59b94477e0e189500bb09ac53807891d9e0511e9e981cb9116dbfb13d",
+      "bytes": 70594
+    },
+    {
+      "path": "grade-07/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "cee901ba98c0c44439f1421b864d8fdc292b43f39de495833739d2f2ca8a5102",
+      "bytes": 16435
+    },
+    {
+      "path": "grade-07/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "5bed0f72ebda76d9764eab6e6cd2527052391e5f283a491d4c8bfeed04b791b1",
+      "bytes": 8988
+    },
+    {
+      "path": "grade-07/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "f24aa1456e1ac5714c1199321a43eb5dbb007251846278a487611f4d4db4a627",
+      "bytes": 6340
+    },
+    {
+      "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "78da32b317f87a485d30826e2ea0594e36021f2d2722b79c31a3432b138af760",
+      "bytes": 5188
+    },
+    {
+      "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "233e9f447e771db947331a28c6196ccbb452f3ff9aed0efe0eee76fb72470304",
+      "bytes": 35503
+    },
+    {
+      "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-07/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "4c232314c7c0b5a5c49e7e75098c576b52be46b0646c8e0fb1e6379964f8f080",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-07/documents/GRADE_07_DRAFT_EXAM.docx",
+      "sha256": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314",
+      "bytes": 37696
+    },
+    {
+      "path": "grade-07/documents/GRADE_07_DRAFT_EXAM.pdf",
+      "sha256": "1f085b3fea3076fbd5c4f439ecbddd7438ba2292560e1ad5811a7266e47c15d6",
+      "bytes": 53020
+    },
+    {
+      "path": "grade-07/documents/GRADE_07_DRAFT_MARKING_MEMO.docx",
+      "sha256": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4",
+      "bytes": 38458
+    },
+    {
+      "path": "grade-07/documents/GRADE_07_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "fde152c3569c3589bdc0a2af0b99593c27d92ea14aee65f6f3c3e331b4e39647",
+      "bytes": 76902
+    },
+    {
+      "path": "grade-08/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "d89bcea06df4d06cb3d0bd7dabc6fdfc392f67f9e3209e8947c05ffde646066a",
+      "bytes": 22519
+    },
+    {
+      "path": "grade-08/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "c89e56539f6e80d5fd3fe12dbb8655ad1755e51a56e080e78e5ae634e06ab210",
+      "bytes": 8752
+    },
+    {
+      "path": "grade-08/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "150721e751ad2b6d2c5ea258d84e0731df253c11e39fdf166f48a12787f72e12",
+      "bytes": 6114
+    },
+    {
+      "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "9571bae77818209665cd642242b5b98309c55b15afaa1f5ee2f548467e66dcf6",
+      "bytes": 4854
+    },
+    {
+      "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "5aae6ae0c11cd8654c85d105fc43298b868881dff46151e5e0ff71a353a607b8",
+      "bytes": 34898
+    },
+    {
+      "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-08/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "9ab24699a4ffff9f468ec7b742992b0b069cc22cff124c8644c7fff248ca7a53",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-08/documents/GRADE_08_DRAFT_EXAM.docx",
+      "sha256": "c31c0cc02545d2195d6fe605152d5d86b736b5ea57b712ca2ef7b0f102635633",
+      "bytes": 37638
+    },
+    {
+      "path": "grade-08/documents/GRADE_08_DRAFT_EXAM.pdf",
+      "sha256": "b4c7e267c04717885f5158bcd9e7dd9cd9dffbf3093a2bd6cf99db7d3c359dd8",
+      "bytes": 51848
+    },
+    {
+      "path": "grade-08/documents/GRADE_08_DRAFT_MARKING_MEMO.docx",
+      "sha256": "e34356a320631a83f5d6cac3b08ef943bc83e90729f1645f5cd3d751de31bc22",
+      "bytes": 38472
+    },
+    {
+      "path": "grade-08/documents/GRADE_08_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "b5470b20043f2ae20004666ef792b9e6e40fa6994c724c742ee03d6b6242cccb",
+      "bytes": 75978
+    },
+    {
+      "path": "grade-09/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "fda372d29d181a4eec7dde873a81de83225b79e500f43e424abf87a4d64174d4",
+      "bytes": 47080
+    },
+    {
+      "path": "grade-09/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "47c2eeb9bf2cb4b5606f7e5b96423d600c2369ff403f98b764c24888ce0f0bad",
+      "bytes": 8761
+    },
+    {
+      "path": "grade-09/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "8b44c1dbc833c5cc5d1416aa2aa9736abf8c6ec2e45c8740ac82ff479ff43685",
+      "bytes": 6121
+    },
+    {
+      "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495",
+      "bytes": 4786
+    },
+    {
+      "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b",
+      "bytes": 34746
+    },
+    {
+      "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-09/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-09/documents/GRADE_09_DRAFT_EXAM.docx",
+      "sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788",
+      "bytes": 37859
+    },
+    {
+      "path": "grade-09/documents/GRADE_09_DRAFT_EXAM.pdf",
+      "sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723",
+      "bytes": 53705
+    },
+    {
+      "path": "grade-09/documents/GRADE_09_DRAFT_MARKING_MEMO.docx",
+      "sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017",
+      "bytes": 38567
+    },
+    {
+      "path": "grade-09/documents/GRADE_09_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5",
+      "bytes": 76929
+    },
+    {
+      "path": "grade-10/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "330937738cc8212a1d37754872b2d24263cc6eca33ccb00b485ff238e5f2fe65",
+      "bytes": 42485
+    },
+    {
+      "path": "grade-10/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "f8b22ed8bd6702d27c8dc94d75794d2cefb8d42c28347b0921bf93e384d7a1d5",
+      "bytes": 8896
+    },
+    {
+      "path": "grade-10/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "4e5df4a61fdfd9203543a65d3918fcb2e2caee39f5d929c99c467521e1af6db2",
+      "bytes": 6250
+    },
+    {
+      "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "27392d0ea65cf321b5d5a0594cce000d95b3f5ea1ad0057d38f188aa05fc0309",
+      "bytes": 6546
+    },
+    {
+      "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "2a9ce12c4d047bddb6459226b94c9dc233cca00f1d1fda6e085dd435283ee2f7",
+      "bytes": 38414
+    },
+    {
+      "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-10/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "ac27a96909c13dd7ca3ac00129793bda68cc362872385aaf2385485b27603df9",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-10/documents/GRADE_10_DRAFT_EXAM.docx",
+      "sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+      "bytes": 37761
+    },
+    {
+      "path": "grade-10/documents/GRADE_10_DRAFT_EXAM.pdf",
+      "sha256": "7130764e04c368e02c657db912737ac36151a614da9877f1139e914aa3015c93",
+      "bytes": 53184
+    },
+    {
+      "path": "grade-10/documents/GRADE_10_DRAFT_MARKING_MEMO.docx",
+      "sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273",
+      "bytes": 38677
+    },
+    {
+      "path": "grade-10/documents/GRADE_10_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "e85f416ed47b51da8572a5d304d45b471edbd8affd4a99c9f70bdffc7deb641d",
+      "bytes": 82813
+    },
+    {
+      "path": "grade-11/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "71c8414e28933da96aa3e785c1dc4d0fd98a5407916849562faef5df38cc21c0",
+      "bytes": 35633
+    },
+    {
+      "path": "grade-11/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "12c0e21f1925e56ebe8380cba36dcab3ede6a83d2658eb43ff5e4b0668fc0b5f",
+      "bytes": 8715
+    },
+    {
+      "path": "grade-11/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "82bad99a95afab89cad020610de2fc65d1cfbde83ea07a8744bc82655c730010",
+      "bytes": 6079
+    },
+    {
+      "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "e07e0b52ab2f89531fcfe2a95caa2139ff651bb7b8189b6d06918928e9fea5b5",
+      "bytes": 5760
+    },
+    {
+      "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "2d371b416d07bf3546d813bffd8f4983c6af705345c5dc00d875336a13bcefbd",
+      "bytes": 36885
+    },
+    {
+      "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-11/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "e8eb9530727c31b802afbea6508b3e0d536d30c856f8e2e55a6aef77d828d24a",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-11/documents/GRADE_11_DRAFT_EXAM.docx",
+      "sha256": "047a84d2a1caec8149aef164c4cb0060de17fb8d7a9921f2f6b85ebf24f09357",
+      "bytes": 38159
+    },
+    {
+      "path": "grade-11/documents/GRADE_11_DRAFT_EXAM.pdf",
+      "sha256": "d69c2e73c6583f9de0636ad654012517aa332cfb8dd0c675ea4a58eccbdb2cc1",
+      "bytes": 59035
+    },
+    {
+      "path": "grade-11/documents/GRADE_11_DRAFT_MARKING_MEMO.docx",
+      "sha256": "7278d730dbbee1bd443f1e1a350875d7de767360bab1a3d9d987355232f30033",
+      "bytes": 39155
+    },
+    {
+      "path": "grade-11/documents/GRADE_11_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "a1f421c5aff96b30ac7dd2fe9f481d91e93d1fdc83d66316f1a8aef1048a08e4",
+      "bytes": 88941
+    },
+    {
+      "path": "grade-12/CUSTOMER_EXAM_PACKAGE.html",
+      "sha256": "c1c3337273688b72e92ff8849ed3553274a71aa6adfcdb382fd832fdbf9a8266",
+      "bytes": 34067
+    },
+    {
+      "path": "grade-12/CUSTOMER_EXECUTION_RECEIPT.json",
+      "sha256": "69205083a50c656077705043d063e8e8d394b0d0be4efd4fd0ad95ae9827210c",
+      "bytes": 9104
+    },
+    {
+      "path": "grade-12/CUSTOMER_PACKAGE_RECEIPT.json",
+      "sha256": "a90864cd1bd3897895b15c735a41c079aeaa97b4268ba10e8a7b17fdfeec3785",
+      "bytes": 6446
+    },
+    {
+      "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "sha256": "93660173f3577fbc703fafa7a6a178f2edc85faa3fc3d75ee60a1df7feceeaea",
+      "bytes": 6613
+    },
+    {
+      "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "sha256": "01db8a330884598aa7fc34676f12f637403460423acf5ded621f05f4d13152c3",
+      "bytes": 38553
+    },
+    {
+      "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "bytes": 1333
+    },
+    {
+      "path": "grade-12/EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "sha256": "d68b736c84653fc83c2100ffc78a5012dc043461277bed608f173c6904b294f3",
+      "bytes": 5810
+    },
+    {
+      "path": "grade-12/documents/GRADE_12_DRAFT_EXAM.docx",
+      "sha256": "e302dcede450e8e930f8293dc28e23d1c78d3171052a0cb8b62b423d1ed28157",
+      "bytes": 37990
+    },
+    {
+      "path": "grade-12/documents/GRADE_12_DRAFT_EXAM.pdf",
+      "sha256": "8908493f42d6735d372281ca2daf5852bb473471403b60436f398d31e06db19a",
+      "bytes": 54918
+    },
+    {
+      "path": "grade-12/documents/GRADE_12_DRAFT_MARKING_MEMO.docx",
+      "sha256": "faf900f3e9832d7bf58ee874d3d519408312ca9639a92a2004d31669ead35310",
+      "bytes": 39055
+    },
+    {
+      "path": "grade-12/documents/GRADE_12_DRAFT_MARKING_MEMO.pdf",
+      "sha256": "ba33f2e79ad49d5d9d53f9835ec5138082643ad7cf7fadf8b55067c89a7b0fac",
+      "bytes": 84269
+    },
+    {
+      "path": "index.html",
+      "sha256": "ba96220143eef3f8ecadd4a566fa4976d1c1c6583c8dc9d861d295565c37a655",
+      "bytes": 7059
+    },
+    {
+      "path": "source_receipts/HOMS_BEST_EXAM_CANDIDATES_SHORTLIST_20261104.json",
+      "sha256": "eb4c578861a01d5972f0f62fb154d3dfba0b7041b385d3989901f26581172bba",
+      "bytes": 17954
+    },
+    {
+      "path": "source_receipts/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45_RECEIPT.json",
+      "sha256": "945dde5a7be30a51663acab0b17689251ee2e1ade87e5f5066bb47b4177a5008",
+      "bytes": 54837
+    }
+  ]
+}
