@@ -34,9 +34,11 @@ from .identity import load_status_binding, bound_order_status
 from .llm import draft_with_cortex
 from .policy import authorize
 from .pricing_governance import pricing_operator_query
-from products.commercial_pricing_registry import canonical_product_name
+from products.commercial_pricing_registry import build_commercial_pricing_registry, canonical_product_name
 from .router import route_message
 from .commercial_cognition import _document_operation_override
+from .scope_capture import extract_customer_scope_observations
+from .intake_scope_quote import open_intake, record_intake_inputs
 from .state import (
     append_conversation_turn,
     create_intake,
@@ -48,6 +50,8 @@ from .state import (
     operator_summary,
     save_conversation_state,
     update_conversation,
+    read_json,
+    write_json,
 )
 from .voice import build_voice_plan
 from .vesper_journey_runtime import build_vesper_journey_view
@@ -234,6 +238,15 @@ def _bind_live_customer_case(
 
     attachments = list(case.get("attachments") or [])
 
+    attachment_review_state_changed = False
+    for row in attachments:
+        if not isinstance(row, dict):
+            continue
+        if str(row.get("state") or "").casefold() == "quarantined":
+            if "review_state" not in row:
+                row["review_state"] = "ATTACHMENT_QUARANTINED"
+                attachment_review_state_changed = True
+
     candidate_records = []
     candidate_records.extend(quarantined_attachments or [])
     if attachment_record is not None:
@@ -327,6 +340,8 @@ def _bind_live_customer_case(
                 "attachment_id": aid,
                 "conversation_id": correlation,
                 "state": "quarantined",
+                "review_state": "ATTACHMENT_QUARANTINED",
+                "sample_review_approved": False,
                 "sha256": candidate.get("sha256"),
                 "size_bytes": candidate.get("size_bytes"),
                 "original_file_name": candidate.get("original_file_name"),
@@ -336,8 +351,24 @@ def _bind_live_customer_case(
             }
         )
 
-    if attachments != list(case.get("attachments") or []):
+    if attachment_review_state_changed or attachments != list(case.get("attachments") or []):
         patch["attachments"] = attachments
+    quarantined_ids = [
+        str(row.get("attachment_id") or "")
+        for row in attachments
+        if isinstance(row, dict)
+        and str(row.get("state") or "").casefold() == "quarantined"
+        and str(row.get("review_state") or "ATTACHMENT_QUARANTINED") != "SAMPLE_REVIEW_APPROVED"
+    ]
+    if quarantined_ids:
+        patch["sample_review"] = {
+            "state": "ATTACHMENT_QUARANTINED",
+            "attachment_ids": quarantined_ids,
+            "operator_review_required": True,
+            "review_completed": False,
+            "approved": False,
+            "authority_created": False,
+        }
 
     current_stage = str(case.get("stage") or "NEW_LEAD")
     stage = None
@@ -367,6 +398,352 @@ def _bind_live_customer_case(
         stage=stage,
         patch=patch,
         evidence_ref=";".join(evidence_bits) or f"conversation:{correlation}",
+    )
+
+
+def _product_scope_units(dio_root: Path, product_id: str) -> tuple[str | None, list[str]]:
+    try:
+        canonical = canonical_product_name(dio_root, product_id)
+        registry = build_commercial_pricing_registry(dio_root)
+    except (OSError, ValueError, KeyError):
+        # Scope capture must remain available even when a deployment has an
+        # incomplete pricing census. Pricing gaps must never erase intake facts.
+        return None, []
+    row = next((item for item in registry.get("products", []) if item.get("name") == canonical), None)
+    if not isinstance(row, dict):
+        return None, []
+    primary = str(row.get("primary_scope_unit") or "").strip() or None
+    secondary = [str(value).strip() for value in row.get("secondary_scope_units") or [] if str(value).strip()]
+    return primary, secondary
+
+
+def _merge_case_scope_observations(
+    dio_root: Path,
+    presence_root: Path,
+    case: dict[str, Any] | None,
+    *,
+    text: str,
+    recent_turns: list[dict[str, Any]],
+    source_message_id: str | None,
+) -> dict[str, Any] | None:
+    """Persist literal customer scope statements for any catalog product."""
+    if not isinstance(case, dict) or not str(case.get("product_id") or "").strip():
+        return case
+    primary_unit, secondary_units = _product_scope_units(dio_root, str(case["product_id"]))
+    recognized_units = [value for value in [primary_unit, *secondary_units] if value]
+    prior_user_messages = [
+        row for row in recent_turns
+        if isinstance(row, dict) and str(row.get("role") or "").casefold() == "user"
+    ]
+    message_rows = prior_user_messages + [{"role": "user", "text": text, "source_message_id": source_message_id}]
+    observations = []
+    seen_messages: set[str] = set()
+    for index, row in enumerate(message_rows):
+        message = str(row.get("text") or "").strip()
+        if not message:
+            continue
+        observation = extract_customer_scope_observations(
+            message,
+            source_message_id=(
+                str(row.get("source_message_id") or "").strip()
+                or (str(source_message_id) if index == len(message_rows) - 1 and source_message_id else None)
+                or f"history:{row.get('observed_at') or observation_digest(message)[:16]}"
+            ),
+            product_id=str(case["product_id"]),
+            recognized_units=recognized_units,
+        )
+        if observation.get("message_sha256") in seen_messages:
+            continue
+        seen_messages.add(str(observation.get("message_sha256") or ""))
+        if any(observation.get(key) for key in (
+            "quantities", "requested_formats", "requirements", "exclusions",
+            "deadline_statements", "data_classification_statements", "requested_outcome_statements",
+        )):
+            observations.append(observation)
+    if not observations:
+        return case
+
+    scope = dict(case.get("scope") or {})
+    customer_scope = dict(scope.get("customer_stated") or {})
+    prior = list(customer_scope.get("observations") or [])
+    known_hashes = {str(item.get("message_sha256") or "") for item in prior if isinstance(item, dict)}
+    for observation in observations:
+        if observation.get("message_sha256") not in known_hashes:
+            prior.append(observation)
+            known_hashes.add(str(observation.get("message_sha256") or ""))
+    customer_scope.update({
+        "schema": "dio.customer_stated_scope.v1",
+        "state": "CUSTOMER_STATED_UNVERIFIED",
+        "observations": prior[-40:],
+        "primary_scope_unit": primary_unit,
+        "authority_created": False,
+    })
+    case = update_case(
+        presence_root,
+        case,
+        patch={"scope": {"customer_stated": customer_scope}},
+        evidence_ref="customer_scope_observation:" + ",".join(
+            str(item.get("message_sha256") or "")[:16] for item in observations
+        ),
+    )
+
+    # Populate only typed fields explicitly present in the customer statements.
+    # Buyer class, eligibility, or other categorical judgments are never inferred.
+    outcome = next((
+        statement
+        for observation in reversed(observations)
+        for statement in reversed(observation.get("requested_outcome_statements") or [])
+        if str(statement).strip()
+    ), None)
+    quantity = None
+    if primary_unit:
+        for observation in reversed(prior):
+            for item in reversed(observation.get("quantities") or []):
+                if str(item.get("unit") or "").casefold() != primary_unit.casefold():
+                    continue
+                if item.get("qualifier") not in {"maximum", "customer_stated"}:
+                    continue
+                value = item.get("value")
+                if isinstance(value, int):
+                    quantity = value
+                    break
+            if quantity is not None:
+                break
+    typed_inputs: dict[str, Any] = {}
+    if outcome:
+        typed_inputs["requested_outcome"] = str(outcome).strip()
+    if quantity is not None:
+        typed_inputs["scope_quantity"] = quantity
+    try:
+        if str(case.get("stage") or "") in {"NEW_LEAD", "QUALIFIED", "INTAKE_OPEN", "FILES_RECEIVED_QUARANTINED"}:
+            case = open_intake(dio_root, presence_root, str(case["case_id"]))
+            if typed_inputs:
+                case = record_intake_inputs(
+                    dio_root,
+                    presence_root,
+                    str(case["case_id"]),
+                    typed_inputs,
+                    evidence_ref="customer_scope_observation:" + ",".join(
+                        str(item.get("message_sha256") or "")[:16] for item in observations
+                    ),
+                )
+    except (ValueError, OSError):
+        # Observation capture remains available even when a downstream intake
+        # stage is no longer writable; never roll back customer evidence.
+        pass
+    return load_case(presence_root, str(case["case_id"])) or case
+
+
+def observation_digest(text: str) -> str:
+    import hashlib
+    return hashlib.sha256(str(text).encode("utf-8")).hexdigest()
+
+
+def _upsert_presence_intake(
+    presence_root: Path,
+    conv: dict[str, Any],
+    *,
+    product: str,
+    summary: str,
+    source_message_id: str | None,
+    attachment_ids: list[str],
+    case: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Keep one stable intake reference per conversation/product and link updates."""
+    case_ref = str((case or {}).get("presence_intake_id") or "").strip()
+    rows = []
+    for path in (presence_root / "intakes").glob("PRES-*.json"):
+        try:
+            row = read_json(path)
+        except Exception:
+            continue
+        if row.get("conversation_id") == conv.get("conversation_id") and row.get("product") == product:
+            rows.append((path, row))
+    rows.sort(key=lambda pair: str(pair[1].get("created_at") or ""))
+    selected = next((pair for pair in rows if pair[1].get("intake_id") == case_ref), None)
+    if selected is None:
+        selected = next((pair for pair in rows if pair[1].get("state") not in {"superseded_duplicate", "closed"}), None)
+    if selected is None:
+        intake = create_intake(presence_root, conv, product, summary, source_message_id, attachment_ids=attachment_ids)
+    else:
+        path, intake = selected
+        merged_ids = list(dict.fromkeys(list(intake.get("attachment_ids") or []) + list(attachment_ids or [])))
+        updates = list(intake.get("updates") or [])
+        update_ref = str(source_message_id or "").strip()
+        if update_ref and update_ref not in {str(item.get("source_message_id") or "") for item in updates}:
+            updates.append({"source_message_id": update_ref, "attachment_ids": list(attachment_ids or [])})
+        intake.update({"attachment_ids": merged_ids, "updates": updates, "last_updated_at": _utc_now(), "state": "pending_operator_review"})
+        write_json(path, intake)
+    if case and str(case.get("presence_intake_id") or "") != str(intake.get("intake_id") or ""):
+        case = update_case(presence_root, case, patch={"presence_intake_id": intake.get("intake_id")}, evidence_ref=f"presence_intake:{intake.get('intake_id')}")
+    # Preserve the earliest valid intake ID and retire accidental duplicates
+    # without deleting their audit history.
+    for path, duplicate in rows:
+        if duplicate.get("intake_id") == intake.get("intake_id") or duplicate.get("state") == "superseded_duplicate":
+            continue
+        duplicate["state"] = "superseded_duplicate"
+        duplicate["superseded_by"] = intake.get("intake_id")
+        duplicate["supersession_reason"] = "same_conversation_product_intake_reused"
+        write_json(path, duplicate)
+    return intake
+
+
+def _utc_now() -> str:
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def _ensure_quarantine_review_task(
+    presence_root: Path,
+    case: dict[str, Any] | None,
+    *,
+    conversation_id: str,
+) -> dict[str, Any] | None:
+    if not isinstance(case, dict):
+        return None
+    pending = [
+        row for row in case.get("attachments") or []
+        if isinstance(row, dict)
+        and str(row.get("state") or "").casefold() == "quarantined"
+        and str(row.get("review_state") or "ATTACHMENT_QUARANTINED") != "SAMPLE_REVIEW_APPROVED"
+    ]
+    if not pending:
+        return None
+    attachment_ids = [str(row.get("attachment_id") or "") for row in pending if row.get("attachment_id")]
+    existing = None
+    for path in (presence_root / "needs_you").glob("*.json"):
+        try:
+            item = read_json(path)
+        except Exception:
+            continue
+        if (item.get("state") == "open" and item.get("reason") == "public_attachment_review"
+                and item.get("conversation_id") == conversation_id
+                and set(attachment_ids).issubset(set(item.get("attachment_ids") or []))):
+            existing = item
+            break
+    if existing is None:
+        existing = create_needs_you(
+            presence_root,
+            reason="public_attachment_review",
+            conversation_id=conversation_id,
+            product=str(case.get("product_id") or "") or None,
+            summary=(f"Review quarantine and access authorization for attachment(s) {', '.join(attachment_ids)} "
+                     f"on case {case.get('case_id')}. Do not parse or process before the review gate."),
+        )
+        existing["case_id"] = case.get("case_id")
+        existing["attachment_ids"] = attachment_ids
+        existing["review_action"] = "VERIFY_CUSTODY_AND_AUTHORIZE_SAMPLE_LAYOUT_REVIEW"
+        write_json(presence_root / "needs_you" / f"{existing['needs_you_id']}.json", existing)
+    ids = list(dict.fromkeys(list(case.get("needs_you_ids") or []) + [str(existing.get("needs_you_id"))]))
+    sample_review = dict(case.get("sample_review") or {})
+    sample_review.update({
+        "state": "ATTACHMENT_QUARANTINED",
+        "attachment_ids": attachment_ids,
+        "needs_you_id": existing.get("needs_you_id"),
+        "operator_review_required": True,
+        "review_completed": False,
+        "approved": False,
+        "authority_created": False,
+    })
+    return update_case(
+        presence_root,
+        case,
+        patch={"needs_you_ids": ids, "sample_review": sample_review},
+        evidence_ref=f"needs_you:{existing.get('needs_you_id')}",
+    )
+
+
+def _case_scope_progress_reply(
+    case: dict[str, Any],
+    *,
+    intake_reference: str | None,
+) -> str:
+    case_id = str(case.get("case_id") or "")
+    scope = case.get("scope") or {}
+    customer_stated = scope.get("customer_stated") or {}
+    observations = [row for row in customer_stated.get("observations") or [] if isinstance(row, dict)]
+    quantities = []
+    formats = {}
+    exclusions = []
+    requirement_statements = []
+    deadline_statements = []
+    data_statements = []
+    for row in observations:
+        for quantity in row.get("quantities") or []:
+            value = quantity.get("value")
+            unit = str(quantity.get("unit") or "units")
+            qualifier = str(quantity.get("qualifier") or "customer_stated")
+            quantity_value = (value.get("maximum") if isinstance(value, dict) else value)
+            display_unit = unit if quantity_value == 1 else (unit if unit.endswith("s") else unit + "s")
+            if isinstance(value, dict):
+                display = f"{value.get('minimum')}–{value.get('maximum')} {display_unit}"
+            else:
+                display = f"{value} {display_unit}"
+            if qualifier == "maximum":
+                display = "maximum " + display
+            elif qualifier == "approximate":
+                display = "approximately " + display
+            if display not in quantities:
+                quantities.append(display)
+        for item in row.get("requested_formats") or []:
+            formats[(item.get("format"), item.get("preference"))] = item
+        exclusions.extend(item.get("item") for item in row.get("exclusions") or [] if item.get("item"))
+        requirement_statements.extend(item.get("statement") for item in row.get("requirements") or [] if item.get("statement"))
+        deadline_statements.extend(item.get("statement") for item in row.get("deadline_statements") or [] if item.get("statement"))
+        data_statements.extend(item.get("statement") for item in row.get("data_classification_statements") or [] if item.get("statement"))
+    details = []
+    if quantities:
+        details.append("scope quantities already recorded: " + ", ".join(quantities))
+    if formats:
+        details.append("requested output formats: " + ", ".join(
+            f"{name} ({'optional' if preference == 'optional' else 'requested'})"
+            for name, preference in formats
+        ))
+    if exclusions:
+        details.append("stated exclusions: " + ", ".join(dict.fromkeys(exclusions)))
+    if deadline_statements:
+        details.append("deadline/schedule instruction recorded: " + deadline_statements[-1])
+    if data_statements:
+        details.append("data classification recorded as customer-stated: " + data_statements[-1])
+    if requirement_statements:
+        details.append("requirements recorded from your messages; see the case scope record for the exact statements")
+    scope_note = " I have retained " + "; ".join(details) + "." if details else " I have retained the scope details you supplied on the case."
+    refs = []
+    if intake_reference:
+        refs.append(f"intake {intake_reference}")
+    if case_id:
+        refs.append(f"case {case_id}")
+    reference_note = " This remains linked to " + " and ".join(refs) + "." if refs else ""
+    sample_review = case.get("sample_review") or {}
+    attachments = [row for row in case.get("attachments") or [] if isinstance(row, dict)]
+    if attachments and str(sample_review.get("state") or "") == "ATTACHMENT_QUARANTINED":
+        ids = ", ".join(str(row.get("attachment_id")) for row in attachments if row.get("attachment_id"))
+        review = (
+            f" The uploaded attachment(s) {ids} are associated with this case and remain in quarantine. "
+            "They have not been opened or inspected. An operator review is queued to verify custody/access and determine what review is authorized for this product. "
+        )
+    elif sample_review.get("state") == "SAMPLE_REVIEW_APPROVED":
+        review = " The sample has a recorded operator approval for the stated review scope; this does not approve production or factual changes. "
+    else:
+        review = " No sample review approval is recorded. "
+    intake = case.get("intake") or {}
+    requirement = intake.get("requirement") or {}
+    provided = intake.get("provided_inputs") or {}
+    missing = list(requirement.get("missing_input_ids") or [])
+    missing = [field for field in missing if field not in provided]
+    if missing:
+        labels = {"buyer_class": "the applicable buyer/pricing class", "scope_quantity": "a primary scope quantity", "requested_outcome": "the requested outcome"}
+        missing_labels = [labels.get(field, field.replace("_", " ")) for field in missing]
+        outstanding = " The intake still lacks " + ", ".join(missing_labels) + "; I will not infer those fields."
+    else:
+        outstanding = " The recorded customer-stated intake fields are complete; the operator must review them before a quotation is prepared."
+    next_step = (
+        "No quotation has been issued, so there is no quote reference, price, validity period, or delivery schedule yet. "
+        "After the operator completes the required review and confirms the pricing basis, a written quotation will state the scope, inclusions, exclusions, assumptions, ZAR price, validity, and agreed schedule for your review."
+    )
+    return (
+        f"I confirm the attachment is recorded against case {case_id} in quarantine; I have not inspected its contents."
+        + reference_note + scope_note + review + outstanding + " " + next_step
     )
 
 
@@ -967,6 +1344,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
                 {'error':str(exc)[:180]},
                 correlation,
             )
+    summary=None; needs=None; intake=None; statuses=None; capital=None; pricing=None
     customer_case=_bind_live_customer_case(
         presence_root=presence_root,
         conv=conv,
@@ -976,6 +1354,60 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
         commercial=commercial,
         quarantined_attachments=quarantined_attachments,
     )
+    scope_observation_written = False
+    if role == "public" and customer_case is not None:
+        before_hashes = {
+            str(row.get("message_sha256") or "")
+            for row in (((customer_case.get("scope") or {}).get("customer_stated") or {}).get("observations") or [])
+            if isinstance(row, dict)
+        }
+        customer_case = _merge_case_scope_observations(
+            dio_root,
+            presence_root,
+            customer_case,
+            text=text,
+            recent_turns=recent_turns,
+            source_message_id=str(envelope.get("source_message_id") or metadata.get("source_message_id") or "") or None,
+        )
+        after_hashes = {
+            str(row.get("message_sha256") or "")
+            for row in (((customer_case.get("scope") or {}).get("customer_stated") or {}).get("observations") or [])
+            if isinstance(row, dict)
+        }
+        scope_observation_written = bool(after_hashes - before_hashes)
+
+        # Preserve one canonical intake across follow-up messages and uploads.
+        # This path is shared by the full catalog; it does not depend on a
+        # product-specific script or a classifier's attachment intent.
+        has_upload = bool(attachment_record or quarantined_attachments)
+        intake_requested = decision.get("intent") == "intake_request"
+        if (has_upload or intake_requested) and customer_case.get("product_id"):
+            attachment_ids = [
+                str(row.get("attachment_id"))
+                for row in ([attachment_record] if attachment_record else list(quarantined_attachments or []))
+                if isinstance(row, dict) and row.get("attachment_id")
+            ]
+            intake = _upsert_presence_intake(
+                presence_root,
+                conv,
+                product=str(customer_case["product_id"]),
+                summary=text,
+                source_message_id=str(envelope.get("source_message_id") or metadata.get("source_message_id") or "") or None,
+                attachment_ids=attachment_ids,
+                case=customer_case,
+            )
+            conversation_state["active_intake_id"] = intake.get("intake_id")
+            customer_case = load_case(presence_root, str(customer_case.get("case_id"))) or customer_case
+
+        # Quarantine review is created from custody state, independently of
+        # the intent classifier, and remains explicitly unapproved.
+        if has_upload:
+            customer_case = _ensure_quarantine_review_task(
+                presence_root,
+                customer_case,
+                conversation_id=correlation,
+            ) or customer_case
+
     if customer_case is not None:
         emit_event(
             event_log,
@@ -1105,7 +1537,6 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
     voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,public_default_only=True)
     voice_profile_id=voice_plan.get('profile_id')
     emit_event(event_log,'presence.persona_assigned','info','vesper_persona',persona['assignment_id'],{'experimental_assignment':persona.get('experimental_assignment'),'cell_id':((persona.get('package') or {}).get('cell_id')),'persona_id':((persona.get('package') or {}).get('persona_id')),'avatar_id':((persona.get('package') or {}).get('avatar_id')),'voice_profile_id':voice_profile_id,'stable_for_conversation':True},correlation)
-    summary=None; needs=None; intake=None; statuses=None; capital=None; pricing=None
     if decision['intent'] in CAPITAL_INTENTS:
         capital=capital_query(dio_root,decision['intent'],text)
     elif decision['intent']=='pricing_info' and role=='operator':
@@ -1113,17 +1544,39 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
     elif decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
     elif decision['intent']=='intake_request' and decision.get('product') and not buyer_scope_followup:
-        intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
+        if intake is None:
+            intake = _upsert_presence_intake(
+                presence_root, conv, product=str(decision['product']), summary=text,
+                source_message_id=str(envelope.get('source_message_id') or metadata.get('source_message_id') or '') or None,
+                attachment_ids=[attachment_record['attachment_id']] if attachment_record else [],
+                case=customer_case,
+            )
         conversation_state['active_intake_id'] = intake['intake_id']
-        item=create_needs_you(presence_root,reason='public_intake_review',conversation_id=correlation,product=decision['product'],summary=f"Review {decision['product']} intake {intake['intake_id']}: {text[:300]}")
+        item = None
+        for path in (presence_root / 'needs_you').glob('*.json'):
+            try:
+                candidate = read_json(path)
+            except Exception:
+                continue
+            if candidate.get('state') == 'open' and candidate.get('reason') == 'public_intake_review' and candidate.get('conversation_id') == correlation and intake['intake_id'] in str(candidate.get('summary') or ''):
+                item = candidate
+                break
+        if item is None:
+            item=create_needs_you(presence_root,reason='public_intake_review',conversation_id=correlation,product=decision['product'],summary=f"Review {decision['product']} intake {intake['intake_id']}: {text[:300]}")
         emit_event(event_log,'presence.intake_received','action','presence_intake',intake['intake_id'],{'product':decision['product'],'needs_you_id':item['needs_you_id'],'automatic_fulfilment':False,'attachment_ids':intake.get('attachment_ids',[])},correlation)
     elif decision['intent']=='attachment_received' and quarantined_attachments and not attachment_record:
         held_ids=[row['attachment_id'] for row in quarantined_attachments]
-        item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary='Review quarantined web attachments: '+', '.join(held_ids))
-        emit_event(event_log,'presence.attachment_review_required','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id'],'attachment_ids':held_ids},correlation)
+        item=None
+        if customer_case is None:
+            item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary='Review quarantined web attachments: '+', '.join(held_ids))
+        if item:
+            emit_event(event_log,'presence.attachment_review_required','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id'],'attachment_ids':held_ids},correlation)
     elif decision['intent']=='attachment_received' and attachment_record:
-        item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary=f"Review quarantined attachment {attachment_record['attachment_id']}: {attachment_record['original_file_name']}")
-        emit_event(event_log,'presence.attachment_review_required','action','presence_attachment',attachment_record['attachment_id'],{'needs_you_id':item['needs_you_id']},correlation)
+        item=None
+        if customer_case is None:
+            item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary=f"Review quarantined attachment {attachment_record['attachment_id']}: {attachment_record['original_file_name']}")
+        if item:
+            emit_event(event_log,'presence.attachment_review_required','action','presence_attachment',attachment_record['attachment_id'],{'needs_you_id':item['needs_you_id']},correlation)
     elif decision['intent']=='status_request':
         binding=load_status_binding(presence_root,correlation)
         if binding:
@@ -1518,6 +1971,25 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
 
     if document_quote_reply is not None:
         reply = document_quote_reply
+
+    # Canonical case state outranks product-specific canned copy. The same
+    # response builder applies to every product, and reports only the current
+    # custody/review state plus customer-stated scope.
+    case_scope = ((customer_case or {}).get("scope") or {}).get("customer_stated") or {}
+    case_has_scope = bool(case_scope.get("observations"))
+    quote_followup = bool(re.search(r"\b(?:quote|quotation|estimate|price|pricing)\b", text, re.I))
+    if (
+        role == "public"
+        and isinstance(customer_case, dict)
+        and (scope_observation_written or attachment_record or quarantined_attachments or (case_has_scope and quote_followup))
+    ):
+        intake_reference = str(
+            (intake or {}).get("intake_id")
+            or customer_case.get("presence_intake_id")
+            or conversation_state.get("active_intake_id")
+            or ""
+        ) or None
+        reply = _case_scope_progress_reply(customer_case, intake_reference=intake_reference)
 
     if (
         role == 'public'

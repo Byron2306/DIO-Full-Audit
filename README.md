@@ -332,6 +332,41 @@ Academic-research campaign projections use this same approved Vera profile.
 Their narration is rendered through the local service, recorded in a
 `POCKET_TTS_NARRATION_RECEIPT.json`, and does not authorize publication or spend.
 
+### Vesper case continuity and quarantined uploads
+
+Public product conversations use a shared case-state path across the 68-product
+commercial catalog. Customer-stated quantities, requested output formats,
+requirements, exclusions, deadline statements and data classifications are
+stored as provenance-bound observations with status
+`CUSTOMER_STATED_UNVERIFIED`; those observations are not treated as verified
+facts, pricing authorization or permission to execute work. Follow-up messages
+and uploads reuse the case's existing Presence intake reference where possible.
+Duplicate intake records are marked as superseded and retained for audit.
+
+An uploaded file remains in quarantine with parsing and execution disabled.
+The system creates or reuses a `public_attachment_review` operator task linked
+to the case and attachment IDs, and records `ATTACHMENT_QUARANTINED` until an
+authorized review changes that state. A public chat cannot approve the sample
+or claim its contents were inspected. Vesper's reply is composed from canonical
+case state, reports details already supplied, and distinguishes quarantine from
+review approval. Missing scope fields and quotation details remain explicit;
+no price, quote validity, delivery schedule, payment or fulfilment authority is
+invented by the response.
+
+The customer case, intake and operator queue are separate records. Intake
+continuity does not mean a file passed security review, that a human opened it,
+or that a quote was issued. The web chat and public API run as user services:
+
+```bash
+systemctl --user status dio-vesper-web-repair.service dio-vesper-public-api.service
+curl http://127.0.0.1:8772/api/vesper/health
+```
+
+Focused behavior coverage is in
+`tests/test_vesper_universal_case_scope.py`; it exercises the complete 68-item
+commercial catalog and an isolated quarantined-upload case without inspecting
+the uploaded test bytes.
+
 The shared local LLM is Granite 3.2 2B through Ollama. Install it with
 `ollama pull granite3.2:2b`; the runtime reads `OLLAMA_MODEL` and `OLLAMA_URL`
 from the process environment or `~/.config/dio/sovereign.env`. Product-specific
