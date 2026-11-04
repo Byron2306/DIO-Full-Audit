@@ -1,0 +1,143 @@
+{
+  "schema": "dio.homs_assessment_adversarial_qa.v1",
+  "generated_on": "2026-11-04",
+  "source_class": "synthetic_defect_injection",
+  "reference_status": "author_prepared; educator_review_pending",
+  "cases": [
+    {
+      "case_id": "AMBIGUOUS-01",
+      "defect_family": "item_validity",
+      "injected_item": "A business employs at least 10 people. Which statement is true? A: It employs more than 10. B: It employs exactly 10. C: It employs 10 or more. D: It employs fewer than 10.",
+      "reference_disposition": "REJECT_OR_REWRITE",
+      "expected_findings": [
+        "C is entailed; A and B are not entailed",
+        "The stem does not ask for the single statement implied by the premise, so options test inference ambiguously"
+      ],
+      "severity": "major",
+      "repair_direction": "Ask which option must be true and use mutually exclusive options."
+    },
+    {
+      "case_id": "MULTIKEY-02",
+      "defect_family": "distractor_validity",
+      "injected_item": "A business is most likely to improve cash flow by: A: collecting overdue invoices; B: reducing unnecessary stock; C: negotiating longer supplier terms; D: all of the above.",
+      "reference_disposition": "REJECT_OR_REWRITE",
+      "expected_findings": [
+        "A, B and C can each improve cash flow under plausible conditions",
+        "D and each component are simultaneously defensible"
+      ],
+      "severity": "major",
+      "repair_direction": "Replace with a constrained scenario and one best answer, or assess each action separately."
+    },
+    {
+      "case_id": "SOURCE-GAP-03",
+      "defect_family": "stimulus_sufficiency",
+      "injected_item": "Using the case study, calculate the enterprise's annual profit. The case gives monthly sales of R20 000 but no costs, tax, or other income.",
+      "reference_disposition": "UNANSWERABLE_FROM_SUPPLIED_STIMULUS",
+      "expected_findings": [
+        "Profit cannot be calculated without cost and period assumptions",
+        "The task invites unsupported assumptions"
+      ],
+      "severity": "major",
+      "repair_direction": "Supply all figures and specify whether the task asks gross, operating, or net profit."
+    },
+    {
+      "case_id": "MARK-TOTAL-04",
+      "defect_family": "memo_arithmetic",
+      "injected_item": "Question total: 8 marks. Memo awards 3 marks for identification, 3 for explanation, and 3 for an example.",
+      "reference_disposition": "INVALID_MARK_ALLOCATION",
+      "expected_findings": [
+        "Memo allocations total 9, not 8",
+        "Scoring cannot be applied consistently without correction"
+      ],
+      "severity": "critical",
+      "repair_direction": "Correct the item or allocation, then reconcile subtotals and paper total."
+    },
+    {
+      "case_id": "MEMO-RATIO-05",
+      "defect_family": "memo_numerical_correctness",
+      "injected_item": "Revenue is R80 000 and cost of sales is R50 000. Calculate gross profit margin as a percentage of revenue. Memo: (R80 000 − R50 000) ÷ R50 000 × 100 = 60%.",
+      "reference_disposition": "INCORRECT_MEMO",
+      "expected_findings": [
+        "Gross profit is R30 000",
+        "Gross profit margin on revenue is R30 000 ÷ R80 000 × 100 = 37.5%",
+        "60% uses cost of sales as denominator, not revenue"
+      ],
+      "severity": "critical",
+      "repair_direction": "Correct formula, worked steps, rounding instruction, and accepted equivalent responses."
+    },
+    {
+      "case_id": "COGNITIVE-LABEL-06",
+      "defect_family": "cognitive_demand",
+      "injected_item": "Cognitive level is labelled 'evaluate'. Item: List any four characteristics of an entrepreneur.",
+      "reference_disposition": "MISCLASSIFIED_COGNITIVE_DEMAND",
+      "expected_findings": [
+        "The verb and response demand factual recall, not evaluation",
+        "A label does not raise cognitive demand"
+      ],
+      "severity": "moderate",
+      "repair_direction": "Relabel as recall or require evidence-based judgement with criteria and a defensible conclusion."
+    },
+    {
+      "case_id": "VOCAB-GRADE-07",
+      "defect_family": "language_accessibility",
+      "injected_item": "For a Grade 4 learner: 'Evaluate the stochastic volatility of the enterprise's receivables portfolio and formulate a mitigation strategy.'",
+      "reference_disposition": "AGE_INAPPROPRIATE_LANGUAGE",
+      "expected_findings": [
+        "Vocabulary and abstraction are disproportionate to the stated grade",
+        "Language obscures the construct being assessed"
+      ],
+      "severity": "major",
+      "repair_direction": "Use grade-appropriate wording and verify with an educator while preserving the intended construct."
+    },
+    {
+      "case_id": "SCENARIO-CONFLICT-08",
+      "defect_family": "source_consistency",
+      "injected_item": "Scenario says the business has 12 employees. Question says 'as the business has no employees'.",
+      "reference_disposition": "CONTRADICTORY_INPUT",
+      "expected_findings": [
+        "Scenario and question assert mutually inconsistent facts",
+        "Learners may reasonably answer from either statement"
+      ],
+      "severity": "major",
+      "repair_direction": "Correct the contradiction and recheck every downstream question and memo dependency."
+    },
+    {
+      "case_id": "RUBRIC-VAGUE-09",
+      "defect_family": "memo_observability",
+      "injected_item": "Memo for a 6-mark recommendation: 'Award marks for a good answer.'",
+      "reference_disposition": "NOT_RELIABLY_MARKABLE",
+      "expected_findings": [
+        "No criteria, mark breakdown, evidence requirement, or acceptable alternatives are defined",
+        "Two markers may assign materially different scores"
+      ],
+      "severity": "major",
+      "repair_direction": "Define analytic criteria, mark allocation, evidence expectations, and equivalent valid responses."
+    },
+    {
+      "case_id": "ACCESS-LOAD-10",
+      "defect_family": "classroom_usability",
+      "injected_item": "A one-mark factual question embeds a 450-word scenario with five unrelated facts and three double negatives.",
+      "reference_disposition": "CONSTRUCT_IRRELEVANT_BURDEN",
+      "expected_findings": [
+        "Reading load and double negatives are unrelated to the one-mark construct",
+        "The item may disadvantage learners for reasons other than Business Studies knowledge"
+      ],
+      "severity": "moderate",
+      "repair_direction": "Reduce irrelevant context, remove double negatives, and provide differentiated access without changing assessed knowledge."
+    },
+    {
+      "case_id": "ANSWER-LEAK-11",
+      "defect_family": "item_validity_and_memo_alignment",
+      "injected_item": "Stimulus: “On Monday, Class Two planted bean seeds beside the classroom.” Question: “When and where did Class Two plant the bean seeds? What did Asha put by each pot?” Memo awards one mark for identifying the seeds as bean seeds.",
+      "reference_disposition": "REVISE_STEM_OR_MARK_ALLOCATION",
+      "expected_findings": [
+        "The question stem already states that the seeds are bean seeds, so awarding a mark for repeating that fact makes it a free mark unrelated to the requested retrieval",
+        "The stated task asks for day, location, and label; the stem leaks seed type while the memo treats it as a fourth assessed fact",
+        "A valid correction asks seed type explicitly as a separate retrieval fact and assigns one mark to each of the four requested details"
+      ],
+      "severity": "moderate",
+      "repair_direction": "Ask learners to identify seed type, day, location, and label as four distinct facts, or remove the redundant memo point and rebalance the item marks. Then recheck exam and memo together."
+    }
+  ],
+  "case_count": 11
+}

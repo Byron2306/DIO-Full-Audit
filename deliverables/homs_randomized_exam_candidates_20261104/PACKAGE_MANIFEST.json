@@ -1,0 +1,154 @@
+{
+  "schema": "dio.homs.randomized_exam_candidate_package.v2",
+  "created_at": "2026-11-04",
+  "grade_count": 12,
+  "random_seed": 20261101,
+  "canonical_source_archive_sha256": "303696fa7d1bb541910e2a1f51fbc6efdef021067288536fafd3213e703b908b",
+  "print_archive_sha256": "7e6e4913c32f062a0c3e97670ddcce1d768b7037c1b5142700d04415274c0614",
+  "content_audit": "PASS_12_OF_12_MECHANICAL_CHECKS",
+  "subject_reconstruction": "PASS",
+  "visual_audit": "PASS_24_PDFS_33_RENDERED_PAGES",
+  "synthetic_adversarial_fixture_count": 11,
+  "synthetic_adversarial_fixture_status": "REFERENCE_PREPARED; NOT_SCORED_AGAINST_CANONICAL_CANDIDATE",
+  "educator_moderation": "PENDING",
+  "independent_moderation_decision": "NOT_ISSUED",
+  "classroom_release_authorized": false,
+  "artifact_count": 27,
+  "artifacts": [
+    {
+      "path": "ADVERSARIAL_CASES.json",
+      "bytes": 7749,
+      "sha256": "2db1100f8d10a9e5a9229925e9bcaf6f9b7418a6dd3a983789c82bfde70443ad"
+    },
+    {
+      "path": "CAPS_QUESTION_ALIGNMENT_ALL_GRADES_20261101.json",
+      "bytes": 86970,
+      "sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c"
+    },
+    {
+      "path": "CAPS_SOURCE_MANIFEST_VERIFIED.json",
+      "bytes": 324291,
+      "sha256": "4da48fa6bb76466a84876d5f425b01a757cb052b74964d6ac5732412965b0937"
+    },
+    {
+      "path": "EDUCATOR_RESPONSE.csv",
+      "bytes": 386,
+      "sha256": "14691590877038b4bcfce34326f13d26b2ac187c5d700fb0315b6e084df6b377"
+    },
+    {
+      "path": "EDUCATOR_SCORING_RUBRIC.md",
+      "bytes": 2170,
+      "sha256": "b886fdc756b61ed31cc2f9b7324b70eedc142a56c37a6aceb00cc3a3aa389bb6"
+    },
+    {
+      "path": "GRADE_EXAM_SET_RECEIPT.json",
+      "bytes": 4759,
+      "sha256": "c248b8c779a65b9ed28e1d4e1bae224aabc367139ff961f732d20910c4e56233"
+    },
+    {
+      "path": "HOMS_EDUCATOR_MODERATION_GUIDE.md",
+      "bytes": 1020,
+      "sha256": "c1cf9dad44017a22ab3383f63da9b3e3e6642c74579328ce784e596166df62bd"
+    },
+    {
+      "path": "HOMS_EDUCATOR_MODERATION_PACKAGE_G1_12_20261101.zip",
+      "bytes": 62389,
+      "sha256": "d91bebb706e8a4a3dbf1e38f5b28b48a827a8c9cd1004f45e29bb200a16dbf9f"
+    },
+    {
+      "path": "HOMS_EDUCATOR_MODERATION_WORKBOOK_G1_12.xlsx",
+      "bytes": 51733,
+      "sha256": "b205929f147380224a9a1f9827d4283d06d8891bbf938776a2b815309357e170"
+    },
+    {
+      "path": "HOMS_MODERATE_BATCH_EVIDENCE.json",
+      "bytes": 31837,
+      "sha256": "38d3d057dabc670b01b41703d012f087dd0ff93136178113039c93c276164e03"
+    },
+    {
+      "path": "HOMS_PRODUCT_BATCH_EVIDENCE.json",
+      "bytes": 36252,
+      "sha256": "0d03187b09aa3a0e5b8e5a4e8c8dd0f5145fab31bbb25b29507e50081fe4d94d"
+    },
+    {
+      "path": "HOMS_RANDOM_GRADE_EXAMS_AND_MEMOS_20261101.zip",
+      "bytes": 19466115,
+      "sha256": "303696fa7d1bb541910e2a1f51fbc6efdef021067288536fafd3213e703b908b"
+    },
+    {
+      "path": "HOMS_RANDOM_GRADE_EXAMS_AND_MEMOS_PRINT_READY_20261101.zip",
+      "bytes": 1096178,
+      "sha256": "7e6e4913c32f062a0c3e97670ddcce1d768b7037c1b5142700d04415274c0614"
+    },
+    {
+      "path": "HOMS_RANDOM_GRADE_EXAM_MEMO_ARTIFACT_AUDIT_20261101.json",
+      "bytes": 20918,
+      "sha256": "42cf3d5f28d8ebee2516bbd38d6b7b21d683ee37ab1200a69d418c35040b2cf0"
+    },
+    {
+      "path": "HOMS_RANDOM_GRADE_EXAM_SET_CONTENT_AUDIT_20261104.json",
+      "bytes": 22322,
+      "sha256": "0d286e47d0c7b5aa92e34a805998b769a37c13cd440347574f2058a86c819e38"
+    },
+    {
+      "path": "PRINT_READY_PDF_MANIFEST.json",
+      "bytes": 16533,
+      "sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333"
+    },
+    {
+      "path": "RANDOM_SUBJECT_ASSIGNMENTS.json",
+      "bytes": 1977,
+      "sha256": "955cbb7b8a48460942b6ed19db588fc3da4e8ea153a584d095a7a57e0a608caa"
+    },
+    {
+      "path": "RANDOM_SUBJECT_REPRODUCIBILITY_AUDIT_20261102.json",
+      "bytes": 3412,
+      "sha256": "b03a1e06f6bc240dcd4d02992465ccf623eadf3953a9e4ad2c9be232fd00bc66"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2567,
+      "sha256": "cfd3d1e7af1295b484d0e8a044269a0fe59e8c3e762d6ad28ded3c5871ac9c48"
+    },
+    {
+      "path": "homs_randomized_candidate_workflow.svg",
+      "bytes": 5290,
+      "sha256": "3551ee9a686e00f863e1b156893c8b776f7974b11527663f8dbec39ac3beb90d"
+    },
+    {
+      "path": "media/homs_randomized_candidate_workflow.receipt.json",
+      "bytes": 740,
+      "sha256": "1061684874089f00a014dcba8a2829263c59f991d1bd56d2376e149b7901b05a"
+    },
+    {
+      "path": "media/homs_randomized_candidate_workflow.svg",
+      "bytes": 5290,
+      "sha256": "3551ee9a686e00f863e1b156893c8b776f7974b11527663f8dbec39ac3beb90d"
+    },
+    {
+      "path": "visual_review/HOMS_RANDOM_GRADE_EXAM_VISUAL_RENDER_AUDIT_20261104_V15.json",
+      "bytes": 17197,
+      "sha256": "5fc76c87c11c510cf1f33706c6ddf5a9b8f89a6afcfcf0ec43a84e8f023d3917"
+    },
+    {
+      "path": "visual_review/contact-1.jpg",
+      "bytes": 545182,
+      "sha256": "ac6711b76c98d190d079d8667f00c2b070f0445177407c584e0c759ad9941913"
+    },
+    {
+      "path": "visual_review/contact-2.jpg",
+      "bytes": 582627,
+      "sha256": "1be146fc929d639cc6701bb56c633e99e8083f591265845d31d0327fc863751d"
+    },
+    {
+      "path": "visual_review/contact-3.jpg",
+      "bytes": 605209,
+      "sha256": "cf6f17ce9dd198bcc860d429f9301780027f0170f2720b6fd4ff6fec62752821"
+    },
+    {
+      "path": "visual_review/contact-4.jpg",
+      "bytes": 234084,
+      "sha256": "72bc62d1dd7d9464ea473c8a43064b909e88db57142b718189558db2967242fd"
+    }
+  ]
+}

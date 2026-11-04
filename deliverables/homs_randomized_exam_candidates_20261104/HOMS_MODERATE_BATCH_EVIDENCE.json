@@ -1,0 +1,803 @@
+{
+  "checks": [
+    "question marks equal paper total",
+    "grade and subject match assignment",
+    "memo mark points reconcile per question",
+    "prompts and memo points appear in rendered DOCX text",
+    "paper and memo show expected total",
+    "no detected prompt depends on an unprovided visual",
+    "CAPS source hash is present"
+  ],
+  "created_at": "2026-11-01T09:16:12+00:00",
+  "educator_review_package": {
+    "classroom_release_authorized": false,
+    "decision_fields_prefilled": false,
+    "grade_count": 12,
+    "independent_educator_reviews_completed": 0,
+    "manifest": "HOMS_EDUCATOR_MODERATION_PACKAGE_MANIFEST_20261101.json",
+    "manifest_sha256": "236ab0a6083ad71df7801b0b171f5fd325276ae8767cde769a65634f4317a658",
+    "package": "HOMS_EDUCATOR_MODERATION_PACKAGE_G1_12_20261101.zip",
+    "package_sha256": "d91bebb706e8a4a3dbf1e38f5b28b48a827a8c9cd1004f45e29bb200a16dbf9f",
+    "question_count": 60,
+    "workbook": "HOMS_EDUCATOR_MODERATION_WORKBOOK_G1_12.xlsx",
+    "workbook_sha256": "b205929f147380224a9a1f9827d4283d06d8891bbf938776a2b815309357e170"
+  },
+  "execution_path": "products.customer_product_router.run_customer_product",
+  "grade12_scope_refresh": {
+    "findings_sha256": "a49f1e2ff503c60ad14b42d7e3254fac906d7c74650774f19412aa3302265f9d",
+    "independent_subject_moderation": "NOT_ISSUED",
+    "mechanical_state": "PASS",
+    "release_authorized": false,
+    "run_directory": "deliverables/homs_random_grade_exam_set_20261101/moderation_scope_refresh_grade12_20261101",
+    "specialist_review_worksheet_sha256": "7218e87f7cd0405294025738a36a67c6074a462a8c589c6bdc97138b2eb3d11c"
+  },
+  "grade5_scope_refresh": {
+    "findings_sha256": "a3baba3e6e96150f98d55b075159f0d0b8372212dc3276e7f9d46a81b49011a7",
+    "independent_subject_moderation": "NOT_ISSUED",
+    "mechanical_state": "PASS",
+    "release_authorized": false,
+    "run_directory": "deliverables/homs_random_grade_exam_set_20261101/moderation_scope_refresh_grade05_20261101"
+  },
+  "grade7_scope_refresh": {
+    "findings_sha256": "96d3f1582d4d4d350c52369412d0c836d060d27574897df9cf339851422d5921",
+    "independent_subject_moderation": "NOT_ISSUED",
+    "mechanical_state": "PASS",
+    "release_authorized": false,
+    "run_directory": "deliverables/homs_random_grade_exam_set_20261101/moderation_scope_refresh_grade07_20261101"
+  },
+  "grade_count": 12,
+  "grades": [
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 20; expected 20.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 1; requested grade 1.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Life Skills; requested subject Life Skills.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39726,
+          "channel": "docx",
+          "path": "customer_delivery/customer-e3bdae3266baa52e314e998a-en.docx",
+          "sha256": "1b07d6f2577155b28f94add4f00a319a6df5da002f567f5f04ccd2d6f9a0918f"
+        },
+        {
+          "bytes": 9143,
+          "channel": "html",
+          "path": "customer_delivery/customer-e3bdae3266baa52e314e998a-en.html",
+          "sha256": "346e7b1d305bfe320a99d467bb381fcfabbb8a9df54b90d5bfebe7fc8fe85019"
+        }
+      ],
+      "customer_execution_receipt_sha256": "30fc9b5b12b0cf758260bb0419e99a3e71b995959a8b3e6082cca0cb57eb9d18",
+      "customer_package_receipt_sha256": "93e274d3a73c53c427a483f60c0418b5f869b868de0c2dee81a1809c84148180",
+      "findings_sha256": "41ee0af6805a97b49d1c7e7d809bbabe104ebc5b10fd7fb4b1b84a597bcadf70",
+      "grade": 1,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "c49ee0c01f475b58c00e733e6da58d7d06583c8548919c11e628d6ad10469271",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 20; expected 20.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 2; requested grade 2.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject English Language; requested subject English Language.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39741,
+          "channel": "docx",
+          "path": "customer_delivery/customer-f7c2863a6fe255fbb60cdd06-en.docx",
+          "sha256": "b5f544fd7523930e3ce7cb9f7dd814f6651fd4a2451d7e55487c6707631f72ad"
+        },
+        {
+          "bytes": 9235,
+          "channel": "html",
+          "path": "customer_delivery/customer-f7c2863a6fe255fbb60cdd06-en.html",
+          "sha256": "ea68246f8badb4857b88c715ced3877cf01603f697bbf921967f2ad2b3cac950"
+        }
+      ],
+      "customer_execution_receipt_sha256": "3451b6964d901763fb08dc0427be1706da6f226f0e4d7b98b93f85a0e4ddd003",
+      "customer_package_receipt_sha256": "ca9522ac6263329ff7da4d2fb92137fd66c504566d2e31f9ab62d33e2c90b818",
+      "findings_sha256": "f0e379a57d33383152ad434db8069a6c29ddc33876bda6e6ec065b2fb99f6992",
+      "grade": 2,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "d9f27bc919420c6c7e1dfcaf22ad38d258001208c5c883499eb39f8f16c2610a",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 20; expected 20.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 3; requested grade 3.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Mathematics; requested subject Mathematics.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39737,
+          "channel": "docx",
+          "path": "customer_delivery/customer-2bf725996c4676cf64781feb-en.docx",
+          "sha256": "900c685847fa9c2c494b3e8a197cd14085330e39d339020fc6e4563f808e37a3"
+        },
+        {
+          "bytes": 9204,
+          "channel": "html",
+          "path": "customer_delivery/customer-2bf725996c4676cf64781feb-en.html",
+          "sha256": "1ea7e88e00ffe271e1475b82035d0a7f50352c6fc73330ff9d83459c6ec3b6b2"
+        }
+      ],
+      "customer_execution_receipt_sha256": "d734b307133a13ec9bc1f90ee69df6429f8af7f9edd2d22f41e3115041403b4c",
+      "customer_package_receipt_sha256": "3b28fb658e0206612501c872b53c5f3a39b7e0d64de954d640088e3d455493b3",
+      "findings_sha256": "7a4f277e2b92d1fad9bb8b6abbb0879e2fb520f8da2283ac1989ac1ea63b59d6",
+      "grade": 3,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "8e3bfb020daae32d468bf8b778c412f0d74c5aa423dca2c550a603291f47d880",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 30; expected 30.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 4; requested grade 4.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Mathematics; requested subject Mathematics.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39740,
+          "channel": "docx",
+          "path": "customer_delivery/customer-dfb8357433ecb429353da44e-en.docx",
+          "sha256": "13d05955f931dba8329dbfc9d359b71eac25ebab3c1ef6a8f76b3661c02ca883"
+        },
+        {
+          "bytes": 9181,
+          "channel": "html",
+          "path": "customer_delivery/customer-dfb8357433ecb429353da44e-en.html",
+          "sha256": "84f78c26e41f4eb7eefbe71dfda86827de8835d16da73808ee53243a32b8f937"
+        }
+      ],
+      "customer_execution_receipt_sha256": "993c753ff66396a4b2c71834bdd315d88f8630fb58a19964f229ec5a516125f3",
+      "customer_package_receipt_sha256": "2c5e290db01a8a8fdd46dd653b120b8491e729e6efe6ce5911d450595e965c58",
+      "findings_sha256": "388506d7b753e2c9d82555cde6b52db3e03e1647b85f34dfed436dcc3106a0aa",
+      "grade": 4,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "02afe964e541669b5927276878f49d85bd24121b6a93f90334007911abf397aa",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 30; expected 30.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 5; requested grade 5.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Natural Sciences and Technology; requested subject Natural Sciences and Technology.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39769,
+          "channel": "docx",
+          "path": "customer_delivery/customer-fabd89fae6d8c7ace6d43060-en.docx",
+          "sha256": "1f233eaeb7b325aa9aa62935393df039e5ba86c09851df2ab11eccbdefc0536f"
+        },
+        {
+          "bytes": 9381,
+          "channel": "html",
+          "path": "customer_delivery/customer-fabd89fae6d8c7ace6d43060-en.html",
+          "sha256": "402292ad512d0cb9eb566c3cf391eab210013f873a83f86e878fa222a71de41c"
+        }
+      ],
+      "customer_execution_receipt_sha256": "2f68161f7a7b6be47e997e24f4701016906071bdec2cc9b6186e665707c437c6",
+      "customer_package_receipt_sha256": "75d4c58c76d20907bf2d0a558454b13ac59f988fdfbbc4de5b0797a280c42753",
+      "findings_sha256": "a3baba3e6e96150f98d55b075159f0d0b8372212dc3276e7f9d46a81b49011a7",
+      "grade": 5,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "42a863e9a11be70f3908ebf3cd24ebad38596b17df48f7d620648ca3aa7bf8da",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 30; expected 30.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 6; requested grade 6.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Life Skills; requested subject Life Skills.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39747,
+          "channel": "docx",
+          "path": "customer_delivery/customer-e0ffd3990bc2568847aaa35a-en.docx",
+          "sha256": "5dc3461043733f2cfda3916017875e464f6badd8bc3a589b089ded2e2516b8d9"
+        },
+        {
+          "bytes": 9210,
+          "channel": "html",
+          "path": "customer_delivery/customer-e0ffd3990bc2568847aaa35a-en.html",
+          "sha256": "ef35c5c390a90c3e4778855ab32585c20905c0904ead25156afcc30a2d919a4d"
+        }
+      ],
+      "customer_execution_receipt_sha256": "517f4d446ddcdf183ff6958e243749f0040ad4381da9374d9e7c30eb04bf013f",
+      "customer_package_receipt_sha256": "a4ec82923a4c1e2b0e8cc62d61f257784d8956650307a102dd41033b3c101fb3",
+      "findings_sha256": "d1db7c52050d711992c8378c6cbdea9436c1f3f3ba2ed82d9709e4e7baf495ab",
+      "grade": 6,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "2abf60a9e1e3a928753d4cfc38be13c00ccd77aff717be51aa55b568a1824b0e",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 40; expected 40.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 7; requested grade 7.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Economic and Management Sciences; requested subject Economic and Management Sciences.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39781,
+          "channel": "docx",
+          "path": "customer_delivery/customer-0617e529c7dd6fe5743b7a91-en.docx",
+          "sha256": "4a255bb35408486f00944b620408c3d95a76393d2a24b5b1234ae964ba3dfe39"
+        },
+        {
+          "bytes": 9396,
+          "channel": "html",
+          "path": "customer_delivery/customer-0617e529c7dd6fe5743b7a91-en.html",
+          "sha256": "fbf3e986fa7f86c3c65491df3cbca0a2d06ba7ed25b06ec2aa4c2d2baa2565a4"
+        }
+      ],
+      "customer_execution_receipt_sha256": "dad8efbb0124fe44e83ce3836ca310d514eb63be5042e054311379966c401c03",
+      "customer_package_receipt_sha256": "da0d78b44bc117b4e2ecfb8937808117f274f24d1db387244a822e5cfeced0f3",
+      "findings_sha256": "9208df60adcd110f82e1b846d182fbfb5477fae093b78bc81914fe08330484a4",
+      "grade": 7,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "dbd1a9f45c1e469241db92e62f0407d9af8a47f9e916cbf114a219629cc4aac9",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 40; expected 40.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 8; requested grade 8.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Life Orientation; requested subject Life Orientation.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39748,
+          "channel": "docx",
+          "path": "customer_delivery/customer-67cc9d9f209c0a5caa066764-en.docx",
+          "sha256": "c77e71980cf5e2d90188ccb472008b927d70748ef38de48854fba70feef7e958"
+        },
+        {
+          "bytes": 9280,
+          "channel": "html",
+          "path": "customer_delivery/customer-67cc9d9f209c0a5caa066764-en.html",
+          "sha256": "96a8f815873db8bd3ef2429aa6afb0a8693abc1f2226df386c98db858fa075af"
+        }
+      ],
+      "customer_execution_receipt_sha256": "274013424be8db0dd0ab9478e0ad3f800d466c93f81258fbf696b12087f76753",
+      "customer_package_receipt_sha256": "e95d80dbffe3c6809e4490dc40c0ee94e158178dda627983e188c7c709c92c35",
+      "findings_sha256": "7baa1a5e0503f7100a8a90d09620ca3e72838e5c7b549071f9eb7e0abfb9a615",
+      "grade": 8,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "00a76179a5dc0daeaa1e638ac2828aad4619697343db85e05491fd6d2b60a1ff",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 40; expected 40.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 9; requested grade 9.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject English Language; requested subject English Language.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39753,
+          "channel": "docx",
+          "path": "customer_delivery/customer-fa84dfb76dc153f943d0c3ad-en.docx",
+          "sha256": "7a9219a304538caa6b5e755cd85da423f4f9352e1b070317ad1951cf34a73ef2"
+        },
+        {
+          "bytes": 9233,
+          "channel": "html",
+          "path": "customer_delivery/customer-fa84dfb76dc153f943d0c3ad-en.html",
+          "sha256": "d79fc56d21caaa8247c3a5577086ddb646988c4ed3b3c2e310e9cde12e578027"
+        }
+      ],
+      "customer_execution_receipt_sha256": "9d97885c28000fbc750d975833533742ecab4d26c4a17482521ac76637fdab92",
+      "customer_package_receipt_sha256": "bcf92a38a3821a7f28c43923a44a1512cedd12dd3426d77f2127637e14cd29e6",
+      "findings_sha256": "c2400eb697263f2985dee68734c73703cf0f2bba7ccfe42904bac638492f343e",
+      "grade": 9,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "ab0943f1c3f6ab31598fd2eab9415e9694e91a325bc486ae0ee09e741d3d753e",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 50; expected 50.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 10; requested grade 10.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Physical Sciences; requested subject Physical Sciences.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39761,
+          "channel": "docx",
+          "path": "customer_delivery/customer-ff66a6787aceb7a9001cadbd-en.docx",
+          "sha256": "0a41a90b7e482c85566f950ac11cd428386d8adb287d2149a62a1938f2618c9f"
+        },
+        {
+          "bytes": 9282,
+          "channel": "html",
+          "path": "customer_delivery/customer-ff66a6787aceb7a9001cadbd-en.html",
+          "sha256": "d0c239b6367e8b468f90bc123c6fb6a197d6a778f037112ae6679cb8cc26e0d2"
+        }
+      ],
+      "customer_execution_receipt_sha256": "f9679bdc51c2201c0ccdb1b877ed27e65ba57b6edef422293a621c1820e80950",
+      "customer_package_receipt_sha256": "cd25ce4c49d0a3f02bb6a7e91ccffb9a602f9cda98abcece8a8e4117b6399fb5",
+      "findings_sha256": "e7418ed92312a79e86b6b1c6b4b55a3fc7b0a6a2a1fd9ada561878399e5d8a3e",
+      "grade": 10,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "4c3b8e03f9dd7472cda7e600c70f595b3c02907e8cac9915098cf5ab089b70ec",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 50; expected 50.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 11; requested grade 11.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject English Language; requested subject English Language.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39757,
+          "channel": "docx",
+          "path": "customer_delivery/customer-6849e05de722ce0f44e67559-en.docx",
+          "sha256": "52a350ea5cb451d447b9b37fd69b3f2ee497924e15065dcdfc16882b113e512c"
+        },
+        {
+          "bytes": 9277,
+          "channel": "html",
+          "path": "customer_delivery/customer-6849e05de722ce0f44e67559-en.html",
+          "sha256": "036114f27ac9e0e6d3718d7360dd97fc77b6d3e577f4f6c54285ac808e5453f1"
+        }
+      ],
+      "customer_execution_receipt_sha256": "0b034dad94b7375ca86ed8bd668dc31fcd52539d37eea312ad85a3c7ec0d9b30",
+      "customer_package_receipt_sha256": "8563864ddd2f5fd7449ce3b6c9d566154be4e4f74c0329b711df51c1f2353557",
+      "findings_sha256": "d775232ed0a18a6e87c3c2f957bf8712605eb0938a5ba902aed55ec0ccb7bc37",
+      "grade": 11,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "a07b0c507f5df2aaea5510c73bddd150df81297aeb50a90f74e0c768f3003cb6",
+      "worksheet_mechanical_state": null
+    },
+    {
+      "checks": [
+        {
+          "check": "question_mark_sum",
+          "detail": "Question marks sum to 50; expected 50.",
+          "state": "PASS"
+        },
+        {
+          "check": "grade_identity",
+          "detail": "Assessment grade 12; requested grade 12.",
+          "state": "PASS"
+        },
+        {
+          "check": "subject_identity",
+          "detail": "Assessment subject Business Studies; requested subject Business Studies.",
+          "state": "PASS"
+        },
+        {
+          "check": "memo_mark_reconciliation",
+          "detail": "Each question has one explicit memo point per mark and its prompt/points occur in the rendered documents.",
+          "state": "PASS"
+        },
+        {
+          "check": "rendered_total_visibility",
+          "detail": "Expected total is visible in exam=True, memo=True.",
+          "state": "PASS"
+        },
+        {
+          "check": "unprovided_visual_reference",
+          "detail": "No detected prompt depends on an unprovided visual.",
+          "state": "PASS"
+        },
+        {
+          "check": "caps_source_hash_present",
+          "detail": "CAPS source hash is recorded; curriculum scope still requires an educator.",
+          "state": "PASS"
+        }
+      ],
+      "customer_delivery": [
+        {
+          "bytes": 39770,
+          "channel": "docx",
+          "path": "customer_delivery/customer-57ce627d07bc5e5319d4d1f8-en.docx",
+          "sha256": "da260ea8226c1183abe15b61f71255eb1d4615ba7a3635e4d80438b7f9265ae2"
+        },
+        {
+          "bytes": 9328,
+          "channel": "html",
+          "path": "customer_delivery/customer-57ce627d07bc5e5319d4d1f8-en.html",
+          "sha256": "3873b5699d222c19e9b0ce23568146a3b18f392d7ff217ab7601404acee1d8b9"
+        }
+      ],
+      "customer_execution_receipt_sha256": "042e2eef105334a5450f49ffa638e681ff2acb05575f8ec24674b38d98c2eb84",
+      "customer_package_receipt_sha256": "7c655cf76a5f70f416529be7cc3c28be5c38cd77ac376766cf354e4d326d22a2",
+      "findings_sha256": "a49f1e2ff503c60ad14b42d7e3254fac906d7c74650774f19412aa3302265f9d",
+      "grade": 12,
+      "mechanical_state": "PASS",
+      "specialist_worksheet_sha256": "94a5173749e515ddd306994f64efbee00361707431c18013a7d2062525b2fede",
+      "worksheet_mechanical_state": null
+    }
+  ],
+  "job_type": "synthetic internal HOMS product job using owner-authored draft assessments",
+  "layout_correction": "Question number and mark value now appear once in learner-facing DOCX prompts; regenerated all 12 exams and memos and reran HOMS Moderate.",
+  "mechanical_correction_count": 0,
+  "mechanical_pass_count": 12,
+  "product": "HOMS Moderate",
+  "professional_status": {
+    "authority_created": false,
+    "classroom_release_authorized": false,
+    "commercial_validation": "UNPROVED",
+    "educator_reviews_completed": 0,
+    "independent_subject_moderation": "NOT_ISSUED",
+    "release_authorized": false,
+    "review_workbook_prepared": true
+  },
+  "schema": "dio.homs.moderate_grade_batch_evidence.v1",
+  "scope_boundary": "Mechanical pre-moderation and source-bound review packaging only. Passing these checks is not a professional moderation decision or a claim of curriculum fit or subject correctness.",
+  "post_ambiguity_fix_refresh": {
+    "run_directory": "deliverables/homs_random_grade_exam_set_20261101/moderation_post_ambiguity_fix_20261101",
+    "batch_receipt_sha256": "01de113ed719369574fb13fb74feb2edbf65ed520a035d7a53fe51f52c1edcf1",
+    "mechanical_pass_count": 12,
+    "independent_moderation_decision": "NOT_ISSUED",
+    "educator_review_required": true,
+    "classroom_release_authorized": false
+  },
+  "latest_refresh": {
+    "run_directory": "deliverables/homs_random_grade_exam_set_20261101/moderation_post_geometry_memo_fix_20261101",
+    "batch_receipt_sha256": "a9d0cbc4aa3c8b11137691ea15225d43b6341c21e9aaef94072c471c96526556",
+    "mechanical_pass_count": 12,
+    "independent_moderation_decision": "NOT_ISSUED",
+    "educator_review_required": true,
+    "classroom_release_authorized": false
+  }
+}

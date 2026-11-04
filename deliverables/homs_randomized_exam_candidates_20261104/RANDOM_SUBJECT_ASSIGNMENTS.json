@@ -1,0 +1,81 @@
+{
+  "schema": "dio.homs.random_grade_exam_assignment.v1",
+  "created_at": "2026-11-01T07:10:00+00:00",
+  "random_seed": 20261101,
+  "selection_method": "Randomized without replacement within each phase from approved subject pools; seed recorded for reproducibility.",
+  "grade_range": [
+    1,
+    12
+  ],
+  "assignments": [
+    {
+      "grade": 1,
+      "phase": "foundation_grade_r_3",
+      "subject_profile": "life_skills"
+    },
+    {
+      "grade": 2,
+      "phase": "foundation_grade_r_3",
+      "subject_profile": "english_language"
+    },
+    {
+      "grade": 3,
+      "phase": "foundation_grade_r_3",
+      "subject_profile": "mathematics"
+    },
+    {
+      "grade": 4,
+      "phase": "intermediate_grade_4_6",
+      "subject_profile": "mathematics"
+    },
+    {
+      "grade": 5,
+      "phase": "intermediate_grade_4_6",
+      "subject_profile": "natural_sciences_and_technology"
+    },
+    {
+      "grade": 6,
+      "phase": "intermediate_grade_4_6",
+      "subject_profile": "life_skills"
+    },
+    {
+      "grade": 7,
+      "phase": "senior_grade_7_9",
+      "subject_profile": "economics_management_sciences"
+    },
+    {
+      "grade": 8,
+      "phase": "senior_grade_7_9",
+      "subject_profile": "life_orientation"
+    },
+    {
+      "grade": 9,
+      "phase": "senior_grade_7_9",
+      "subject_profile": "english_language"
+    },
+    {
+      "grade": 10,
+      "phase": "fet_grade_10_12",
+      "subject_profile": "physical_sciences"
+    },
+    {
+      "grade": 11,
+      "phase": "fet_grade_10_12",
+      "subject_profile": "english_language"
+    },
+    {
+      "grade": 12,
+      "phase": "fet_grade_10_12",
+      "subject_profile": "business_studies"
+    }
+  ],
+  "source_documents_hash_verified": 282,
+  "human_review_required": true,
+  "release_authorized": false,
+  "generation_status": {
+    "draft_packs_created": 12,
+    "quality_rejected_model_attempts": 3,
+    "human_educator_reviews_completed": 0,
+    "pending_classroom_approval": 12
+  }
+}

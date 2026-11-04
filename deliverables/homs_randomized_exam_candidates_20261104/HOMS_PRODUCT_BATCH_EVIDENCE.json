@@ -1,0 +1,610 @@
+{
+  "schema": "dio.homs.exam_product_batch_evidence.v1",
+  "product": "HOMS Exam",
+  "created_at": "2026-11-01T09:16:00+00:00",
+  "random_seed": 20261101,
+  "selection_method": "Randomized without replacement within each phase from approved subject pools; seed recorded for reproducibility.",
+  "source_hash_verified_count": 282,
+  "grade_pack_count": 12,
+  "drafts_generated": 12,
+  "mechanical_validation": {
+    "grade_range_complete": true,
+    "question_count_each": 5,
+    "exact_marks_all_grades": true,
+    "memo_points_equal_marks": true,
+    "docx_files_present_and_openable": true
+  },
+  "professional_status": {
+    "qualified_educator_reviews_completed": 0,
+    "independent_moderation": false,
+    "classroom_release_authorized": false,
+    "commercial_validation": "UNPROVED"
+  },
+  "scope_boundary": "Evidence of a newly produced HOMS Exam draft batch and artifact integrity only. It does not resolve product-wide assessment reasoning quality or establish professional acceptance.",
+  "grades": [
+    {
+      "grade": 1,
+      "subject": "Life Skills",
+      "total_marks": 20,
+      "question_count": 5,
+      "memo_mark_points": 20,
+      "caps_source_title": "Life Skills",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563",
+      "caps_source_sha256": "4d4df1e5c4eb7db4157cd80f2a3b0cdb0a22b155474e432a3578c9a798845c1d",
+      "exam": {
+        "path": "grades/grade-01-life_skills/GRADE_EXAM.docx",
+        "sha256": "798835daf7579d9038547322f26708da9c0aebcddd883e6c82e8c4f29ee2270b"
+      },
+      "memo": {
+        "path": "grades/grade-01-life_skills/GRADE_MEMO.docx",
+        "sha256": "e6cf60e51ccfc0adc250d6115c522e5c82b665355511ad8c9e32bbb302608fc8"
+      },
+      "receipt": "grades/grade-01-life_skills/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-01-life_skills/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "ad64f644840e719604a9edb2fbcf046685f8180a43ada9b35f595428011e168d"
+      }
+    },
+    {
+      "grade": 2,
+      "subject": "English Language",
+      "total_marks": 20,
+      "question_count": 5,
+      "memo_mark_points": 20,
+      "caps_source_title": "English",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=BCaB_SnaASA%3d&tabid=571&portalid=0&mid=1561",
+      "caps_source_sha256": "db09b7292552ef6b374a76ff473eb719eee367f3bb3c8eb788f21bae2ad1ad5e",
+      "exam": {
+        "path": "grades/grade-02-english_language/GRADE_EXAM.docx",
+        "sha256": "e1b6cb5de7e606be86bee1c598248ec18eb4217c2abd8419734c0abb1a0585b4"
+      },
+      "memo": {
+        "path": "grades/grade-02-english_language/GRADE_MEMO.docx",
+        "sha256": "1324a0b8d1ba1df4a7721306bf6b0b19665c6961dbb927ac5c2c16daaff801cb"
+      },
+      "receipt": "grades/grade-02-english_language/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-02-english_language/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "d9c75b234b8e5d08a14724f2b9415fea5826bf35ac0efca5a645fce406bea226"
+      }
+    },
+    {
+      "grade": 3,
+      "subject": "Mathematics",
+      "total_marks": 20,
+      "question_count": 5,
+      "memo_mark_points": 20,
+      "caps_source_title": "Mathematics",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562",
+      "caps_source_sha256": "e3b5bc415912b6f0eb13ca8d18a57d7c951d23b399e20f38315fc13f2feed011",
+      "exam": {
+        "path": "grades/grade-03-mathematics/GRADE_EXAM.docx",
+        "sha256": "48f632f142e2cb7b05dd6931f14f90b66c914618c1831af9ee08831e6e6ff9af"
+      },
+      "memo": {
+        "path": "grades/grade-03-mathematics/GRADE_MEMO.docx",
+        "sha256": "e6bb8ca87f4b64715b715742d6a862f215f5903e3e5c43f9e6dec0aa23c216aa"
+      },
+      "receipt": "grades/grade-03-mathematics/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-03-mathematics/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "0fe42ed4a85568eaf1bb3993ef9cbcbaa7e6a89029eeacd7786b7bd7666720b0"
+      },
+      "review_note": "Updated after memo/prompt consistency review; see batch content_corrections."
+    },
+    {
+      "grade": 4,
+      "subject": "Mathematics",
+      "total_marks": 30,
+      "question_count": 5,
+      "memo_mark_points": 30,
+      "caps_source_title": "Mathematics",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568",
+      "caps_source_sha256": "7fec668a6d3b0ed4ae6974a9739970a2128a80553589f682ff5d5bffc02a783e",
+      "exam": {
+        "path": "grades/grade-04-mathematics/GRADE_EXAM.docx",
+        "sha256": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f"
+      },
+      "memo": {
+        "path": "grades/grade-04-mathematics/GRADE_MEMO.docx",
+        "sha256": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b"
+      },
+      "receipt": "grades/grade-04-mathematics/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-04-mathematics/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "e3fbad8b0e24132e9a8c470d20a93fb12c6592a0ee1b24bdd3745f07a695da1c"
+      }
+    },
+    {
+      "grade": 5,
+      "subject": "Natural Sciences and Technology",
+      "total_marks": 30,
+      "question_count": 5,
+      "memo_mark_points": 30,
+      "caps_source_title": "Natural Sciences and Technology",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568",
+      "caps_source_sha256": "4bf95cdcc20b1b7902a9ea65826d83624012b17f39b9d96287e1f18d40105b69",
+      "exam": {
+        "path": "grades/grade-05-natural_sciences_and_technology/GRADE_EXAM.docx",
+        "sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5"
+      },
+      "memo": {
+        "path": "grades/grade-05-natural_sciences_and_technology/GRADE_MEMO.docx",
+        "sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224"
+      },
+      "receipt": "grades/grade-05-natural_sciences_and_technology/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-05-natural_sciences_and_technology/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "ecfa7f87bbe3a5e02ea04cb8ec876068da3d6225b2faefdfa6dac182919134e9"
+      },
+      "caps_scope_trace_evidence": "deliverables/homs_random_grade_exam_set_20261101/GRADE05_CAPS_SCOPE_REFRESH_EVIDENCE_20261101.json",
+      "supersedes_previous_grade5_draft": true
+    },
+    {
+      "grade": 6,
+      "subject": "Life Skills",
+      "total_marks": 30,
+      "question_count": 5,
+      "memo_mark_points": 30,
+      "caps_source_title": "Life Skills",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568",
+      "caps_source_sha256": "4113b006498494cd90bc5203c88ca2d5a1a1856c42b0274a31cc3f1442412317",
+      "exam": {
+        "path": "grades/grade-06-life_skills/GRADE_EXAM.docx",
+        "sha256": "b8922247d6c7c2e08ae5f96df6044ce3d3f9d48bf390b991900882564c2657a6"
+      },
+      "memo": {
+        "path": "grades/grade-06-life_skills/GRADE_MEMO.docx",
+        "sha256": "a9a8b2de1c5a118506b331b881356c711846aa87232254eafec55ec5e81b8e61"
+      },
+      "receipt": "grades/grade-06-life_skills/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-06-life_skills/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "9002d49d0fa2f172a7de4863702a3d454b464c1cd2106bbb86c10c39dbadb755"
+      }
+    },
+    {
+      "grade": 7,
+      "subject": "Economic and Management Sciences",
+      "total_marks": 40,
+      "question_count": 5,
+      "memo_mark_points": 40,
+      "caps_source_title": "Economic and Management Sciences",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=YEgQQlsQNCw%3d&tabid=573&portalid=0&mid=1629",
+      "caps_source_sha256": "313a25bf38f59a24df8180453aab57aa573d8aaf2564af4a342d0df2456ad8ea",
+      "exam": {
+        "path": "grades/grade-07-economics_management_sciences/GRADE_EXAM.docx",
+        "sha256": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314"
+      },
+      "memo": {
+        "path": "grades/grade-07-economics_management_sciences/GRADE_MEMO.docx",
+        "sha256": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4"
+      },
+      "receipt": "grades/grade-07-economics_management_sciences/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-07-economics_management_sciences/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "5b9ca14f5cb643619ddef348deccdf055ac514e4467d8f843c9275de764a06ea"
+      },
+      "caps_scope_trace_evidence": "deliverables/homs_random_grade_exam_set_20261101/GRADE07_CAPS_SCOPE_REFRESH_EVIDENCE_20261101.json",
+      "supersedes_previous_grade7_draft": true
+    },
+    {
+      "grade": 8,
+      "subject": "Life Orientation",
+      "total_marks": 40,
+      "question_count": 5,
+      "memo_mark_points": 40,
+      "caps_source_title": "Life Orientation",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ANFLxkl-Hgk%3d&tabid=573&portalid=0&mid=1629",
+      "caps_source_sha256": "7904a388b6dfda1c3b265638d7f91298e2290e50eda65f9625fa3a764356dca3",
+      "exam": {
+        "path": "grades/grade-08-life_orientation/GRADE_EXAM.docx",
+        "sha256": "c31c0cc02545d2195d6fe605152d5d86b736b5ea57b712ca2ef7b0f102635633"
+      },
+      "memo": {
+        "path": "grades/grade-08-life_orientation/GRADE_MEMO.docx",
+        "sha256": "e34356a320631a83f5d6cac3b08ef943bc83e90729f1645f5cd3d751de31bc22"
+      },
+      "receipt": "grades/grade-08-life_orientation/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-08-life_orientation/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "af257a12b8b9cac71b173210cca62ad46a18fbaa227a688d85e3afcc2731512c"
+      }
+    },
+    {
+      "grade": 9,
+      "subject": "English Language",
+      "total_marks": 40,
+      "question_count": 5,
+      "memo_mark_points": 40,
+      "caps_source_title": "English",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=PBG-2SCmMJE%3d&tabid=573&portalid=0&mid=1570",
+      "caps_source_sha256": "489f8c6076c86f5515df3ec00ce5cb8aa403435e28215d8423c7e42855c56a49",
+      "exam": {
+        "path": "grades/grade-09-english_language/GRADE_EXAM.docx",
+        "sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788"
+      },
+      "memo": {
+        "path": "grades/grade-09-english_language/GRADE_MEMO.docx",
+        "sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017"
+      },
+      "receipt": "grades/grade-09-english_language/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-09-english_language/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "a2c05ad2e81036b871863ba8a22695e7bf3203c5d0102fc9581ca95670fabdb7"
+      }
+    },
+    {
+      "grade": 10,
+      "subject": "Physical Sciences",
+      "total_marks": 50,
+      "question_count": 5,
+      "memo_mark_points": 50,
+      "caps_source_title": "Physical Sciences",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=uVcOcx728Y8%3d&tabid=570&portalid=0&mid=1558",
+      "caps_source_sha256": "8b7b20f350a46fc077c4e9b2fcf4ecfd7b63e7f6cd56d7d6ea94de75dbcd209f",
+      "exam": {
+        "path": "grades/grade-10-physical_sciences/GRADE_EXAM.docx",
+        "sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96"
+      },
+      "memo": {
+        "path": "grades/grade-10-physical_sciences/GRADE_MEMO.docx",
+        "sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273"
+      },
+      "receipt": "grades/grade-10-physical_sciences/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-10-physical_sciences/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "84c317e10788622fd8d36939976b381241451a1e1c7dd20eab3bd3e482b83912"
+      },
+      "review_note": "Updated after memo/prompt consistency review; see batch content_corrections."
+    },
+    {
+      "grade": 11,
+      "subject": "English Language",
+      "total_marks": 50,
+      "question_count": 5,
+      "memo_mark_points": 50,
+      "caps_source_title": "English",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=jJC7EufwE_M%3d&tabid=570&portalid=0&mid=1556",
+      "caps_source_sha256": "3d97f707a8ad56b58713ecd3a7e0ca8cf8698ba367e128a647718f7a47067407",
+      "exam": {
+        "path": "grades/grade-11-english_language/GRADE_EXAM.docx",
+        "sha256": "047a84d2a1caec8149aef164c4cb0060de17fb8d7a9921f2f6b85ebf24f09357"
+      },
+      "memo": {
+        "path": "grades/grade-11-english_language/GRADE_MEMO.docx",
+        "sha256": "7278d730dbbee1bd443f1e1a350875d7de767360bab1a3d9d987355232f30033"
+      },
+      "receipt": "grades/grade-11-english_language/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-11-english_language/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "7b1c0f274e0187ab083435bec2b577bc0ef8855c4d6dd26f84c9979c6ab2b295"
+      }
+    },
+    {
+      "grade": 12,
+      "subject": "Business Studies",
+      "total_marks": 50,
+      "question_count": 5,
+      "memo_mark_points": 50,
+      "caps_source_title": "Business Studies",
+      "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=zLnOddukw-4%3d&tabid=570&portalid=0&mid=1558",
+      "caps_source_sha256": "e6f0a21b96fa87ccfccb732a9240a579bf0157916b86a1cdd98a2876cf76db27",
+      "exam": {
+        "path": "grades/grade-12-business_studies/GRADE_EXAM.docx",
+        "sha256": "e302dcede450e8e930f8293dc28e23d1c78d3171052a0cb8b62b423d1ed28157"
+      },
+      "memo": {
+        "path": "grades/grade-12-business_studies/GRADE_MEMO.docx",
+        "sha256": "faf900f3e9832d7bf58ee874d3d519408312ca9639a92a2004d31669ead35310"
+      },
+      "receipt": "grades/grade-12-business_studies/HOMS_GRADE_EXAM_RECEIPT.json",
+      "assessment_json": {
+        "path": "grades/grade-12-business_studies/HOMS_GRADE_ASSESSMENT.json",
+        "sha256": "bddbcd43138767ebd3737a94f5f7b403adf4f657f44da414f3bfc16eecdbb8c8"
+      },
+      "caps_scope_trace_evidence": "deliverables/homs_random_grade_exam_set_20261101/GRADE12_CAPS_SCOPE_REFRESH_EVIDENCE_20261101.json",
+      "supersedes_previous_grade12_draft": true
+    }
+  ],
+  "learner_facing_layout_correction": {
+    "state": "PASS",
+    "correction": "Removed redundant question-number and mark suffix from prompt text; layout retains one question number and one mark allocation.",
+    "grades_updated": 12
+  },
+  "grade12_scope_refresh": {
+    "evidence_path": "deliverables/homs_random_grade_exam_set_20261101/GRADE12_CAPS_SCOPE_REFRESH_EVIDENCE_20261101.json",
+    "status": "DRAFT_SCOPE_REPAIRED_MECHANICAL_REVIEW_PASS",
+    "release_authorized": false,
+    "independent_moderation": "NOT_ISSUED"
+  },
+  "grade7_scope_refresh": {
+    "evidence_path": "deliverables/homs_random_grade_exam_set_20261101/GRADE07_CAPS_SCOPE_REFRESH_EVIDENCE_20261101.json",
+    "status": "DRAFT_SCOPE_AND_TERMS_REPAIRED_MECHANICAL_REVIEW_PASS",
+    "release_authorized": false,
+    "independent_moderation": "NOT_ISSUED"
+  },
+  "grade5_scope_refresh": {
+    "evidence_path": "deliverables/homs_random_grade_exam_set_20261101/GRADE05_CAPS_SCOPE_REFRESH_EVIDENCE_20261101.json",
+    "status": "GRADE_SCOPE_CORRECTED_AND_MECHANICAL_REVIEW_PASSED",
+    "release_authorized": false,
+    "independent_moderation": "NOT_ISSUED"
+  },
+  "last_content_revision": {
+    "grade": 10,
+    "question_id": "1.1–1.2",
+    "reason": "The specified reversal makes total path length distinct from change in position. The paired six-second average-speed and average-velocity calculations use the same unambiguous distance, displacement and time data, and the memo awards separate method, result, direction and unit points.",
+    "exam_sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+    "memo_sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273"
+  },
+  "content_corrections": [
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f5daf564bff8a62ee96ccabdf6b8a801842c975517cf7dadd8262bf29a59ad3d",
+      "memo_sha256": "7bbf04edc9493558a836e7e3f593e08554db05f482223bab76ee8137b63ee61b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "5f715912d465cae0e88c424cead51e286032e45c81cdc6dbbc399d1aead2d29c",
+      "memo_sha256": "f991494088ae32a1499ebc1f5acb3a03b6d478b502b00d84aa2195ed15f9c9bc"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+      "memo_sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+      "memo_sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224"
+    },
+    {
+      "grade": 2,
+      "question_id": "1.4",
+      "issue": "Four marks were assigned to an under-specified phrase-only singular transformation.",
+      "resolution": "Reframed as a full sentence rewrite and aligned the four memo points to quantity, noun number, adjective retention, and sentence punctuation.",
+      "exam_sha256": "e1b6cb5de7e606be86bee1c598248ec18eb4217c2abd8419734c0abb1a0585b4",
+      "memo_sha256": "1324a0b8d1ba1df4a7721306bf6b0b19665c6961dbb927ac5c2c16daaff801cb"
+    },
+    {
+      "grade": 3,
+      "question_id": "1.2",
+      "issue": "Four marks were assigned to an equal-grouping item that did not request working or a remainder.",
+      "resolution": "Asked for the method and leftover tops; the memo grants carry-forward credit and distinguishes quotient, remainder and reported result.",
+      "exam_sha256": "48f632f142e2cb7b05dd6931f14f90b66c914618c1831af9ee08831e6e6ff9af",
+      "memo_sha256": "e6bb8ca87f4b64715b715742d6a862f215f5903e3e5c43f9e6dec0aa23c216aa"
+    },
+    {
+      "grade": 4,
+      "question_id": "1.4",
+      "issue": "Seven marks were assigned to a single subtraction result without requiring visible working or verification.",
+      "resolution": "Asked for column subtraction, visible regrouping and an inverse addition check; the seven memo points now correspond to these requested steps.",
+      "exam_sha256": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f",
+      "memo_sha256": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b"
+    },
+    {
+      "grade": 4,
+      "question_id": "1.3",
+      "issue": "The memo awarded both an equivalent fraction and the same simplified fraction as separate points.",
+      "resolution": "Asked learners to show simplification and verify the result; revised points now separate the starting ratio, common divisor, numerator/denominator operations, simplest form and check.",
+      "exam_sha256": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f",
+      "memo_sha256": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b"
+    },
+    {
+      "grade": 5,
+      "question_id": "1.1–1.5",
+      "issue": "The five-question scenario assessed sand/water separation and ice melting while its CAPS maps cited unrelated metals and flour/water processing content.",
+      "resolution": "Rebuilt the assessment around the Grade 5 CAPS concrete-processing example, before/after properties and explicit fair-test/recording skills; rebound each question to relevant official pages.",
+      "exam_sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+      "memo_sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224"
+    },
+    {
+      "grade": 7,
+      "question_id": "1.1",
+      "issue": "The wording treated production input and expense as alternatives, although the fruit is both an input and an expense.",
+      "resolution": "Reworded the item to permit both roles and updated its six one-mark memo points to distinguish the input, expense, table fee, sales purpose and overlapping categories.",
+      "exam_sha256": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314",
+      "memo_sha256": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4"
+    },
+    {
+      "grade": 10,
+      "question_id": "1.4",
+      "issue": "Eleven marks were assigned to one final-velocity calculation.",
+      "resolution": "Expanded the item to require both final velocity and signed displacement from the velocity-time graph area, then mapped it to the relevant official CAPS motion/graph pages.",
+      "exam_sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+      "memo_sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273"
+    },
+    {
+      "grade": 10,
+      "question_id": "1.1–1.2",
+      "issue": "A no-reversal path made distance equal displacement, and the follow-up assessed average velocity without average speed.",
+      "resolution": "Specified a return segment so distance is 36 m while displacement is +12 m, then asked for both average speed (6 m·s⁻¹) and average velocity (+2 m·s⁻¹ east) over the same six seconds.",
+      "exam_sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+      "memo_sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273"
+    }
+  ],
+  "source_metadata_corrections": [
+    {
+      "grade": 7,
+      "field": "caps_source.title",
+      "previous_value": "Economics Management and Science",
+      "corrected_value": "Economic and Management Sciences",
+      "source_sha256": "313a25bf38f59a24df8180453aab57aa573d8aaf2564af4a342d0df2456ad8ea",
+      "correction_record": "GRADE07_SOURCE_TITLE_CORRECTION_20261102.json",
+      "exam_sha256": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314",
+      "memo_sha256": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4"
+    }
+  ]
+}

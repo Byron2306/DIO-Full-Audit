@@ -1,0 +1,125 @@
+{
+  "schema": "dio.homs.random_subject_reproducibility_audit.v1",
+  "seed": 20261101,
+  "rng": "Python random.Random(seed), Mersenne Twister, sequential phase iteration and list.shuffle calls as implemented in the recorded generator",
+  "python_version": "3.13.5",
+  "assignment_manifest": {
+    "path": "deliverables/homs_random_grade_exam_set_20261101/RANDOM_SUBJECT_ASSIGNMENTS.json",
+    "sha256": "955cbb7b8a48460942b6ed19db588fc3da4e8ea153a584d095a7a57e0a608caa"
+  },
+  "generator": {
+    "path": "scripts/build_homs_random_grade_exam_set.py",
+    "sha256": "e3261fdd2b8b4704eeba50219b0cecef10f03f3e155f46fd13c521a61af50608"
+  },
+  "caps_identity_audit": {
+    "path": "deliverables/homs_random_grade_exam_set_20261101/RANDOM_SUBJECT_CAPS_DOCUMENT_IDENTITY_AUDIT_20261101.json",
+    "sha256": "5d1ce59f7a653c6944d60c823e030b7711b3648bae922884af50dd74b6a9f12c"
+  },
+  "phase_results": [
+    {
+      "phase": "foundation_grade_r_3",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "approved_subject_pool": [
+        "english_language",
+        "mathematics",
+        "life_skills"
+      ],
+      "assigned_subjects": [
+        "life_skills",
+        "english_language",
+        "mathematics"
+      ],
+      "no_replacement_satisfied": true,
+      "all_assignments_in_pool": true,
+      "reconstructed_rows_match": true
+    },
+    {
+      "phase": "intermediate_grade_4_6",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "approved_subject_pool": [
+        "english_language",
+        "mathematics",
+        "life_skills",
+        "natural_sciences_and_technology",
+        "social_sciences"
+      ],
+      "assigned_subjects": [
+        "mathematics",
+        "natural_sciences_and_technology",
+        "life_skills"
+      ],
+      "no_replacement_satisfied": true,
+      "all_assignments_in_pool": true,
+      "reconstructed_rows_match": true
+    },
+    {
+      "phase": "senior_grade_7_9",
+      "grades": [
+        7,
+        8,
+        9
+      ],
+      "approved_subject_pool": [
+        "english_language",
+        "mathematics",
+        "natural_sciences",
+        "social_sciences",
+        "technology",
+        "creative_arts",
+        "life_orientation",
+        "economics_management_sciences"
+      ],
+      "assigned_subjects": [
+        "economics_management_sciences",
+        "life_orientation",
+        "english_language"
+      ],
+      "no_replacement_satisfied": true,
+      "all_assignments_in_pool": true,
+      "reconstructed_rows_match": true
+    },
+    {
+      "phase": "fet_grade_10_12",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "approved_subject_pool": [
+        "accounting",
+        "agricultural_sciences",
+        "business_studies",
+        "economics",
+        "english_language",
+        "geography",
+        "history",
+        "life_sciences",
+        "life_orientation",
+        "mathematics",
+        "physical_sciences"
+      ],
+      "assigned_subjects": [
+        "physical_sciences",
+        "english_language",
+        "business_studies"
+      ],
+      "no_replacement_satisfied": true,
+      "all_assignments_in_pool": true,
+      "reconstructed_rows_match": true
+    }
+  ],
+  "assignment_draw_reconstructed": true,
+  "caps_identity_rows_match_assignments": true,
+  "all_source_caps_hashes_verified": true,
+  "result": "PASS",
+  "educator_review_required": true,
+  "classroom_release_authorized": false
+}
