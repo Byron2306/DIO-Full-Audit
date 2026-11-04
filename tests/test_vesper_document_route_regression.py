@@ -162,3 +162,47 @@ class TestDocumentEditJob(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class TestDocumentEditConversationRouting(unittest.TestCase):
+    def test_greeting_prefix_does_not_hide_recommendation(self):
+        from presence_core.router import route_message
+        root = Path(__file__).resolve().parents[1]
+        decision = route_message(
+            "Hello Vesper. I manage a small consulting organisation, and we have reports that need professional formatting.",
+            "public",
+            root / "config/routes.json",
+        )
+        # The engine's operation override upgrades this generic route to Edit.
+        self.assertNotEqual(decision.intent, "general_info")
+        self.assertEqual(_document_operation_override(
+            "Hello Vesper. Our reports look inconsistent and need professional formatting."
+        ), "Document Studio Edit")
+
+    def test_quotation_wording_is_recognized(self):
+        from presence_core.router import route_message
+        root = Path(__file__).resolve().parents[1]
+        decision = route_message(
+            "Please prepare a bounded quotation for formatting my reports.",
+            "public",
+            root / "config/routes.json",
+        )
+        self.assertEqual(decision.intent, "pricing_info")
+
+    def test_quote_followup_states_no_quote_details_exist_yet(self):
+        with TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "intakes").mkdir()
+            (root / "intakes" / "PRES-1234567890AB.json").write_text(json.dumps({
+                "intake_id": "PRES-1234567890AB",
+                "conversation_id": "CONV-TEST-2",
+            }))
+            reply = _document_quote_scope_reply(
+                "Document Studio Edit",
+                {"case_id": "CASE-TEST-2", "stage": "NEW_LEAD", "attachments": []},
+                "Show me the quotation details and how the batch will be handled securely.",
+                presence_root=root,
+                conversation_id="CONV-TEST-2",
+            )
+        for phrase in ("no quotation has been issued", "no quote reference", "price, validity", "validity period", "turnaround estimate", "quarantine", "PRES-1234567890AB"):
+            self.assertIn(phrase.casefold(), reply.casefold())
+        self.assertNotIn("Localize pricing", reply)

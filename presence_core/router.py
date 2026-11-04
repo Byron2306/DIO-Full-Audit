@@ -108,13 +108,13 @@ def route_message(text: str, role: str, routes_path: Path) -> Decision:
     if role=="operator" and (low in {"/jobs","/work"} or any(x in low for x in ["job status","jobs summary","delivery drafts","work queue"])):
         return Decision("job_summary",None,0.99,"deterministic","operator job phrase")
     if role=="operator" and (low in {"/needs","/attention"} or any(x in low for x in ["needs me","needs you","need me","attention queue"])): return Decision("needs_you",None,0.99,"deterministic","operator attention phrase")
-    if any(x in low for x in ["how much","price","pricing","cost","quote"]): return Decision("pricing_info",product,0.94,"deterministic","commercial question")
+    if any(x in low for x in ["how much","price","pricing","cost","quote","quotation","estimate"]): return Decision("pricing_info",product,0.94,"deterministic","commercial question")
     if any(x in low for x in ["where is my","order status","payment status","job status","already paid","my order"]): return Decision("status_request",product,0.94,"deterministic","status question")
     if _looks_like_product_request(low,product):
         return Decision("intake_request",product,max(0.9,pconf),"deterministic","product request")
     if any(x in low for x in ["translate","translation","afrikaans","isizulu","xhosa","multilingual","localise","localize"]): return Decision("translation_info",product,0.93,"deterministic","translation phrase")
     if any(x in low for x in ["formatting","format this","technical format","template","page layout","powerpoint master","docx"]): return Decision("formatting_info",product,0.92,"deterministic","formatting phrase")
-    if low.startswith("/start") or any(x in low for x in ["what is dio","tell me about dio","about dio","explain dio","what do you do","who are you","what can you do","hello","hi vesper","hey vesper","hi lilith","hey lilith"]): return Decision("general_info",product,0.9,"deterministic","general information")
+    if low.startswith("/start") or low in {"hello", "hi", "hey", "hi vesper", "hey vesper", "hi lilith", "hey lilith"} or any(low.startswith(x + " ") for x in ["hello", "hi vesper", "hey vesper", "hi lilith", "hey lilith"]) or any(x in low for x in ["what is dio","tell me about dio","about dio","explain dio","what do you do","who are you","what can you do"]): return Decision("general_info",product,0.9,"deterministic","general information")
     if product: return Decision("product_info",product,max(0.8,pconf),"deterministic","product keyword")
     proposal=classify_with_ollama(text,[str(r.get("product")) for r in routes if r.get("product")])
     if proposal and proposal.get("confidence",0)>=0.7: return Decision(str(proposal["intent"]),proposal.get("product"),float(proposal["confidence"]),"ollama_advisory","bounded classifier proposal")

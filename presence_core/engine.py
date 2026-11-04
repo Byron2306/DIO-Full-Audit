@@ -36,6 +36,7 @@ from .policy import authorize
 from .pricing_governance import pricing_operator_query
 from products.commercial_pricing_registry import canonical_product_name
 from .router import route_message
+from .commercial_cognition import _document_operation_override
 from .state import (
     append_conversation_turn,
     create_intake,
@@ -491,6 +492,20 @@ def _case_intake_reply(name: str, profile: dict[str, Any], case: dict[str, Any],
     return prefix + ', '.join(parts[:-1]) + (', and ' if len(parts) > 1 else '') + parts[-1] + '.'
 
 
+def _document_edit_discovery_reply() -> str:
+    return (
+        "For reports that already contain approved factual content and need consistent client-facing presentation, "
+        "Document Studio Edit is the best starting service. It can standardise supplied branding, heading hierarchy, "
+        "typography, tables, headers/footers and page layouts while preserving factual wording. Document Studio Publish "
+        "is better after content and edits are approved, when you need the approved material prepared for a publication "
+        "format; Localize is for language adaptation, which you have not requested. A typical process is: share one "
+        "representative DOCX and any brand/style guide; an operator reviews the sample and confirms scope, exclusions, "
+        "price and schedule; you review and accept a written quote; the team formats the agreed batch, flags any proposed "
+        "wording changes separately, and returns reviewable files for your approval before delivery. Nothing is charged, "
+        "edited or released by this recommendation."
+    )
+
+
 def _document_quote_scope_reply(
     product: str,
     case: dict[str, Any],
@@ -545,6 +560,15 @@ def _document_quote_scope_reply(
             if str(recorded.get("conversation_id") or "") == str(conversation_id):
                 intake_reference = candidate
                 break
+        if intake_reference is None:
+            for path in sorted((Path(presence_root) / "intakes").glob("PRES-*.json"), key=lambda item: item.stat().st_mtime, reverse=True):
+                try:
+                    recorded = json.loads(path.read_text(encoding="utf-8"))
+                except (OSError, ValueError):
+                    continue
+                if str(recorded.get("conversation_id") or "") == str(conversation_id):
+                    intake_reference = str(recorded.get("intake_id") or path.stem)
+                    break
     case_id = str(case.get("case_id") or "").strip()
     if intake_reference and case_id:
         reference_note = (
@@ -557,22 +581,25 @@ def _document_quote_scope_reply(
         reference_note = ""
     if attachments:
         sample_step = (
-            f"I can see {len(attachments)} uploaded file(s). They remain quarantined and "
-            "have not been assessed or used to set the scope or price. An operator must clear "
-            "and review the sample first; if the configured scanner is unavailable, it stays held."
+            f"I can see {len(attachments)} uploaded file(s) recorded on this case. They remain in intake quarantine; "
+            "an operator must clear and review the sample before scope assessment or production. I cannot verify "
+            "encryption, retention duration or malware-scanning status from this chat."
         )
     else:
         sample_step = (
             "Please attach one representative English DOCX with typical headings, tables, and "
-            "page layouts. It will be held in quarantine and not used to assess or price the work "
-            "until an operator clears and reviews it. If the configured scanner is unavailable, "
-            "the sample stays held."
+            "page layouts. It will be recorded in intake quarantine; an operator must clear and review it before "
+            "scope assessment or production. I cannot verify encryption, retention duration or malware-scanning "
+            "status from this chat."
         )
 
     return (
         details + reference_note + " To prepare a bounded quote, the next step is a human feasibility and scope "
-        "review of one sample; after that, DIO can list the included work, exclusions, price "
-        "and approval steps for your decision. " + sample_step + " "
+        "review of one sample. No quotation has been issued: there is no quote reference, price, validity period or "
+        "turnaround estimate to review yet. The proposed scope is visual formatting and consistency across the agreed "
+        "batch; factual changes, substantive rewriting, translation, source research and publication are excluded unless "
+        "separately scoped and approved. After sample review, an operator can prepare a written quote with included work, "
+        "exclusions, ZAR price, assumptions, schedule, reference, validity and approval steps for your review. " + sample_step + " "
         "One sample cannot establish the total pages across all 12 reports, so please confirm "
         "the exact total or a maximum page cap; your current estimate is 96–180 pages. Also "
         "confirm final output format(s), deadline, whether grammar or house-style editing is "
@@ -672,6 +699,27 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
             emit_event(event_log,'presence.attachment_rejected','warning','presence_conversation',correlation,{'reason':str(exc)},correlation)
             return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':{'intent':'attachment_rejected','product':None,'confidence':1.0,'source':'policy','reason':str(exc)},'reply':{'text':f"I refused that upload safely: {exc}",'mode':'text','voice_eligible':False},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':None,'intake':None,'interaction':interaction,'persona':None,'lingua':{'state':'not_registered','reason':'attachment_rejected_before_response_registration'}}
     decision=route_message(text,role,routes_path).as_dict()
+    # Resolve explicit document work before broad greeting/formatting intents.
+    # Quotation requests create governed intake only; they never issue a quote.
+    document_operation = _document_operation_override(text) if role == 'public' else None
+    if document_operation:
+        is_quote_request = bool(re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I))
+        decision = {
+            'intent': 'intake_request' if is_quote_request else 'product_info',
+            'product': document_operation,
+            'confidence': 0.99,
+            'source': 'document_operation_morphology',
+            'reason': 'document operation resolved before generic intent',
+        }
+    elif role == 'public' and re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I):
+        active_case = find_case_for_conversation(presence_root, correlation)
+        if active_case and active_case.get('product_id'):
+            decision.update({
+                'intent': 'pricing_info',
+                'product': str(active_case['product_id']),
+                'source': 'active_customer_case',
+                'reason': 'quotation follow-up retains active case product',
+            })
     if (attachment_record or quarantined_attachments) and decision['intent'] in {'unknown','general_info'}:
         decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
     ok,reason=authorize(role,decision['intent'])
@@ -1313,6 +1361,8 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
         recent_turns=draft_turns,
         governed_context=governed_context,
     )
+    if role == 'public' and document_operation == 'Document Studio Edit' and not re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I):
+        reply = _document_edit_discovery_reply()
     commercial_action=commercial_surface_state(customer_case)
 
     # Once an immutable quote exists, issued case truth outranks generic
