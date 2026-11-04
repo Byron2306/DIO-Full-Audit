@@ -1,0 +1,1109 @@
+{
+  "schema": "dio.homs.exam.customer_grade_batch.v1",
+  "created_at_utc": "2026-11-04T13:43:33+00:00",
+  "synthetic_acceptance_inputs_only": true,
+  "grade_count": 12,
+  "random_seed": 20261101,
+  "assignment_manifest_sha256": "955cbb7b8a48460942b6ed19db588fc3da4e8ea153a584d095a7a57e0a608caa",
+  "classroom_release_authorized": false,
+  "educator_review_required": true,
+  "independent_moderation_decision": "NOT_ISSUED",
+  "results": [
+    {
+      "grade": 1,
+      "subject": "Life Skills",
+      "subject_profile": "life_skills",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 20,
+      "duration_minutes": 45,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "ff076a1f3f6318bbe1e6ea1483d2fe2b706d5275154749e5edbb7558c1748946",
+      "memo_pdf_sha256": "5f302608eb9f48614990c41bc23ff1054323ae84eb3824e363b8e90b1f03f6b8",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "fec17ae335ad1c654d8c94b4861ff053db06cdea3b799c89c27fe2b83b675169",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "44940f7a4cce9e9e578a8857741f38e4ce91a930a99eb67c945e20c3e3fb8748",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "remember": 1,
+          "understand": 2,
+          "apply": 2
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "ad64f644840e719604a9edb2fbcf046685f8180a43ada9b35f595428011e168d",
+          "exam_docx_sha256": "798835daf7579d9038547322f26708da9c0aebcddd883e6c82e8c4f29ee2270b",
+          "memo_docx_sha256": "e6cf60e51ccfc0adc250d6115c522e5c82b665355511ad8c9e32bbb302608fc8",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "4d4df1e5c4eb7db4157cd80f2a3b0cdb0a22b155474e432a3578c9a798845c1d"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "bf74f08b1a4e504376ba30f6a1a80c62ce65b7f406f50330adfd5ace7e6a45bb",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 1,
+      "execution_receipt": "grade-01/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "ceeada2c2cb230cda2c8ce02202015aa79ed51e09cf90012391e956c702fc0d5",
+      "package_receipt": "grade-01/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "8f3ea3560b8444764a98ee7f3e1845adfb1f23a8cf419f225446c18e2358c323",
+      "output_hashes": {
+        "documents/GRADE_01_DRAFT_EXAM.docx": "798835daf7579d9038547322f26708da9c0aebcddd883e6c82e8c4f29ee2270b",
+        "documents/GRADE_01_DRAFT_MARKING_MEMO.docx": "e6cf60e51ccfc0adc250d6115c522e5c82b665355511ad8c9e32bbb302608fc8",
+        "documents/GRADE_01_DRAFT_EXAM.pdf": "ff076a1f3f6318bbe1e6ea1483d2fe2b706d5275154749e5edbb7558c1748946",
+        "documents/GRADE_01_DRAFT_MARKING_MEMO.pdf": "5f302608eb9f48614990c41bc23ff1054323ae84eb3824e363b8e90b1f03f6b8",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "44940f7a4cce9e9e578a8857741f38e4ce91a930a99eb67c945e20c3e3fb8748",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "bf74f08b1a4e504376ba30f6a1a80c62ce65b7f406f50330adfd5ace7e6a45bb",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "fec17ae335ad1c654d8c94b4861ff053db06cdea3b799c89c27fe2b83b675169",
+        "CUSTOMER_EXAM_PACKAGE.html": "3eb48e1ed01eb659ccb5c0cb7606b09791f24e151a18b3f34c35115592bbb07e"
+      }
+    },
+    {
+      "grade": 2,
+      "subject": "English Language",
+      "subject_profile": "english_language",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 20,
+      "duration_minutes": 45,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "896ab23f5e0022c6247532d060cefdc35c56421bb283e599bef95c99a0c61259",
+      "memo_pdf_sha256": "baff7bef660298b92faa1cf8c1f17c5950d535566fcce639b6e15300e88cf191",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "984da45179b3250479d54d9c2ea4160a48cc9cfcea5952659bb77535b972fb48",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "220a24b8f14a571ab2d438e2c6b942007cfdf486b994392b77bbf4ba05831769",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "remember": 1,
+          "understand": 2,
+          "apply": 2
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "d9c75b234b8e5d08a14724f2b9415fea5826bf35ac0efca5a645fce406bea226",
+          "exam_docx_sha256": "e1b6cb5de7e606be86bee1c598248ec18eb4217c2abd8419734c0abb1a0585b4",
+          "memo_docx_sha256": "1324a0b8d1ba1df4a7721306bf6b0b19665c6961dbb927ac5c2c16daaff801cb",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "db09b7292552ef6b374a76ff473eb719eee367f3bb3c8eb788f21bae2ad1ad5e"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "f355bf3cff325850b60a7e5623403ae7b71c8cef15bc8400b2f0cc28d1aea2a7",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 1,
+      "execution_receipt": "grade-02/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "3b96b1d0322ed5b27d18c56fe2b5499e23ed21049891af98f655e62a7959db9a",
+      "package_receipt": "grade-02/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "bff0f479a3c5e338169869afa34c3961b39248f660d3c8683f7ce7f6ec3fb82e",
+      "output_hashes": {
+        "documents/GRADE_02_DRAFT_EXAM.docx": "e1b6cb5de7e606be86bee1c598248ec18eb4217c2abd8419734c0abb1a0585b4",
+        "documents/GRADE_02_DRAFT_MARKING_MEMO.docx": "1324a0b8d1ba1df4a7721306bf6b0b19665c6961dbb927ac5c2c16daaff801cb",
+        "documents/GRADE_02_DRAFT_EXAM.pdf": "896ab23f5e0022c6247532d060cefdc35c56421bb283e599bef95c99a0c61259",
+        "documents/GRADE_02_DRAFT_MARKING_MEMO.pdf": "baff7bef660298b92faa1cf8c1f17c5950d535566fcce639b6e15300e88cf191",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "220a24b8f14a571ab2d438e2c6b942007cfdf486b994392b77bbf4ba05831769",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "f355bf3cff325850b60a7e5623403ae7b71c8cef15bc8400b2f0cc28d1aea2a7",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "984da45179b3250479d54d9c2ea4160a48cc9cfcea5952659bb77535b972fb48",
+        "CUSTOMER_EXAM_PACKAGE.html": "5774d2ab2451d30b92cc9842b1801d7ab08fa95ada983982a37b88d23751347e"
+      }
+    },
+    {
+      "grade": 3,
+      "subject": "Mathematics",
+      "subject_profile": "mathematics",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 20,
+      "duration_minutes": 45,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "eff991f2f6a973f5ac264357f2e5b555088dfd490a090f57029e8f4264eb8583",
+      "memo_pdf_sha256": "0c0656115a9dbaa6ffce30a1b9a55b4cdfd9c0370b3b9b3d63c1fd78f13ece22",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "15a0c2686564192090dcfb9fa2904f44122cff7c791bd42d3cb78ab7d376a153",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "63465ccea24afde339ca02028b6a5e7dc3e1606a4f14df09cec72a4cff822b4c",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "apply": 3,
+          "understand": 2
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "0fe42ed4a85568eaf1bb3993ef9cbcbaa7e6a89029eeacd7786b7bd7666720b0",
+          "exam_docx_sha256": "48f632f142e2cb7b05dd6931f14f90b66c914618c1831af9ee08831e6e6ff9af",
+          "memo_docx_sha256": "e6bb8ca87f4b64715b715742d6a862f215f5903e3e5c43f9e6dec0aa23c216aa",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "e3b5bc415912b6f0eb13ca8d18a57d7c951d23b399e20f38315fc13f2feed011"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "6932d54f2ab9e7a034eb2601f75c89c82915cafda477daf65d5a2ce9b509d8a1",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 4,
+            "memo_point_marks": 4.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 1,
+      "execution_receipt": "grade-03/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "fd1c959e6bad1b0cfa75b7dc9b8e2f7de6b63740996a6fc282c8c05d254c2e6b",
+      "package_receipt": "grade-03/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "f545ab7f9142b095cd06f2846be4ca3423c993ef911843b3fc1a7ecec947be58",
+      "output_hashes": {
+        "documents/GRADE_03_DRAFT_EXAM.docx": "48f632f142e2cb7b05dd6931f14f90b66c914618c1831af9ee08831e6e6ff9af",
+        "documents/GRADE_03_DRAFT_MARKING_MEMO.docx": "e6bb8ca87f4b64715b715742d6a862f215f5903e3e5c43f9e6dec0aa23c216aa",
+        "documents/GRADE_03_DRAFT_EXAM.pdf": "eff991f2f6a973f5ac264357f2e5b555088dfd490a090f57029e8f4264eb8583",
+        "documents/GRADE_03_DRAFT_MARKING_MEMO.pdf": "0c0656115a9dbaa6ffce30a1b9a55b4cdfd9c0370b3b9b3d63c1fd78f13ece22",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "63465ccea24afde339ca02028b6a5e7dc3e1606a4f14df09cec72a4cff822b4c",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "6932d54f2ab9e7a034eb2601f75c89c82915cafda477daf65d5a2ce9b509d8a1",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "15a0c2686564192090dcfb9fa2904f44122cff7c791bd42d3cb78ab7d376a153",
+        "CUSTOMER_EXAM_PACKAGE.html": "12b13a6889b5592b1a5b922d6c4c9f58f88e35cc35d679ca4b6248292092fcf5"
+      }
+    },
+    {
+      "grade": 4,
+      "subject": "Mathematics",
+      "subject_profile": "mathematics",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 29,
+      "duration_minutes": 60,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "4bbf8a12d167d8e9e7bc6bb69b300c27f1289d7a161fd889cd9855b60c8ea408",
+      "memo_pdf_sha256": "499ce5faf4867701fc3ff69a3c50d4fd471afc0f27e7ef1c629416cf599166e2",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "051afcdccf3773605ce827bd45d86667111d9b0681595a2f4f65d9893bc030a1",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "e45c102d65cc4d2b2ab999338882ff58a81c12fd887e2dd045eb1161669ed3d2",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "apply": 4,
+          "understand": 1
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "e3fbad8b0e24132e9a8c470d20a93fb12c6592a0ee1b24bdd3745f07a695da1c",
+          "exam_docx_sha256": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f",
+          "memo_docx_sha256": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "7fec668a6d3b0ed4ae6974a9739970a2128a80553589f682ff5d5bffc02a783e"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "77a7b0496c6677b6133fe106f899d9abc85254c3297933df508d2af285017b4a",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 5,
+            "memo_point_marks": 5.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 5,
+            "memo_point_marks": 5.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 7,
+            "memo_point_marks": 7.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-04/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "f385dc57f23aed58db6c2320f5236a1e2cf6b2c181cefcf3994d41944de77b1c",
+      "package_receipt": "grade-04/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "fb4fa15f4012e44acd89e60352beed6c0521b3fce94e746828b1c93efc3ef9af",
+      "output_hashes": {
+        "documents/GRADE_04_DRAFT_EXAM.docx": "abf86ab6ae59c606c2c8f3e46a23f3eaf4fc17cf3ace10fbf8a8e7ab91f74d4f",
+        "documents/GRADE_04_DRAFT_MARKING_MEMO.docx": "c5f98463b9082e1842bac00198ba8d70e23e538ccb7a55016184ddb10892e46b",
+        "documents/GRADE_04_DRAFT_EXAM.pdf": "4bbf8a12d167d8e9e7bc6bb69b300c27f1289d7a161fd889cd9855b60c8ea408",
+        "documents/GRADE_04_DRAFT_MARKING_MEMO.pdf": "499ce5faf4867701fc3ff69a3c50d4fd471afc0f27e7ef1c629416cf599166e2",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "e45c102d65cc4d2b2ab999338882ff58a81c12fd887e2dd045eb1161669ed3d2",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "77a7b0496c6677b6133fe106f899d9abc85254c3297933df508d2af285017b4a",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "051afcdccf3773605ce827bd45d86667111d9b0681595a2f4f65d9893bc030a1",
+        "CUSTOMER_EXAM_PACKAGE.html": "daf3b84173c83bc1c5a72462ae66651fb40ce01193f6e32fa154162011669ba9"
+      }
+    },
+    {
+      "grade": 5,
+      "subject": "Natural Sciences and Technology",
+      "subject_profile": "natural_sciences_and_technology",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 30,
+      "duration_minutes": 60,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "5bf4d4b2d10e921979dbd58d5e525eedab81a4e738a540e8c08305554f3efe81",
+      "memo_pdf_sha256": "51a6783fab6703ee7e6f75b6565086705593e2651dd637008115c8f9495ffbe7",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "3a235be1456f9049e34e7eb9f1952bbcf78f00b6f05a90880b747bb89fb14f8e",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "57389b6ef31880576f2dd0db5eec2bd08e5885215f54646e935f63706a1d37a3",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "remember": 1,
+          "understand": 1,
+          "analyze": 1,
+          "evaluate": 2
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "ecfa7f87bbe3a5e02ea04cb8ec876068da3d6225b2faefdfa6dac182919134e9",
+          "exam_docx_sha256": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+          "memo_docx_sha256": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "4bf95cdcc20b1b7902a9ea65826d83624012b17f39b9d96287e1f18d40105b69"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "068c498f6ac59b7334d652197d4ed93e56008427fb06df53e06ad945b7a8b793",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 5,
+            "memo_point_marks": 5.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 5,
+            "memo_point_marks": 5.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 7,
+            "memo_point_marks": 7.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 7,
+            "memo_point_marks": 7.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-05/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "967e4db7e67d938362458e2d7feefe6fe6708a941afec990b592dadc437b9234",
+      "package_receipt": "grade-05/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "e4cd20ea90427b7a45e2407d8c2f0b329133a65cf035e16716299757edc34ebd",
+      "output_hashes": {
+        "documents/GRADE_05_DRAFT_EXAM.docx": "f419f2115eebbe3d5ef0f1c6fe751490d6d83156925dedeb0a1f35463f3709d5",
+        "documents/GRADE_05_DRAFT_MARKING_MEMO.docx": "b4e5a88647bca3e0183abad8cc5083228af9ba5bd9b047164f9df1afde02b224",
+        "documents/GRADE_05_DRAFT_EXAM.pdf": "5bf4d4b2d10e921979dbd58d5e525eedab81a4e738a540e8c08305554f3efe81",
+        "documents/GRADE_05_DRAFT_MARKING_MEMO.pdf": "51a6783fab6703ee7e6f75b6565086705593e2651dd637008115c8f9495ffbe7",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "57389b6ef31880576f2dd0db5eec2bd08e5885215f54646e935f63706a1d37a3",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "068c498f6ac59b7334d652197d4ed93e56008427fb06df53e06ad945b7a8b793",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "3a235be1456f9049e34e7eb9f1952bbcf78f00b6f05a90880b747bb89fb14f8e",
+        "CUSTOMER_EXAM_PACKAGE.html": "2821a2cfc2d8eeddae3f1cd6b57fe22dea1952c09cdd95803ef9b4c145201d74"
+      }
+    },
+    {
+      "grade": 6,
+      "subject": "Life Skills",
+      "subject_profile": "life_skills",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 30,
+      "duration_minutes": 60,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "69b607a8fd2c245b5a9bc3cd4f3237fd24b3d4989c3fc6634d683155d4180e1d",
+      "memo_pdf_sha256": "2d4bdfe59b94477e0e189500bb09ac53807891d9e0511e9e981cb9116dbfb13d",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "f2f6da9f886102a5bd49ea34f032410294da6c6676675b02953e6b6edeceb0b3",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "d95a53062124b7bf8551a7418d158b7062f8db8e3154cbfd87c0f4b1d40564cf",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "understand": 2,
+          "apply": 2,
+          "evaluate": 1
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "9002d49d0fa2f172a7de4863702a3d454b464c1cd2106bbb86c10c39dbadb755",
+          "exam_docx_sha256": "b8922247d6c7c2e08ae5f96df6044ce3d3f9d48bf390b991900882564c2657a6",
+          "memo_docx_sha256": "a9a8b2de1c5a118506b331b881356c711846aa87232254eafec55ec5e81b8e61",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "4113b006498494cd90bc5203c88ca2d5a1a1856c42b0274a31cc3f1442412317"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "e51398e22f2ed9fa57795a8e06c70ba18111060e5e6ec9677c0e51173d8f576d",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 5,
+            "memo_point_marks": 5.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 5,
+            "memo_point_marks": 5.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 7,
+            "memo_point_marks": 7.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 7,
+            "memo_point_marks": 7.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-06/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "19f7c495961314d14953c5b645d2733e5297db321b127fa20c049a0d246c4dad",
+      "package_receipt": "grade-06/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "582e81bc5ddd4ffaec0c6f50bda8773543307265ae0b86252de785e70159a8ac",
+      "output_hashes": {
+        "documents/GRADE_06_DRAFT_EXAM.docx": "b8922247d6c7c2e08ae5f96df6044ce3d3f9d48bf390b991900882564c2657a6",
+        "documents/GRADE_06_DRAFT_MARKING_MEMO.docx": "a9a8b2de1c5a118506b331b881356c711846aa87232254eafec55ec5e81b8e61",
+        "documents/GRADE_06_DRAFT_EXAM.pdf": "69b607a8fd2c245b5a9bc3cd4f3237fd24b3d4989c3fc6634d683155d4180e1d",
+        "documents/GRADE_06_DRAFT_MARKING_MEMO.pdf": "2d4bdfe59b94477e0e189500bb09ac53807891d9e0511e9e981cb9116dbfb13d",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "d95a53062124b7bf8551a7418d158b7062f8db8e3154cbfd87c0f4b1d40564cf",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "e51398e22f2ed9fa57795a8e06c70ba18111060e5e6ec9677c0e51173d8f576d",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "f2f6da9f886102a5bd49ea34f032410294da6c6676675b02953e6b6edeceb0b3",
+        "CUSTOMER_EXAM_PACKAGE.html": "54416a3231a7b172d0f8e83e09dd4f6ecefecd79a9a4aab3a0bf53d639bb5e4b"
+      }
+    },
+    {
+      "grade": 7,
+      "subject": "Economic and Management Sciences",
+      "subject_profile": "economics_management_sciences",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 40,
+      "duration_minutes": 90,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "1f085b3fea3076fbd5c4f439ecbddd7438ba2292560e1ad5811a7266e47c15d6",
+      "memo_pdf_sha256": "fde152c3569c3589bdc0a2af0b99593c27d92ea14aee65f6f3c3e331b4e39647",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "233e9f447e771db947331a28c6196ccbb452f3ff9aed0efe0eee76fb72470304",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "78da32b317f87a485d30826e2ea0594e36021f2d2722b79c31a3432b138af760",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "understand": 1,
+          "apply": 2,
+          "analyze": 1,
+          "evaluate": 1
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "5b9ca14f5cb643619ddef348deccdf055ac514e4467d8f843c9275de764a06ea",
+          "exam_docx_sha256": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314",
+          "memo_docx_sha256": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "313a25bf38f59a24df8180453aab57aa573d8aaf2564af4a342d0df2456ad8ea"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "4c232314c7c0b5a5c49e7e75098c576b52be46b0646c8e0fb1e6379964f8f080",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 8,
+            "memo_point_marks": 8.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-07/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "5bed0f72ebda76d9764eab6e6cd2527052391e5f283a491d4c8bfeed04b791b1",
+      "package_receipt": "grade-07/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "f24aa1456e1ac5714c1199321a43eb5dbb007251846278a487611f4d4db4a627",
+      "output_hashes": {
+        "documents/GRADE_07_DRAFT_EXAM.docx": "3abbafcbe296527c01ed6b8f48cf48b78df2cbbfc22e3cc35e129bf55de3c314",
+        "documents/GRADE_07_DRAFT_MARKING_MEMO.docx": "71c9f231390cb3cd682fffdb1cce587eb4b27e5032b5e01dbf4148dafc3fb4e4",
+        "documents/GRADE_07_DRAFT_EXAM.pdf": "1f085b3fea3076fbd5c4f439ecbddd7438ba2292560e1ad5811a7266e47c15d6",
+        "documents/GRADE_07_DRAFT_MARKING_MEMO.pdf": "fde152c3569c3589bdc0a2af0b99593c27d92ea14aee65f6f3c3e331b4e39647",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "78da32b317f87a485d30826e2ea0594e36021f2d2722b79c31a3432b138af760",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "4c232314c7c0b5a5c49e7e75098c576b52be46b0646c8e0fb1e6379964f8f080",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "233e9f447e771db947331a28c6196ccbb452f3ff9aed0efe0eee76fb72470304",
+        "CUSTOMER_EXAM_PACKAGE.html": "cee901ba98c0c44439f1421b864d8fdc292b43f39de495833739d2f2ca8a5102"
+      }
+    },
+    {
+      "grade": 8,
+      "subject": "Life Orientation",
+      "subject_profile": "life_orientation",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 40,
+      "duration_minutes": 90,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "b4c7e267c04717885f5158bcd9e7dd9cd9dffbf3093a2bd6cf99db7d3c359dd8",
+      "memo_pdf_sha256": "b5470b20043f2ae20004666ef792b9e6e40fa6994c724c742ee03d6b6242cccb",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "5aae6ae0c11cd8654c85d105fc43298b868881dff46151e5e0ff71a353a607b8",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "9571bae77818209665cd642242b5b98309c55b15afaa1f5ee2f548467e66dcf6",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "understand": 1,
+          "apply": 2,
+          "analyze": 1,
+          "evaluate": 1
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "af257a12b8b9cac71b173210cca62ad46a18fbaa227a688d85e3afcc2731512c",
+          "exam_docx_sha256": "c31c0cc02545d2195d6fe605152d5d86b736b5ea57b712ca2ef7b0f102635633",
+          "memo_docx_sha256": "e34356a320631a83f5d6cac3b08ef943bc83e90729f1645f5cd3d751de31bc22",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "7904a388b6dfda1c3b265638d7f91298e2290e50eda65f9625fa3a764356dca3"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "9ab24699a4ffff9f468ec7b742992b0b069cc22cff124c8644c7fff248ca7a53",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 8,
+            "memo_point_marks": 8.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-08/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "c89e56539f6e80d5fd3fe12dbb8655ad1755e51a56e080e78e5ae634e06ab210",
+      "package_receipt": "grade-08/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "150721e751ad2b6d2c5ea258d84e0731df253c11e39fdf166f48a12787f72e12",
+      "output_hashes": {
+        "documents/GRADE_08_DRAFT_EXAM.docx": "c31c0cc02545d2195d6fe605152d5d86b736b5ea57b712ca2ef7b0f102635633",
+        "documents/GRADE_08_DRAFT_MARKING_MEMO.docx": "e34356a320631a83f5d6cac3b08ef943bc83e90729f1645f5cd3d751de31bc22",
+        "documents/GRADE_08_DRAFT_EXAM.pdf": "b4c7e267c04717885f5158bcd9e7dd9cd9dffbf3093a2bd6cf99db7d3c359dd8",
+        "documents/GRADE_08_DRAFT_MARKING_MEMO.pdf": "b5470b20043f2ae20004666ef792b9e6e40fa6994c724c742ee03d6b6242cccb",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "9571bae77818209665cd642242b5b98309c55b15afaa1f5ee2f548467e66dcf6",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "9ab24699a4ffff9f468ec7b742992b0b069cc22cff124c8644c7fff248ca7a53",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "5aae6ae0c11cd8654c85d105fc43298b868881dff46151e5e0ff71a353a607b8",
+        "CUSTOMER_EXAM_PACKAGE.html": "d89bcea06df4d06cb3d0bd7dabc6fdfc392f67f9e3209e8947c05ffde646066a"
+      }
+    },
+    {
+      "grade": 9,
+      "subject": "English Language",
+      "subject_profile": "english_language",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 40,
+      "duration_minutes": 90,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723",
+      "memo_pdf_sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "remember": 1,
+          "understand": 1,
+          "analyze": 1,
+          "apply": 1,
+          "evaluate": 1
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "a2c05ad2e81036b871863ba8a22695e7bf3203c5d0102fc9581ca95670fabdb7",
+          "exam_docx_sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788",
+          "memo_docx_sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "489f8c6076c86f5515df3ec00ce5cb8aa403435e28215d8423c7e42855c56a49"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 6,
+            "memo_point_marks": 6.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 7,
+            "memo_point_marks": 7.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 8,
+            "memo_point_marks": 8.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 9,
+            "memo_point_marks": 9.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-09/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "47c2eeb9bf2cb4b5606f7e5b96423d600c2369ff403f98b764c24888ce0f0bad",
+      "package_receipt": "grade-09/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "8b44c1dbc833c5cc5d1416aa2aa9736abf8c6ec2e45c8740ac82ff479ff43685",
+      "output_hashes": {
+        "documents/GRADE_09_DRAFT_EXAM.docx": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788",
+        "documents/GRADE_09_DRAFT_MARKING_MEMO.docx": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017",
+        "documents/GRADE_09_DRAFT_EXAM.pdf": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723",
+        "documents/GRADE_09_DRAFT_MARKING_MEMO.pdf": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b",
+        "CUSTOMER_EXAM_PACKAGE.html": "fda372d29d181a4eec7dde873a81de83225b79e500f43e424abf87a4d64174d4"
+      }
+    },
+    {
+      "grade": 10,
+      "subject": "Physical Sciences",
+      "subject_profile": "physical_sciences",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 50,
+      "duration_minutes": 120,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "7130764e04c368e02c657db912737ac36151a614da9877f1139e914aa3015c93",
+      "memo_pdf_sha256": "e85f416ed47b51da8572a5d304d45b471edbd8affd4a99c9f70bdffc7deb641d",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "2a9ce12c4d047bddb6459226b94c9dc233cca00f1d1fda6e085dd435283ee2f7",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "27392d0ea65cf321b5d5a0594cce000d95b3f5ea1ad0057d38f188aa05fc0309",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "understand": 1,
+          "apply": 3,
+          "analyze": 1
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "84c317e10788622fd8d36939976b381241451a1e1c7dd20eab3bd3e482b83912",
+          "exam_docx_sha256": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+          "memo_docx_sha256": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "8b7b20f350a46fc077c4e9b2fcf4ecfd7b63e7f6cd56d7d6ea94de75dbcd209f"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "ac27a96909c13dd7ca3ac00129793bda68cc362872385aaf2385485b27603df9",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 8,
+            "memo_point_marks": 8.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 9,
+            "memo_point_marks": 9.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 11,
+            "memo_point_marks": 11.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 12,
+            "memo_point_marks": 12.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-10/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "f8b22ed8bd6702d27c8dc94d75794d2cefb8d42c28347b0921bf93e384d7a1d5",
+      "package_receipt": "grade-10/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "4e5df4a61fdfd9203543a65d3918fcb2e2caee39f5d929c99c467521e1af6db2",
+      "output_hashes": {
+        "documents/GRADE_10_DRAFT_EXAM.docx": "f2278e73d8e37e8287e2fe3037eff29eaa957b3cdeeb2a3cc389f60ccdfe6d96",
+        "documents/GRADE_10_DRAFT_MARKING_MEMO.docx": "348166f8317f457fe169ff5864390da6e11f404a79231a66990cd0afc7097273",
+        "documents/GRADE_10_DRAFT_EXAM.pdf": "7130764e04c368e02c657db912737ac36151a614da9877f1139e914aa3015c93",
+        "documents/GRADE_10_DRAFT_MARKING_MEMO.pdf": "e85f416ed47b51da8572a5d304d45b471edbd8affd4a99c9f70bdffc7deb641d",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "27392d0ea65cf321b5d5a0594cce000d95b3f5ea1ad0057d38f188aa05fc0309",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "ac27a96909c13dd7ca3ac00129793bda68cc362872385aaf2385485b27603df9",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "2a9ce12c4d047bddb6459226b94c9dc233cca00f1d1fda6e085dd435283ee2f7",
+        "CUSTOMER_EXAM_PACKAGE.html": "330937738cc8212a1d37754872b2d24263cc6eca33ccb00b485ff238e5f2fe65"
+      }
+    },
+    {
+      "grade": 11,
+      "subject": "English Language",
+      "subject_profile": "english_language",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 50,
+      "duration_minutes": 120,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "d69c2e73c6583f9de0636ad654012517aa332cfb8dd0c675ea4a58eccbdb2cc1",
+      "memo_pdf_sha256": "a1f421c5aff96b30ac7dd2fe9f481d91e93d1fdc83d66316f1a8aef1048a08e4",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "2d371b416d07bf3546d813bffd8f4983c6af705345c5dc00d875336a13bcefbd",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "e07e0b52ab2f89531fcfe2a95caa2139ff651bb7b8189b6d06918928e9fea5b5",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "analyze": 2,
+          "understand": 1,
+          "evaluate": 2
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "7b1c0f274e0187ab083435bec2b577bc0ef8855c4d6dd26f84c9979c6ab2b295",
+          "exam_docx_sha256": "047a84d2a1caec8149aef164c4cb0060de17fb8d7a9921f2f6b85ebf24f09357",
+          "memo_docx_sha256": "7278d730dbbee1bd443f1e1a350875d7de767360bab1a3d9d987355232f30033",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "3d97f707a8ad56b58713ecd3a7e0ca8cf8698ba367e128a647718f7a47067407"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "e8eb9530727c31b802afbea6508b3e0d536d30c856f8e2e55a6aef77d828d24a",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 8,
+            "memo_point_marks": 8.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 9,
+            "memo_point_marks": 9.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 11,
+            "memo_point_marks": 11.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 12,
+            "memo_point_marks": 12.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-11/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "12c0e21f1925e56ebe8380cba36dcab3ede6a83d2658eb43ff5e4b0668fc0b5f",
+      "package_receipt": "grade-11/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "82bad99a95afab89cad020610de2fc65d1cfbde83ea07a8744bc82655c730010",
+      "output_hashes": {
+        "documents/GRADE_11_DRAFT_EXAM.docx": "047a84d2a1caec8149aef164c4cb0060de17fb8d7a9921f2f6b85ebf24f09357",
+        "documents/GRADE_11_DRAFT_MARKING_MEMO.docx": "7278d730dbbee1bd443f1e1a350875d7de767360bab1a3d9d987355232f30033",
+        "documents/GRADE_11_DRAFT_EXAM.pdf": "d69c2e73c6583f9de0636ad654012517aa332cfb8dd0c675ea4a58eccbdb2cc1",
+        "documents/GRADE_11_DRAFT_MARKING_MEMO.pdf": "a1f421c5aff96b30ac7dd2fe9f481d91e93d1fdc83d66316f1a8aef1048a08e4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "e07e0b52ab2f89531fcfe2a95caa2139ff651bb7b8189b6d06918928e9fea5b5",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "e8eb9530727c31b802afbea6508b3e0d536d30c856f8e2e55a6aef77d828d24a",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "2d371b416d07bf3546d813bffd8f4983c6af705345c5dc00d875336a13bcefbd",
+        "CUSTOMER_EXAM_PACKAGE.html": "71c8414e28933da96aa3e785c1dc4d0fd98a5407916849562faef5df38cc21c0"
+      }
+    },
+    {
+      "grade": 12,
+      "subject": "Business Studies",
+      "subject_profile": "business_studies",
+      "random_seed": 20261101,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "total_marks": 50,
+      "duration_minutes": 60,
+      "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+      "exam_pdf_sha256": "8908493f42d6735d372281ca2daf5852bb473471403b60436f398d31e06db19a",
+      "memo_pdf_sha256": "ba33f2e79ad49d5d9d53f9835ec5138082643ad7cf7fadf8b55067c89a7b0fac",
+      "educator_item_quality_review": {
+        "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "workspace_sha256": "01db8a330884598aa7fc34676f12f637403460423acf5ded621f05f4d13152c3",
+        "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "csv_sha256": "93660173f3577fbc703fafa7a6a178f2edc85faa3fc3d75ee60a1df7feceeaea",
+        "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "question_row_count": 5,
+        "blank_educator_decisions": true,
+        "draft_cognitive_level_counts": {
+          "analyze": 1,
+          "apply": 1,
+          "understand": 1,
+          "evaluate": 2
+        },
+        "unclassified_draft_cognitive_label_count": 0,
+        "all_draft_cognitive_labels_canonical": true,
+        "source_hashes": {
+          "assessment_json_sha256": "bddbcd43138767ebd3737a94f5f7b403adf4f657f44da414f3bfc16eecdbb8c8",
+          "exam_docx_sha256": "e302dcede450e8e930f8293dc28e23d1c78d3171052a0cb8b62b423d1ed28157",
+          "memo_docx_sha256": "faf900f3e9832d7bf58ee874d3d519408312ca9639a92a2004d31669ead35310",
+          "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+          "caps_source_sha256": "e6f0a21b96fa87ccfccb732a9240a579bf0157916b86a1cdd98a2876cf76db27"
+        },
+        "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+        "validation_sha256": "d68b736c84653fc83c2100ffc78a5012dc043461277bed608f173c6904b294f3",
+        "validation_issue_count": 0,
+        "automated_memo_mark_balance_all_pass": true,
+        "memo_mark_balance": [
+          {
+            "question_id": "1.1",
+            "question_marks": 8,
+            "memo_point_marks": 8.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.2",
+            "question_marks": 9,
+            "memo_point_marks": 9.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.3",
+            "question_marks": 10,
+            "memo_point_marks": 10.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.4",
+            "question_marks": 11,
+            "memo_point_marks": 11.0,
+            "balanced": true
+          },
+          {
+            "question_id": "1.5",
+            "question_marks": 12,
+            "memo_point_marks": 12.0,
+            "balanced": true
+          }
+        ],
+        "independent_moderation_decision": "NOT_ISSUED"
+      },
+      "exam_pdf_pages": 1,
+      "memo_pdf_pages": 2,
+      "execution_receipt": "grade-12/CUSTOMER_EXECUTION_RECEIPT.json",
+      "execution_receipt_sha256": "69205083a50c656077705043d063e8e8d394b0d0be4efd4fd0ad95ae9827210c",
+      "package_receipt": "grade-12/CUSTOMER_PACKAGE_RECEIPT.json",
+      "package_receipt_sha256": "a90864cd1bd3897895b15c735a41c079aeaa97b4268ba10e8a7b17fdfeec3785",
+      "output_hashes": {
+        "documents/GRADE_12_DRAFT_EXAM.docx": "e302dcede450e8e930f8293dc28e23d1c78d3171052a0cb8b62b423d1ed28157",
+        "documents/GRADE_12_DRAFT_MARKING_MEMO.docx": "faf900f3e9832d7bf58ee874d3d519408312ca9639a92a2004d31669ead35310",
+        "documents/GRADE_12_DRAFT_EXAM.pdf": "8908493f42d6735d372281ca2daf5852bb473471403b60436f398d31e06db19a",
+        "documents/GRADE_12_DRAFT_MARKING_MEMO.pdf": "ba33f2e79ad49d5d9d53f9835ec5138082643ad7cf7fadf8b55067c89a7b0fac",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.csv": "93660173f3577fbc703fafa7a6a178f2edc85faa3fc3d75ee60a1df7feceeaea",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+        "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json": "d68b736c84653fc83c2100ffc78a5012dc043461277bed608f173c6904b294f3",
+        "EDUCATOR_ITEM_QUALITY_REVIEW.html": "01db8a330884598aa7fc34676f12f637403460423acf5ded621f05f4d13152c3",
+        "CUSTOMER_EXAM_PACKAGE.html": "c1c3337273688b72e92ff8849ed3553274a71aa6adfcdb382fd832fdbf9a8266"
+      }
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "schema": "dio.customer_product_execution.v1",
+  "requested_product": "HOMS Exam",
+  "customer_packet_contract": "randomized_grade_draft_exam_and_memo",
+  "output_dir": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-09",
+  "customer_packet_sha256": "d3e30f70afc74d8ce7ae123dadc07701170bb4f2b626f19b28c6848c05c98bf7",
+  "receipt": {
+    "schema": "dio.homs.exam.customer_execution.v1",
+    "grade": 9,
+    "subject": "English Language",
+    "exam_title": "Grade 9 English Language: A community library that travels",
+    "random_seed": 20261101,
+    "subject_profile": "english_language",
+    "question_count": 5,
+    "total_marks": 40,
+    "duration_minutes": 90,
+    "assessment_json_sha256": "a2c05ad2e81036b871863ba8a22695e7bf3203c5d0102fc9581ca95670fabdb7",
+    "exam_sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788",
+    "memo_sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017",
+    "print_pdf_manifest_sha256": "cd68a105bee5d87c1f862666057c9ced1b01cc2b33ea572de26f8abc24039333",
+    "exam_pdf_sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723",
+    "memo_pdf_sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5",
+    "exam_pdf_pages": 1,
+    "memo_pdf_pages": 2,
+    "caps_source_title": "English",
+    "caps_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=PBG-2SCmMJE%3d&tabid=573&portalid=0&mid=1570",
+    "caps_source_sha256": "489f8c6076c86f5515df3ec00ce5cb8aa403435e28215d8423c7e42855c56a49",
+    "caps_question_mapping_count": 5,
+    "caps_source_page_excerpt_count": 5,
+    "caps_source_page_excerpt_hashes_match_alignment": true,
+    "caps_source_page_excerpts": [
+      {
+        "question_id": "1.1",
+        "physical_pdf_page": 101,
+        "page_text_sha256": "e2f0b12b1ba0a446a3ad4d1d6ba3c9e2ab6e2e051b9d7263632a6ed2a32c5088"
+      },
+      {
+        "question_id": "1.2",
+        "physical_pdf_page": 101,
+        "page_text_sha256": "e2f0b12b1ba0a446a3ad4d1d6ba3c9e2ab6e2e051b9d7263632a6ed2a32c5088"
+      },
+      {
+        "question_id": "1.3",
+        "physical_pdf_page": 101,
+        "page_text_sha256": "e2f0b12b1ba0a446a3ad4d1d6ba3c9e2ab6e2e051b9d7263632a6ed2a32c5088"
+      },
+      {
+        "question_id": "1.4",
+        "physical_pdf_page": 101,
+        "page_text_sha256": "e2f0b12b1ba0a446a3ad4d1d6ba3c9e2ab6e2e051b9d7263632a6ed2a32c5088"
+      },
+      {
+        "question_id": "1.5",
+        "physical_pdf_page": 101,
+        "page_text_sha256": "e2f0b12b1ba0a446a3ad4d1d6ba3c9e2ab6e2e051b9d7263632a6ed2a32c5088"
+      }
+    ],
+    "classroom_release_authorized": false,
+    "educator_item_quality_review": {
+      "workspace_path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "workspace_sha256": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b",
+      "csv_path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "csv_sha256": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495",
+      "guide_path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "guide_sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4",
+      "question_row_count": 5,
+      "blank_educator_decisions": true,
+      "draft_cognitive_level_counts": {
+        "remember": 1,
+        "understand": 1,
+        "analyze": 1,
+        "apply": 1,
+        "evaluate": 1
+      },
+      "unclassified_draft_cognitive_label_count": 0,
+      "all_draft_cognitive_labels_canonical": true,
+      "source_hashes": {
+        "assessment_json_sha256": "a2c05ad2e81036b871863ba8a22695e7bf3203c5d0102fc9581ca95670fabdb7",
+        "exam_docx_sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788",
+        "memo_docx_sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017",
+        "caps_alignment_sha256": "debd2e61444b4737edc3812d7edf1ccf71ac2349d0c0d9598a9929fdfe249f8c",
+        "caps_source_sha256": "489f8c6076c86f5515df3ec00ce5cb8aa403435e28215d8423c7e42855c56a49"
+      },
+      "blank_validation_state": "NEEDS_EDUCATOR_COMPLETION",
+      "validation_sha256": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36",
+      "validation_issue_count": 0,
+      "automated_memo_mark_balance_all_pass": true,
+      "memo_mark_balance": [
+        {
+          "question_id": "1.1",
+          "question_marks": 6,
+          "memo_point_marks": 6.0,
+          "balanced": true
+        },
+        {
+          "question_id": "1.2",
+          "question_marks": 7,
+          "memo_point_marks": 7.0,
+          "balanced": true
+        },
+        {
+          "question_id": "1.3",
+          "question_marks": 8,
+          "memo_point_marks": 8.0,
+          "balanced": true
+        },
+        {
+          "question_id": "1.4",
+          "question_marks": 9,
+          "memo_point_marks": 9.0,
+          "balanced": true
+        },
+        {
+          "question_id": "1.5",
+          "question_marks": 10,
+          "memo_point_marks": 10.0,
+          "balanced": true
+        }
+      ],
+      "independent_moderation_decision": "NOT_ISSUED"
+    },
+    "educator_review_required": true,
+    "external_effects": false,
+    "outputs": [
+      {
+        "path": "documents/GRADE_09_DRAFT_EXAM.docx",
+        "bytes": 37859,
+        "sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788"
+      },
+      {
+        "path": "documents/GRADE_09_DRAFT_MARKING_MEMO.docx",
+        "bytes": 38567,
+        "sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017"
+      },
+      {
+        "path": "documents/GRADE_09_DRAFT_EXAM.pdf",
+        "bytes": 53705,
+        "sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723"
+      },
+      {
+        "path": "documents/GRADE_09_DRAFT_MARKING_MEMO.pdf",
+        "bytes": 76929,
+        "sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5"
+      },
+      {
+        "path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "bytes": 4786,
+        "sha256": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495"
+      },
+      {
+        "path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+        "bytes": 1333,
+        "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4"
+      },
+      {
+        "path": "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+        "bytes": 5810,
+        "sha256": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36"
+      },
+      {
+        "path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+        "bytes": 34746,
+        "sha256": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b"
+      },
+      {
+        "path": "CUSTOMER_EXAM_PACKAGE.html",
+        "bytes": 47080,
+        "sha256": "fda372d29d181a4eec7dde873a81de83225b79e500f43e424abf87a4d64174d4"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "CUSTOMER_EXAM_PACKAGE.html",
+      "bytes": 47080,
+      "sha256": "fda372d29d181a4eec7dde873a81de83225b79e500f43e424abf87a4d64174d4"
+    },
+    {
+      "path": "CUSTOMER_PACKAGE_RECEIPT.json",
+      "bytes": 6121,
+      "sha256": "8b44c1dbc833c5cc5d1416aa2aa9736abf8c6ec2e45c8740ac82ff479ff43685"
+    },
+    {
+      "path": "EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+      "bytes": 4786,
+      "sha256": "115ca1b291ab7ee44c82a65f8a6200dec17fee764f138a22ea183e01c8ab2495"
+    },
+    {
+      "path": "EDUCATOR_ITEM_QUALITY_REVIEW.html",
+      "bytes": 34746,
+      "sha256": "34b8b1428c1d358c100ec2f0fc7abc63e8d12378247eda38c48d583e6328cd6b"
+    },
+    {
+      "path": "EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md",
+      "bytes": 1333,
+      "sha256": "de206eea81d3fa0778c9ccbbdc8569e44839afec481a028f767111673a7bbea4"
+    },
+    {
+      "path": "EDUCATOR_ITEM_QUALITY_REVIEW_VALIDATION.json",
+      "bytes": 5810,
+      "sha256": "234ccd24aa61cfe7b9d2155ebfcc5212e17f7b91a693396ba4213399be84fe36"
+    },
+    {
+      "path": "documents/GRADE_09_DRAFT_EXAM.docx",
+      "bytes": 37859,
+      "sha256": "c2085d42db72ce93a10822958fdbe459491c9e9a882033c390f9297a191f9788"
+    },
+    {
+      "path": "documents/GRADE_09_DRAFT_EXAM.pdf",
+      "bytes": 53705,
+      "sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723"
+    },
+    {
+      "path": "documents/GRADE_09_DRAFT_MARKING_MEMO.docx",
+      "bytes": 38567,
+      "sha256": "33a1fe84ca484ef8947fd1343a2dd7071e38435b27b1e798bd2c84915ceaf017"
+    },
+    {
+      "path": "documents/GRADE_09_DRAFT_MARKING_MEMO.pdf",
+      "bytes": 76929,
+      "sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5"
+    }
+  ],
+  "human_review_required": true,
+  "commercial_validation": "UNPROVED",
+  "release_authorized": false,
+  "external_effects": false
+}

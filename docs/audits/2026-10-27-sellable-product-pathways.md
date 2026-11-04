@@ -4,6 +4,16 @@ The current operator assessment is **12 of 68 named offers credible for a bounde
 
 The earlier 68-product audit remains the historical baseline. This report records the subsequent creative integration and the closer VAMP/Evidex review requested by the owner. It does not retroactively change historical canonical proof.
 
+## Current catalog route refresh — 2026-11-04
+
+The latest catalog qualification build supersedes earlier route-count snapshots in this report: the current runner exposes a customer-packet contract for **all 68 offers**, and the qualification ledger records a current full-pipeline customer route for **68/68**. The older statement below that 38 contracts were explicit and 30 offers retained their native protocols describes an earlier implementation snapshot; it is not the current route count.
+
+The current ledger disposition is **56 held executions** and **12 bounded paid-pilot candidates requiring human review**. It records **5,459 evidence artifacts**, zero missing evidence files, zero declared hash mismatches, and **0/68 independent professional sign-offs**. These are source/run/file checks; they do not establish customer truth, expert acceptance, market validation, willingness to pay, or release authorization. The authoritative generated ledger is `acceptance_runs/68-product-sellability-20261027/68_PRODUCT_QUALIFICATION.json` in the local workspace.
+
+The HOMS Exam selection is now saved as a random-seed-`20261101` Grades 1–12 candidate bundle at `deliverables/homs_best_randomized_exam_candidates_20261104_v2/`. It uses the corrected V45 customer route outputs and includes an exam, memo, educator item-quality worksheet, source receipts, and offline review page for each grade. Selection is not independent academic moderation: all educator decision fields remain blank, and classroom release is unauthorized. Grade 12 is a 50-mark focused assessment on selected topics, not a full Grade 12 CAPS examination. See the bundle README and ZIP linked from the repository root README.
+
+Campaign Lab's two narrated demo videos also now have SRT and WebVTT sidecars sourced from the exact local Pocket TTS narration receipts. Scene timing follows the renderer's cumulative durations and its 0.30-second per-scene audio pad; this is not phoneme-level alignment. Caption synchronization, reading speed, brand/content, rights and publication still require human review.
+
 ## Twelve pilot candidates
 
 | Named offers | Defensible pilot service | Remaining review |

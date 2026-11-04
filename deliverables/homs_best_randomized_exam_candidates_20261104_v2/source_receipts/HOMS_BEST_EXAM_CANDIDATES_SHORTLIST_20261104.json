@@ -1,0 +1,351 @@
+{
+  "schema": "dio.homs.exam.candidate_shortlist.v2",
+  "saved_at": "2026-11-04",
+  "selection_basis": "Use corrected batch V45 for every grade. Grade 4 preserves the 29-mark paper because its conversion prompt and six-point memo align. Grade 7 Question 1.1 now names all four items and explicitly includes production input, business expense and sales revenue categories; its six memo points match the four classifications and two requested explanations. All selected exam and memo PDF hashes match current customer-route receipts. This is a source-owned correction and mechanical artifact selection, not an independent academic quality ranking.",
+  "batch_receipt_sha256": {
+    "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45": "945dde5a7be30a51663acab0b17689251ee2e1ade87e5f5066bb47b4177a5008"
+  },
+  "grade_count": 12,
+  "random_seed": 20261101,
+  "classroom_release_authorized": false,
+  "educator_review_required": true,
+  "independent_moderation_decision": "NOT_ISSUED",
+  "items": [
+    {
+      "grade": 1,
+      "subject": "Life Skills",
+      "marks": 20,
+      "duration_minutes": 45,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-01/documents/GRADE_01_DRAFT_EXAM.pdf",
+          "sha256": "ff076a1f3f6318bbe1e6ea1483d2fe2b706d5275154749e5edbb7558c1748946"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-01/documents/GRADE_01_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "5f302608eb9f48614990c41bc23ff1054323ae84eb3824e363b8e90b1f03f6b8"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-01/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-01/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 2,
+      "subject": "English Language",
+      "marks": 20,
+      "duration_minutes": 45,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-02/documents/GRADE_02_DRAFT_EXAM.pdf",
+          "sha256": "896ab23f5e0022c6247532d060cefdc35c56421bb283e599bef95c99a0c61259"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-02/documents/GRADE_02_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "baff7bef660298b92faa1cf8c1f17c5950d535566fcce639b6e15300e88cf191"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-02/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-02/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 3,
+      "subject": "Mathematics",
+      "marks": 20,
+      "duration_minutes": 45,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-03/documents/GRADE_03_DRAFT_EXAM.pdf",
+          "sha256": "eff991f2f6a973f5ac264357f2e5b555088dfd490a090f57029e8f4264eb8583"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-03/documents/GRADE_03_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "0c0656115a9dbaa6ffce30a1b9a55b4cdfd9c0370b3b9b3d63c1fd78f13ece22"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-03/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-03/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 4,
+      "subject": "Mathematics",
+      "marks": 29,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-04/documents/GRADE_04_DRAFT_EXAM.pdf",
+          "sha256": "4bbf8a12d167d8e9e7bc6bb69b300c27f1289d7a161fd889cd9855b60c8ea408"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-04/documents/GRADE_04_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "499ce5faf4867701fc3ff69a3c50d4fd471afc0f27e7ef1c629416cf599166e2"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-04/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-04/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 5,
+      "subject": "Natural Sciences and Technology",
+      "marks": 30,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-05/documents/GRADE_05_DRAFT_EXAM.pdf",
+          "sha256": "5bf4d4b2d10e921979dbd58d5e525eedab81a4e738a540e8c08305554f3efe81"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-05/documents/GRADE_05_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "51a6783fab6703ee7e6f75b6565086705593e2651dd637008115c8f9495ffbe7"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-05/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-05/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 6,
+      "subject": "Life Skills",
+      "marks": 30,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-06/documents/GRADE_06_DRAFT_EXAM.pdf",
+          "sha256": "69b607a8fd2c245b5a9bc3cd4f3237fd24b3d4989c3fc6634d683155d4180e1d"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-06/documents/GRADE_06_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "2d4bdfe59b94477e0e189500bb09ac53807891d9e0511e9e981cb9116dbfb13d"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-06/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-06/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 7,
+      "subject": "Economic and Management Sciences",
+      "marks": 40,
+      "duration_minutes": 90,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-07/documents/GRADE_07_DRAFT_EXAM.pdf",
+          "sha256": "1f085b3fea3076fbd5c4f439ecbddd7438ba2292560e1ad5811a7266e47c15d6"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-07/documents/GRADE_07_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "fde152c3569c3589bdc0a2af0b99593c27d92ea14aee65f6f3c3e331b4e39647"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-07/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-07/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 8,
+      "subject": "Life Orientation",
+      "marks": 40,
+      "duration_minutes": 90,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-08/documents/GRADE_08_DRAFT_EXAM.pdf",
+          "sha256": "b4c7e267c04717885f5158bcd9e7dd9cd9dffbf3093a2bd6cf99db7d3c359dd8"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-08/documents/GRADE_08_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "b5470b20043f2ae20004666ef792b9e6e40fa6994c724c742ee03d6b6242cccb"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-08/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-08/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 9,
+      "subject": "English Language",
+      "marks": 40,
+      "duration_minutes": 90,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-09/documents/GRADE_09_DRAFT_EXAM.pdf",
+          "sha256": "037f96dca34466b1c2e66078179f84cfb625718bb12dbcdd30b586ac71dab723"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-09/documents/GRADE_09_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "612deea83bae60b6d66626c9e6cff406e3270f516e33668184bea15fe7b02be5"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-09/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-09/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 10,
+      "subject": "Physical Sciences",
+      "marks": 50,
+      "duration_minutes": 120,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-10/documents/GRADE_10_DRAFT_EXAM.pdf",
+          "sha256": "7130764e04c368e02c657db912737ac36151a614da9877f1139e914aa3015c93"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-10/documents/GRADE_10_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "e85f416ed47b51da8572a5d304d45b471edbd8affd4a99c9f70bdffc7deb641d"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-10/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-10/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 11,
+      "subject": "English Language",
+      "marks": 50,
+      "duration_minutes": 120,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-11/documents/GRADE_11_DRAFT_EXAM.pdf",
+          "sha256": "d69c2e73c6583f9de0636ad654012517aa332cfb8dd0c675ea4a58eccbdb2cc1"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-11/documents/GRADE_11_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "a1f421c5aff96b30ac7dd2fe9f481d91e93d1fdc83d66316f1a8aef1048a08e4"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-11/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-11/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": null
+    },
+    {
+      "grade": 12,
+      "subject": "Business Studies",
+      "marks": 50,
+      "duration_minutes": 60,
+      "question_count": 5,
+      "caps_question_mapping_count": 5,
+      "selected_batch": "HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45",
+      "batch_created_at_utc": "2026-11-04T13:43:33+00:00",
+      "artifacts": {
+        "exam_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-12/documents/GRADE_12_DRAFT_EXAM.pdf",
+          "sha256": "8908493f42d6735d372281ca2daf5852bb473471403b60436f398d31e06db19a"
+        },
+        "memo_pdf": {
+          "path": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-12/documents/GRADE_12_DRAFT_MARKING_MEMO.pdf",
+          "sha256": "ba33f2e79ad49d5d9d53f9835ec5138082643ad7cf7fadf8b55067c89a7b0fac"
+        }
+      },
+      "educator_review": {
+        "validation_issue_count": 0,
+        "mark_balance_verified": true,
+        "educator_decisions_blank": true,
+        "review_csv": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-12/EDUCATOR_ITEM_QUALITY_REVIEW.csv",
+        "review_guide": "acceptance_runs/68-product-sellability-20261027/HOMS_EXAM_CUSTOMER_GRADE_BATCH_20261104_V45/grade-12/EDUCATOR_ITEM_QUALITY_REVIEW_GUIDE.md"
+      },
+      "scope_note": "Focused Grade 12 selected-topic assessment; not a full Grade 12 CAPS exam."
+    }
+  ]
+}
