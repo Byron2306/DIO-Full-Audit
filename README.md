@@ -1,537 +1,398 @@
-# DIO
+# DIO | Deterministic Intelligence Orchestration
 
 <p align="center">
-  <img src="DIO.png" alt="BEAST mascot" width="520" style="max-width: 92%; height: auto;">
+  <img src="DIO.png" alt="DIO original logo" width="520">
 </p>
 
-## Deterministic Intelligence Orchestration
+<p align="center"><strong>A governed, proof-carrying intelligence organism for turning human intent into useful professional work.</strong></p>
 
-Local customer product execution: [source-driven product runbook](docs/customer_products/RUNBOOK.md),
-[current qualification and quality assessment](docs/audits/2026-10-27-sellable-product-pathways.md).
-The current qualification snapshot covers all **68 catalog offers** and all **68 customer-packet contracts**. It records evidence-backed routes for all offers while retaining held review boundaries.
+DIO combines specialist intelligence, deterministic software, local creative engines, product composition, evidence custody and human authority. It is neither a single AI model nor 68 isolated apps. It is a system for making intelligence **composable, inspectable and accountable**.
 
-## Customer Product Catalog — Current Evidence
+> **Quality first. Commercial conversion second. Architecture serves both.**
+>
+> A technically successful workflow is not necessarily a correct answer, a useful product, an accepted delivery or a viable business.
 
-The catalog is a collection of 68 named customer products. Each product has a declared customer-packet contract, a source-driven execution route, and an evidence record. The latest generated machine-readable qualification snapshot is `acceptance_runs/68-product-sellability-20261027/68_PRODUCT_QUALIFICATION.json` in the local workspace; the versioned [qualification assessment](docs/audits/2026-10-27-sellable-product-pathways.md) summarizes the current state. Operator instructions and per-product packet contracts are in the [customer product runbook](docs/customer_products/RUNBOOK.md).
+**State of this documentation: 4 November 2026.** This page distinguishes architectural doctrine, implemented code, bounded demonstrations and independently validated outcomes. No single “ready” label substitutes for those distinctions.
 
-### What the current snapshot establishes
+[Start a product locally](#run-a-customer-product) · [Explore the organs](#the-organs-and-their-boundaries) · [See compositions](#integration-and-cross-composition) · [Inspect proof](#evidence-and-current-qualification) · [Understand the philosophy](#the-philosophy)
 
-- All **68/68 catalog offers** have a customer-packet contract and a verified full-pipeline route in the qualification snapshot.
-- The current dispositions are **56 held executions** and **12 bounded paid-pilot candidates requiring human review**. The 12 offers represent nine distinct capabilities because some Studio offers share an underlying service.
-- The catalog has **0/68 independent professional sign-offs**. The route evidence demonstrates bounded execution and artifact integrity; it does not establish customer acceptance, willingness to pay, market validation, or professional approval.
-- The most recent qualification build records **5,459 evidence artifacts, zero missing evidence files, and zero declared hash mismatches**. Those checks establish file presence and declared-byte integrity, not the factual truth of customer statements or the substantive correctness of every generated conclusion.
+---
 
-Treat a held execution as a reviewable draft. Products remain subject to their domain-specific owner, customer, educator, accessibility, legal, or other specialist review. A successful route or renderer receipt does not authorize publication, advice, scoring, accreditation, external action, or classroom use.
+### The governed consequence loop
 
-### HOMS randomized exam candidates
+This is the intended architectural relationship, not a claim that every boundary is live on every host.
 
-The saved [HOMS Grades 1–12 candidate bundle](deliverables/homs_best_randomized_exam_candidates_20261104_v2/README.md) contains the selected exam and marking-memo PDFs, editable DOCX files, educator item-review sheets, package receipts, a portable copy of the exact selection manifest, and an offline index. Its [candidate ZIP](deliverables/homs_best_randomized_exam_candidates_20261104_v2/HOMS_RANDOMIZED_EXAM_CANDIDATES_GRADES_01_12.zip) is bound to seed `20261101` and current grade-route receipts. Selection uses the corrected Grade 1–12 batch and the documented source-owned corrections; it is not an independent academic ranking. Rebuild the ZIP from the saved source bundle with `.venv/bin/python scripts/package_homs_best_exam_candidates.py`.
+```mermaid
+flowchart TD
+    I["Human / customer intent"] --> V["Vesper + Lingua: intake and meaning"]
+    V --> C["Product / META composition"]
+    C --> X["Specialist execution and creative organs"]
+    X --> Q["Proof and quality review"]
+    Q --> A{"Explicit authority and human approval"}
+    A -->|"Authorized for a specific effect"| W["Governed real-world effect"]
+    A -->|"Missing permission or proof"| H["HOLD / NEEDS_YOU / REFUSE"]
+    W --> O["Observed customer outcome"]
+    O --> L["Learning and proposed recomposition"]
+    L -.->|"Proposal only; no automatic authority"| C
+```
+
+## The philosophy
+
+DIO's organizing question is not simply *“Can AI make this?”* It is:
+
+> **What was requested? What evidence was supplied? What is known versus inferred? Which capability actually ran? What did it produce? What remains uncertain? Who can approve the next action? And what did the real world ultimately confirm?**
+
+That leads to five design commitments.
+
+**1. Intelligence should do consequential work, not merely sound plausible.** An answer becomes useful when it supports a specific task, respects its sources and uncertainty, and survives review. A beautiful artifact with wrong reasoning is still wrong.
+
+**2. Proof must travel with the work.** DIO attempts to preserve source identity, hashes, execution receipts, review findings, provenance and release status. A hash proves which bytes were used, **not** whether the claim inside those bytes is true.
+
+**3. Composition should multiply capability without multiplying permission.** One organ can serve many products; a Studio can become a component of another Studio; a verified pattern may be reused. But role changes do not grant new access or authority. The constitutional law is **metamorphosis never implies authority promotion**.
+
+**4. Refusal is a valid, often necessary result.** When evidence, permissions, competence or a local runtime are missing, the correct output can be `UNKNOWN`, `NEEDS_YOU`, `HOLD` or `REFUSE`. DIO must not fabricate a provider, citation, qualification, approval, transaction or successful test to complete a narrative.
+
+**5. The customer is outside the proof loop until real evidence arrives.** Passing tests demonstrates a bounded implementation property. It cannot manufacture buyer acceptance, willingness to pay, trustworthy professional advice or repeatable profit.
+
+These are **normative design laws**. Their implementation is uneven across subsystems and must be assessed at each actual execution boundary. The fuller doctrine is in the [Metamorphic Cascade Canon](docs/DIO_METAMORPHIC_CASCADE_CANON.md).
+
+### The distinctions that keep the organism honest
+
+| Do not confuse | With |
+|---|---|
+| Plan or model output | Executed capability |
+| Execution | Permission to disclose, send, publish or spend |
+| Byte integrity and source fidelity | Substantive truth or domain competence |
+| Reviewable professional draft | Independent professional sign-off |
+| Successful local test | Safe deployment or customer acceptance |
+| Controlled payment event | Real revenue, fulfilment or value |
+| Domain analogy | Verified execution-grade capability |
+| Learning and reusable patterns | Authority to act |
+| Product catalog entry | Released sellable product |
+
+A central invariant runs throughout the project: **evidence can justify a proposal, but only the appropriate authority can permit an effect.**
+
+---
+
+## What DIO is becoming
+
+DIO's original product-factory concept is now only part of its architecture. The wider ambition is a **governed consequence loop**: take human intent, resolve the right specialist capabilities, execute within constraints, evaluate the artifact, hold or authorize subsequent effects, observe outcomes, and learn without self-escalation.
+
+```text
+HUMAN / CUSTOMER INTENT
+       |
+       v
+VESPER + LINGUA            interaction, intake, semantic custody
+       |
+       v
+PRODUCT / META COMPOSITION declared needs, profiles, native providers, bounded scope
+       |
+       +----> HOMS / SOPHIA / EVIDEX / VAMP / DOCUMENT STUDIO / ...
+       +----> PICTORA / SONORIS / DICERE / FORMAT CORE / NICHEFOUNDRY
+       |
+       v
+EXECUTED OUTPUTS           documents, analysis, lessons, images, music, media
+       |
+       v
+PROOF + QUALITY            receipts, source binding, checks, review and repairs
+       |
+       v
+AUTHORITY BOUNDARY         explicit approval for consequential effects
+       |
+       v
+WORLD / CUSTOMER OUTCOME   acceptance, delivery, measured value, or refusal
+       |
+       v
+LEARNING / RECOMPOSITION  improve future proposals, never auto-grant permission
+```
+
+This is an **architectural map**, not a claim that every arrow is implemented as one universal production runtime. Cross-organ connections below identify what has actually been demonstrated and what remains a designed or locally dependent path.
+
+### The Metamorphic Cascade
+
+A governed unit may occupy different roles at different scales:
+
+```text
+organ -> capability -> product -> Studio -> reusable pattern / crystal
+                         \                         /
+                          -> composite product <--
+                                      |
+                               customer-facing service
+```
+
+The useful part is **recursive reuse**: a verifier can become an assurance service; a document Studio can format another product's output; one creative organ's asset can become another product's input. Each composition still needs typed inputs and outputs, an identified executor, evidence and quality contracts, maturity limits and explicit authority. See the [canonical architecture doctrine](docs/DIO_METAMORPHIC_CASCADE_CANON.md).
+
+---
+
+#### Metamorphic roles, not automatic promotions
+
+```mermaid
+flowchart LR
+    O["Organ"] --> C["Capability"]
+    C --> P["Product"]
+    P --> S["Studio"]
+    S --> R["Reusable pattern / crystal"]
+    R --> M["Composite unit"]
+    C --> M
+    P --> M
+    M --> F["Customer-facing service"]
+    G{"Separate authority review"} -.-> F
+```
+
+**Invariant:** role transitions are possibilities for reuse, not grants of maturity, capability or authority.
+
+## The organs and their boundaries
+
+An **organ** is a specialist part of the organism. “Organ” does not mean every capability is a separately deployable service or an independently cleared commercial product.
+
+| Organ / subsystem | What it contributes | What it must not silently claim |
+|---|---|---|
+| **Vesper** | Customer-facing presenter and interaction surface; intake and performance identity | That being on screen means it generated speech, music or finished the video |
+| **Dicere** | Speech articulation, facial motion, lip synchronization and audiovisual performance | Universal real-time animation or approved long-form presenter performance |
+| **Sonoris** | Music composition experiments, genre/gesture grammar, audio rendering and soundtrack candidates | Cleared sample rights, general prompt-to-song ability or professional mastering |
+| **Pictora** | Local image generation, editing, inpainting, conditioning, visual candidates and refinement | Factual image correctness, identity perfection or cleared model/asset rights |
+| **Document Studio / Format Core** | Editorial transformation, art direction, typography, layout, accessible-oriented and format-specific projection | Source correctness or professional sign-off merely because the result looks polished |
+| **NicheFoundry** | Governed final assembly of campaigns and media from approved components | Sole authorship of visuals, narration or composition; publication authority |
+| **HOMS** | Exam, assessment, moderation, curriculum and learning workflows | Autonomous educator judgment or classroom-ready assessments without moderation |
+| **Sophia** | Scholarly review, source-grounded research and academic/learning support | Authorship substitution, guaranteed citation truth or scholarly approval |
+| **Evidex** | Evidence intake, reconciliation preparation, traceability and proof packs | That an underlying claim is true because its record is organized |
+| **VAMP** | Performance, achievement, CPD and evidence-mapping preparation | Unreviewed ratings, promotion decisions or accepted professional evidence |
+| **Lingua** | Semantic/language preservation, translation and professional expression | Proficient human-language sign-off from an automated draft |
+| **META / product compiler** | Reusable evidence, obligation, assurance and work-pattern composition | A product route becoming authorized solely because it was compiled |
+| **BEAST / reusable compute** | Bounded compute, verified reuse and exploratory crystallization | Learned authority or unreviewed host mutation |
+| **ATLAS** | Cross-domain discovery and candidate capability mapping | Analogy or domain coverage becoming an execution-grade signature |
+| **GoldenEye / operator surfaces** | Read-only or governed projection of product, runtime and commercial state | An observation dashboard granting maturity, release or approval |
+| **Seraph / Triune / Valinor / Arda** | Challenge, governance assessment and sovereign/attested execution boundaries as defined by DIO's doctrine | Any reviewer, test or model bypassing the actual authority chain |
+
+The last row describes **architectural roles**, not an assertion that the entire sovereign stack is enabled and enforcing on every host. Local availability and attestation must be proven for the precise runtime and effect. [Metamorphic governance canon](docs/DIO_METAMORPHIC_CASCADE_CANON.md) · [Creative organ registry](config/creative_organs.json).
+
+### Creative production responsibility map
+
+```mermaid
+flowchart TD
+    B["Reviewed campaign or educational brief"] --> DS["Document Studio / Format Core: art direction, typography, layout"]
+    B --> P["Pictora: visual assets"]
+    B --> SO["Sonoris: music and audio"]
+    B --> DI["Dicere: speech and facial performance"]
+    V["Vesper: presenter identity"] --> DI
+    DS --> N["NicheFoundry: final assembly"]
+    P --> N
+    SO --> N
+    DI --> N
+    N --> R["Held audiovisual review candidate and receipts"]
+    R --> G{"Rights, quality and release approval"}
+    G -->|"Not approved"| H["Remain held"]
+    G -->|"Explicit approval"| O["Permitted external effect"]
+```
+
+The creative lanes retain separate authorship. **NicheFoundry assembles**; it does not become the origin of all component media. The diagram shows responsibilities, not blanket production release.
+
+### The new creative organs are real, but differently mature
+
+**Pictora.** The DIO adapter binds locally supplied ComfyUI workflows, source images, selected checkpoints and receipts. The local studio documents generate, image-to-image, masked inpaint, pose/identity/composition references and deterministic editing controls. Recorded demonstrations include a mask-guided medallion edit and a multi-reference render. Exact identity, arbitrary workflow success and commercial rights remain unresolved. [Pictora editor](docs/PICTORA_IMAGE_EDITOR_PRODUCT.md) · [DIO integration](docs/PICTORA_VISUAL_STUDIO_INTEGRATION.md).
+
+**Sonoris.** The local composition work includes genre grammar, riff/gesture and arrangement models, SFZ/instrument routing, generated seed renders, named editing recipes, authored **Glass Meridian** jazz-synth experimentation and metal/darksynth render candidates. These are substantive audio experiments, not just soundtrack selection. Musical approval, license clearance, mix/master standards and general-purpose autonomous composition are separate gates. [Genre compiler](docs/SONORIS_GOVERNED_GENRE_COMPILER_V1.md) · [integration handoff](docs/DIO_SONORIS_PICTORA_INTEGRATION_HANDOFF.md).
+
+**Dicere.** The local performance path binds Vera speech to Vesper's moving-face/lip-sync candidates using MuseTalk, LivePortrait and local video composition. The performance compiler also maps supplied phoneme timing into frame-indexed mouth controls. The existence of a rendered explainer does not mean every source portrait, viseme, expression or long-form take is solved. [Performance compiler handoff](docs/VESPER_PERFORMANCE_COMPILER_HANDOFF.md).
+
+The roles are deliberately non-overlapping: **Vesper presents; Dicere performs; Sonoris scores; Pictora creates visual assets; Document Studio / Format Core directs layout and composition; NicheFoundry assembles the finished media.** A component may be reused elsewhere, but its authorship and assurance obligations remain traceable.
+
+---
+
+## Integration and cross-composition
+
+The most important recent change is **composition across product families**, not the number of new names in the catalog. The following are examples anchored in source modules, local execution receipts and November 4 handoffs.
+
+| Composition | Current demonstrated boundary | Still required |
+|---|---|---|
+| **HOMS Exam -> curriculum spine -> Learning Studio -> Assess** | Shared source/hash-bound curriculum spine, exam/memo/learner and educator review projections; Assess validates linked paper and memo inputs | Expert checking of marks, reasoning, curriculum coverage, pedagogy and classroom release |
+| **Pictora -> HOMS / Format Core / Accessible Publish / Site Studio** | Existing local visual candidates attached to review HTML, with hashes and *decorative-only* semantics where appropriate | Factual/educational accuracy, accessibility, image rights and human approval |
+| **Sonoris -> campaign music resolver -> NicheFoundry** | Explicit local Sonoris review selections can supply a media soundtrack; audio/video outputs and selection are receipt-bound | Sonic approval, sample rights, campaign consent, release permission |
+| **Pictora + Sonoris + Vera + NicheFoundry** | Local combined campaign-media demonstration produced landscape and vertical renders from visual, music, narration and DIO design assets | Repeatable customer brief-to-delivery acceptance, rights and publication gates |
+| **Dicere + Vesper + Vera** | Local presenter performance and short explainer candidates; separate phoneme/viseme and motion experiments | Long-form stability, expression quality and audiovisual QA |
+| **Sophia + evidence/document outputs** | Source-bound scholarly review routes into held document and customer-review surfaces | Domain acceptance, citation verification and user outcome evidence |
+| **Evidex + VAMP / readiness families** | Evidence records and source traces inform bounded review and reconciliation products | Authentication of real underlying records and competent professional interpretation |
+| **AI Trust + Seraph telemetry** | Case-scoped hash-chain verification is recorded in challenge/proof receipts for applicable AI Trust and RegOps paths | Exporter authentication, signatures, monitoring continuity and actual external system assurance |
+| **ATLAS -> Sonoris/Pictora domain discovery** | 23 editorial candidate domains (18 Sonoris, 22 Pictora, 17 shared) are explicitly mapped | **Zero execution-grade creative signatures** in this crosswalk; domain analogy grants no execution |
+| **Customer product -> Format Core -> held review** | Shared production finishing and product-specific output packages where implemented | Semantic accuracy, professional presentation acceptance and product release |
+
+The precise implementation and qualification records are in [the November 4 reconciliation](docs/reconciliation/2026-11-04-worktree-reconciliation.md), [HOMS handoff](docs/HOMS_EXAM_TO_LEARNING_STUDIO_HANDOFF.md), [Pictora integration](docs/PICTORA_VISUAL_STUDIO_INTEGRATION.md), [creative handoff](docs/DIO_SONORIS_PICTORA_INTEGRATION_HANDOFF.md), and [Seraph telemetry assessment](docs/AI_PROOF_SERAPH_TELEMETRY.md).
+
+### Why cross-composition matters
+
+A standalone image generator outputs an image. A governed **HOMS + Pictora + Document Studio** path can instead ask for an illustration attached to a particular lesson and source, show it in the teaching document, retain its origin and require a teacher to accept it. Similarly, **Sonoris + Dicere/Vesper + Pictora + NicheFoundry** can transform a reviewed message into a composed audiovisual candidate without pretending one organ performed every step.
+
+This is the promise of DIO's design: **specialization without silos, reuse without identity loss, and composition without automatic authority escalation**. Whether it improves cost, speed or quality must still be measured against alternatives on real tasks.
+
+---
+
+## Products, Studios and the factory
+
+The canonical customer catalog currently contains **68 named offers**. They include education, academic integrity, evidence/assurance, enterprise readiness, financial/funding preparation, obligation and regulated-market review, document/publishing, communication and creative-market services.
+
+A **product** is a bounded customer job with stated inputs, outputs and review conditions. A **Studio** can provide richer interactive work, editing and revision, or a composite environment. Some product/Studio pairs still share the same selected proof artifact; distinct commercial value and independent quality evidence remain work to do.
+
+DIO's phase-derived factory composes typed profiles, product manifests, work patterns, obligation/evidence primitives, native executors and proof receipts. The historical Phase 0–16.1 work established constitution/compiler, obligation families, META runtime, GoldenEye, commercial-truth classification, controlled paid-reference journeys, self-expanding product materialization and media-incarnation demonstrations. A **phase-specific `READY` token describes a bounded acceptance**, never general release readiness.
+
+### The two portfolio scopes are different
+
+- **53 canonical incarnations:** the historical professional-evidence gauntlet's explicit baseline scope and acceptance token. See [its contract](docs/PROFESSIONAL_EVIDENCE_PORTFOLIO_GAUNTLET.md).
+- **68 named customer offers:** the newer customer-packet catalog and qualification ledger. There are currently explicit packet contracts and declared full-pipeline routes for all 68. See [the source-driven runbook](docs/customer_products/RUNBOOK.md) and [qualification assessment](docs/audits/2026-10-27-sellable-product-pathways.md).
+
+Neither denominator means all outputs are professionally approved or commercially validated.
+
+---
+
+## Evidence and current qualification
+
+**Qualification snapshot reported in the repository on 4 November 2026:**
+
+| Recorded measure | Scope and meaning |
+|---|---|
+| **68/68** | Configured customer packet contracts and reported bounded full-pipeline routes |
+| **56** | Held execution offers, not automatically pilot-sellable |
+| **12** | Bounded paid-pilot candidates requiring human review; nine underlying capabilities |
+| **5,459** | Declared evidence artifacts in the current local qualification ledger; integrity and presence, not substantive truth |
+| **0/68** | Independent professional sign-offs |
+| **0** | Release authorizations earned by the portfolio snapshot |
+
+The [curated November 4 proof portfolio](deliverables/product_proof_portfolio_20261104.zip) selects one primary reviewable artifact per offer with product evidence where available and a separate Pictora/Sonoris/Dicere appendix. Selection is for **reviewability**, not expert scoring. Some Studio offers share primary artifacts. Document Studio Edit uses a clearly labelled historical fallback because no in-window selected artifact qualified. The archive does not constitute buyer acceptance.
+
+**HOMS exam bundle (earlier randomized selection).** The [saved Grades 1–12 candidates](deliverables/homs_best_randomized_exam_candidates_20261104_v2/README.md) have draft paper/memo pairs, educator review sheets and hashes. Educator decisions remain blank. The older Grade 12 randomized selection was a **50-mark focused assessment**, not a comprehensive CAPS examination; the separate newer two-paper Business Studies draft is described below. Neither is classroom-authorized.
+
+### November 4 qualification additions
 
 Grades 1–11 remain the saved randomized draft candidates. Grade 12 now also has a complete two-paper Business Studies candidate: Paper 1 covers Business Environments and Business Operations; Paper 2 covers Business Ventures and Business Roles. Each paper is 150 marks over 120 minutes, with the DBE-style Section A / choose-two Section B / choose-one Section C structure. Open the [Grade 12 review package](deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/README.md) or its [ZIP](deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip). These are original practice drafts, not official DBE papers. Educator item decisions and independent moderation are still outstanding; classroom release is not authorized. The [customer product runbook](docs/customer_products/RUNBOOK.md) explains the assessment route and review gates.
 
-### Recent campaign accessibility improvement
-
-Campaign Lab now includes SRT and WebVTT sidecars for its landscape explainer and vertical short. The caption cues use exact text and audio durations from the local Pocket TTS receipts, and the local review workspace loads the English WebVTT tracks. Timing follows the renderer's scene order and 0.30-second per-scene audio padding; it is not phoneme-level alignment. Human review of synchronization, text, and reading speed is still required before publication. The portable [caption sidecar package](deliverables/campaign_lab_caption_sidecars_20261104/README.md) contains the tracks and provenance receipt. The local review workspace is generated by `scripts/build_campaign_lab_customer_review.py`.
-
-### Curated product proof portfolio
-
-The [portable proof portfolio archive](deliverables/product_proof_portfolio_20261104.zip) contains a selected, source-bound customer-facing artifact for each of the 68 catalog offers, with 67 product-specific receipts/evidence records and a SHA-256 package manifest. It also includes a separate creative-organ appendix for Sonoris, Pictora, and Dicere, plus the [Evidex synthetic claim-to-record truth benchmark](deliverables/evidex_claim_truth_benchmark_20261104/EXPERT_REVIEW_RUBRIC.md) with reference answer, raw source fixtures, structured output comparison and adversarial rubric. The archive contains a searchable offline review page, CSV/JSON indexes, HOMS Grades 1–11 candidate exams and memos plus the complete two-paper Grade 12 Business Studies candidate, Campaign Lab's rendered landscape/vertical videos, a Sonoris MP3 audition and review clip, Pictora output samples, and the Dicere V42 explainer with caption tracks.
-
-The selection is a deterministic reviewability pass (format preference plus baseline/reviewed path preference), not independent professional scoring. Five deliverable references dated after the qualification snapshot's `2026-11-04` evidence date were excluded. Document Studio Edit had no in-window deliverable reference, so its card is explicitly labeled as a historical-baseline fallback and has no current product-specific receipt in this package. The qualification basis still records **0/68 professional sign-offs** and **0 release authorizations**; the archive is for review and does not establish content truth, buyer acceptance, commercial clearance, or publication approval.
+The refreshed [portable product proof portfolio](deliverables/product_proof_portfolio_20261104.zip) also includes an [Evidex synthetic claim-to-record truth benchmark](deliverables/evidex_claim_truth_benchmark_20261104/EXPERT_REVIEW_RUBRIC.md), with raw source fixtures, a reference adjudication, output comparison and adversarial review criteria. It is a controlled benchmark, **not** independent acceptance of real customer claims.
 
 ### Independent product readiness verdicts
 
 The archive includes independent execution, output-quality, evidence-validity, customer-acceptance and release verdicts. Open the standalone [JSON report](deliverables/product_readiness_verdicts_20261104/PRODUCT_READINESS_VERDICTS.json) or [CSV](deliverables/product_readiness_verdicts_20261104/PRODUCT_READINESS_VERDICTS.csv), also bundled in the [proof portfolio archive](deliverables/product_proof_portfolio_20261104.zip). The current 68-offer snapshot records **68 execution PASS**, **68 output-quality UNVERIFIED**, **67 TRACEABLE_UNVALIDATED evidence sets** and one evidence set without a product receipt, **68 customer-acceptance UNVERIFIED**, and **68 release HELD**. A traceable receipt proves lineage and byte identity; it does not establish that the conclusion is right. `NOT_ESTABLISHED` is the professional-readiness result for every offer until independent output scoring, source-validity review, customer acceptance and release evidence exist.
 
-### Remaining qualification work
+**Campaign Lab.** Its caption package adds SRT and WebVTT tracks for landscape and vertical outputs. The cues follow source narration/scene durations, **not phoneme-accurate forced alignment**; review remains required. [Caption receipt](deliverables/campaign_lab_caption_sidecars_20261104/README.md).
 
-The qualification ledger keeps these open rather than treating successful execution as sign-off:
+**Testing.** The preserved broader qualification audit records **2,188 passes, 94 failures, 16 errors and five skips**, plus subtest results, for a historical full-repository snapshot. That is **not a green full suite**. The November 4 reconciliation explicitly says it did **not** rerun the whole suite. A recent success claim must specify the exact command, commit, environment and receipt; do not silently replace these recorded results with isolated per-product passes.
 
-- obtain independent expert and customer acceptance of pilot examples, and establish willingness to pay;
-- secure proficient Afrikaans review;
-- resolve HOMS Assess point-level reasoning and marking quality through educator adjudication;
-- establish current native-extension product identity and commercial validation;
-- obtain actual source records, accepted mappings, and professional interpretation for PromotionProof and CPDProof;
-- address the historical full-repository test failures recorded in the audit report.
+**Local evidence versus GitHub evidence.** Some linked/generated acceptance files and Sonoris/Pictora/Dicere runtime assets reside in the operator's local workspace and are not bundled into a fresh clone. An absolute `/data/byron/...` path is a machine-specific reference, not a portable installation instruction. The portable proof archive is a selected evidence package, not the full multi-gigabyte local workspace.
 
-Rebuild the machine-readable snapshot after changing product evidence:
+### Readiness is a ladder, not a badge
+
+```mermaid
+flowchart TD
+    A["IMPLEMENTED"] --> B["Bounded execution / byte proof"]
+    B --> C["Independent semantic and domain review"]
+    C --> D["Explicit release authorization"]
+    D --> E["Customer-validated outcome"]
+    E --> F["Repeatable, costed economic proof"]
+    U["Never infer the next state"] -.-> C
+    U -.-> D
+    U -.-> E
+    U -.-> F
+```
+
+DIO must never automatically infer a lower step's successor. The current portfolio is dominated by **held engineering proofs** and **bounded pilot candidates**, not the final two steps.
+
+---
+
+## Run a customer product
+
+Use the exact repository checkout and its configured Python environment; system dependencies and local native engines vary by product.
+
+```bash
+# From the repository root
+.venv/bin/python scripts/run_customer_product.py --catalog
+
+# Example: supply a real schema-compliant Contract Desk packet
+.venv/bin/python scripts/run_customer_product.py \
+  --product "Contract Desk" \
+  --packet /path/to/contract-desk-packet.json \
+  --out /tmp/dio-contract-desk-review
+```
+
+Relative source-file paths in the supplied packet are resolved against the packet's directory for supported attachment fields. Outputs are review drafts; the command does not send, file, certify or publish. Review the [customer runbook](docs/customer_products/RUNBOOK.md) for each offer's schema, supplied inputs, prerequisites and expected output set. Do not process someone else's confidential material without authorization.
+
+To **rebuild the existing qualification view from recorded evidence**, rather than rerunning all products:
 
 ```bash
 .venv/bin/python scripts/build_customer_product_qualification.py
 ```
 
-This produces a qualification view of current declared evidence. It does not convert a held draft into a released product.
+To inspect creative engines without executing an unauthorized job:
 
-
-**A proof-carrying operating architecture for building, governing and expanding trustworthy intelligent products.**
-
-DIO is not a chatbot, a workflow script, a model wrapper, or a bundle of unrelated applications.
-
-DIO is an orchestration architecture that turns intelligence into governed, reproducible work:
-
-```text
-source-bound inputs
-        ↓
-typed profiles and product manifests
-        ↓
-deterministic composition and capability resolution
-        ↓
-human-gated execution
-        ↓
-proof-carrying outputs
-        ↓
-commercial truth without claim inflation
+```bash
+python3 scripts/run_dio_creative_organs.py --catalog
+python3 scripts/run_dio_creative_organs.py --sonoris-preflight
+python3 scripts/run_dio_creative_organs.py --pictora-discover
 ```
 
-Its central question is not merely:
+Pictora's default ComfyUI endpoint is local loopback (`127.0.0.1:8188`). Sonoris may depend on the separate `/data/byron/sonoris` workspace and installed audio tools. [Creative setup and explicit job examples](docs/DIO_SONORIS_PICTORA_INTEGRATION_HANDOFF.md).
 
-> Can an intelligent system produce an answer?
+### Local operator interfaces
 
-It is:
+```bash
+.venv/bin/python scripts/serve_business_workbench.py \
+  --host 127.0.0.1 --port 8767 --market-port 8771
 
-> Can a system show what it used, which capabilities it invoked, what remained uncertain, who retained authority, what was produced, whether the result was altered, and exactly which claims the evidence permits?
+# In another terminal
+.venv/bin/python scripts/serve_market_command_ms10.py \
+  --host 127.0.0.1 --port 8771 --business-port 8767
+```
 
-DIO coordinates reusable intelligence capabilities into product families while preserving provenance, human judgment, bounded authority and inconvenient truth.
+These are **local operator surfaces**, not automatically secured public deployments. The historical GoldenEye view can be served with `python scripts/serve_goldeneye_portfolio.py`. See the existing [runbook](docs/customer_products/RUNBOOK.md) before choosing a product execution or external-facing workflow.
+
+### Verify a historical professional-evidence run
+
+```bash
+PYTHONNOUSERSITE=1 .venv/bin/python scripts/run_professional_evidence_portfolio.py \
+  --output state/professional_evidence/portfolio_v1 \
+  --online --strict
+```
+
+This is the distinct **53-incarnation gauntlet**, not the entire 68-offer qualification process. `--online` can access external sources and therefore should be used only with an appropriate network, consent and source policy. The run's actual result must be inspected; the presence of a documented acceptance token does not mean it just passed in your environment.
 
 ---
 
-## What DIO Is
+## Governance and non-negotiable limits
 
-DIO separates six things that conventional automation frequently collapses:
+DIO models a separation between **assessment**, **execution identity** and **permission**. Its constitutional docs assign sovereign runtime authority to Valinor, measured execution/attestation to Arda, and challenge/assessment roles to Seraph and wider governance. None of those names, or a favourable model output, alone proves that the boundary is active on the reader's machine.
 
-| Layer | Purpose |
+Real-world actions such as sending correspondence, publishing media, moving money, accessing customer systems, filing legal or regulatory submissions, issuing consequential educational judgments or authorizing spending require separately verified identity, policy, rights and human approval. Legal, tax, accounting, medical and other regulated interpretations remain with qualified people where applicable.
+
+The commercial-truth layer likewise separates offers, interest, controlled payments, verified payments, fulfilment, accepted delivery, customer value, repeatability and positive same-currency economics.
+
+**Never commit:** credentials, private keys, customer records without authorization, model/source assets without rights clearance, or generated personal data. Runtime receipts must not leak secrets through logs or public sites.
+
+---
+
+## Repository map and source of truth
+
+| Location | Responsibility |
 |---|---|
-| **Organism** | Shared reasoning, evidence, governance, memory and execution capabilities |
-| **META runtime** | Reusable product-level primitives such as Evidence, Assurance, Authority and Room |
-| **Work patterns** | Governed patterns for evidence, obligations, proof, review and delivery |
-| **Profiles** | Versioned domain, framework, authority, connector, output and commercial configuration |
-| **Products** | Compiled compositions of capabilities, patterns and profiles |
-| **Incarnations** | Concrete products that prove the shared factory works in different domains |
+| `config/` | Product manifests, source contracts, profiles, creative organ and genre registries |
+| `products/` | Product runners, native/composite execution, review and organ adapters |
+| `adapters/` | Interfaces to specialist engines, document, linguistic and assurance processors |
+| `presence_core/` | Customer journey, intake and operator production coordination |
+| `obligation/`, `evidence/`, `schemas/` | Shared obligations, evidence semantics and contracts |
+| `atlas/` | Domain discovery and candidate mappings, not automatically certified capability |
+| `dashboard/` | Local operator, product and customer-review surfaces |
+| `scripts/` | Operator commands, validators, renderers, gauntlets and packagers |
+| `docs/` | Doctrine, implementation handoffs, audits, limitations and acceptance guidance |
+| `deliverables/` | Selected portable examples and review packages; not the entire local media archive |
+| `state/`, `telemetry/`, `acceptance_runs/` | Local generated state and evidence where present, not necessarily tracked artifacts |
 
-This distinction is the foundation of the product factory.
-
-DIO does not build every product as a new silo. It compiles products from shared governed machinery, then forces each incarnation to prove that it has not forked the core, widened its own authority or borrowed maturity from a sibling.
-
----
-
-## The Constitutional Laws
-
-DIO is built around explicit refusals as much as capabilities.
-
-- Planning authority is not execution authority.
-- Execution authority is not disclosure authority.
-- Provider existence is not generic capability.
-- A model response is not evidence.
-- Evidence sufficiency is not legal or professional judgment.
-- Proof integrity is not proof of fulfilment.
-- Payment is not automatically attributed revenue.
-- Payment is not fulfilment.
-- Delivery is not customer value.
-- One successful customer is not repeatability.
-- Repeatability is not economic proof.
-- A controlled test is not market validation.
-- Absence of evidence is `UNKNOWN`, not zero and not failure.
-- Currencies are never silently combined into a fictional total.
-- No product may create authority merely because execution succeeded.
-- No autonomous path may promote learning directly into consequential execution.
-
-These boundaries are executable acceptance conditions, not decorative ethics prose.
+Important reading: [Metamorphic philosophy](docs/DIO_METAMORPHIC_CASCADE_CANON.md) · [Customer qualification](docs/audits/2026-10-27-sellable-product-pathways.md) · [November 4 reconciliation](docs/reconciliation/2026-11-04-worktree-reconciliation.md) · [Creative integration](docs/DIO_SONORIS_PICTORA_INTEGRATION_HANDOFF.md) · [HOMS learning handoff](docs/HOMS_EXAM_TO_LEARNING_STUDIO_HANDOFF.md) · [AI/Seraph scope](docs/AI_PROOF_SERAPH_TELEMETRY.md).
 
 ---
 
-## The Product Factory
+## The thesis
 
-The canonical factory path is:
+DIO is an attempt to make a difficult promise practical:
 
-```text
-Portfolio Constitution
-        ↓
-Profile Schemas
-        ↓
-Product Compiler
-        ↓
-Work Pattern Contracts
-        ↓
-Obligation Engine
-        ↓
-Proof Products
-        ↓
-Reference Incarnation Gauntlet
-        ↓
-META Runtime
-        ↓
-GoldenEye Control Deck
-        ↓
-Commercial Truth
-        ↓
-Paid Reference Products
-        ↓
-Profile-driven Expansion
-        ↓
-AI & Digital Trust
-        ↓
-Regulated Markets
-        ↓
-Self-expanding Product Factory
-        ↓
-Product Incarnation Studio
-```
+**Intelligence should be able to compose across disciplines, improve through evidence, and produce work worth paying for, without confusing its imagination with its competence or its success with its permission.**
 
-A product manifest declares what a product needs. The compiler resolves its capabilities and profiles, identifies missing or ambiguous providers, and emits deterministic composition fingerprints. A valid composition may become executable only through a bounded product executor, and even then execution remains human-initiated.
+The system's value will not ultimately be proven by the number of organs, phases, routes or generated artifacts. It will be proven when independent reviewers and real customers find its outputs **accurate, useful, traceable, better than reasonable alternatives and economically repeatable**.
 
-The result is not “AI that can do anything.” It is a factory that can state precisely what a product can do, why it may do it, which evidence supports it, and where it must stop.
+Until then, DIO should keep building, testing, correcting, and recording exactly what it knows.
 
----
-
-## Current Build State
-
-The original fifteen-phase portfolio programme is complete; the expansion programme now reaches **Phase 16**.
-
-| Phase | Capability | State | Acceptance receipt |
-|---:|---|---|---|
-| 0 | Portfolio Constitution | Complete | Constitutional vocabulary and boundaries frozen |
-| 1 | Profile Foundation | Complete | Source-, version- and hash-bound profiles |
-| 2 | Product Compiler v1 | Complete | Deterministic governed composition |
-| 3 | Work Pattern Contracts | Complete | Planning separated from execution |
-| 4 | Obligation Engine | Complete | Shared conservative obligation core |
-| 5 | ContractProof | Complete | `DIO_CONTRACTPROOF_GOLDEN_READY` |
-| 6 | Obligation Product Family | Complete | `DIO_OBLIGATION_FAMILY_READY` |
-| 7 | Reference Incarnation Gauntlet | Complete | `DIO_REFERENCE_INCARNATION_GAUNTLET_READY` |
-| 8 | META Runtime Consolidation | Complete | `DIO_META_RUNTIME_CONSOLIDATED_READY` |
-| 9 | GoldenEye Control Deck Portfolio OS | Complete | `DIO_CONTROL_DECK_PORTFOLIO_OS_READY` |
-| 10 | Commercial Truth Layer | Complete | `DIO_COMMERCIAL_TRUTH_LAYER_READY` |
-| 11 | Paid Reference Products | Complete | `DIO_PAID_REFERENCE_PRODUCTS_READY` |
-| 12 | Profile-driven Expansion | Complete | `DIO_PROFILE_DRIVEN_EXPANSION_READY` |
-| 13 | AI & Digital Trust | Complete | `DIO_AI_DIGITAL_TRUST_READY` |
-| 14 | Regulated Markets | Complete | `DIO_REGULATED_MARKETS_READY` |
-| 15 | Self-expanding Product Factory | Complete | `DIO_SELF_EXPANDING_PRODUCT_FACTORY_READY` |
-| 16 | Product Incarnation Studio | Complete | `DIO_PRODUCT_INCARNATION_STUDIO_READY` |
-
-“Complete” means the phase-specific acceptance and inherited regression gates pass. It does not silently mean external validation, legal approval, market success or autonomous authority.
-
----
-
-## The Self-expanding Factory
-
-Phase 15 closes the original programme by turning product expansion itself into a governed, proof-carrying operation.
-
-A closed declarative specification can now generate:
-
-- four product-specific source-bound profiles;
-- bindings to the existing connector and commercial profiles;
-- an ordinary canonical product manifest;
-- exact-scope capability and executor registrations;
-- a generated validation contract;
-- a GoldenEye registration projection;
-- deterministic JSON, HTML, DOCX and PDF outputs;
-- proof manifests and execution receipts.
-
-The reference specification generates **DIO IncidentReadinessProof** inside an isolated materialised repository. The ordinary Product Compiler compiles it; no special compiler bypass exists. The final gauntlet verifies deterministic materialisation and execution, source/hash custody, registry integrity, artifact integrity, input immutability, tamper detection, path confinement, unearned-capability refusal, maturity ceilings and external-release refusal.
-
-Self-expanding does not mean self-authorising. Every generated product begins at `internal_proof`, retains `NEEDS_YOU`, and refuses external effects and release.
-
----
-
-## Product Incarnation Studio
-
-Phase 16 turns a generated internal product into a complete marketfront package. The reference run binds Evidex, HOMS, Sophia, Document Studio, NicheFoundry, Market Command, Vesper, Outlook Mail Core, Presence Core and Commercial Truth through explicit capability providers.
-
-It generates a responsive static site, local-only attachment intake, positioning and campaign strategy, advertising copy and video storyboard, professional DOCX/PDF/HTML sales assets, claim review, customer education, fulfilment and mail drafts, presence deployment preparation, measurement contracts and a hash-bound proof manifest.
-
-Corpus binding is not reported as live adapter execution. Publication, sending, media spend, payment and external delivery remain `REFUSE`.
-
----
-
-## Reference Product Family
-
-The first factory family is built on a shared Obligation Core:
-
-| Product | Domain focus | Shared foundation | Current boundary |
-|---|---|---|---|
-| **ContractProof** | Contract obligations and evidence | Evidence + Obligation + Proof | Internal proof; human fulfilment and disclosure gates remain |
-| **TenderProof** | Tender requirements and submission evidence | Same canonical Obligation Core | No procurement award or compliance claim |
-| **GrantProof** | Grant requirements and evidence readiness | Same canonical Obligation Core | No funding decision or eligibility authority |
-| **PermitProof** | Permit requirements and supporting evidence | Same canonical Obligation Core | No regulator decision or legal clearance |
-
-The Phase 7 gauntlet proves that all four incarnations reuse the same Obligation Core bytes while preserving product-specific proof scope.
-
-ContractProof produces a deterministic Evidence Pack containing:
-
-- JSON;
-- DOCX;
-- PDF;
-- accessible HTML;
-- a proof manifest binding every child artifact by SHA-256.
-
-The pack preserves seven semantic sections, including missing, contested, deadline and human-review registers. Tampering with a child artifact or proof-manifest identity is detected.
-
----
-
-## GoldenEye — Portfolio OS
-
-GoldenEye is DIO’s portfolio-level operating surface.
-
-It projects the canonical product registry, suites, work-pattern readiness, META primitives, compilation state, execution gates, proof maturity and commercial truth into a read-only control view.
-
-GoldenEye does not become a shadow authority layer. It observes canonical state; it does not manufacture maturity, approve release, charge customers or execute products.
-
-Run the local portfolio view:
-
-```bash
-python scripts/serve_goldeneye_portfolio.py
-```
-
-### Operator dashboards and product artifacts
-
-Run the Business Production Workbench and Market workbench in separate
-terminals. If the default ports are already in use, choose free loopback ports
-and configure each dashboard's cross-link to match:
-
-```bash
-.venv/bin/python scripts/serve_business_workbench.py --host 127.0.0.1 --port 8767 --market-port 8771
-.venv/bin/python scripts/serve_market_command_ms10.py --host 127.0.0.1 --port 8771 --business-port 8767
-```
-
-Open `http://127.0.0.1:8767/` for Business and `http://127.0.0.1:8771/` for
-Market. Both bind to localhost; the Business artifact browser is read-only.
-Use the [Professional Evidence Portfolio Gauntlet](./docs/PROFESSIONAL_EVIDENCE_PORTFOLIO_GAUNTLET.md)
-to verify customer-shaped artifact production for selected products or the
-full 53-incarnation portfolio. A failed provider/runtime prerequisite remains
-a failure in its receipt; it is not converted into a successful artifact.
-Evidex and VAMP use the bundled Evidex runtime when present. Set
-`DIO_EVIDEX_ROOT` or `DIO_BEAST_ROOT` to override the corresponding runtime
-location.
-Narrated campaigns need `edge-tts`; the resolver checks the NicheFoundry voice
-runtime and active Python environment. Install it with
-`.venv/bin/python -m pip install edge-tts` or set `EDGE_TTS_BIN` to the executable.
-Campaign rendering also needs `ffmpeg` and `ffprobe`; the resolver checks
-`PATH`, `~/.local/bin`, and `~/bin`. Install them with your OS package manager
-or install a user-local build with `.venv/bin/python -m pip install
-ffmpeg-downloader` followed by `.venv/bin/ffdl install`.
-Profiles that require local Piper narration need the Piper runtime and an
-`.onnx` voice model plus its `.onnx.json` config. Install a local English voice
-with `.venv/bin/python -m pip install piper-tts` and
-`.venv/bin/python -m piper.download_voices --download-dir ~/.local/share/piper en_US-lessac-medium`.
-The resolver checks the active Python environment for Piper and
-`~/.local/share/piper` for voice models.
-
-Vesper's approved public voice uses Pocket TTS's built-in `vera` voice
-(`hf://kyutai/tts-voices/vctk/p229_023_enhanced.wav`). It runs locally on CPU;
-no GPU driver or kernel change is required. Keep Pocket TTS isolated from the
-product environment and install its CPU PyTorch build with:
-
-```bash
-python3 -m venv "$HOME/.local/share/dio-pocket-tts/venv"
-"$HOME/.local/share/dio-pocket-tts/venv/bin/python" -m pip install \
-  --extra-index-url https://download.pytorch.org/whl/cpu pocket-tts
-systemd-run --user --unit=dio-pocket-tts --property=Restart=on-failure --collect \
-  -- "$HOME/.local/share/dio-pocket-tts/venv/bin/pocket-tts" serve \
-  --host 127.0.0.1 --port 8000 --default-voice vera
-```
-
-The Vesper renderer sends `voice_url=vera` to `http://127.0.0.1:8000/tts`.
-Verify local rendering with:
-
-```bash
-curl --data-urlencode 'text=Vesper is ready.' \
-  --data-urlencode 'voice_url=vera' \
-  http://127.0.0.1:8000/tts --output /tmp/vera-smoke.wav
-```
-
-Academic-research campaign projections use this same approved Vera profile.
-Their narration is rendered through the local service, recorded in a
-`POCKET_TTS_NARRATION_RECEIPT.json`, and does not authorize publication or spend.
-
-The shared local LLM is Granite 3.2 2B through Ollama. Install it with
-`ollama pull granite3.2:2b`; the runtime reads `OLLAMA_MODEL` and `OLLAMA_URL`
-from the process environment or `~/.config/dio/sovereign.env`. Product-specific
-HOMS, Sophia, Vesper, and Document Studio routes use that same model setting.
-Bounded Evidex generation remains explicitly LLM-disabled where its
-deterministic contract requires it.
-
----
-
-## Commercial Truth
-
-Phase 10 gives DIO a formal commercial evidence ladder:
-
-```text
-offer published
-    ≠ qualified demand
-    ≠ verified payment
-    ≠ attributed revenue
-    ≠ fulfilment
-    ≠ accepted delivery
-    ≠ confirmed customer value
-    ≠ repeatability
-    ≠ economic proof
-```
-
-Commercial observations are projected into `UNKNOWN`, `OBSERVED`, `SUPPORTED`, `CONTESTED` or `REFUSED` states.
-
-The layer discovers provider payment events, orders, transactions and typed commercial evidence. It preserves genuine observations without laundering them into stronger claims. Controlled and sandbox evidence remain visible but cannot become market validation.
-
-Economic proof requires multiple independent external customers, complete payment/fulfilment/delivery/value evidence, recorded costs and labour, positive same-currency contribution, and human commercial review.
-
----
-
-## First Paid Reference Journey
-
-Phase 11 adds `contractproof_reference_review`, the first complete controlled reference-product path:
-
-```text
-website viewed
-    ↓
-offer information acknowledged
-    ↓
-mailer submitted
-    ↓
-USD 1.00 controlled test payment verified
-    ↓
-bounded ContractProof fulfilment
-    ↓
-proof integrity verified
-    ↓
-RESOLVED_CONTROLLED_TEST
-```
-
-The local reference storefront refuses card and banking fields. It generates a controlled payment receipt rather than moving money, then asks Phase 10 to classify the event. Phase 10 verifies it while refusing revenue attribution and market-validation claims.
-
-Run it locally:
-
-```bash
-python scripts/serve_paid_reference_phase11.py \
-  --output /tmp/dio-phase11-browser
-```
-
-Open `http://127.0.0.1:8111`.
-
----
-
-## The Wider DIO Portfolio
-
-The repository also contains operational substrates, governed products and specialist systems that predate or feed the new product factory:
-
-- **Evidex** — evidence-pack and transaction-loop products;
-- **HOMS** — marking, assessment, exam and learning studios;
-- **Sophia** — evidence-grounded academic review with preserved authorship;
-- **VAMP** — institutional evidence mapping and performance snapshots;
-- **Document Studio / DIO Lingua** — semantic document transformation, multilingual review and format projection;
-- **NicheFoundry** — governed market and media production infrastructure;
-- **Hivenance** — bounded market-intelligence and competing-hypothesis machinery;
-- **Outlook Triage and DIO Mail Core** — governed intake, routing, drafts and human-approved sending;
-- **Lilith Presence** — separated public and operator-facing presence surfaces;
-- **BEAST, Arda, Seraph and related organs** — evidence, governance, challenge, runtime and attestation capabilities.
-
-These are not all equally mature, nor are they all yet compiled through the new factory. The roadmap progressively incorporates and profiles them without pretending that repository presence equals product readiness.
-
----
-
-## Quick Verification
-
-Run the current phase chain from the repository root:
-
-```bash
-python scripts/validate_product_constitution.py
-python scripts/validate_product_compiler.py
-python scripts/validate_work_pattern_runtime.py
-python scripts/validate_obligation_engine.py
-python scripts/validate_contractproof_phase5.py
-python scripts/validate_obligation_family_phase6.py
-python scripts/run_reference_incarnation_gauntlet.py --output /tmp/dio-phase7
-python scripts/run_meta_runtime_phase8.py --output /tmp/dio-phase8
-python scripts/run_control_deck_phase9.py --output /tmp/dio-phase9
-python scripts/run_commercial_truth_phase10.py --output /tmp/dio-phase10
-python scripts/run_paid_reference_phase11.py --output /tmp/dio-phase11
-python scripts/run_profile_expansion_phase12.py --output /tmp/dio-phase12
-python scripts/run_ai_digital_trust_phase13.py --output /tmp/dio-phase13
-python scripts/run_regulated_markets_phase14.py --output /tmp/dio-phase14
-python scripts/run_self_expanding_product_factory_phase15.py --output /tmp/dio-phase15
-python scripts/run_product_incarnation_studio_phase16.py --output /tmp/dio-phase16
-```
-
-Focused tests:
-
-```bash
-python -m pytest -q \
-  tests/test_product_compiler_phase2.py \
-  tests/test_work_pattern_runtime_phase3.py \
-  tests/test_obligation_engine_phase4.py \
-  tests/test_contractproof_phase5.py \
-  tests/test_obligation_family_phase6.py \
-  tests/test_reference_incarnation_gauntlet_phase7.py \
-  tests/test_meta_runtime_phase8.py \
-  tests/test_control_deck_phase9.py \
-  tests/test_commercial_truth_phase10.py \
-  tests/test_paid_reference_phase11.py \
-  tests/test_profile_expansion_phase12.py \
-  tests/test_ai_digital_trust_phase13.py \
-  tests/test_regulated_markets_phase14.py \
-  tests/test_self_expanding_product_factory_phase15.py \
-  tests/test_product_incarnation_studio_phase16.py
-```
-
----
-
-## Repository Map
-
-```text
-config/products/     Product manifests, profiles and golden fixtures
-products/            Compiler, runtimes, product adapters and gauntlets
-obligation/          Shared Obligation Core
-evidence/            Shared evidence sufficiency and gap functions
-schemas/             Closed contracts for products, profiles and receipts
-dashboard/           GoldenEye and reference-product interfaces
-commerce/            Commercial orchestration substrate
-adapters/             Bounded bridges to specialist systems
-scripts/              Validation, execution and operator entrypoints
-state/                Generated operational state and proof projections
-telemetry/            Append-only events and measurements
-docs/                 Architecture, phase proofs, audits and operating guidance
-```
-
----
-
-## Security and Authority Boundaries
-
-- Never commit API keys, OAuth tokens, payment credentials or private customer evidence.
-- Public intake does not accept payment-card or banking credentials.
-- Browser return pages are never payment proof; only verified provider events may change payment state.
-- Consequential sending, disclosure, publication, spending and delivery remain human-gated.
-- Generated proof is not legal advice, professional certification, regulatory approval or a waiver.
-- Test receipts must remain visibly controlled and excluded from commercial validation.
-- Product maturity belongs to the product that earned it; it is never inherited from another incarnation.
-
----
-
-## The Thesis
-
-Most AI systems optimize for plausible output.
-
-DIO optimizes for **governed consequence**.
-
-It treats provenance, uncertainty, authority, reproducibility, commercial truth and human judgment as part of the intelligence itself—not paperwork added after generation.
-
-The ambition is a self-expanding product factory capable of discovering and composing new product candidates from reusable governed intelligence without sacrificing the boundaries that make its results trustworthy.
-
-That is **Deterministic Intelligence Orchestration**.
-
-
-## Phase 16.1 — Media Incarnation
-
-Phase 16.1 crosses the boundary from planned media to produced media. It natively invokes the repository's NicheFoundry campaign functions, renders advertisements, a five-slide carousel and a YouTube thumbnail, synthesizes offline spoken narration, emits timed captions, and composes a real 1080p H.264/AAC video. Sophia reviews the produced script and Evidex binds every resulting byte.
-
-Media creation does not create publication or spend authority. External publication, external sending and media spend remain `REFUSE`; the human gate remains `NEEDS_YOU`.
-
-```bash
-python -m pytest -q tests/test_media_incarnation_phase16_1.py
-
-python scripts/run_media_incarnation_phase16_1.py \
-  --output /tmp/dio-phase16-1-media-incarnation
-```
-
-Expected acceptance token:
-
-```text
-DIO_MEDIA_INCARNATION_READY
-```
+**Compose boldly. Prove narrowly. Authorize explicitly.**
