@@ -1,0 +1,87 @@
+{
+  "claims": [
+    {
+      "candidate_evidence_record_ids": [
+        "ATTENDANCE"
+      ],
+      "claim_id": "C1",
+      "declared_value": 14,
+      "epistemic_state": "UNVERIFIED",
+      "period_state": "NOT_ESTABLISHED",
+      "record_id": "CLAIM",
+      "source_sha256": "1632775b8d52ca84a51be2089edd1eabf3337d89aa17461016c8b93f5005c45d",
+      "statement": "Claim C1 says 14 community workshops were delivered.",
+      "unit": "workshop"
+    }
+  ],
+  "human_review_required": true,
+  "quantity_comparisons": [
+    {
+      "candidate_record_id": "ATTENDANCE",
+      "claim_id": "C1",
+      "claim_record_id": "CLAIM",
+      "comparability": "Period, population and source authenticity not established; possible comparison only.",
+      "declared_value": 14,
+      "difference": -2,
+      "reported_record_value": 12,
+      "state": "REPORTED_QUANTITY_DIFFERENCE_REQUIRES_REVIEW",
+      "unit": "workshop"
+    }
+  ],
+  "quarantined_record_ids": [],
+  "release_authorized": false,
+  "review_actions": [
+    {
+      "question": "Obtain the underlying dated, identified record and resolve this source-reported limitation: Two additional workshops are mentioned only in an email summary.",
+      "reason": "SOURCE_REPORTED_LIMITATION",
+      "record_id": "EMAIL"
+    },
+    {
+      "question": "Obtain the underlying dated, identified record and resolve this source-reported limitation: Three photographs lack dates or event identifiers.",
+      "reason": "SOURCE_REPORTED_LIMITATION",
+      "record_id": "PHOTO"
+    },
+    {
+      "question": "Reconcile claim C1 (14) with the reported record (12); obtain the underlying record and establish matching period/population. Do not sum email, invoice and photo references as verified delivery counts.",
+      "reason": "QUANTITY_RECONCILIATION",
+      "record_id": "ATTENDANCE"
+    }
+  ],
+  "schema": "dio.evidex.customer_record_review.v1",
+  "scope": "Reported documentary leads and arithmetic comparisons; no independent verification, outcome certification or donor approval.",
+  "source_records": [
+    {
+      "freshness_state": "unknown",
+      "record_id": "CLAIM",
+      "sha256": "1632775b8d52ca84a51be2089edd1eabf3337d89aa17461016c8b93f5005c45d",
+      "source_filename": "CLAIM.txt",
+      "text": "Claim C1 says 14 community workshops were delivered.",
+      "trust_state": "captured_untrusted"
+    },
+    {
+      "freshness_state": "unknown",
+      "record_id": "ATTENDANCE",
+      "sha256": "c9a8843af163fbb58602e24678a307c08e13ad78f0c17afca32af4712fdb5cbb",
+      "source_filename": "ATTENDANCE.txt",
+      "text": "Attendance sheets support 12 workshops.",
+      "trust_state": "captured_untrusted"
+    },
+    {
+      "freshness_state": "unknown",
+      "record_id": "EMAIL",
+      "sha256": "4b76d2ced5fc4582f9325f59d88b1cac8d590b39a6ac74ac7bfba272fc427ef5",
+      "source_filename": "EMAIL.txt",
+      "text": "Two additional workshops are mentioned only in an email summary.",
+      "trust_state": "captured_untrusted"
+    },
+    {
+      "freshness_state": "unknown",
+      "record_id": "PHOTO",
+      "sha256": "57ac7c6f7b174825120dfa8e8e5b0c37fafad3fc41b0875ebe0b2c35e0809a65",
+      "source_filename": "PHOTO.txt",
+      "text": "Three photographs lack dates or event identifiers.",
+      "trust_state": "captured_untrusted"
+    }
+  ],
+  "support_adjudicated": false
+}

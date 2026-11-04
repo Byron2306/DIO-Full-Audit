@@ -11,6 +11,7 @@ HOMS=ROOT/'deliverables/homs_grade12_business_studies_full_nsc_candidate_2026110
 VERDICTS=ROOT/'deliverables/product_readiness_verdicts_20261104'
 PREFIX='product_proof_portfolio_20261104/'
 NEW_REL='proofs/homs_exam/payload/deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip'
+EVIDEX_DIR=ROOT/'deliverables/evidex_claim_truth_benchmark_20261104'
 
 def sha(data:bytes)->str:return hashlib.sha256(data).hexdigest()
 
@@ -29,6 +30,17 @@ row['quality_limits']=[
  'The Grade 12 item matrix is intentionally blank/PENDING. No independent educator scoring, semantic memo validation, moderation, customer acceptance or release authorization is claimed.',
  'CAPS source mapping and hash binding do not prove full-year curriculum coverage, item correctness, classroom suitability or DBE endorsement.'
 ]
+evidex=next(r for r in index['products'] if r['product_id']=='evidex_evidenceops')
+truth_prefix=PREFIX+'proofs/evidex_evidenceops/truth_benchmark/'
+truth_files=[]
+for path in sorted(EVIDEX_DIR.rglob('*')):
+    if path.is_file():
+        relative=path.relative_to(EVIDEX_DIR).as_posix(); archive_path=truth_prefix+relative
+        data=path.read_bytes(); files[archive_path]=data
+        truth_files.append({'path':'truth_benchmark/'+relative,'source_path':path.relative_to(ROOT).as_posix(),'bytes':len(data),'sha256':sha(data)})
+evidex['truth_benchmark']={'case_id':'SYNTHETIC-EVIDEX-1','state':'STRUCTURED_REFERENCE_MATCH_9_OF_9; INDEPENDENT_EXPERT_REVIEW_PENDING','files':truth_files,'customer_acceptance':'NOT_ESTABLISHED','release_authorized':False}
+evidex.setdefault('quality_limits',[]).append('A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.')
+files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
 index['selection_policy']=index['selection_policy'].replace('HOMS Exam selects the saved Grades 1-12 candidate ZIP.','HOMS Exam selects Grades 1-11 candidates plus the complete two-paper Grade 12 candidate ZIP.')
 files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
 html_path=PREFIX+'index.html'

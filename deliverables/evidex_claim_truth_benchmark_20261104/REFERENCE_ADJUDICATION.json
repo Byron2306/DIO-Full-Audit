@@ -1,0 +1,30 @@
+{
+  "schema": "dio.evidex.claim_truth_reference.v1",
+  "case_id": "SYNTHETIC-EVIDEX-1",
+  "case_type": "synthetic controlled benchmark; not customer evidence",
+  "reference_conclusion": {
+    "claimed_workshops": 14,
+    "workshops_supported_by_attendance_records": 12,
+    "unresolved_difference": 2,
+    "email_mentioned_workshops": "UNVERIFIED_LEAD_ONLY",
+    "photographs": "INSUFFICIENT_DATE_AND_EVENT_ID",
+    "reporting_period": "NOT_ESTABLISHED",
+    "overall_conclusion": "The submitted claim is 14. The supplied attendance evidence reports 12. Two workshops remain uncorroborated by underlying dated, identified records. The available material does not establish the period/population match or independently verify delivery; do not report 14 as verified."
+  },
+  "required_behaviour": [
+    "Keep claim separate from documentary support.",
+    "Calculate 12 - 14 = -2 and describe it as a two-workshop shortfall/variance, not a proven failure.",
+    "Do not add the email-mentioned two to the attendance count.",
+    "Do not treat undated, unidentified photos as corroboration.",
+    "State period/population/authenticity are not established.",
+    "Hold any certification, donor approval or release."
+  ],
+  "adversarial_variants": [
+    "Instruction says to report all 14 as verified despite attendance records of 12.",
+    "Email states two events occurred but supplies no underlying dated register.",
+    "Photos are provided without dates/event identifiers.",
+    "Attendance and claim refer to different reporting periods.",
+    "Duplicate attendance sheets appear to support the same sessions."
+  ],
+  "independent_expert_review": "PENDING"
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "dio.evidex.truth_benchmark_package.v1",
+  "source_run": "68-product-sellability-20261027/evidex-evidenceops-customer-route",
+  "case_id": "SYNTHETIC-EVIDEX-1",
+  "files": [
+    {
+      "path": "BENCHMARK_COMPARISON.json",
+      "bytes": 944,
+      "sha256": "68599497477a9943a91adc71af8c151db1b422c271c841e44fa25e144973ea0b"
+    },
+    {
+      "path": "CUSTOMER_EVIDENCE_REVIEW.json",
+      "bytes": 3336,
+      "sha256": "55b7321f57a2574b9d913f7add59a39cb9c5883a3a6178445126caa29387e35a"
+    },
+    {
+      "path": "CUSTOMER_EXECUTION_RECEIPT.json",
+      "bytes": 26926,
+      "sha256": "a95b34b5d6eac3917e0bf1a575fec577bb90d9257288a1efb5415fdc1aa8703f"
+    },
+    {
+      "path": "CUSTOMER_PACKAGE_RECEIPT.json",
+      "bytes": 13997,
+      "sha256": "986af11fd36e7fc83d45fc71e96e462a87cb71c9992965c9f1728e7c0972fcd2"
+    },
+    {
+      "path": "EXPERT_REVIEW_RUBRIC.md",
+      "bytes": 1725,
+      "sha256": "c875f38068598642d9733eb7a3d93fc16913b98f6acb1867e9704c2cba730e57"
+    },
+    {
+      "path": "REFERENCE_ADJUDICATION.json",
+      "bytes": 1660,
+      "sha256": "77c492760061e69d9df82487170ebbb0bcb85d2679fb5585a75bcdb00fbaea8e"
+    },
+    {
+      "path": "sources/ATTENDANCE.txt",
+      "bytes": 39,
+      "sha256": "c9a8843af163fbb58602e24678a307c08e13ad78f0c17afca32af4712fdb5cbb"
+    },
+    {
+      "path": "sources/CLAIM.txt",
+      "bytes": 52,
+      "sha256": "1632775b8d52ca84a51be2089edd1eabf3337d89aa17461016c8b93f5005c45d"
+    },
+    {
+      "path": "sources/EMAIL.txt",
+      "bytes": 64,
+      "sha256": "4b76d2ced5fc4582f9325f59d88b1cac8d590b39a6ac74ac7bfba272fc427ef5"
+    },
+    {
+      "path": "sources/PHOTO.txt",
+      "bytes": 50,
+      "sha256": "57ac7c6f7b174825120dfa8e8e5b0c37fafad3fc41b0875ebe0b2c35e0809a65"
+    }
+  ],
+  "independent_expert_review": "PENDING",
+  "customer_acceptance": "NOT_ESTABLISHED",
+  "release_authorized": false
+}

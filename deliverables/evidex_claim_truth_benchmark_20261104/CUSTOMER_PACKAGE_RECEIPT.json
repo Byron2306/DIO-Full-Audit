@@ -1,0 +1,291 @@
+{
+  "authority_created": false,
+  "case_id": "SYNTHETIC-EVIDEX-1",
+  "commercial_validation": "UNPROVED",
+  "customer_packet_sha256": "68a5624b30679902a30804ae4b3a62b0c0beee6e496970b99724206950380257",
+  "executed_providers": [
+    "scripts.run_evidex_jobs.run_evidex",
+    "products.evidex_customer_review.build_record_review",
+    "adapters.lingua.lifecycle.register_product_source",
+    "adapters.format_core.renderer.render_semantic_asset"
+  ],
+  "external_effects": false,
+  "format_core_receipt": {
+    "claim_boundary": "Format Core rebuilds typed semantic content through controlled profiles; it does not claim pixel-identical reconstruction of arbitrary source files.",
+    "delivery_profile": "editable_review",
+    "delivery_profile_hash": "6edd3459fdf23d7ce62d5bf1ed48796f132f98e2ec25273a777c02aa84b0ece8",
+    "language": {
+      "lane": "source",
+      "language": "en",
+      "stale_units": [],
+      "status": "canonical"
+    },
+    "object_id": "CUSTOMER-68a5624b30679902a30804ae",
+    "outputs": [
+      {
+        "bytes": 38334,
+        "channel": "docx",
+        "path": "customer-68a5624b30679902a30804ae-en.docx",
+        "sha256": "8c827cbd778c4a22dbabcc1d0f1da7b6da68168e24899376bed5707ffc794a97"
+      },
+      {
+        "bytes": 4695,
+        "channel": "html",
+        "path": "customer-68a5624b30679902a30804ae-en.html",
+        "sha256": "dfc49e4f9ace484aed89352bc6a3b3b68389b85d2a797d1409de00c349c99af7"
+      },
+      {
+        "bytes": 63795,
+        "channel": "pdf",
+        "path": "customer-68a5624b30679902a30804ae-en.pdf",
+        "sha256": "a6e52bf0bd4e79caabecee8005bb2b3f8ab3b537e7364a4bde22a06a5894a24e"
+      }
+    ],
+    "pictora_visual": {
+      "asset": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/customer_delivery/pictora_visuals/evidex-evidenceops-customer-review-package.jpg",
+      "receipt": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/customer_delivery/customer-68a5624b30679902a30804ae-en_PICTORA_VISUAL_RECEIPT.json",
+      "state": "ATTACHED_FOR_REVIEW"
+    },
+    "qa": {
+      "errors": [],
+      "passed": true,
+      "semantic_completeness": {
+        "docx": {
+          "expected_strings": 31,
+          "missing": [],
+          "missing_count": 0
+        },
+        "html": {
+          "expected_strings": 31,
+          "missing": [],
+          "missing_count": 0
+        }
+      },
+      "warnings": []
+    },
+    "release_mode": false,
+    "rendered_at": "2026-11-01T08:06:13+00:00",
+    "schema": "dio.format_core.receipt.v1",
+    "semantic_blocks": 10,
+    "semantic_source_hash": "6fea5e7086bc7074dafc017de4c3d60b7e026159390f2b9891de9129c9dd0d01",
+    "source_version": "1.0.0",
+    "status": "rendered_review_candidate",
+    "style_profile": "minimal_print",
+    "style_profile_hash": "babc22e60b1f2766f3f728f880e7b2468776a4ec217195549036a88a5eb890a1",
+    "templates": {},
+    "translation_expansion_ratio": 1.0
+  },
+  "full_evidex_pack_engine_invoked": true,
+  "human_review_required": true,
+  "lingua_source_document_hash": "sha256:6d72d9aa101798adb4ca97bde09f9289ce03115c11ba17c9ab63d394cd890fcb",
+  "native_processing_receipt": {
+    "command": [
+      "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/cross_folder_variants/Evidex/A_CODE/.venv/bin/python",
+      "-m",
+      "evidence_pack_engine.cli",
+      "generate",
+      "--intake",
+      "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/intake.json",
+      "--uploads",
+      "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/uploads",
+      "--out",
+      "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/output"
+    ],
+    "created_at": "2026-11-01T08:06:11+00:00",
+    "engine_returncode": 0,
+    "intake_path": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/intake.json",
+    "job_id": "CUSTOMER-224170cd93915794d921",
+    "output_dir": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/output",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "EVIDEX_PACK_ROOT=/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/output/Synthetic_community_programme_Synthetic_community_workshop_evidence_reconciliation_Not_supplied_by_customer_to_Not_supplied_by_customer\n/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/output/Synthetic_community_programme_Synthetic_community_workshop_evidence_reconciliation_Not_supplied_by_customer_to_Not_supplied_by_customer_inta.zip",
+    "studio_finish": {
+      "archive_bytes": 564144,
+      "archive_path": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/output/Synthetic_community_programme_Synthetic_community_workshop_evidence_reconciliation_Not_supplied_by_customer_to_Not_supplied_by_customer_inta.zip",
+      "archive_sha256": "7b039bbf1ac8b8213e8d9f419f594c6bc5ef4445beee495b9dd64c1ed75dbe24",
+      "authority_created": false,
+      "external_delivery": "REFUSE",
+      "format_core": {
+        "delivery_profile": "editable_review",
+        "delivery_profile_hash": "6edd3459fdf23d7ce62d5bf1ed48796f132f98e2ec25273a777c02aa84b0ece8",
+        "outputs": [
+          {
+            "bytes": 39286,
+            "channel": "docx",
+            "path": "FORMAT_CORE/evidex-synthetic-community-programme-synthetic-community-workshop-evidence-reconciliation-not-supplied-by-customer-to-not-supplied-by-customer-english.docx",
+            "sha256": "4a76b4d665f0a78624af416cd9bb2b8cf986988b7ba1921821d5c8d260757710"
+          },
+          {
+            "bytes": 4837,
+            "channel": "html",
+            "path": "FORMAT_CORE/evidex-synthetic-community-programme-synthetic-community-workshop-evidence-reconciliation-not-supplied-by-customer-to-not-supplied-by-customer-english.html",
+            "sha256": "d644746b9d272d4a09278c52963df56fa25eadb5e3e96e35ec321626519c43e9"
+          },
+          {
+            "bytes": 3152,
+            "channel": "receipt",
+            "path": "FORMAT_CORE/FORMAT_CORE_RECEIPT.json",
+            "sha256": "4661d0670456bca08ef88506dff118aea145abd0967f0e4486da0d4dc6882158"
+          }
+        ],
+        "qa_passed": true,
+        "release_mode": false,
+        "schema": "dio.format_core.receipt.v1",
+        "semantic_source_hash": "1209e6d4f56753850c96a1a5ba6934e357d7e89584ae9e710d4fe3adfc2e61d3",
+        "status": "rendered_review_candidate",
+        "style_profile": "dio_professional",
+        "style_profile_hash": "f08f383c90917a43a2f70439657fe368302ac1a623a61656cf7443c3bfad23e5"
+      },
+      "nichefoundry": {
+        "executed": false,
+        "state": "AVAILABLE_ON_APPROVED_BRAND_REQUEST"
+      },
+      "production_studio": {
+        "customer_artifact_separated_from_proof": true,
+        "state": "CUSTOMER_REVIEW_PACKAGE_PREPARED"
+      },
+      "publication": "REFUSE",
+      "receipt_path": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/output/Synthetic_community_programme_Synthetic_community_workshop_evidence_reconciliation_Not_supplied_by_customer_to_Not_supplied_by_customer/05_STUDIO_FINISH/EVIDEX_STUDIO_FINISH_RECEIPT.json",
+      "review_boundary": {
+        "human_review_required": true,
+        "release_authorized": false
+      },
+      "spend": "REFUSE",
+      "status": "finished_review_candidate"
+    },
+    "uploads_dir": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/acceptance_runs/68-product-sellability-20261027/evidex-evidenceops-customer-route/native_evidex/evidex/CUSTOMER-224170cd93915794d921/evidex_engine/uploads"
+  },
+  "outputs": [
+    {
+      "bytes": 38334,
+      "channel": "docx",
+      "path": "customer_delivery/customer-68a5624b30679902a30804ae-en.docx",
+      "sha256": "8c827cbd778c4a22dbabcc1d0f1da7b6da68168e24899376bed5707ffc794a97"
+    },
+    {
+      "bytes": 4695,
+      "channel": "html",
+      "path": "customer_delivery/customer-68a5624b30679902a30804ae-en.html",
+      "sha256": "dfc49e4f9ace484aed89352bc6a3b3b68389b85d2a797d1409de00c349c99af7"
+    },
+    {
+      "bytes": 63795,
+      "channel": "pdf",
+      "path": "customer_delivery/customer-68a5624b30679902a30804ae-en.pdf",
+      "sha256": "a6e52bf0bd4e79caabecee8005bb2b3f8ab3b537e7364a4bde22a06a5894a24e"
+    }
+  ],
+  "product_name": "Evidex EvidenceOps",
+  "professional_approval": "NOT_GRANTED",
+  "record_review": {
+    "claims": [
+      {
+        "candidate_evidence_record_ids": [
+          "ATTENDANCE"
+        ],
+        "claim_id": "C1",
+        "declared_value": 14,
+        "epistemic_state": "UNVERIFIED",
+        "period_state": "NOT_ESTABLISHED",
+        "record_id": "CLAIM",
+        "source_sha256": "1632775b8d52ca84a51be2089edd1eabf3337d89aa17461016c8b93f5005c45d",
+        "statement": "Claim C1 says 14 community workshops were delivered.",
+        "unit": "workshop"
+      }
+    ],
+    "human_review_required": true,
+    "quantity_comparisons": [
+      {
+        "candidate_record_id": "ATTENDANCE",
+        "claim_id": "C1",
+        "claim_record_id": "CLAIM",
+        "comparability": "Period, population and source authenticity not established; possible comparison only.",
+        "declared_value": 14,
+        "difference": -2,
+        "reported_record_value": 12,
+        "state": "REPORTED_QUANTITY_DIFFERENCE_REQUIRES_REVIEW",
+        "unit": "workshop"
+      }
+    ],
+    "quarantined_record_ids": [],
+    "release_authorized": false,
+    "review_actions": [
+      {
+        "question": "Obtain the underlying dated, identified record and resolve this source-reported limitation: Two additional workshops are mentioned only in an email summary.",
+        "reason": "SOURCE_REPORTED_LIMITATION",
+        "record_id": "EMAIL"
+      },
+      {
+        "question": "Obtain the underlying dated, identified record and resolve this source-reported limitation: Three photographs lack dates or event identifiers.",
+        "reason": "SOURCE_REPORTED_LIMITATION",
+        "record_id": "PHOTO"
+      },
+      {
+        "question": "Reconcile claim C1 (14) with the reported record (12); obtain the underlying record and establish matching period/population. Do not sum email, invoice and photo references as verified delivery counts.",
+        "reason": "QUANTITY_RECONCILIATION",
+        "record_id": "ATTENDANCE"
+      }
+    ],
+    "schema": "dio.evidex.customer_record_review.v1",
+    "scope": "Reported documentary leads and arithmetic comparisons; no independent verification, outcome certification or donor approval.",
+    "source_records": [
+      {
+        "freshness_state": "unknown",
+        "record_id": "CLAIM",
+        "sha256": "1632775b8d52ca84a51be2089edd1eabf3337d89aa17461016c8b93f5005c45d",
+        "source_filename": "CLAIM.txt",
+        "text": "Claim C1 says 14 community workshops were delivered.",
+        "trust_state": "captured_untrusted"
+      },
+      {
+        "freshness_state": "unknown",
+        "record_id": "ATTENDANCE",
+        "sha256": "c9a8843af163fbb58602e24678a307c08e13ad78f0c17afca32af4712fdb5cbb",
+        "source_filename": "ATTENDANCE.txt",
+        "text": "Attendance sheets support 12 workshops.",
+        "trust_state": "captured_untrusted"
+      },
+      {
+        "freshness_state": "unknown",
+        "record_id": "EMAIL",
+        "sha256": "4b76d2ced5fc4582f9325f59d88b1cac8d590b39a6ac74ac7bfba272fc427ef5",
+        "source_filename": "EMAIL.txt",
+        "text": "Two additional workshops are mentioned only in an email summary.",
+        "trust_state": "captured_untrusted"
+      },
+      {
+        "freshness_state": "unknown",
+        "record_id": "PHOTO",
+        "sha256": "57ac7c6f7b174825120dfa8e8e5b0c37fafad3fc41b0875ebe0b2c35e0809a65",
+        "source_filename": "PHOTO.txt",
+        "text": "Three photographs lack dates or event identifiers.",
+        "trust_state": "captured_untrusted"
+      }
+    ],
+    "support_adjudicated": false
+  },
+  "schema": "dio.customer_specialist_package.v1",
+  "source_inventory": [
+    {
+      "sha256": "1632775b8d52ca84a51be2089edd1eabf3337d89aa17461016c8b93f5005c45d",
+      "source_id": "CLAIM",
+      "title": "CLAIM"
+    },
+    {
+      "sha256": "c9a8843af163fbb58602e24678a307c08e13ad78f0c17afca32af4712fdb5cbb",
+      "source_id": "ATTENDANCE",
+      "title": "ATTENDANCE"
+    },
+    {
+      "sha256": "4b76d2ced5fc4582f9325f59d88b1cac8d590b39a6ac74ac7bfba272fc427ef5",
+      "source_id": "EMAIL",
+      "title": "EMAIL"
+    },
+    {
+      "sha256": "57ac7c6f7b174825120dfa8e8e5b0c37fafad3fc41b0875ebe0b2c35e0809a65",
+      "source_id": "PHOTO",
+      "title": "PHOTO"
+    }
+  ],
+  "status": "HELD_REVIEW_PACKAGE_RENDERED"
+}

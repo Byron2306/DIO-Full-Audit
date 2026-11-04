@@ -1,0 +1,22 @@
+{
+  "schema": "dio.evidex.truth_benchmark_comparison.v1",
+  "reference_file": "REFERENCE_ADJUDICATION.json",
+  "observed_file": "CUSTOMER_EVIDENCE_REVIEW.json",
+  "checks": {
+    "claim_value": true,
+    "attendance_reported_value": true,
+    "difference_is_minus_two": true,
+    "claim_not_verified": true,
+    "comparison_requires_human_review": true,
+    "email_not_promoted_to_verified_count": true,
+    "undated_photos_not_promoted_to_evidence": true,
+    "release_held": true,
+    "human_review_required": true
+  },
+  "mechanical_reference_match": true,
+  "independent_expert_review": "PENDING",
+  "human_customer_acceptance": "NOT_ESTABLISHED",
+  "source_state": "SYNTHETIC_CONTROLLED_INPUTS",
+  "release_authorized": false,
+  "claim_boundary": "The comparison confirms the synthetic output matches the stated reference facts and safety constraints. It does not validate product correctness on real records, or replace expert review."
+}

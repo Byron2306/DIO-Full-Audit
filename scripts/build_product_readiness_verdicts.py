@@ -34,6 +34,7 @@ def verdict(row:dict)->dict:
       'release':{'verdict':release,'evidence':'release_authorized' if release=='PASS' else 'release authorization absent'},
       'professional_readiness':'READY' if all(x=='PASS' for x in (execution,output_quality,evidence,customer,release)) else 'NOT_ESTABLISHED',
       'limitations':list(row.get('quality_limits') or []),
+      'truth_benchmark':row.get('truth_benchmark'),
       'source_artifact':row.get('source_artifact'),'artifact_sha256':row.get('artifact_sha256'),
       'product_evidence':row.get('product_evidence'),
     }
