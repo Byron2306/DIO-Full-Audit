@@ -1,0 +1,213 @@
+{
+  "schema": "dio.fundingfinder.live_source_refresh_receipt.v1",
+  "product": "FundingFinder",
+  "generated_at_utc": "2026-11-04T17:12:04+00:00",
+  "as_of": "2026-11-04",
+  "run_root": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3",
+  "pipeline": "scripts/run_funding_finder_acceptance.py --fetch-official",
+  "status": "LIVE_OFFICIAL_SOURCES_CAPTURED_PIPELINE_QA_PASSED_PRODUCT_QUALIFICATION_UNPROVED",
+  "scenarios": [
+    {
+      "scenario": "south-africa-moya-live",
+      "as_of": "2026-11-04",
+      "applicant_synthetic": true,
+      "qa_passed": true,
+      "opportunities": [
+        {
+          "id": "NYDA-GRANT",
+          "fit_state": "unknown_review_required",
+          "timing_state": "unknown",
+          "source_sha256": "4d138ab76736a9cf97e929a4aed7204d15950323ab0400fd4d16f9eb4d11f6a1"
+        },
+        {
+          "id": "TIA-SEED",
+          "fit_state": "unknown_review_required",
+          "timing_state": "unknown",
+          "source_sha256": "0513dd815e34e368b402e7646e28ef965923e895787a23248a01f0725f84f1cf"
+        }
+      ],
+      "source_register": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/source_register.json",
+      "eligibility_matrix": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/eligibility_matrix.json",
+      "package_manifest": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/package_manifest.json"
+    },
+    {
+      "scenario": "south-africa-agri-live",
+      "as_of": "2026-11-04",
+      "applicant_synthetic": true,
+      "qa_passed": true,
+      "opportunities": [
+        {
+          "id": "NYDA-GRANT",
+          "fit_state": "mismatch_on_supplied_record",
+          "timing_state": "unknown",
+          "source_sha256": "4d138ab76736a9cf97e929a4aed7204d15950323ab0400fd4d16f9eb4d11f6a1"
+        },
+        {
+          "id": "TIA-SEED",
+          "fit_state": "unknown_review_required",
+          "timing_state": "unknown",
+          "source_sha256": "0513dd815e34e368b402e7646e28ef965923e895787a23248a01f0725f84f1cf"
+        }
+      ],
+      "source_register": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/source_register.json",
+      "eligibility_matrix": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/eligibility_matrix.json",
+      "package_manifest": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/package_manifest.json"
+    },
+    {
+      "scenario": "uk-jurisdiction-mismatch-live",
+      "as_of": "2026-11-04",
+      "applicant_synthetic": true,
+      "qa_passed": true,
+      "opportunities": [
+        {
+          "id": "UK-LOTTERY",
+          "fit_state": "mismatch_on_supplied_record",
+          "timing_state": "rolling_stated_confirm_current_availability",
+          "source_sha256": "614ba6db80675152842378d197b9a302cac701e84ddd390b324914e898106240"
+        }
+      ],
+      "source_register": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/source_register.json",
+      "eligibility_matrix": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/eligibility_matrix.json",
+      "package_manifest": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/package_manifest.json"
+    }
+  ],
+  "artifact_index": [
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/acceptance_summary.json",
+      "sha256": "3fba6eb0ad0518f93ebf0a899d122d8f5cb65811141257d30233e691cecb5621",
+      "kind": "pipeline_acceptance_summary"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/sources/NYDA-GRANT.raw",
+      "sha256": "4d138ab76736a9cf97e929a4aed7204d15950323ab0400fd4d16f9eb4d11f6a1",
+      "kind": "official_source_raw_bytes"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/sources/NYDA-GRANT.txt",
+      "sha256": "3742cc95038fb8376d0dc4836e1f12fb9bef7d03798fba58108cdac4db577267",
+      "kind": "official_source_visible_text"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/sources/TIA-SEED.raw",
+      "sha256": "0513dd815e34e368b402e7646e28ef965923e895787a23248a01f0725f84f1cf",
+      "kind": "official_source_raw_bytes"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/sources/TIA-SEED.txt",
+      "sha256": "fc729c463e92ef137663c660018ac35957dde7d0c3e7776ec2ad3899b6b6944f",
+      "kind": "official_source_visible_text"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/source_register.json",
+      "sha256": "52073be30457c6811a32960cfeb63a7aa330240c2033512d5b8874d0e86ca276",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/eligibility_matrix.json",
+      "sha256": "8ba2d2aa63122a78089c06f3ea9f1514dc6e0300878df811d499ac456e43709f",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/package_manifest.json",
+      "sha256": "cafc8dd0a968f1fb069ebd2916b6eab2f83e62a9dec9bb79edf072ac18853565",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-moya-live/controlled_funding_review.zip",
+      "sha256": "76216d29a4e9065febaa6ea97d02afbe9961f097270e77923a44da46e7aa7c81",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/packets/south-africa-moya-live-snapshot.json",
+      "sha256": "590e17167053809e46532d6eeec66d89ede30b6e6b1929b0477d49e07b3b661c",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/sources/NYDA-GRANT.raw",
+      "sha256": "4d138ab76736a9cf97e929a4aed7204d15950323ab0400fd4d16f9eb4d11f6a1",
+      "kind": "official_source_raw_bytes"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/sources/NYDA-GRANT.txt",
+      "sha256": "3742cc95038fb8376d0dc4836e1f12fb9bef7d03798fba58108cdac4db577267",
+      "kind": "official_source_visible_text"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/sources/TIA-SEED.raw",
+      "sha256": "0513dd815e34e368b402e7646e28ef965923e895787a23248a01f0725f84f1cf",
+      "kind": "official_source_raw_bytes"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/sources/TIA-SEED.txt",
+      "sha256": "fc729c463e92ef137663c660018ac35957dde7d0c3e7776ec2ad3899b6b6944f",
+      "kind": "official_source_visible_text"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/source_register.json",
+      "sha256": "ebb260b0b579b1052a4e7a80c95a7d228736367a66924a6bcd7123b03b2401ef",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/eligibility_matrix.json",
+      "sha256": "17177ea43c0f0164db70613a7872d6d46541ef29838c7c6f5ec23e02337c6dca",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/package_manifest.json",
+      "sha256": "97d7f7d16c75919d18e9bf9a38f441725f87c0bb89b52b9226842143319be346",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/south-africa-agri-live/controlled_funding_review.zip",
+      "sha256": "1074672c0472e04aa1840b7954d36b31d658aac63b5cf2200ddb9ea4206ec4c7",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/packets/south-africa-agri-live-snapshot.json",
+      "sha256": "0363346787ea09d3eec102c4bfa7b9ecb4d8151eb2fe1ac6c206240cf6cb3f94",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/sources/UK-LOTTERY.raw",
+      "sha256": "614ba6db80675152842378d197b9a302cac701e84ddd390b324914e898106240",
+      "kind": "official_source_raw_bytes"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/sources/UK-LOTTERY.txt",
+      "sha256": "11c7ba154480ad6e10cb17ce9ca53261d7f6497c0d0bf5febbfff288121f8290",
+      "kind": "official_source_visible_text"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/source_register.json",
+      "sha256": "c695d5e9775872b41c5bf0fdec9f3e713ad7178ef959f307c6b98da108271ba4",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/eligibility_matrix.json",
+      "sha256": "a8547b1d268ed151f2086ee75e495467d35013a6583d2e8fb89f95df56331725",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/package_manifest.json",
+      "sha256": "82d5b6ec32f6815990b304375cbcd112a26ad04952dba33fd01d7ca88d13a6dd",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/uk-jurisdiction-mismatch-live/controlled_funding_review.zip",
+      "sha256": "5af299e95af1d0f33737a3e13cd6756602e1e67b94659da92c3faa105b9e32c0",
+      "kind": "review_output"
+    },
+    {
+      "path": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3/packets/uk-jurisdiction-mismatch-live-snapshot.json",
+      "sha256": "cb5469a236ece73438de45abb16d5ea57660fead1b6088d54fb9af26cbbb1f69",
+      "kind": "review_output"
+    }
+  ],
+  "limitations": [
+    "All applicant profiles are synthetic; no customer applicant evidence was processed.",
+    "Source capture and exact quotation checks do not certify full funder rules, current application availability, eligibility, award likelihood, or application outcome.",
+    "NYDA/TIA eligibility or timing remains unknown or mismatched where evidence does not support a stronger result.",
+    "The UK Lottery case is an England jurisdiction mismatch for a South African applicant.",
+    "No application was submitted and no funding decision or product qualification was created."
+  ]
+}

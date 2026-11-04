@@ -1,6 +1,6 @@
 {
   "schema": "dio.product_readiness_verdicts.v1",
-  "generated_at": "2026-11-04T16:59:05+00:00",
+  "generated_at": "2026-11-04T17:12:06+00:00",
   "qualification_snapshot_sha256": "301ecdc4e2de4cfe36024ba4e8a733617039cdde31a6282ceefd02eee813c16c",
   "method": "Execution, output quality, evidence validity, customer acceptance and release are independent verdicts. A route PASS never promotes another dimension. TRACEABLE_UNVALIDATED means byte lineage exists, not that the interpretation is correct.",
   "summary": {
@@ -1094,6 +1094,9 @@
         "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
         "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
         "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
         "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation."
       ],
       "truth_benchmark": {
@@ -1285,7 +1288,10 @@
         "Fresh source retrieval and source-bound pipeline QA do not prove current application availability, full-rule coverage, customer eligibility, funding decisions or buyer acceptance; confirm with each funder.",
         "This is a synthetic applicant demonstration, not customer acceptance or an eligibility opinion; live availability and complete rules still require funder confirmation.",
         "The synthetic profile does not establish eligible applicant role, qualifying learning programme, Annexure A priority alignment, programme count, unemployed learner age composition or submission readiness. The official page says applications cannot currently be submitted; monitor Services SETA for application arrangements and confirm current requirements. This route does not certify eligibility or award likelihood.",
-        "The application system is currently unavailable and Services SETA has not published application arrangements in the captured notice. Applicant eligibility, required records, final approved strategic criteria and closing time remain unverified; no eligibility decision, score, award likelihood or submission is asserted."
+        "The application system is currently unavailable and Services SETA has not published application arrangements in the captured notice. Applicant eligibility, required records, final approved strategic criteria and closing time remain unverified; no eligibility decision, score, award likelihood or submission is asserted.",
+        "A 2026-11-04 refresh captures three official-source cases (NYDA, TIA and England-only Lottery) and five source responses. Applicant profiles are synthetic. Timing remains unknown for NYDA/TIA, and every result includes applicant evidence preparation or verification actions; this does not prove customer eligibility, live availability or an award.",
+        "A 2026-11-04 refresh captures three official-source cases (NYDA, TIA and England-only Lottery) and five source responses. Applicant profiles are synthetic. Timing remains unknown for NYDA/TIA, and every result includes applicant evidence preparation or verification actions; this does not prove customer eligibility, live availability or an award.",
+        "A 2026-11-04 refresh captures three official-source cases (NYDA, TIA and England-only Lottery) and five source responses. Applicant profiles are synthetic. Timing remains unknown for NYDA/TIA, and every result includes applicant evidence preparation or verification actions; this does not prove customer eligibility, live availability or an award."
       ],
       "truth_benchmark": null,
       "source_artifact": "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/controlled-baseline/report/funding-63fbc441301c-english.pdf",

@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN = ROOT / "acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3"
-OUT = ROOT / "acceptance_runs/68-product-sellability-20261027/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json"
+OUT = ROOT / "deliverables/fundingfinder_live_refresh_20261104/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json"
 CASES = {
     "south-africa-moya-live": {"NYDA-GRANT", "TIA-SEED"},
     "south-africa-agri-live": {"NYDA-GRANT", "TIA-SEED"},
@@ -114,6 +114,7 @@ def main() -> int:
             "No application was submitted and no funding decision or product qualification was created.",
         ],
     }
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({"receipt": OUT.relative_to(ROOT).as_posix(), "scenario_count": len(scenarios),
                       "source_capture_count": sum(len(CASES[x]) for x in CASES),

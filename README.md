@@ -45,6 +45,8 @@ The archive includes independent execution, output-quality, evidence-validity, c
 
 The Document Studio Edit card in the portfolio now opens a **2026-11-04 synthetic before/after technical-edit candidate** with an editable clean copy, tracked redline, protected-number checks, a paragraph change ledger, a proposed correction to a model-generated ambiguous negation, and blank technical-editor decisions. Automated checks pass for the corrected candidate; technical-editor review, client approval and release remain pending. Its review package is [available here](deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip).
 
+FundingFinder now has a **2026-11-04 official-source refresh** covering three scenarios (NYDA, TIA, and an England-only Lottery programme) with five captured official source responses, source hashes, eligibility matrices, and case-specific preparation or verification actions. All applicant profiles are synthetic: NYDA/TIA application timing remains unknown, and no result establishes eligibility or an award. The complete source and output bundle is included in the [portable proof portfolio](deliverables/product_proof_portfolio_20261104.zip); the [refresh receipt](deliverables/fundingfinder_live_refresh_20261104/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json) records hashes and limitations.
+
 ### Remaining qualification work
 
 The qualification ledger keeps these open rather than treating successful execution as sign-off:

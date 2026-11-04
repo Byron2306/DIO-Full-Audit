@@ -53,7 +53,7 @@ def main()->int:
     (a.out/'PRODUCT_READINESS_VERDICTS.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     fields=['product_id','name','execution','output_quality','evidence_validity','customer_acceptance','release','professional_readiness','source_artifact','artifact_sha256']
     with (a.out/'PRODUCT_READINESS_VERDICTS.csv').open('w',newline='',encoding='utf-8-sig') as f:
-      w=csv.DictWriter(f,fieldnames=fields);w.writeheader()
+      w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');w.writeheader()
       for r in rows:w.writerow({**{k:r[k] for k in ('product_id','name','professional_readiness','source_artifact','artifact_sha256')},**{k:r[k]['verdict'] for k in ('execution','output_quality','evidence_validity','customer_acceptance','release')}})
     (a.out/'README.md').write_text('# Product readiness verdicts\n\nThis report separates execution, output quality, evidence validity, customer acceptance, and release. Hash-bound traceability alone never proves semantic correctness. `UNVERIFIED` and `HELD` are explicit states, not implied passes.\n\nThese verdicts are independently sourced from the curated product proof index and do not convert pipeline receipts into professional approval. `TRACEABLE_UNVALIDATED` means there is a byte-linked artifact/receipt; no independent semantic correctness review is recorded.\n')
     return 0

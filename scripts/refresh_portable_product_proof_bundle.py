@@ -14,6 +14,8 @@ NEW_REL='proofs/homs_exam/payload/deliverables/homs_grade12_business_studies_ful
 EVIDEX_DIR=ROOT/'deliverables/evidex_claim_truth_benchmark_20261104'
 DOCSTUDIO_ZIP=ROOT/'deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip'
 DOCSTUDIO_RECEIPT=ROOT/'deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_RECEIPT.json'
+FUNDING_RUN=ROOT/'acceptance_runs/68-product-sellability-20261027/funding-finder/reviewed/official-refresh-20261104-v3'
+FUNDING_RECEIPT=ROOT/'deliverables/fundingfinder_live_refresh_20261104/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json'
 
 def sha(data:bytes)->str:return hashlib.sha256(data).hexdigest()
 
@@ -42,6 +44,20 @@ for path in sorted(EVIDEX_DIR.rglob('*')):
         truth_files.append({'path':'truth_benchmark/'+relative,'source_path':path.relative_to(ROOT).as_posix(),'bytes':len(data),'sha256':sha(data)})
 evidex['truth_benchmark']={'case_id':'SYNTHETIC-EVIDEX-1','state':'STRUCTURED_REFERENCE_MATCH_9_OF_9; INDEPENDENT_EXPERT_REVIEW_PENDING','files':truth_files,'customer_acceptance':'NOT_ESTABLISHED','release_authorized':False}
 evidex.setdefault('quality_limits',[]).append('A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.')
+funding=next(r for r in index['products'] if r['product_id']=='fundingfinder')
+funding_files=[]
+for path in sorted(FUNDING_RUN.rglob('*')):
+    if path.is_file():
+        relative=path.relative_to(FUNDING_RUN).as_posix(); archive_path=PREFIX+'proofs/fundingfinder/live_refresh_20261104_v3/'+relative
+        data=path.read_bytes();files[archive_path]=data
+        funding_files.append({'path':'live_refresh_20261104_v3/'+relative,'source_path':path.relative_to(ROOT).as_posix(),'bytes':len(data),'sha256':sha(data)})
+funding_receipt_bytes=FUNDING_RECEIPT.read_bytes();funding_receipt_hash=sha(funding_receipt_bytes)
+funding_receipt_path='proofs/fundingfinder/product_evidence_receipt/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json'
+files[PREFIX+funding_receipt_path]=funding_receipt_bytes
+funding['live_source_refresh']={'as_of':'2026-11-04','state':'THREE_OFFICIAL_SOURCE_CASES_CAPTURED; SYNTHETIC_APPLICANTS; NO_QUALIFICATION','files':funding_files,
+    'receipt':{'path':'product_evidence_receipt/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json','source_path':FUNDING_RECEIPT.relative_to(ROOT).as_posix(),'sha256':funding_receipt_hash,'bytes':len(funding_receipt_bytes)},
+    'customer_acceptance':'NOT_ESTABLISHED','release_authorized':False}
+funding.setdefault('quality_limits',[]).append('A 2026-11-04 refresh captures three official-source cases (NYDA, TIA and England-only Lottery) and five source responses. Applicant profiles are synthetic. Timing remains unknown for NYDA/TIA, and every result includes applicant evidence preparation or verification actions; this does not prove customer eligibility, live availability or an award.')
 files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
 document=next(r for r in index['products'] if r['product_id']=='document_studio_edit')
 doc_rel='proofs/document_studio_edit/payload/deliverables/document_studio_current_20261104/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip'
@@ -58,6 +74,8 @@ html_path=PREFIX+'index.html'
 if html_path in files:
     page=files[html_path].decode('utf-8')
     page=page.replace('deliverables/homs_best_randomized_exam_candidates_20261104_v2/HOMS_RANDOMIZED_EXAM_CANDIDATES_GRADES_01_12.zip','deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip')
+    funding_marker='<a class="secondary" href="proofs/fundingfinder/product_evidence_receipt/CUSTOMER_EXECUTION_RECEIPT.json">Product evidence</a>'
+    page=page.replace(funding_marker, funding_marker+'<a class="secondary" href="proofs/fundingfinder/product_evidence_receipt/FUNDINGFINDER_LIVE_REFRESH_RECEIPT_20261104_V3.json">Nov 4 official-source refresh</a>', 1)
     marker='data-name="Document Studio Edit"'
     pos=page.find(marker)
     if pos>=0:
@@ -84,8 +102,15 @@ for r in rows:
   r.update({'artifact_source_class':document['artifact_source_class'],'primary_artifact':document['primary_artifact'],'source_artifact':document['source_artifact'],'artifact_sha256':doc_hash,'artifact_bytes':str(len(doc_bytes)),'product_evidence_path':receipt_path,'product_evidence_sha256':receipt_hash,'quality_limits':' | '.join(document['quality_limits'])})
  elif r.get('product_id')=='evidex_evidenceops':
   r['quality_limits']=' | '.join(evidex['quality_limits'])
+ elif r.get('product_id')=='fundingfinder':
+  r['quality_limits']=' | '.join(funding['quality_limits'])
+  r['live_refresh_receipt_path']=funding_receipt_path
+  r['live_refresh_receipt_sha256']=funding_receipt_hash
 import io
-out=io.StringIO(newline=''); w=csv.DictWriter(out,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+fieldnames=list(rows[0])
+for field in ('live_refresh_receipt_path','live_refresh_receipt_sha256'):
+ if field not in fieldnames: fieldnames.append(field)
+out=io.StringIO(newline=''); w=csv.DictWriter(out,fieldnames=fieldnames,lineterminator='\n');w.writeheader();w.writerows(rows)
 files[csv_path]=('\ufeff'+out.getvalue()).encode('utf-8')
 index['summary']['product_evidence_records_included']=sum(bool(r.get('product_evidence')) for r in index['products'])
 index['summary']['product_receipts_included']=sum(bool(r.get('product_evidence') and r['product_evidence'].get('kind')=='receipt') for r in index['products'])
@@ -97,6 +122,7 @@ readme=readme.replace('- HOMS Exam links to the saved randomized Grades 1–12 e
 readme=readme.replace('HOMS Exam uses the saved Grades 1–12 candidate ZIP.','HOMS Exam uses Grades 1–11 candidates plus the full Grade 12 two-paper candidate.')
 readme=readme.replace('Document Studio Edit had no in-window deliverable reference, so its card is explicitly labeled as a historical-baseline fallback and has no current product-specific receipt in this package.','The original qualification snapshot still lacks a current Document Studio Edit reference; this package therefore adds a separate 2026-11-04 before/after technical-edit candidate with its current source-bound receipt. The technical-editor review remains pending.')
 readme += '\nIndependent readiness verdicts are in `PRODUCT_READINESS_VERDICTS.csv` and `.json`. Execution, output quality, evidence validity, customer acceptance and release are separate dimensions; source traceability is not semantic correctness.\n\nDocument Studio Edit includes a fresh synthetic before/after technical edit with a clean copy, tracked redline, source-bound change ledger and unapproved correction to a model-generated ambiguous negation. The corrected candidate passes its structural/token checks, but the technical editor must complete the blank decision sheet; no client approval or release is recorded.\n'
+readme += '\nFundingFinder includes a fresh 2026-11-04 source refresh with three official-source scenarios, five retrieved official source responses, source-bound eligibility matrices and opportunity-specific preparation actions. All applicant data is synthetic; NYDA/TIA timing remains unknown and results are not eligibility or award decisions.\n'
 files[readme_path]=readme.encode()
 
 # Recompute independent verdicts from all 68 product records.
@@ -108,7 +134,7 @@ for r in vrows:
 report={'schema':'dio.product_readiness_verdicts.v1','generated_at':index.get('source_snapshot_generated_at'),'qualification_snapshot_sha256':index.get('qualification_snapshot_sha256'),'method':'Execution, output quality, evidence validity, customer acceptance and release are independent verdicts. A route PASS never promotes another dimension. TRACEABLE_UNVALIDATED means byte lineage exists, not that the interpretation is correct.','summary':counts,'products':vrows}
 json_bytes=(json.dumps(report,indent=2,ensure_ascii=False)+'\n').encode(); files[PREFIX+'PRODUCT_READINESS_VERDICTS.json']=json_bytes
 columns=['product_id','name','execution','output_quality','evidence_validity','customer_acceptance','release','professional_readiness','source_artifact','artifact_sha256']
-buf=io.StringIO(newline=''); w=csv.DictWriter(buf,fieldnames=columns);w.writeheader()
+buf=io.StringIO(newline=''); w=csv.DictWriter(buf,fieldnames=columns,lineterminator='\n');w.writeheader()
 for r in vrows:w.writerow({**{k:r[k] for k in ('product_id','name','professional_readiness','source_artifact','artifact_sha256')},**{k:r[k]['verdict'] for k in ('execution','output_quality','evidence_validity','customer_acceptance','release')}})
 files[PREFIX+'PRODUCT_READINESS_VERDICTS.csv']=('\ufeff'+buf.getvalue()).encode()
 files[PREFIX+'PRODUCT_READINESS_VERDICTS_README.md']=b'# Independent product readiness verdicts\n\nExecution, output quality, evidence validity, customer acceptance, and release are separate verdicts. A successful pipeline does not imply readiness. `TRACEABLE_UNVALIDATED` means byte lineage exists; semantic correctness is not independently validated. `UNVERIFIED` and `HELD` are not passes.\n'
