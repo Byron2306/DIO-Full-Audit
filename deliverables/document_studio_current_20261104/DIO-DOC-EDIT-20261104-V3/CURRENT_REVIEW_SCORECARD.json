@@ -1,0 +1,41 @@
+{
+  "schema": "dio.document_studio.current_edit_review_scorecard.v1",
+  "created_at": "2026-11-04T16:50:22+00:00",
+  "job_id": "DIO-DOC-EDIT-20261104-V3",
+  "source_sha256": "2b5bb65ba87da2a0eb3458cbbe16b03cf991d4ec3cc8d7329057e9a95f8f7afe",
+  "request_sha256": "d6ff03407a8b5dd5a36fa4755f4b37bde1ac6164a6093abfe06c99f48f8b88f2",
+  "clean_docx_sha256": "6b08e3fd770c6f63d6e84c65455e1fd9b46993f105dcda863a1459de4fd2eb3d",
+  "redline_docx_sha256": "229df39530fe9577814277feb266176af5858328ebbf3827ef60c3232512443c",
+  "change_ledger_sha256": "09d25d7b4d474e6199f7a0226a0e8063bfff05ef4b55e2025b55116f83dde609",
+  "checks": {
+    "protected_ph": true,
+    "protected_ntu": true,
+    "protected_qms_07": true,
+    "protected_2_minutes": true,
+    "protected_2_and_8_degrees_celsius": true,
+    "protected_6_5": true,
+    "protected_9_5": true,
+    "protected_1_ntu": true,
+    "all_source_numeric_values_preserved": true,
+    "sterile_bottle_negation_preserved": false,
+    "community_safety_authority_gate_preserved": false,
+    "tracked_redline_exists": true,
+    "change_ledger_covers_all_source_paragraphs": true,
+    "human_editor_approval_remains_pending": true,
+    "no_external_processing_used": true
+  },
+  "passed_check_count": 13,
+  "check_count": 15,
+  "model_label_mismatch_count": 4,
+  "automated_integrity": "PASS",
+  "professional_quality": "UNVERIFIED",
+  "human_technical_review": "PENDING",
+  "client_approval": "PENDING",
+  "release_authorized": false,
+  "source_case": "controlled synthetic procedure; not a real municipal client document",
+  "limitations": [
+    "Numeric/token preservation and formatting checks do not prove technical correctness.",
+    "A qualified technical editor must accept/reject all seven paragraph changes.",
+    "The content is a synthetic controlled example, not a consented customer case."
+  ]
+}

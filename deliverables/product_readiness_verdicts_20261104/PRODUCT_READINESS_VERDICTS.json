@@ -1,6 +1,6 @@
 {
   "schema": "dio.product_readiness_verdicts.v1",
-  "generated_at": "2026-11-04T16:36:53+00:00",
+  "generated_at": "2026-11-04T16:59:05+00:00",
   "qualification_snapshot_sha256": "301ecdc4e2de4cfe36024ba4e8a733617039cdde31a6282ceefd02eee813c16c",
   "method": "Execution, output quality, evidence validity, customer acceptance and release are independent verdicts. A route PASS never promotes another dimension. TRACEABLE_UNVALIDATED means byte lineage exists, not that the interpretation is correct.",
   "summary": {
@@ -11,8 +11,7 @@
       "UNVERIFIED": 68
     },
     "evidence_validity": {
-      "TRACEABLE_UNVALIDATED": 67,
-      "UNVERIFIED": 1
+      "TRACEABLE_UNVALIDATED": 68
     },
     "customer_acceptance": {
       "UNVERIFIED": 68
@@ -802,7 +801,7 @@
         "evidence": "no_independent_quality_signoff_recorded"
       },
       "evidence_validity": {
-        "verdict": "UNVERIFIED",
+        "verdict": "TRACEABLE_UNVALIDATED",
         "evidence": "hash-bound artifact/receipt where available; semantic correctness not independently validated"
       },
       "customer_acceptance": {
@@ -815,12 +814,20 @@
       },
       "professional_readiness": "NOT_ESTABLISHED",
       "limitations": [
-        "This controlled short manuscript is synthetic. Automated integrity checks do not establish editorial quality; flagged paragraphs remain source-preserved, all edits require a technical editor, and no output is released."
+        "Current synthetic technical-edit pair includes source, editable clean copy, tracked redline, change ledger, protected numeric/token checks and blank technical-editor decisions.",
+        "One model-generated sterile-bottle instruction was found ambiguous during semantic review and corrected in an unapproved review revision; a qualified technical editor must still accept or amend it.",
+        "Professional quality, customer acceptance and release authorization remain unverified / held."
       ],
       "truth_benchmark": null,
-      "source_artifact": "acceptance_runs/68-product-integration-20261027/canonical-repaired/normal/document-studio-edit/EXECUTION/document_studio/PRO-DOCUMENT_STUDIO_EDIT/CLEAN_EDITED_COPY.docx",
-      "artifact_sha256": "4059b408a7b05183841c2372c065f3d2bc15f6c73391abf6450ccd0fa7d525b0",
-      "product_evidence": null
+      "source_artifact": "deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip",
+      "artifact_sha256": "7ff7ad2240e6990c8ef394324b5862deeaf5efeee57569514d1acd86ae687d4c",
+      "product_evidence": {
+        "path": "product_evidence_receipt/DOCUMENT_STUDIO_RECEIPT.json",
+        "source_path": "deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_RECEIPT.json",
+        "kind": "receipt",
+        "bytes": 4458,
+        "sha256": "4c38b950e5a73be87debc0b254680085f981b6112182f20bb8f5c2f937de2ea7"
+      }
     },
     {
       "product_id": "document_studio_localize",
@@ -1078,6 +1085,14 @@
         "Obtain underlying dated records and establish population/period comparability; reported quantities are not verified delivery.",
         "Scope and population values are customer-declared and unverified. Exact metadata matches do not authenticate records or prove delivery; requested fields guide review and do not independently reconcile quantities.",
         "Attachment hashing and text extraction do not authenticate the sender, establish document truth, verify row completeness or adjudicate support. A reviewer must inspect original records and resolve each discrepancy; no outcome or release is certified.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
+        "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
         "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.",
         "A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation."
       ],

@@ -1,0 +1,182 @@
+{
+  "document_summary": "This document outlines the Community Water Quality Monitoring Procedure, detailing how field teams collect and record drinking water samples for reliable and traceable results.",
+  "edits": [
+    {
+      "paragraph_id": "P1",
+      "revised": "Community Water Quality Monitoring Procedure",
+      "category": "no_change",
+      "rationale": "The title remains unchanged as it is already in plain South African technical English and conveys the purpose accurately."
+    },
+    {
+      "paragraph_id": "P2",
+      "revised": "Purpose: This procedure explains how field teams collect and record drinking water samples to ensure reliable results traceable to the correct site.",
+      "category": "grammar|clarity|consistency|technical_tone",
+      "rationale": "Revised for clarity and conciseness, maintaining the professional tone."
+    },
+    {
+      "paragraph_id": "P3",
+      "revised": "Scope: Applies to routine samples from reservoirs, treatment outlets, and public taps. Does not cover emergency chemical spills or laboratory instrument calibration.",
+      "category": "clarity",
+      "rationale": "The scope remains unchanged as it is already clear and concise. Provider label contradicted the actual source/revision difference; confirm this classification.",
+      "provider_category": "no_change",
+      "category_normalization_note": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review.",
+      "confidence": "low"
+    },
+    {
+      "paragraph_id": "P4",
+      "revised": "Responsibilities: Team leader verifies each technician's PPE, clean sample bottles, and calibrated meter. Technicians are responsible for completing QMS-07's Chain of Custody Form and reporting unsafe conditions.",
+      "category": "clarity",
+      "rationale": "The responsibilities are preserved exactly, using protected tokens. Provider label contradicted the actual source/revision difference; confirm this classification.",
+      "provider_category": "no_change",
+      "category_normalization_note": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review.",
+      "confidence": "low"
+    },
+    {
+      "paragraph_id": "P5",
+      "revised": "Procedure: Before sampling, allow the tap to run for 2 minutes. Rinse the probe with clean water but not sterile microbiological bottles. Record pH and turbidity in NTU at the site. Samples must be kept in a cooler between 2 and 8 degrees Celsius.",
+      "category": "grammar|clarity|consistency|technical_tone",
+      "rationale": "Revised for clarity and technical precision, preserving all operational details."
+    },
+    {
+      "paragraph_id": "P6",
+      "revised": "Data recording: Document site code, date, time, and sampler initials on both the bottle and QMS-07. Corrections must be made with a single line through the error; correction fluids are not permitted. State the reason for any missing reading.",
+      "category": "clarity",
+      "rationale": "The data recording instructions remain unchanged, maintaining technical precision. Provider label contradicted the actual source/revision difference; confirm this classification.",
+      "provider_category": "no_change",
+      "category_normalization_note": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review.",
+      "confidence": "low"
+    },
+    {
+      "paragraph_id": "P7",
+      "revised": "Escalation: If pH is below 6.5 or above 9.5, or turbidity is more than 1 NTU, notify the team leader immediately. Do not declare the water safe or unsafe to the community until an authorised official has reviewed the results.",
+      "category": "clarity",
+      "rationale": "The escalation instructions are preserved exactly, emphasizing the need for accurate communication. Provider label contradicted the actual source/revision difference; confirm this classification.",
+      "provider_category": "no_change",
+      "category_normalization_note": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review.",
+      "confidence": "low"
+    }
+  ],
+  "translations": [],
+  "glossary": [],
+  "qa_flags": [
+    {
+      "paragraph_id": "P1",
+      "severity": "low",
+      "issue": "No uncertainty in the title, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P2",
+      "severity": "low",
+      "issue": "No uncertainty in the purpose, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P3",
+      "severity": "low",
+      "issue": "No uncertainty in the scope, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P4",
+      "severity": "low",
+      "issue": "No uncertainty in the responsibilities, which are direct translations of the source."
+    },
+    {
+      "paragraph_id": "P5",
+      "severity": "low",
+      "issue": "No uncertainty in the procedure, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "low",
+      "issue": "No uncertainty in the data recording, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P7",
+      "severity": "low",
+      "issue": "No uncertainty in the escalation, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P3",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P4",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P7",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    }
+  ],
+  "ollama_normalization": {
+    "schema": "dio.document_studio.ollama_normalization.v1",
+    "mode": "conservative_fact_preserving",
+    "content_change_gate": {
+      "source_content_coverage_minimum": 0.7,
+      "introduced_content_ratio_maximum": 0.25,
+      "metric": "set overlap of lightly suffix-folded non-stopwords",
+      "interpretation_limit": "Heuristic only; passing does not prove semantic equivalence. Human review remains required."
+    },
+    "paragraphs": [
+      {
+        "paragraph_id": "P1",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 1.0,
+        "introduced_content_ratio": 0.0
+      },
+      {
+        "paragraph_id": "P2",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 0.75,
+        "introduced_content_ratio": 0.11764705882352941
+      },
+      {
+        "paragraph_id": "P3",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 0.8947368421052632,
+        "introduced_content_ratio": 0.0
+      },
+      {
+        "paragraph_id": "P4",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 0.9090909090909091,
+        "introduced_content_ratio": 0.13043478260869565
+      },
+      {
+        "paragraph_id": "P5",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 0.8846153846153846,
+        "introduced_content_ratio": 0.08
+      },
+      {
+        "paragraph_id": "P6",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 0.84,
+        "introduced_content_ratio": 0.16
+      },
+      {
+        "paragraph_id": "P7",
+        "action": "provider_edit_retained",
+        "reasons": [],
+        "source_content_coverage": 0.84,
+        "introduced_content_ratio": 0.125
+      }
+    ],
+    "authority_created": false,
+    "release_authority": false,
+    "external_send_authority": false
+  }
+}

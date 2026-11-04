@@ -84,6 +84,10 @@ def best_deliverable(repo: Path, product: dict, evidence_as_of: str) -> tuple[Pa
     if not options:
         raise ValueError(f"No in-snapshot deliverable for {product['product_id']}")
 
+    if product["product_id"] == "document_studio_edit":
+        candidate = repo / "deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip"
+        if candidate.is_file() and in_snapshot(candidate, evidence_as_of):
+            return candidate, "current_document_studio_before_after_edit_candidate", future_count
     if product["product_id"] == "homs_exam":
         candidate = repo / "deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip"
         if candidate.is_file() and in_snapshot(candidate, evidence_as_of):
@@ -105,6 +109,10 @@ def best_deliverable(repo: Path, product: dict, evidence_as_of: str) -> tuple[Pa
 
 
 def best_product_receipt(repo: Path, product: dict, evidence_as_of: str) -> Path | None:
+    if product["product_id"] == "document_studio_edit":
+        current = repo / "deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_RECEIPT.json"
+        if current.is_file():
+            return current
     refs = [repo / item for item in product.get("current_product_specific_evidence_refs", [])]
     refs = [item for item in refs if item.is_file() and in_snapshot(item, evidence_as_of)]
     receipts = [item for item in refs if "RECEIPT" in item.name.upper()]

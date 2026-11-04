@@ -437,6 +437,29 @@ def _row_map(rows: list[dict[str, Any]], value_key: str) -> dict[str, dict[str, 
     return result
 
 
+def normalize_edit_categories(paragraphs: list[dict[str, str]], result: dict[str, Any]) -> list[dict[str, str]]:
+    """Make the displayed change label agree with the actual source/revision pair."""
+    source = {row["paragraph_id"]: str(row["text"]) for row in paragraphs}
+    edits = _row_map(list(result.get("edits") or []), "revised")
+    flags: list[dict[str, str]] = []
+    for paragraph_id, row in edits.items():
+        unchanged = str(row.get("revised") or "") == source.get(paragraph_id, "")
+        labels = {label.strip() for label in str(row.get("category") or "").split("|") if label.strip()}
+        if unchanged and labels != {"no_change"}:
+            row["provider_category"] = row.get("category")
+            row["category"] = "no_change"
+            row["category_normalization_note"] = "No text difference from the source; provider change label normalized."
+        elif not unchanged and "no_change" in labels:
+            row["provider_category"] = row.get("category")
+            row["category"] = "clarity"
+            row["category_normalization_note"] = "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+            row["rationale"] = (str(row.get("rationale") or "").strip() + " Provider label contradicted the actual source/revision difference; confirm this classification.").strip()
+            row["confidence"] = "low"
+            flags.append({"paragraph_id": paragraph_id, "severity": "medium", "issue": row["category_normalization_note"]})
+    result["qa_flags"] = list(result.get("qa_flags") or []) + flags
+    return flags
+
+
 def validate_result(request: dict[str, Any], paragraphs: list[dict[str, str]], result: dict[str, Any]) -> dict[str, Any]:
     ids = [row["paragraph_id"] for row in paragraphs]
     originals = {row["paragraph_id"]: row["text"] for row in paragraphs}
@@ -709,6 +732,7 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         if str(row.get("source") or "").casefold() not in existing_terms
     ]
     result, provider = call_provider(request, paragraphs)
+    edit_category_flags = normalize_edit_categories(paragraphs, result) if service != "translation" else []
     critic_provider: dict[str, Any] | None = result.get("translation_critic") if result.get("lingua_translation") else None
     if service in {"translation", "edit_and_translate"} and request.get("automated_language_critic") and not result.get("lingua_translation"):
         critic_provider = apply_translation_critic(request, paragraphs, result)
@@ -825,12 +849,14 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
         docx_files.extend([translated, bilingual])
 
     with (job_dir / "CHANGE_LEDGER.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["paragraph_id", "category", "confidence", "original", "revised", "rationale"])
+        writer = csv.DictWriter(handle, fieldnames=["paragraph_id", "category", "provider_category", "category_normalization_note", "confidence", "original", "revised", "rationale"])
         writer.writeheader()
         for source in paragraphs:
             row = edits.get(source["paragraph_id"], {})
             writer.writerow({
                 "paragraph_id": source["paragraph_id"], "category": row.get("category", "not_applicable"),
+                "provider_category": row.get("provider_category", ""),
+                "category_normalization_note": row.get("category_normalization_note", ""),
                 "confidence": row.get("confidence", ""), "original": source["text"],
                 "revised": row.get("revised", source["text"]), "rationale": row.get("rationale", ""),
             })
@@ -862,12 +888,15 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
     qa = {
         "schema": "dio.document_studio.qa.v1",
         "job_id": job_id,
-        "passed": True,
-        "automated_integrity_passed": True,
+        "passed": bool(validation["passed"]),
+        "automated_integrity_passed": bool(validation["passed"]),
+        "professional_quality_verdict": "UNVERIFIED",
+        "human_review_required": bool(edits or translations),
         "linguistic_quality_approved": False if translations else None,
         "release_readiness": "blocked_pending_human_approval",
         "automated_validation": validation,
         "provider_flags": result.get("qa_flags") or [],
+        "change_label_normalization_flags": edit_category_flags,
         "technical_edit_review": ({
             "template_path": "TECHNICAL_EDIT_REVIEW_TEMPLATE.csv",
             "template_sha256": technical_edit_review["sha256"],

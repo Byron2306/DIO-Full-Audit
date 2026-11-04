@@ -1,0 +1,51 @@
+{
+  "schema": "dio.semantic_content.v1",
+  "object_id": "LINGUA-DIO-DOC-EDIT-20261104-V3",
+  "version": "1.0.0",
+  "title": "Community Water Quality Monitoring Procedure",
+  "source_language": "English",
+  "context": {
+    "product": "document_studio",
+    "artifact_type": "technical_document",
+    "audience": "Municipal field technicians",
+    "domain": "Water-quality operations"
+  },
+  "blocks": [
+    {
+      "block_id": "P1",
+      "type": "title",
+      "text": "Community Water Quality Monitoring Procedure"
+    },
+    {
+      "block_id": "P2",
+      "type": "paragraph",
+      "text": "Purpose: This procedure explains how field teams collect and record drinking water samples to ensure reliable results traceable to the correct site."
+    },
+    {
+      "block_id": "P3",
+      "type": "paragraph",
+      "text": "Scope: Applies to routine samples from reservoirs, treatment outlets, and public taps. Does not cover emergency chemical spills or laboratory instrument calibration."
+    },
+    {
+      "block_id": "P4",
+      "type": "paragraph",
+      "text": "Responsibilities: Team leader verifies each technician's PPE, clean sample bottles, and calibrated meter. Technicians are responsible for completing QMS-07's Chain of Custody Form and reporting unsafe conditions."
+    },
+    {
+      "block_id": "P5",
+      "type": "paragraph",
+      "text": "Procedure: Before sampling, allow the tap to run for 2 minutes. Rinse the probe with clean water but not sterile microbiological bottles. Record pH and turbidity in NTU at the site. Samples must be kept in a cooler between 2 and 8 degrees Celsius."
+    },
+    {
+      "block_id": "P6",
+      "type": "paragraph",
+      "text": "Data recording: Document site code, date, time, and sampler initials on both the bottle and QMS-07. Corrections must be made with a single line through the error; correction fluids are not permitted. State the reason for any missing reading."
+    },
+    {
+      "block_id": "P7",
+      "type": "paragraph",
+      "text": "Escalation: If pH is below 6.5 or above 9.5, or turbidity is more than 1 NTU, notify the team leader immediately. Do not declare the water safe or unsafe to the community until an authorised official has reviewed the results."
+    }
+  ],
+  "translations": {}
+}

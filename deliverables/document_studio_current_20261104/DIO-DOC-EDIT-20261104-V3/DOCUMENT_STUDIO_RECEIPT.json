@@ -1,0 +1,134 @@
+{
+  "schema": "dio.document_studio.receipt.v1",
+  "job_id": "DIO-DOC-EDIT-20261104-V3",
+  "created_at": "2026-11-04T16:45:42+00:00",
+  "status": "human_review_required",
+  "service": "technical_edit",
+  "source": {
+    "name": "source.txt",
+    "sha256": "2b5bb65ba87da2a0eb3458cbbe16b03cf991d4ec3cc8d7329057e9a95f8f7afe",
+    "parser": "plain_text",
+    "paragraphs": 7
+  },
+  "processing": {
+    "provider": "ollama",
+    "model": "granite3.2:2b",
+    "provider_status": "ok",
+    "remote_processing_approved": false,
+    "owner_authorized": true,
+    "remote_inference_used": false,
+    "local_translation_backend": "ollama",
+    "local_validation_passed": true,
+    "language_review_flags_present": false,
+    "language_review_flags": [],
+    "source_language": "English",
+    "source_language_status": "established_source_language",
+    "target_language": null,
+    "target_language_status": null,
+    "target_language_reviewer_requirement": null,
+    "automated_language_critic_provider": null,
+    "automated_language_critic_model": null,
+    "format_core": {
+      "style_profile": "dio_professional",
+      "delivery_profile": "editable_review",
+      "channels": [
+        "docx",
+        "pdf",
+        "html"
+      ],
+      "templates": {},
+      "rendered_languages": [
+        "English"
+      ],
+      "all_output_qa_passed": true
+    },
+    "beast_reuse_state": "not_applicable",
+    "beast_learning_count": 0,
+    "semantic_object_id": null
+  },
+  "release": {
+    "delivery_released": false,
+    "certified_translation": false,
+    "human_approval_required": true,
+    "linguistic_quality_approved": null,
+    "release_readiness": "blocked_pending_human_approval"
+  },
+  "outputs": [
+    {
+      "path": "BEAST_LEARNING_RECEIPT.json",
+      "sha256": "fd789199173067b398bea939c9a5e8860f29304111ef5733e26e8f2194af1125"
+    },
+    {
+      "path": "BEAST_REUSE_RECEIPT.json",
+      "sha256": "af1ed97a9366b3b1d8e2abf29be8d060cc9f085ce7994da99746fca98db7de04"
+    },
+    {
+      "path": "CHANGE_LEDGER.csv",
+      "sha256": "09d25d7b4d474e6199f7a0226a0e8063bfff05ef4b55e2025b55116f83dde609"
+    },
+    {
+      "path": "CLEAN_EDITED_COPY.docx",
+      "sha256": "6b08e3fd770c6f63d6e84c65455e1fd9b46993f105dcda863a1459de4fd2eb3d"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_QA.json",
+      "sha256": "08e937b29070ea447bfe908e6a1fb76a81e6ef3ef9f150ab1a8e259170aa56f6"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_QA.md",
+      "sha256": "12ee756619aca49ed7d1af721f2c9c4f6df74cdec7ce405234455e11660a02e5"
+    },
+    {
+      "path": "HUMAN_APPROVAL.md",
+      "sha256": "9e1da00a42b0c88e6785cff8628924ff532e12a1bf99aeef411a569f383b6083"
+    },
+    {
+      "path": "PROVIDER_OUTPUT.json",
+      "sha256": "757f92a8a60fd5819eb2aa4d47ee493c7c1f7e282719f775651ec33b3ec28974"
+    },
+    {
+      "path": "REDLINE_REVIEW_COPY.docx",
+      "sha256": "229df39530fe9577814277feb266176af5858328ebbf3827ef60c3232512443c"
+    },
+    {
+      "path": "SEMANTIC_CONTENT.json",
+      "sha256": "c6650d9978deb8b8f59d2299e5fe9db811609772ff9a1a6b68344b1a0ee0d9fb"
+    },
+    {
+      "path": "TECHNICAL_EDIT_REVIEW_TEMPLATE.csv",
+      "sha256": "4c49bfa319596a650c04d81f86e254e4e3444e6b4a7f03f249e90b0e75eda6e7"
+    },
+    {
+      "path": "TECHNICAL_EDIT_REVIEW_VALIDATION.json",
+      "sha256": "94d8bf3859dea51bb5464f1293eaa5440908e9936bc979f087ba465027a53cdf"
+    },
+    {
+      "path": "TERMINOLOGY_GLOSSARY.csv",
+      "sha256": "ab0135ad5523574ba9912f7499b0089859c979986231928671ca48b07df94de6"
+    },
+    {
+      "path": "formatted/source/FORMAT_CORE_RECEIPT.json",
+      "sha256": "760f2805f9192658c9e3d7c66d2c37323c9115e34e5db86cc2f6efc4d7d378af"
+    },
+    {
+      "path": "formatted/source/lingua-dio-doc-edit-20261104-v3-english.docx",
+      "sha256": "4301773d20c6617ee939cd4dd8383fc8db03125c1bd7c587ae980bdfd68214f8"
+    },
+    {
+      "path": "formatted/source/lingua-dio-doc-edit-20261104-v3-english.html",
+      "sha256": "ba97f58fd8d33d4ed72693e4e8fa67336a9c1d071fa1820ed5c09675d4763118"
+    },
+    {
+      "path": "formatted/source/lingua-dio-doc-edit-20261104-v3-english.pdf",
+      "sha256": "37110c2f6da2e8e5a520031a3bc7dba8b5d24c78b25f66fd01ae66e995952cc8"
+    },
+    {
+      "path": "pdf/CLEAN_EDITED_COPY.pdf",
+      "sha256": "5af6b73ccfd03d7e014e1f9b2d5c20a07c2e20a7e52f31ac6d4ebda5477f0146"
+    },
+    {
+      "path": "pdf/REDLINE_REVIEW_COPY.pdf",
+      "sha256": "883e30e899d5e2ae7384ca498690ae178f74f35697f351f4201d82731c2391d8"
+    }
+  ]
+}

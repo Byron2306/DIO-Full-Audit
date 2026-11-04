@@ -1,0 +1,64 @@
+{
+  "schema": "dio.format_core.receipt.v1",
+  "object_id": "LINGUA-DIO-DOC-EDIT-20261104-V3",
+  "source_version": "1.0.0",
+  "rendered_at": "2026-11-04T16:45:40+00:00",
+  "status": "rendered_review_candidate",
+  "style_profile": "dio_professional",
+  "style_profile_hash": "f08f383c90917a43a2f70439657fe368302ac1a623a61656cf7443c3bfad23e5",
+  "delivery_profile": "editable_review",
+  "delivery_profile_hash": "6edd3459fdf23d7ce62d5bf1ed48796f132f98e2ec25273a777c02aa84b0ece8",
+  "language": {
+    "language": "English",
+    "lane": "source",
+    "status": "canonical",
+    "stale_units": []
+  },
+  "release_mode": false,
+  "pictora_visual": {
+    "state": "SKIPPED",
+    "reason": "no_local_pictora_asset"
+  },
+  "semantic_source_hash": "42d55f9d8a5b918e6c64b755617bb05395843a4d5606b7064687149bbaf470d9",
+  "semantic_blocks": 7,
+  "translation_expansion_ratio": 1.0,
+  "templates": {},
+  "qa": {
+    "passed": true,
+    "errors": [],
+    "warnings": [],
+    "semantic_completeness": {
+      "docx": {
+        "expected_strings": 7,
+        "missing_count": 0,
+        "missing": []
+      },
+      "html": {
+        "expected_strings": 7,
+        "missing_count": 0,
+        "missing": []
+      }
+    }
+  },
+  "claim_boundary": "Format Core rebuilds typed semantic content through controlled profiles; it does not claim pixel-identical reconstruction of arbitrary source files.",
+  "outputs": [
+    {
+      "channel": "docx",
+      "path": "lingua-dio-doc-edit-20261104-v3-english.docx",
+      "sha256": "4301773d20c6617ee939cd4dd8383fc8db03125c1bd7c587ae980bdfd68214f8",
+      "bytes": 39009
+    },
+    {
+      "channel": "html",
+      "path": "lingua-dio-doc-edit-20261104-v3-english.html",
+      "sha256": "ba97f58fd8d33d4ed72693e4e8fa67336a9c1d071fa1820ed5c09675d4763118",
+      "bytes": 3288
+    },
+    {
+      "channel": "pdf",
+      "path": "lingua-dio-doc-edit-20261104-v3-english.pdf",
+      "sha256": "37110c2f6da2e8e5a520031a3bc7dba8b5d24c78b25f66fd01ae66e995952cc8",
+      "bytes": 54318
+    }
+  ]
+}

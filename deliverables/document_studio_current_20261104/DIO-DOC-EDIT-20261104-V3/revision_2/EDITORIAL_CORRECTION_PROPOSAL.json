@@ -1,0 +1,27 @@
+{
+  "schema": "dio.document_studio.editorial_correction_proposal.v1",
+  "job_id": "DIO-DOC-EDIT-20261104-V3",
+  "revision_id": "REVISION-2",
+  "created_at": "2026-11-04T16:55:29+00:00",
+  "status": "UNAPPROVED_REVIEW_CANDIDATE",
+  "editor_identity": "AI-assisted operator preparation; no independent qualification asserted",
+  "changes": [
+    {
+      "paragraph_id": "P5",
+      "model_candidate": "Procedure: Before sampling, allow the tap to run for 2 minutes. Rinse the probe with clean water but not sterile microbiological bottles. Record pH and turbidity in NTU at the site. Samples must be kept in a cooler between 2 and 8 degrees Celsius.",
+      "review_revision_candidate": "Procedure: Before sampling, allow the tap to run for 2 minutes. Rinse the probe with clean water. Do not rinse a sterile microbiological bottle. Record pH and turbidity in NTU at the site. Samples must be kept in a cooler between 2 and 8 degrees Celsius.",
+      "reason": "The previous draft removed the verb after \u201cbut not,\u201d making the sterile-bottle instruction ambiguous. Restore an explicit prohibition; numeric limits remain unchanged.",
+      "decision": "PROPOSED_NOT_APPROVED"
+    },
+    {
+      "paragraph_id": "P7",
+      "model_candidate": "Escalation: If pH is below 6.5 or above 9.5, or turbidity is more than 1 NTU, notify the team leader immediately. Do not declare the water safe or unsafe to the community until an authorised official has reviewed the results.",
+      "review_revision_candidate": "Escalation: If pH is below 6.5 or above 9.5, or turbidity is higher than 1 NTU, notify the team leader immediately. Do not tell the community that the water is safe or unsafe until the authorised official has reviewed the result.",
+      "reason": "Retain the source-authority gate and exact threshold language in this proposed review revision.",
+      "decision": "PROPOSED_NOT_APPROVED"
+    }
+  ],
+  "human_technical_review": "PENDING",
+  "client_approval": "PENDING",
+  "release_authorized": false
+}

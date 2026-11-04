@@ -1,0 +1,180 @@
+{
+  "schema": "dio.document_studio.qa.v1",
+  "job_id": "DIO-DOC-EDIT-20261104-V3",
+  "passed": true,
+  "automated_integrity_passed": true,
+  "professional_quality_verdict": "UNVERIFIED",
+  "human_review_required": true,
+  "linguistic_quality_approved": null,
+  "release_readiness": "blocked_pending_human_approval",
+  "automated_validation": {
+    "passed": true,
+    "errors": [],
+    "blocking_errors": [],
+    "paragraph_count": 7,
+    "edit_rows": 7,
+    "translation_rows": 0,
+    "protected_tokens": [
+      "pH",
+      "NTU",
+      "QMS-07",
+      "2 minutes",
+      "2 and 8 degrees Celsius",
+      "6.5",
+      "9.5",
+      "1 NTU"
+    ],
+    "preferred_terms_checked": 0
+  },
+  "provider_flags": [
+    {
+      "paragraph_id": "P1",
+      "severity": "low",
+      "issue": "No uncertainty in the title, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P2",
+      "severity": "low",
+      "issue": "No uncertainty in the purpose, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P3",
+      "severity": "low",
+      "issue": "No uncertainty in the scope, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P4",
+      "severity": "low",
+      "issue": "No uncertainty in the responsibilities, which are direct translations of the source."
+    },
+    {
+      "paragraph_id": "P5",
+      "severity": "low",
+      "issue": "No uncertainty in the procedure, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "low",
+      "issue": "No uncertainty in the data recording, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P7",
+      "severity": "low",
+      "issue": "No uncertainty in the escalation, which is a direct translation of the source."
+    },
+    {
+      "paragraph_id": "P3",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P4",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P7",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    }
+  ],
+  "change_label_normalization_flags": [
+    {
+      "paragraph_id": "P3",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P4",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    },
+    {
+      "paragraph_id": "P7",
+      "severity": "medium",
+      "issue": "Text differs from source despite provider no_change label; normalized to clarity and flagged for human review."
+    }
+  ],
+  "technical_edit_review": {
+    "template_path": "TECHNICAL_EDIT_REVIEW_TEMPLATE.csv",
+    "template_sha256": "4c49bfa319596a650c04d81f86e254e4e3444e6b4a7f03f249e90b0e75eda6e7",
+    "paragraph_count": 7,
+    "validation_state": "NEEDS_TECHNICAL_EDITOR_COMPLETION",
+    "client_approval_pending": true,
+    "release_authorized": false
+  },
+  "translation_review_overrides": {
+    "reviewer": null,
+    "applied_count": 0,
+    "corrections": [],
+    "final_language_approval_still_required": true
+  },
+  "language_controls": {
+    "source_language": "English",
+    "source_profile": {
+      "code": "en-ZA",
+      "status": "established_source_language",
+      "prompt_guidance": "Use clear South African English and preserve the requested professional register.",
+      "reviewer_requirement": "A proficient technical editor must approve edited English."
+    },
+    "target_language": null,
+    "target_profile": null,
+    "automated_critic": null,
+    "lingua_translation": null
+  },
+  "format_core": {
+    "style_profile": "dio_professional",
+    "delivery_profile": "editable_review",
+    "channels": [
+      "docx",
+      "pdf",
+      "html"
+    ],
+    "templates": {},
+    "languages": {
+      "English": {
+        "status": "rendered_review_candidate",
+        "qa": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "semantic_completeness": {
+            "docx": {
+              "expected_strings": 7,
+              "missing_count": 0,
+              "missing": []
+            },
+            "html": {
+              "expected_strings": 7,
+              "missing_count": 0,
+              "missing": []
+            }
+          }
+        },
+        "style_profile_hash": "f08f383c90917a43a2f70439657fe368302ac1a623a61656cf7443c3bfad23e5",
+        "delivery_profile_hash": "6edd3459fdf23d7ce62d5bf1ed48796f132f98e2ec25273a777c02aa84b0ece8"
+      }
+    }
+  },
+  "human_gates": {
+    "technical_editor_approval": "pending",
+    "target_language_reviewer_approval": "not_applicable",
+    "client_final_approval": "pending"
+  },
+  "claim_boundaries": [
+    "Typed semantic content is rebuilt through controlled style, language, and delivery profiles with post-render completeness checks.",
+    "Arbitrary source files are not claimed to retain pixel-identical layout unless an explicit template profile has been supplied and approved.",
+    "Translation is a review candidate, not certified, sworn, or legally attested translation.",
+    "Operational facts, thresholds, identifiers, and terminology require human verification."
+  ]
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Refresh HOMS Grade 12 proof and independent verdicts in the portable archive."""
 from __future__ import annotations
-import csv,hashlib,json,shutil,tempfile,zipfile,sys
+import csv,hashlib,json,shutil,tempfile,zipfile,sys,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
@@ -12,6 +12,8 @@ VERDICTS=ROOT/'deliverables/product_readiness_verdicts_20261104'
 PREFIX='product_proof_portfolio_20261104/'
 NEW_REL='proofs/homs_exam/payload/deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip'
 EVIDEX_DIR=ROOT/'deliverables/evidex_claim_truth_benchmark_20261104'
+DOCSTUDIO_ZIP=ROOT/'deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip'
+DOCSTUDIO_RECEIPT=ROOT/'deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_RECEIPT.json'
 
 def sha(data:bytes)->str:return hashlib.sha256(data).hexdigest()
 
@@ -41,28 +43,60 @@ for path in sorted(EVIDEX_DIR.rglob('*')):
 evidex['truth_benchmark']={'case_id':'SYNTHETIC-EVIDEX-1','state':'STRUCTURED_REFERENCE_MATCH_9_OF_9; INDEPENDENT_EXPERT_REVIEW_PENDING','files':truth_files,'customer_acceptance':'NOT_ESTABLISHED','release_authorized':False}
 evidex.setdefault('quality_limits',[]).append('A synthetic 14-claim / 12-attendance reconciliation is checked against an explicit reference answer and adversarial rubric. The structured comparison is not an independent expert opinion or real-customer validation.')
 files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
+document=next(r for r in index['products'] if r['product_id']=='document_studio_edit')
+doc_rel='proofs/document_studio_edit/payload/deliverables/document_studio_current_20261104/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip'
+doc_product_path='payload/deliverables/document_studio_current_20261104/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip'
+doc_bytes=DOCSTUDIO_ZIP.read_bytes();doc_hash=sha(doc_bytes);files[PREFIX+doc_rel]=doc_bytes
+receipt_bytes=DOCSTUDIO_RECEIPT.read_bytes();receipt_hash=sha(receipt_bytes)
+receipt_path='proofs/document_studio_edit/product_evidence_receipt/DOCUMENT_STUDIO_RECEIPT.json'
+files[PREFIX+receipt_path]=receipt_bytes
+document.update({'primary_artifact':doc_product_path,'source_artifact':'deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_CURRENT_REVIEW_CANDIDATE.zip','artifact_source_class':'current_in_window_before_after_transformation_candidate','artifact_sha256':doc_hash,'artifact_bytes':len(doc_bytes),'payload_files':[{'path':doc_product_path,'source_path':document['source_artifact'],'bytes':len(doc_bytes),'sha256':doc_hash,'media_type':'application/zip'}],'product_evidence':{'path':'product_evidence_receipt/DOCUMENT_STUDIO_RECEIPT.json','source_path':'deliverables/document_studio_current_20261104/DIO-DOC-EDIT-20261104-V3/DOCUMENT_STUDIO_RECEIPT.json','kind':'receipt','bytes':len(receipt_bytes),'sha256':receipt_hash},'quality_limits':['Current synthetic technical-edit pair includes source, editable clean copy, tracked redline, change ledger, protected numeric/token checks and blank technical-editor decisions.','One model-generated sterile-bottle instruction was found ambiguous during semantic review and corrected in an unapproved review revision; a qualified technical editor must still accept or amend it.','Professional quality, customer acceptance and release authorization remain unverified / held.']})
+files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
 index['selection_policy']=index['selection_policy'].replace('HOMS Exam selects the saved Grades 1-12 candidate ZIP.','HOMS Exam selects Grades 1-11 candidates plus the complete two-paper Grade 12 candidate ZIP.')
 files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
 html_path=PREFIX+'index.html'
 if html_path in files:
     page=files[html_path].decode('utf-8')
     page=page.replace('deliverables/homs_best_randomized_exam_candidates_20261104_v2/HOMS_RANDOMIZED_EXAM_CANDIDATES_GRADES_01_12.zip','deliverables/homs_grade12_business_studies_full_nsc_candidate_20261104/HOMS_GRADE12_FULL_NSC_CANDIDATE.zip')
-    page=page.replace('</div><div class="toolbar"><input id="search"', '</div><p class="notice"><a href="PRODUCT_READINESS_VERDICTS.csv">Open the independent five-dimension readiness verdicts (CSV)</a> · <a href="PRODUCT_READINESS_VERDICTS.json">JSON</a>. Execution, output quality, evidence validity, customer acceptance and release are separate verdicts.</p><div class="toolbar"><input id="search"')
+    marker='data-name="Document Studio Edit"'
+    pos=page.find(marker)
+    if pos>=0:
+        start=page.rfind('<article',0,pos); end=page.find('</article>',pos)+len('</article>')
+        card=(
+            '<article class="card" data-suite="Demand &amp; Presence" data-name="Document Studio Edit">'
+            '<div class="eyebrow">Demand &amp; Presence</div><h2>Document Studio Edit</h2>'
+            '<div class="badge">Held execution · current review candidate</div>'
+            '<p class="limit">Fresh synthetic before/after technical edit with clean copy, tracked redline, source-bound ledger and proposed correction of an ambiguous negation. Technical editor review is pending.</p>'
+            '<div class="links"><a href="proofs/document_studio_edit/'+document['primary_artifact']+'">Open current review candidate</a>'
+            '<a class="secondary" href="proofs/document_studio_edit/'+document['product_evidence']['path']+'">Current product receipt</a></div></article>'
+        )
+        page=page[:start]+card+page[end:]
+    if 'Open current Document Studio review candidate' not in page:
+        page=page.replace('<a href="PRODUCT_READINESS_VERDICTS.csv">', '<a href="proofs/document_studio_edit/'+document['primary_artifact']+'">Open current Document Studio review candidate</a> · <a href="PRODUCT_READINESS_VERDICTS.csv">')
+    page=re.sub(r'<a href="[^"]+">Open current Document Studio review candidate</a>', '<a href="proofs/document_studio_edit/'+document['primary_artifact']+'">Open current Document Studio review candidate</a>', page, count=1)
     files[html_path]=page.encode()
 csv_path=PREFIX+'PRODUCT_PROOF_INDEX.csv'
 rows=list(csv.DictReader(files[csv_path].decode('utf-8-sig').splitlines()))
 for r in rows:
  if r.get('product_id')=='homs_exam':
   r.update({'artifact_source_class':row['artifact_source_class'],'primary_artifact':row['primary_artifact'],'source_artifact':row['source_artifact'],'artifact_sha256':digest,'artifact_bytes':str(len(homs_bytes)),'quality_limits':' | '.join(row['quality_limits'])})
+ elif r.get('product_id')=='document_studio_edit':
+  r.update({'artifact_source_class':document['artifact_source_class'],'primary_artifact':document['primary_artifact'],'source_artifact':document['source_artifact'],'artifact_sha256':doc_hash,'artifact_bytes':str(len(doc_bytes)),'product_evidence_path':receipt_path,'product_evidence_sha256':receipt_hash,'quality_limits':' | '.join(document['quality_limits'])})
+ elif r.get('product_id')=='evidex_evidenceops':
+  r['quality_limits']=' | '.join(evidex['quality_limits'])
 import io
 out=io.StringIO(newline=''); w=csv.DictWriter(out,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
 files[csv_path]=('\ufeff'+out.getvalue()).encode('utf-8')
+index['summary']['product_evidence_records_included']=sum(bool(r.get('product_evidence')) for r in index['products'])
+index['summary']['product_receipts_included']=sum(bool(r.get('product_evidence') and r['product_evidence'].get('kind')=='receipt') for r in index['products'])
+files[index_path]=json.dumps(index,indent=2,ensure_ascii=False).encode()+b'\n'
 files[PREFIX+NEW_REL]=homs_bytes
 readme_path=PREFIX+'README.md'
 readme=files[readme_path].decode('utf-8')
 readme=readme.replace('- HOMS Exam links to the saved randomized Grades 1–12 exam and memo candidate bundle. Those exams remain drafts requiring educator moderation; Grade 12 is a 50-mark focused assessment, not a full Grade 12 CAPS examination.','HOMS Exam links to the Grades 1–11 candidate bundle and the complete two-paper Grade 12 Business Studies candidate. Each Grade 12 paper is 150 marks / 120 minutes with a separate draft marking guideline. The educator validity matrix remains blank/PENDING; all candidates need educator moderation and release authorization.')
 readme=readme.replace('HOMS Exam uses the saved Grades 1–12 candidate ZIP.','HOMS Exam uses Grades 1–11 candidates plus the full Grade 12 two-paper candidate.')
-readme += '\nIndependent readiness verdicts are in `PRODUCT_READINESS_VERDICTS.csv` and `.json`. Execution, output quality, evidence validity, customer acceptance and release are separate dimensions; source traceability is not semantic correctness.\n'
+readme=readme.replace('Document Studio Edit had no in-window deliverable reference, so its card is explicitly labeled as a historical-baseline fallback and has no current product-specific receipt in this package.','The original qualification snapshot still lacks a current Document Studio Edit reference; this package therefore adds a separate 2026-11-04 before/after technical-edit candidate with its current source-bound receipt. The technical-editor review remains pending.')
+readme += '\nIndependent readiness verdicts are in `PRODUCT_READINESS_VERDICTS.csv` and `.json`. Execution, output quality, evidence validity, customer acceptance and release are separate dimensions; source traceability is not semantic correctness.\n\nDocument Studio Edit includes a fresh synthetic before/after technical edit with a clean copy, tracked redline, source-bound change ledger and unapproved correction to a model-generated ambiguous negation. The corrected candidate passes its structural/token checks, but the technical editor must complete the blank decision sheet; no client approval or release is recorded.\n'
 files[readme_path]=readme.encode()
 
 # Recompute independent verdicts from all 68 product records.

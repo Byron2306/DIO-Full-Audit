@@ -1,0 +1,25 @@
+{
+  "schema": "dio.document_studio.technical_edit_review_validation.v1",
+  "state": "NEEDS_TECHNICAL_EDITOR_COMPLETION",
+  "review_csv_sha256": "4c49bfa319596a650c04d81f86e254e4e3444e6b4a7f03f249e90b0e75eda6e7",
+  "change_ledger_sha256": "09d25d7b4d474e6199f7a0226a0e8063bfff05ef4b55e2025b55116f83dde609",
+  "expected_paragraph_count": 7,
+  "observed_paragraph_count": 7,
+  "matched_paragraph_count": 7,
+  "missing_paragraph_ids": [],
+  "incomplete_paragraph_ids": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7"
+  ],
+  "issues": [],
+  "reviewer_identity_or_qualification_independently_verified": false,
+  "editorial_quality_independently_verified": false,
+  "client_approval_required": true,
+  "release_authorized": false,
+  "note": "A source-bound editor record does not independently verify credentials, editorial correctness, client approval, or release authority."
+}

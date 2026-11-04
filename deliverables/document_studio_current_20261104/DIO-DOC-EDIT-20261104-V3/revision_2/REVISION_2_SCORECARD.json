@@ -1,0 +1,28 @@
+{
+  "schema": "dio.document_studio.semantic_review_scorecard.v1",
+  "checks": {
+    "preserved_1_pH": true,
+    "preserved_2_NTU": true,
+    "preserved_3_QMS-07": true,
+    "preserved_4_2 minutes": true,
+    "preserved_5_2 and 8 degrees Celsius": true,
+    "preserved_6_6.5": true,
+    "preserved_7_9.5": true,
+    "preserved_8_1 NTU": true,
+    "all_source_numbers_preserved": true,
+    "sterile_bottle_negation_explicit": true,
+    "community_authority_gate_preserved": true,
+    "revision2_editable_file_exists": true,
+    "revision2_tracked_redline_exists": true
+  },
+  "passed_count": 13,
+  "check_count": 13,
+  "model_draft_semantic_issue_count": 1,
+  "model_issue": "P5 weakened/ambiguous sterile-bottle negation; explicit correction proposed in Revision 2.",
+  "automated_integrity": "PASS",
+  "professional_quality": "UNVERIFIED",
+  "technical_editor_review": "PENDING",
+  "client_approval": "PENDING",
+  "release_authorized": false,
+  "case": "synthetic controlled technical procedure; no customer acceptance implied"
+}

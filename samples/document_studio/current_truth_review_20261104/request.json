@@ -1,0 +1,34 @@
+{
+  "schema": "dio.document_studio.request.v1",
+  "job_id": "DIO-DOC-EDIT-20261104-V3",
+  "title": "Community Water Quality Monitoring Procedure",
+  "document_path": "source.txt",
+  "service": "technical_edit",
+  "provider": "ollama",
+  "source_language": "English",
+  "audience": "Municipal field technicians",
+  "document_domain": "Water-quality operations",
+  "style_standard": "Plain South African technical English; concise, imperative instructions; preserve all operational meaning",
+  "protected_tokens": [
+    "pH",
+    "NTU",
+    "QMS-07",
+    "2 minutes",
+    "2 and 8 degrees Celsius",
+    "6.5",
+    "9.5",
+    "1 NTU"
+  ],
+  "owner_authorized": true,
+  "remote_processing_approved": false,
+  "certified_translation_required": false,
+  "human_language_review_required": false,
+  "automated_language_critic": false,
+  "format_style_profile": "dio_professional",
+  "format_delivery_profile": "editable_review",
+  "format_channels": [
+    "docx",
+    "pdf",
+    "html"
+  ]
+}
