@@ -89,6 +89,13 @@ function renderJourney(journey){
   journeyState.textContent=`${view.stage.replaceAll("_"," ")} · ${view.product_id||"DIO service"}`;
   journeyState.className="state "+(["QUOTE_READY","PAYMENT_VERIFIED","WORK_QUEUED","PROCESSING","REVIEW_READY","DELIVERED","CLOSED"].includes(view.stage)?"ok":"wait");
   const lines=[];
+  if(view.case_id) lines.push(`Customer case reference: ${view.case_id}`);
+  if(communication.customer_id) lines.push(`Customer ID: ${communication.customer_id}`);
+  else lines.push(`Customer identity: ${communication.customer_identity_state||"unverified"} · account ID not linked`);
+  if(communication.contact_email) lines.push(`Email on this case: ${communication.contact_email}`);
+  if(fulfilment.job_id) lines.push(`Job ID: ${fulfilment.job_id}`);
+  else lines.push("Job ID: assigned when product work starts");
+  for(const attachment of facts.attachments||[]) lines.push(`Sample ${attachment.file_name||attachment.attachment_id}: ${attachment.state||"quarantined"} · not parsed by product workflow`);
   if(intake.missing_input_ids?.length) lines.push(`Still needed: ${intake.missing_input_ids.join(", ")}`);
   if(facts.scope?.state) lines.push(`Scope: ${facts.scope.state.toLowerCase()}`);
   if(quote.quote_id){ const q=document.createElement("div"); q.className="quote"; q.textContent=`Quote ${quote.quote_id}: ${quote.currency||"ZAR"} ${quote.amount??"amount pending"} · presentation only`; journeyDetails.appendChild(q); }
@@ -125,7 +132,7 @@ function renderJourney(journey){
         }else if(field.kind==="integer"){
           input=document.createElement("input"); input.type="number"; input.min=field.minimum||1; input.placeholder="Enter a whole number"; input.className="journey-input";
         }else{
-          input=document.createElement("textarea"); input.rows=3; input.maxLength=4000; input.placeholder="Describe the result you need"; input.className="journey-input";
+      input=document.createElement("textarea"); input.rows=3; input.maxLength=4000; input.placeholder=view.product_id==="Document Studio Edit"?"Include deliverables, formats, deadline, page cap and editing boundaries":"Describe the result you need"; input.className="journey-input";
         }
         wrap.appendChild(input); journeyFields.appendChild(wrap); controls[field.field_id]=input;
       }
@@ -136,7 +143,8 @@ function renderJourney(journey){
     }
   }
   if(action("ASSESS_SCOPE")&&!intake.missing_input_ids?.length) journeyButton("Review scope","ASSESS_SCOPE",action("ASSESS_SCOPE").action_ref,submitJourneyAction);
-  if(action("PREPARE_QUOTE")) journeyButton("Prepare governed quote","PREPARE_QUOTE",action("PREPARE_QUOTE").action_ref,submitJourneyAction);
+  if(action("PREPARE_QUOTE")&&(view.product_id!=="Document Studio Edit"||(facts.attachments||[]).length)) journeyButton("Prepare quote for operator review","PREPARE_QUOTE",action("PREPARE_QUOTE").action_ref,submitJourneyAction);
+  else if(action("PREPARE_QUOTE")&&view.product_id==="Document Studio Edit"){const row=document.createElement("div");row.textContent="Upload one sample before requesting quote review; it will be held for operator clearance.";journeyDetails.appendChild(row);}
   if(action("REQUEST_OPERATOR")) journeyButton(view.stage==="QUOTE_READY"?"Request invoice & payment follow-up":"Ask an operator to review", "REQUEST_OPERATOR", action("REQUEST_OPERATOR").action_ref, submitJourneyAction);
 }
 async function refreshJourney(){

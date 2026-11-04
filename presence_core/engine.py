@@ -36,6 +36,7 @@ from .policy import authorize
 from .pricing_governance import pricing_operator_query
 from products.commercial_pricing_registry import canonical_product_name
 from .router import route_message
+from .commercial_cognition import _document_operation_override
 from .state import (
     append_conversation_turn,
     create_intake,
@@ -490,6 +491,132 @@ def _case_intake_reply(name: str, profile: dict[str, Any], case: dict[str, Any],
     prefix = f'For {name}, that clarifies who the work is for. I still need ' if buyer_context_refined else f'For {name}, tell me '
     return prefix + ', '.join(parts[:-1]) + (', and ' if len(parts) > 1 else '') + parts[-1] + '.'
 
+
+def _document_edit_discovery_reply() -> str:
+    return (
+        "For reports that already contain approved factual content and need consistent client-facing presentation, "
+        "Document Studio Edit is the best starting service. It can standardise supplied branding, heading hierarchy, "
+        "typography, tables, headers/footers and page layouts while preserving factual wording. Document Studio Publish "
+        "is better after content and edits are approved, when you need the approved material prepared for a publication "
+        "format; Localize is for language adaptation, which you have not requested. A typical process is: share one "
+        "representative DOCX and any brand/style guide; an operator reviews the sample and confirms scope, exclusions, "
+        "price and schedule; you review and accept a written quote; the team formats the agreed batch, flags any proposed "
+        "wording changes separately, and returns reviewable files for your approval before delivery. Nothing is charged, "
+        "edited or released by this recommendation."
+    )
+
+
+def _document_quote_scope_reply(
+    product: str,
+    case: dict[str, Any],
+    message: str,
+    *,
+    presence_root: Path | None = None,
+    conversation_id: str | None = None,
+    intake_reference_hint: str | None = None,
+) -> str | None:
+    """Answer a document quote request with the actual scope and next steps."""
+    if not re.search(r"\b(?:quote|quotation|estimate)\b", str(message or ""), re.I):
+        return None
+    if str(product or "") not in {
+        "Document Studio Edit",
+        "Document Studio Localize",
+        "Document Studio Publish",
+    }:
+        return None
+
+    stage = str(case.get("stage") or "")
+    if stage in {"PRICE_RECOMMENDED", "QUOTE_READY", "INVOICE_DRAFTED", "INVOICE_SENT"}:
+        return None
+
+    details = {
+        "Document Studio Edit": (
+            "Document Studio Edit is the best fit: it can professionally edit and standardise "
+            "headings, typography, tables, page layout and supplied branding while preserving "
+            "the factual wording. Document Studio Publish is for preparing already-approved "
+            "content for publication, so it is not the right first step for this editing job."
+        ),
+        "Document Studio Localize": (
+            "Document Studio Localize is the right fit for adapting approved material into "
+            "another language, with terminology and language review kept visible."
+        ),
+        "Document Studio Publish": (
+            "Document Studio Publish is the right fit for preparing approved content into "
+            "controlled publication formats while preserving its supplied wording."
+        ),
+    }[product]
+
+    attachments = [
+        row for row in case.get("attachments") or []
+        if isinstance(row, dict)
+    ]
+    intake_reference = None
+    if re.fullmatch(r"PRES-[A-Z0-9]{8,32}", str(intake_reference_hint or "")):
+        intake_reference = str(intake_reference_hint)
+    if presence_root is not None and conversation_id:
+        candidates = re.findall(r"\bPRES-[A-Z0-9]{8,32}\b", str(message or "").upper())
+        if intake_reference is None:
+            candidates = [str(intake_reference_hint or "").upper(), *candidates]
+        for candidate in candidates:
+            path = Path(presence_root) / "intakes" / f"{candidate}.json"
+            try:
+                recorded = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if str(recorded.get("conversation_id") or "") == str(conversation_id):
+                intake_reference = candidate
+                break
+        if intake_reference is None:
+            for path in sorted((Path(presence_root) / "intakes").glob("PRES-*.json"), key=lambda item: item.stat().st_mtime, reverse=True):
+                try:
+                    recorded = json.loads(path.read_text(encoding="utf-8"))
+                except (OSError, ValueError):
+                    continue
+                if str(recorded.get("conversation_id") or "") == str(conversation_id):
+                    intake_reference = str(recorded.get("intake_id") or path.stem)
+                    break
+    case_id = str(case.get("case_id") or "").strip()
+    if intake_reference and case_id:
+        reference_note = (
+            f" I’ll retain your existing intake reference {intake_reference} and keep this "
+            f"work linked to case {case_id}."
+        )
+    elif intake_reference:
+        reference_note = f" I’ll retain your existing intake reference {intake_reference}."
+    elif case_id:
+        reference_note = f" This remains linked to case {case_id}."
+    else:
+        reference_note = ""
+    if attachments:
+        sample_step = (
+            f"I can see {len(attachments)} uploaded file(s) recorded on this case. They remain in intake quarantine; "
+            "an operator must clear and review the sample before scope assessment or production. I cannot verify "
+            "encryption, retention duration or malware-scanning status from this chat."
+        )
+    else:
+        sample_step = (
+            "Please attach one representative English DOCX with typical headings, tables, and "
+            "page layouts. It will be recorded in intake quarantine; an operator must clear and review it before "
+            "scope assessment or production. I cannot verify encryption, retention duration or malware-scanning "
+            "status from this chat."
+        )
+
+    return (
+        details + reference_note + " To prepare a bounded quote, the next step is a human feasibility and scope "
+        "review of one sample. No quotation has been issued: there is no quote reference, price, validity period or "
+        "turnaround estimate to review yet. The proposed scope is visual formatting and consistency across the agreed "
+        "batch; factual changes, substantive rewriting, translation, source research and publication are excluded unless "
+        "separately scoped and approved. After sample review, an operator can prepare a written quote with included work, "
+        "exclusions, ZAR price, assumptions, schedule, reference, validity and approval steps for your review. " + sample_step + " "
+        "One sample cannot establish the total pages across all 12 reports, so please confirm "
+        "the exact total or a maximum page cap; your current estimate is 96–180 pages. Also "
+        "confirm final output format(s), deadline, whether grammar or house-style editing is "
+        "allowed beyond visual formatting, and attach a style guide or logo if available. "
+        "If the reports use several materially different layouts, tell me how many layout types "
+        "the sample represents. This request has not authorised "
+        "document processing, paid work or payment, and no quote has been issued."
+    )
+
 def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None,lingua_state_root:Path|None=None)->tuple[str,dict[str,Any]]:
     metadata=envelope.get('metadata') or {}
     explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
@@ -580,6 +707,31 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
             emit_event(event_log,'presence.attachment_rejected','warning','presence_conversation',correlation,{'reason':str(exc)},correlation)
             return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':{'intent':'attachment_rejected','product':None,'confidence':1.0,'source':'policy','reason':str(exc)},'reply':{'text':f"I refused that upload safely: {exc}",'mode':'text','voice_eligible':False},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':None,'intake':None,'interaction':interaction,'persona':None,'lingua':{'state':'not_registered','reason':'attachment_rejected_before_response_registration'}}
     decision=route_message(text,role,routes_path).as_dict()
+    # Resolve explicit document work before broad greeting/formatting intents.
+    # Quotation requests create governed intake only; they never issue a quote.
+    document_operation = _document_operation_override(text) if role == 'public' else None
+    if document_operation:
+        is_quote_request = bool(re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I))
+        decision = {
+            'intent': 'intake_request' if is_quote_request else 'product_info',
+            'product': document_operation,
+            'confidence': 0.99,
+            'source': 'document_operation_morphology',
+            'reason': 'document operation resolved before generic intent',
+        }
+    elif role == 'public' and re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I):
+        active_case = find_case_for_conversation(presence_root, correlation)
+        retained_product = (
+            (active_case or {}).get('product_id')
+            or conversation_state.get('selected_product')
+        )
+        if retained_product:
+            decision.update({
+                'intent': 'pricing_info',
+                'product': str(retained_product),
+                'source': 'active_customer_case' if active_case else 'conversation_product_context',
+                'reason': 'quotation follow-up retains active product context',
+            })
     if (attachment_record or quarantined_attachments) and decision['intent'] in {'unknown','general_info'}:
         decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
     ok,reason=authorize(role,decision['intent'])
@@ -962,6 +1114,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
     elif decision['intent']=='intake_request' and decision.get('product') and not buyer_scope_followup:
         intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
+        conversation_state['active_intake_id'] = intake['intake_id']
         item=create_needs_you(presence_root,reason='public_intake_review',conversation_id=correlation,product=decision['product'],summary=f"Review {decision['product']} intake {intake['intake_id']}: {text[:300]}")
         emit_event(event_log,'presence.intake_received','action','presence_intake',intake['intake_id'],{'product':decision['product'],'needs_you_id':item['needs_you_id'],'automatic_fulfilment':False,'attachment_ids':intake.get('attachment_ids',[])},correlation)
     elif decision['intent']=='attachment_received' and quarantined_attachments and not attachment_record:
@@ -1221,6 +1374,8 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
         recent_turns=draft_turns,
         governed_context=governed_context,
     )
+    if role == 'public' and document_operation == 'Document Studio Edit' and not re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I):
+        reply = _document_edit_discovery_reply()
     commercial_action=commercial_surface_state(customer_case)
 
     # Once an immutable quote exists, issued case truth outranks generic
@@ -1328,6 +1483,41 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, 
 
     if case_price_reply is not None:
         reply = case_price_reply
+
+    document_quote_reply = None
+    quote_case = customer_case
+    if (
+        quote_case is None
+        and role == "public"
+        and re.search(r"\b(?:quote|quotation|estimate)\b", text, re.I)
+        and str(decision.get("product") or "") in {
+            "Document Studio Edit", "Document Studio Localize", "Document Studio Publish"
+        }
+    ):
+        # A missing commercial census must not erase the product already
+        # selected in this conversation or trigger unrelated sibling guesses.
+        quote_case = {"product_id": decision["product"], "stage": "NEW_LEAD", "attachments": []}
+    if (
+        role == "public"
+        and quote_ready_reply is None
+        and case_price_reply is None
+        and isinstance(quote_case, dict)
+    ):
+        document_quote_reply = _document_quote_scope_reply(
+            str(quote_case.get("product_id") or ""),
+            quote_case,
+            text,
+            presence_root=presence_root,
+            conversation_id=correlation,
+            intake_reference_hint=str(
+                (intake or {}).get("intake_id")
+                or conversation_state.get("active_intake_id")
+                or ""
+            ) or None,
+        )
+
+    if document_quote_reply is not None:
+        reply = document_quote_reply
 
     if (
         role == 'public'
