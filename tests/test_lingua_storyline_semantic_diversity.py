@@ -62,7 +62,7 @@ def test_vertical_story_remains_semantically_distinct_and_governed() -> None:
         "cold_open", "recognition", "transformation", "proof", "human_gate", "cta"
     ]
     assert [scene["semantic_focus"] for scene in story["scenes"]] == [
-        "pain", "pain_context", "promise", "proof", "authority", "cta"
+        "pain", "pain_context", "outcome", "proof", "authority", "cta"
     ]
     assert story["governance"]["publication"] == "held"
     assert story["governance"]["spend"] == "disabled"

@@ -18,6 +18,39 @@ class _Response:
 def make_root(tmp_path):
     (tmp_path/'config').mkdir(); (tmp_path/'telemetry').mkdir(); (tmp_path/'config'/'routes.json').write_text(json.dumps({'routes':[{'product':'homs','keywords':['homs','assessment']},{'product':'evidex','keywords':['evidex','evidence pack']}]})); return tmp_path
 
+
+
+def seed_canonical_provider_sources(root: Path, source_root: Path) -> None:
+    """Mirror declared provider sources in isolated commercial-resolver fixtures.
+
+    Missing-provider production checks remain enabled. Test roots must supply
+    the files that the real canonical registry explicitly requires.
+    """
+    from shutil import copyfile
+    from presence_core.organ_adapter_gauntlet import ORGAN_FAMILIES
+    from presence_core.shared_capability_registry import build_shared_capability_registry
+
+    native_paths = {
+        family["source_path"]
+        for family in ORGAN_FAMILIES.values()
+        if family["execution_class"] == "native"
+    }
+    native_paths.update({
+        "market_command/intelligence.py",
+        "presence_core/vesper_journey_runtime.py",
+        "adapters/format_core/renderer.py",
+        "presence_core/shared_production_finish.py",
+        "scripts/run_nichefoundry_jobs.py",
+    })
+    for relative in sorted(native_paths):
+        source = source_root / relative
+        if not source.is_file():
+            raise AssertionError(f"canonical provider source missing: {relative}")
+        target = root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        copyfile(source, target)
+    assert len(build_shared_capability_registry(root)) == 4
+
 def test_public_intake_is_held(tmp_path,monkeypatch):
     root=make_root(tmp_path); monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT','i'*40); cfg={'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}; env={'channel':'telegram','external_user_id':'123','text':'I need HOMS to create an assessment','message_type':'text'}; r=process_envelope(env,root,cfg); assert r['intake']['state']=='pending_operator_review'; assert r['authority']['fulfilment_released'] is False; assert list((root/'state/presence/needs_you').glob('*.json'))
 
@@ -55,7 +88,7 @@ def test_presence_core_feeds_prior_exchange_to_ollama_draft(tmp_path, monkeypatc
     monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
     monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
     monkeypatch.setenv('DIO_PRESENCE_LLM_PROVIDER', 'ollama')
-    monkeypatch.setenv('OLLAMA_URL', 'http://ollama.test')
+    monkeypatch.setenv('OLLAMA_URL', 'http://127.0.0.1:11434')
     monkeypatch.setenv('OLLAMA_MODEL', 'qwen3.5:4b')
     cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
     prompts = []
@@ -125,7 +158,7 @@ def test_presence_feeds_governed_product_knowledge_into_cortex(tmp_path, monkeyp
     monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
     monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
     monkeypatch.setenv('DIO_PRESENCE_LLM_PROVIDER', 'ollama')
-    monkeypatch.setenv('OLLAMA_URL', 'http://ollama.test')
+    monkeypatch.setenv('OLLAMA_URL', 'http://127.0.0.1:11434')
     monkeypatch.setenv('OLLAMA_MODEL', 'qwen3.5:4b')
     cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
     prompts = []
@@ -150,7 +183,7 @@ def test_presence_feeds_verified_beast_crystal_into_cortex_context(tmp_path, mon
     monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
     monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
     monkeypatch.setenv('DIO_PRESENCE_LLM_PROVIDER', 'ollama')
-    monkeypatch.setenv('OLLAMA_URL', 'http://ollama.test')
+    monkeypatch.setenv('OLLAMA_URL', 'http://127.0.0.1:11434')
     monkeypatch.setenv('OLLAMA_MODEL', 'qwen3.5:4b')
     cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
     prompts = []
@@ -228,6 +261,7 @@ def test_active_commercial_case_outranks_stale_conversation_product(
     test_crosswalk.write_bytes(
         source_crosswalk.read_bytes()
     )
+    seed_canonical_provider_sources(root, source_root)
 
     cfg = {
         "state_root": "state/presence",
@@ -483,6 +517,7 @@ def test_explicit_current_turn_product_can_override_active_case_context(
     test_crosswalk.write_bytes(
         source_crosswalk.read_bytes()
     )
+    seed_canonical_provider_sources(root, source_root)
 
     cfg = {
         "state_root": "state/presence",
@@ -626,6 +661,7 @@ def test_public_acceptance_autoissues_bounded_quote(
     test_crosswalk.write_bytes(
         source_crosswalk.read_bytes()
     )
+    seed_canonical_provider_sources(root, source_root)
 
     cfg = {
         "state_root": "state/presence",
@@ -848,6 +884,7 @@ def test_quote_ready_case_reply_uses_issued_quote_not_generic_tier(
     test_crosswalk.write_bytes(
         source_crosswalk.read_bytes()
     )
+    seed_canonical_provider_sources(root, source_root)
 
     cfg = {
         "state_root": "state/presence",
@@ -989,6 +1026,7 @@ def test_quote_ready_case_reply_uses_issued_quote_not_generic_tier(
     test_crosswalk.write_bytes(
         source_crosswalk.read_bytes()
     )
+    seed_canonical_provider_sources(root, source_root)
 
     cfg = {
         "state_root": "state/presence",
