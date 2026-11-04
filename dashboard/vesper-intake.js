@@ -95,10 +95,25 @@ function renderJourney(journey){
   if(communication.contact_email) lines.push(`Email on this case: ${communication.contact_email}`);
   if(fulfilment.job_id) lines.push(`Job ID: ${fulfilment.job_id}`);
   else lines.push("Job ID: assigned when product work starts");
-  for(const attachment of facts.attachments||[]) lines.push(`Sample ${attachment.file_name||attachment.attachment_id}: ${attachment.state||"quarantined"} · not parsed by product workflow`);
+  const attachmentGroups=new Map();
+  for(const attachment of facts.attachments||[]){
+    const key=attachment.sha256||attachment.file_name||attachment.attachment_id;
+    const group=attachmentGroups.get(key)||{attachment,count:0}; group.count++; attachmentGroups.set(key,group);
+  }
+  for(const {attachment,count} of attachmentGroups.values()) lines.push(`Sample ${attachment.file_name||attachment.attachment_id}: ${attachment.state||"quarantined"}${count>1?` · ${count} identical upload records`:""} · not inspected`);
   if(intake.missing_input_ids?.length) lines.push(`Still needed: ${intake.missing_input_ids.join(", ")}`);
+  const provided=intake.provided_inputs||{};
+  if(Object.keys(provided).length){
+    const units=(intake.required_inputs||[]).find(row=>row.field_id==="scope_quantity")?.semantic_unit||"units";
+    const scopeParts=[];
+    if(provided.scope_quantity) scopeParts.push(`${provided.scope_quantity} ${units}`);
+    if(provided.buyer_class) scopeParts.push(`buyer ${provided.buyer_class}`);
+    if(provided.requested_outcome) scopeParts.push(String(provided.requested_outcome));
+    if(scopeParts.length) lines.push(`Saved customer-stated scope: ${scopeParts.join(" · ")}`);
+  }
   if(facts.scope?.state) lines.push(`Scope: ${facts.scope.state.toLowerCase()}`);
   if(quote.quote_id){ const q=document.createElement("div"); q.className="quote"; q.textContent=`Quote ${quote.quote_id}: ${quote.currency||"ZAR"} ${quote.amount??"amount pending"} · presentation only`; journeyDetails.appendChild(q); }
+  else if(quote.quote_request_id){ const q=document.createElement("div"); q.className="quote"; q.textContent=`Quote request ${quote.quote_request_id}: ${quote.quote_request_state==="needs_operator_review"?"awaiting operator pricing review":"recorded"} · no customer quotation issued`; journeyDetails.appendChild(q); }
   if(quote.reason) lines.push(`Quote review: ${String(quote.reason).replaceAll("_"," ")}`);
   if(order.invoice_id||order.invoice_state) lines.push(`Invoice: ${order.invoice_state||"not created"}${order.invoice_id?` · ${order.invoice_id}`:""}`);
   if(order.payment_state) lines.push(`Payment: ${order.payment_state}${order.checkout_available?" · checkout link issued":""}`);
@@ -113,7 +128,7 @@ function renderJourney(journey){
 
   const actions=view.actions||[];
   const action=id=>actions.find(row=>row.action_id===id);
-  if(action("OPEN_INTAKE")) journeyButton("Begin structured order intake","OPEN_INTAKE",action("OPEN_INTAKE").action_ref,submitJourneyAction);
+  if(action("OPEN_INTAKE")&&(intake.missing_input_ids||[]).length) journeyButton("Complete missing order details","OPEN_INTAKE",action("OPEN_INTAKE").action_ref,submitJourneyAction);
   if(action("RECORD_INTAKE_INPUTS")){
     const required=intake.required_inputs||[];
     const missing=new Set(intake.missing_input_ids||[]);
@@ -209,9 +224,10 @@ async function startSession(){
 }
 const asBase64 = file => new Promise((resolve,reject)=>{ const reader = new FileReader(); reader.onload = ()=>resolve(String(reader.result).split(",",2)[1]); reader.onerror = reject; reader.readAsDataURL(file); });
 async function encodeFiles(files){
+  if(files.length>1) throw new Error("Attach one file per message. Send another message for each additional file.");
   const rows = [];
   for (const file of files){
-    if (file.size > 10 * 1024 * 1024) throw new Error(`${file.name} exceeds the 10 MiB per-file limit`);
+    if (file.size > 2 * 1024 * 1024) throw new Error(`${file.name} exceeds the 2 MiB per-file limit`);
     rows.push({filename:file.name,mime_type:file.type||"application/octet-stream",role:"customer_source",content_base64:await asBase64(file)});
   }
   return rows;

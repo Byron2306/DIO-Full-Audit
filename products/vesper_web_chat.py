@@ -783,14 +783,28 @@ def _perform_customer_journey_action_locked(
     facts = execution["after"].get("facts") or {}
     intake = facts.get("intake") or {}
     if action == "OPEN_INTAKE":
-        answer = "I’ve opened the structured order intake. Please tell me the outcome you need, choose your buyer type, and enter the number of units in scope."
+        missing = intake.get("missing_input_ids") or []
+        if missing:
+            labels = {
+                "requested_outcome": "the outcome you need",
+                "buyer_class": "who the work is for",
+                "scope_quantity": "the number of units in scope",
+            }
+            outstanding = ", ".join(labels.get(item, str(item).replace("_", " ")) for item in missing)
+            answer = f"I’ve opened the order intake for this case. The saved details remain attached; please add only the missing information: {outstanding}."
+        else:
+            answer = "I’ve reopened the order intake for this case. The required details are already saved, so you do not need to enter them again. Review the recorded scope and continue to quote review."
     elif action == "RECORD_INTAKE_INPUTS":
         missing = intake.get("missing_input_ids") or []
-        answer = ("I’ve saved those order details. I still need: " + ", ".join(missing) + "." if missing
-                  else "I’ve saved the required order details. The next step is to review the scope before preparing a quote.")
+        answer = ("I’ve saved those details on this case. I still need: " + ", ".join(missing) + "." if missing
+                  else "I’ve saved the required order details on this case. The next step is to review the scope before preparing a quote.")
     elif action == "ASSESS_SCOPE":
-        answer = ("The scope is sufficient. You can ask me to prepare a governed quote." if (facts.get("scope") or {}).get("state") == "SUFFICIENT"
-                  else "The scope is incomplete. Please provide the remaining required fields shown in your order panel.")
+        if (facts.get("scope") or {}).get("state") == "SUFFICIENT":
+            answer = "The recorded scope is sufficient. You can request a written quotation for operator review. No quotation is issued until the pricing and required review are complete."
+        else:
+            missing = intake.get("missing_input_ids") or []
+            answer = ("The scope still needs: " + ", ".join(missing) + ". Add only those fields in the order panel; previously saved case details are retained."
+                      if missing else "The scope needs operator review before a quotation can be prepared. Your saved case details are retained; no information needs to be re-entered now.")
     elif action == "REQUEST_OPERATOR":
         if execution["before"]["stage"] == "QUOTE_READY":
             answer = "I’ve placed your request in the operator follow-up queue for invoice and payment next steps. Nothing has been sent or charged; a person must review and approve any external action."
@@ -801,7 +815,9 @@ def _perform_customer_journey_action_locked(
         if quote.get("presentation_authority") and quote.get("amount") is not None:
             answer = f"A bounded estimate is ready: {quote.get('currency') or 'ZAR'} {quote['amount']}. It is for presentation only; no invoice, payment link, or work order has been issued."
         else:
-            answer = "Your scope is recorded, but pricing needs operator review. No customer quote, invoice, or payment link has been issued."
+            request_id = quote.get("quote_request_id")
+            reference = f" Quote request reference: {request_id}." if request_id else ""
+            answer = "Your scope is recorded, but pricing and sample review need an operator. This is a quote request, not an issued quotation; no price, validity period, delivery schedule, invoice, or payment link has been issued." + reference
     message_number = len(fresh.get("messages") or []) + 1
     fresh.setdefault("messages", []).append({
         "message_id": f"MSG-{message_number:04d}", "role": "vesper", "text": answer,
