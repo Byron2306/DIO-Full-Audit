@@ -1,4 +1,4 @@
-# DIO | Deterministic Intelligence Orchestration
+<h1 align="center">DIO | Deterministic Intelligence Orchestration</h1> 
 
 <p align="center">
   <img src="DIO.png" alt="DIO original logo" width="520">
